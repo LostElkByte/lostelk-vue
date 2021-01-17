@@ -1,6 +1,7 @@
 <template>
   <div class="home-page">
     <home-page-main :list="list"></home-page-main>
+    <sidebar></sidebar>
   </div>
 </template>
 
@@ -8,6 +9,7 @@
 import { defineComponent } from 'vue';
 import './globalStyle/font/iconfont';
 import HomePageMain, { CartList } from './components/Home-page_main.vue';
+import sidebar from './components/sidebar.vue';
 const testData: CartList[] = [
   {
     id: 19,
@@ -87,6 +89,7 @@ export default defineComponent({
   name: 'App',
   components: {
     HomePageMain,
+    sidebar,
   },
   setup() {
     return {
