@@ -1,0 +1,49 @@
+.header {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 32px;
+
+  position: sticky;
+  top: 0;
+  box-sizing: border-box;
+  z-index: 9999;
+}
+
+.header_toolbar_item_size-24 {
+  width: 24px;
+  height: 24px;
+}
+
+.header_toolbar div {
+  display: flex;
+  flex-direction: row;
+}
+
+.header_toolbar_item {
+  margin-left: 24px;
+}
+
+.header_toolbar_item > a {
+  display: block;
+  height: 100%;
+}
+
+.header_loginRegister_item {
+  height: 40px;
+  width: 112px;
+  border: 1px solid #000;
+  margin-left: 24px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.header_loginRegister_item > a {
+  display: block;
+  height: 100%;
+  width: 100%;
+  font-weight: 500
+}

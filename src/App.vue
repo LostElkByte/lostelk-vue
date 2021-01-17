@@ -1,7 +1,8 @@
 <template>
   <div class="home-page">
-    <home-page-main :list="list"></home-page-main>
-    <sidebar></sidebar>
+    <Header :user="testUserMode"></Header>
+    <Home-page-main :list="list"></Home-page-main>
+    <Sidebar></Sidebar>
   </div>
 </template>
 
@@ -9,7 +10,8 @@
 import { defineComponent } from 'vue';
 import './globalStyle/font/iconfont';
 import HomePageMain, { CartList } from './components/Home-page_main.vue';
-import sidebar from './components/sidebar.vue';
+import Sidebar from './components/sidebar.vue';
+import Header, { UserMode } from './components/header.vue';
 const testData: CartList[] = [
   {
     id: 19,
@@ -85,15 +87,20 @@ const testData: CartList[] = [
     totalLikes: 3,
   },
 ];
+const testUserMode: UserMode = {
+  isLogin: true,
+};
 export default defineComponent({
   name: 'App',
   components: {
     HomePageMain,
-    sidebar,
+    Sidebar,
+    Header,
   },
   setup() {
     return {
       list: testData,
+      testUserMode,
     };
   },
 });

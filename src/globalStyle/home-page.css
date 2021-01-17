@@ -51,6 +51,12 @@
     grid-auto-rows: 240px;
     gap: 20px 20px;
   }
+
+  .header_loginRegister_item {
+    height: 30px;
+    width: 60px;
+    line-height: 30px;
+  }
 }
 
 @media (max-width: 576px) {
