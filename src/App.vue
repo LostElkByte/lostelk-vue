@@ -75,8 +75,8 @@ const testData: CartList[] = [
     totalComments: 1,
     file: {
       id: 17,
-      width: 4000,
-      height: 6000,
+      width: 6000,
+      height: 4000,
     },
     tags: [
       {

@@ -11,14 +11,16 @@
         "
       >
         <img
-          src="https://ovoiii.com/files/1/serve?size=large"
+          :src="`https://ovoiii.com/files/${card.file.id}/serve?size=medium`"
           :alt="card.title"
         />
         <div class="card-abstract">
           <div class="card_abstract-left">
             <img
               class="card-avatar-32"
-              src="https://ovoiii.com/users/1/avatar?size=small"
+              :src="
+                `https://ovoiii.com/users/${card.user.id}/avatar?size=small`
+              "
               :alt="card.user.name"
             />
             <div class="card-abstract-author">
