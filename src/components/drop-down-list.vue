@@ -1,6 +1,6 @@
 <template>
   <div class="header_toolbar_item header_toolbar_item_size-24">
-    <div class="dropdown" @click.prevent="switchOpen">
+    <div class="dropdown" @click="switchOpen" ref="dropdownRef">
       <slot name="dropdown">下拉按钮</slot>
       <div class="dropdown-content" style="display: block" v-if="isOpen">
         <slot name="dropdown-content">
@@ -14,19 +14,37 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, onMounted, onUnmounted, ref } from 'vue';
 
 export default defineComponent({
   name: 'dropDownList',
   props: {},
   setup() {
     const isOpen = ref(false);
+    const dropdownRef = ref<null | HTMLElement>(null);
     const switchOpen = () => {
       isOpen.value = !isOpen.value;
     };
+    const globalClose = (e: MouseEvent) => {
+      if (dropdownRef.value) {
+        if (
+          !dropdownRef.value.contains(e.target as HTMLElement) &&
+          isOpen.value
+        ) {
+          isOpen.value = false;
+        }
+      }
+    };
+    onMounted(() => {
+      document.addEventListener('click', globalClose);
+    });
+    onUnmounted(() => {
+      document.removeEventListener('click', globalClose);
+    });
     return {
       isOpen,
       switchOpen,
+      dropdownRef,
     };
   },
 });
