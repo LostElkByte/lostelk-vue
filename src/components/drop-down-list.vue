@@ -1,11 +1,13 @@
 <template>
   <div class="header_toolbar_item header_toolbar_item_size-24">
     <div class="dropdown" @click.prevent="switchOpen">
-      <slot>下拉按钮</slot>
+      <slot name="dropdown">下拉按钮</slot>
       <div class="dropdown-content" style="display: block" v-if="isOpen">
-        <a href="#">个人主页</a>
-        <a href="#">发表作品</a>
-        <a href="#">退出登录</a>
+        <slot name="dropdown-content">
+          <a href="#">菜单内容 1</a>
+          <a href="#">菜单内容 2</a>
+          <a href="#">菜单内容 3</a>
+        </slot>
       </div>
     </div>
   </div>

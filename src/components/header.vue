@@ -19,11 +19,18 @@
           </a>
         </div> -->
         <DropDownList>
-          <a href="#" class="dropbtn">
-            <svg class="icon icon-size-fill" aria-hidden="true">
-              <use xlink:href="#icon-zuocelan"></use>
-            </svg>
-          </a>
+          <template v-slot:dropdown>
+            <a href="#" class="dropbtn">
+              <svg class="icon icon-size-fill" aria-hidden="true">
+                <use xlink:href="#icon-zuocelan"></use>
+              </svg>
+            </a>
+          </template>
+          <template v-slot:dropdown-content>
+            <a href="#">个人主页</a>
+            <a href="#">发表作品</a>
+            <a href="#">退出登录</a>
+          </template>
         </DropDownList>
         <!-- <div class="header_toolbar_item header_toolbar_item_size-24">
           <a href="#">
