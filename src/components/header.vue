@@ -11,20 +11,27 @@
       </div>
 
       <div v-else>
-        <div class="header_toolbar_item header_toolbar_item_size-24">
+        <!-- <div class="header_toolbar_item header_toolbar_item_size-24">
           <a href="#">
             <svg class="icon icon-size-fill" aria-hidden="true">
               <use xlink:href="#icon-zuocelan"></use>
             </svg>
           </a>
-        </div>
-        <div class="header_toolbar_item header_toolbar_item_size-24">
+        </div> -->
+        <DropDownList>
+          <a href="#" class="dropbtn">
+            <svg class="icon icon-size-fill" aria-hidden="true">
+              <use xlink:href="#icon-zuocelan"></use>
+            </svg>
+          </a>
+        </DropDownList>
+        <!-- <div class="header_toolbar_item header_toolbar_item_size-24">
           <a href="#">
             <svg class="icon icon-size-fill" aria-hidden="true">
               <use xlink:href="#icon-celanliebiaogengduo"></use>
             </svg>
           </a>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -32,7 +39,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-
+import DropDownList from './drop-down-list.vue';
 export interface UserMode {
   isLogin: boolean;
   name?: string;
@@ -41,6 +48,9 @@ export interface UserMode {
 
 export default defineComponent({
   name: 'header',
+  components: {
+    DropDownList,
+  },
   props: {
     user: {
       type: Object as PropType<UserMode>,
