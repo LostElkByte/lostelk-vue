@@ -17,7 +17,7 @@
 import { defineComponent, onMounted, onUnmounted, ref } from 'vue';
 
 export default defineComponent({
-  name: 'dropDownList',
+  name: 'DropDownList',
   props: {},
   setup() {
     const isOpen = ref(false);

@@ -46,7 +46,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import DropDownList from './drop-down-list.vue';
+import DropDownList from './Drop-down-list.vue';
 export interface UserMode {
   isLogin: boolean;
   name?: string;
@@ -54,7 +54,7 @@ export interface UserMode {
 }
 
 export default defineComponent({
-  name: 'header',
+  name: 'Header',
   components: {
     DropDownList,
   },

@@ -66,7 +66,7 @@ export interface CartList {
     width: number;
     height: number;
   };
-  tags: null;
+  tags: unknown;
   totalLikes: number;
 }
 export default defineComponent({
@@ -82,4 +82,5 @@ export default defineComponent({
 
 <style>
 @import './style/home-page_main.css';
+@import './globalStyle/home-page.css';
 </style>
