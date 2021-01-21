@@ -14,34 +14,28 @@
             <label for="user_username">
               用户名
             </label>
-            <input
+            <ValidateInput
+              :rules="userNameRule"
+              v-model="userNameVal"
               class="form-control"
-              pattern="/^[-_a-zA-Z0-9]{1,16}$/"
-              required="required"
               type="text"
-              name="user[username]"
-              id="user_username"
-              v-model="userNameRef.val"
-              @blur="validateuserName"
-            />
-            <span class="form-error" v-if="userNameRef.error">
-              {{ userNameRef.message }}
-            </span>
+              placeholder="请输入用户名"
+            >
+            </ValidateInput>
           </div>
 
           <div class="form-group">
             <label for="user_password">
               密码
             </label>
-            <input
-              autocomplete="off"
-              minlength="6"
+            <ValidateInput
+              :rules="passwordRule"
+              v-model="passwordVal"
               class="form-control"
-              required="required"
               type="password"
-              name="user[password]"
-              id="user_password"
-            />
+              placeholder="请输入密码"
+            >
+            </ValidateInput>
           </div>
 
           <div class="form-groug">
@@ -62,33 +56,30 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, ref } from 'vue';
+import ValidateInput, { RulesProp } from './ValidateInput';
 
-const userNameReg = /^[-_a-zA-Z0-9]{1,16}$/;
 export default defineComponent({
   name: 'Login',
+  components: {
+    ValidateInput,
+  },
   setup() {
-    const userNameRef = reactive({
-      val: '',
-      error: false,
-      message: '',
-    });
-    const validateuserName = () => {
-      if (userNameRef.val.trim() === '') {
-        userNameRef.error = true;
-        userNameRef.message = '用户名不能为空';
-      } else if (!userNameReg.test(userNameRef.val)) {
-        userNameRef.error = true;
-        userNameRef.message = '请输入正确的用户名';
-      } else {
-        userNameRef.error = false;
-        userNameRef.message = '';
-      }
-    };
-
+    const userNameVal = ref('');
+    const passwordVal = ref('');
+    const userNameRule: RulesProp = [
+      { type: 'null', message: '用户名不能为空' },
+      { type: 'userName', message: '请输入正确的用户名' },
+    ];
+    const passwordRule: RulesProp = [
+      { type: 'null', message: '密码不能为空' },
+      { type: 'password', message: '密码长度在6-16位之间' },
+    ];
     return {
-      userNameRef,
-      validateuserName,
+      userNameRule,
+      userNameVal,
+      passwordVal,
+      passwordRule,
     };
   },
 });
