@@ -14,7 +14,7 @@ import './globalStyle/font/iconfont';
 // import HomePageMain from './components/Home-page_main.vue';
 // import Sidebar from './components/Sidebar.vue';
 // import Header from './components/Header.vue';
-import Login from './components/Login.vue';
+import Login from './views/Login.vue';
 
 export default defineComponent({
   name: 'App',

@@ -9,7 +9,7 @@
         <p class="login-subtitle">Lost elk—迷鹿照片分享</p>
       </div>
       <div class="from">
-        <form action="">
+        <ValidateForm @form-submit="onFormSubmit">
           <div class="form-group">
             <label for="user_username">
               用户名
@@ -20,6 +20,7 @@
               class="form-control"
               type="text"
               placeholder="请输入用户名"
+              ref="inputRef"
             >
             </ValidateInput>
           </div>
@@ -38,18 +39,20 @@
             </ValidateInput>
           </div>
 
-          <div class="form-groug">
-            <a href="#" class="form-btn">
-              登录
-            </a>
-          </div>
-          <p class="register">
-            还没有帐号？
-            <span class="text-secondary">
-              <a href="#">加入</a>
-            </span>
-          </p>
-        </form>
+          <template v-slot:submit>
+            <div class="form-groug">
+              <a href="#" class="form-btn">
+                登录
+              </a>
+            </div>
+          </template>
+        </ValidateForm>
+        <p class="register">
+          还没有帐号？
+          <span class="text-secondary">
+            <a href="#">加入</a>
+          </span>
+        </p>
       </div>
     </div>
   </div>
@@ -57,12 +60,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import ValidateInput, { RulesProp } from './ValidateInput';
-
+import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
+import ValidateForm from '../components/ValidateForm.vue';
 export default defineComponent({
   name: 'Login',
   components: {
     ValidateInput,
+    ValidateForm,
   },
   setup() {
     const userNameVal = ref('');
@@ -75,16 +79,25 @@ export default defineComponent({
       { type: 'null', message: '密码不能为空' },
       { type: 'password', message: '密码长度在6-16位之间' },
     ];
+
+    const onFormSubmit = (result: boolean) => {
+      if (result) {
+        console.log('通过');
+      } else {
+        console.log('不通过');
+      }
+    };
     return {
       userNameRule,
       userNameVal,
       passwordVal,
       passwordRule,
+      onFormSubmit,
     };
   },
 });
 </script>
 
 <style>
-@import './style/login.css';
+@import '../globalStyle/login.css';
 </style>

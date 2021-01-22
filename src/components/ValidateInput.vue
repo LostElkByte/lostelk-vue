@@ -12,7 +12,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, reactive } from 'vue';
+import { defineComponent, onMounted, PropType, reactive } from 'vue';
+import { emitter } from './ValidateForm.vue';
 
 const userNameReg = /^[-_a-zA-Z0-9\u4E00-\u9FA5]{1,12}$/;
 const passwordReg = /^.{6,16}$/;
@@ -72,8 +73,15 @@ export default defineComponent({
           return passed;
         });
         inputRef.error = !allPassed;
+        return allPassed;
       }
+      // 没有验证规则就永远都返回true
+      return true;
     };
+
+    onMounted(() => {
+      emitter.emit('form-item-created', validateInput);
+    });
 
     return {
       inputRef,
