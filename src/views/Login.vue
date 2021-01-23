@@ -3,7 +3,7 @@
     <div class="login-form">
       <div class="text-center">
         <div class="login-logo">
-          <img src="../assets/logo.jpg" alt="迷鹿" />
+          <img src="../assets/icons/logo.jpg" alt="迷鹿" />
         </div>
         <h1 class="login-title">登录</h1>
         <p class="login-subtitle">Lost elk—迷鹿照片分享</p>
@@ -98,5 +98,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../globalStyle/login.css';
+@import '../style/viewsStyle/login.css';
 </style>

@@ -41,4 +41,6 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+<style>
+@import '../style/componentsStyle/validateForm.css';
+</style>

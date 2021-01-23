@@ -68,5 +68,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import './style/header.css';
+@import '../style/componentsStyle/header.css';
 </style>

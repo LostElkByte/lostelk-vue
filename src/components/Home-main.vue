@@ -70,7 +70,7 @@ export interface CartList {
   totalLikes: number;
 }
 export default defineComponent({
-  name: 'HomePageMain',
+  name: 'HomeMain',
   props: {
     list: {
       type: Array as PropType<CartList[]>,
@@ -81,6 +81,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import './style/home-page_main.css';
-@import './globalStyle/home-page.css';
+@import '../style/componentsStyle/home-main.css';
 </style>

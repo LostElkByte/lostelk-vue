@@ -6,7 +6,7 @@
           <div>
             <img
               class="registrations__logo"
-              src="../assets/logoWhite.png"
+              src="../assets/icons/logoWhite.png"
               alt=""
             />
           </div>
@@ -82,7 +82,7 @@
 
                 <div class="form-group">
                   <label for="user_email">
-                    电子邮件地址
+                    电子邮件
                     <span class="text-secondary">
                       （可选）
                     </span>
@@ -180,7 +180,7 @@ export default defineComponent({
       { type: 'userfirstName', message: '名字格式错误' },
     ];
     const userEmileRule: RulesProp = [
-      { type: 'userEmileRule', message: '邮箱格式错误' },
+      { type: 'userEmile', message: '邮箱格式错误' },
     ];
 
     const onFormSubmit = (result: boolean) => {
@@ -207,5 +207,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../globalStyle/register.css';
+@import '../style/viewsStyle/register.css';
 </style>

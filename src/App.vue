@@ -1,41 +1,21 @@
 <template>
-  <div class="home-page">
-    <!-- <Header :user="testUserMode"></Header>
-    <Home-page-main :list="list"></Home-page-main>
-    <Sidebar></Sidebar> -->
-    <Register></Register>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import './globalStyle/font/iconfont';
-// import { testUserMode, testData } from './testData';
-// import HomePageMain from './components/Home-page_main.vue';
-// import Sidebar from './components/Sidebar.vue';
-// import Header from './components/Header.vue';
-// import Login from './views/Login.vue';
-import Register from './views/Register.vue';
+import './style/globalStyle/font/iconfont';
 
 export default defineComponent({
   name: 'App',
-  components: {
-    // HomePageMain,
-    // Sidebar,
-    // Header,
-    // Login,
-    Register,
-  },
+  components: {},
   setup() {
-    return {
-      // list: testData,
-      // testUserMode,
-    };
+    return {};
   },
 });
 </script>
 
 <style>
-@import './globalStyle/normalize.css';
-@import './globalStyle/body.css';
+@import './style/globalStyle/normalize.css';
+@import './style/globalStyle/body.css';
 </style>

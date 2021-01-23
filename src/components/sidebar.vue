@@ -2,10 +2,10 @@
   <div class="sidebar">
     <div class="sidebar_toolbar">
       <div class="sidebar_toolbar_item sidebar_toolbar_item_circle-32">
-        <a href="#"><img src="../assets/logo.jpg" alt="迷鹿"/></a>
+        <a href="#"><img src="../assets/icons/logo.jpg" alt="迷鹿"/></a>
       </div>
       <div class="sidebar_toolbar_item sidebar_toolbar_item_circle-32">
-        <a href="#"><img src="../assets/avatar.gif" alt="用户头像"/></a>
+        <a href="#"><img src="../assets/images/avatar.gif" alt="用户头像"/></a>
       </div>
       <div class="sidebar_toolbar_item sidebar_toolbar_item_square-32">
         <a href="#">
@@ -25,5 +25,5 @@ export default defineComponent({});
 </script>
 
 <style>
-@import './style/sidebar.css';
+@import '../style/componentsStyle/sidebar.css';
 </style>

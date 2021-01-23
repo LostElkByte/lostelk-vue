@@ -51,5 +51,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import './style/drop-down-list.css';
+@import '../style/componentsStyle/drop-down-list.css';
 </style>
