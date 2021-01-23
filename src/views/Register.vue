@@ -34,11 +34,11 @@
                 </div>
                 <p>
                   已经有帐号了？
-                  <a href="#">
+                  <router-link to="/Login">
                     <span class="text-secondary">
                       登录
                     </span>
-                  </a>
+                  </router-link>
                 </p>
               </div>
 
@@ -127,6 +127,7 @@
                     class="form-control"
                     type="password"
                     placeholder="请输入密码"
+                    autocomplete="off"
                   >
                   </ValidateInput>
                 </div>
@@ -164,6 +165,7 @@ export default defineComponent({
     const userNameVal = ref('');
     const passwordVal = ref('');
     const userLastNameVal = ref('');
+    const userFirstNameVal = ref('');
     const userEmileVal = ref('');
     const userNameRule: RulesProp = [
       { type: 'null', message: '用户名不能为空' },
@@ -198,6 +200,7 @@ export default defineComponent({
       onFormSubmit,
       userLastNameVal,
       userLastNameRule,
+      userFirstNameVal,
       userFirstNameRule,
       userEmileVal,
       userEmileRule,
