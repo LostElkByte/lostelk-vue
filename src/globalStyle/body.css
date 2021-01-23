@@ -40,3 +40,15 @@ html {
 input {
   outline: none;
 }
+
+.clearfix:after,
+.clearfix:before {
+  content: '';
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  *zoom: 1;
+}

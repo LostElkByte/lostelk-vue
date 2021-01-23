@@ -20,7 +20,6 @@
               class="form-control"
               type="text"
               placeholder="请输入用户名"
-              ref="inputRef"
             >
             </ValidateInput>
           </div>

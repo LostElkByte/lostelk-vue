@@ -3,7 +3,7 @@
     <!-- <Header :user="testUserMode"></Header>
     <Home-page-main :list="list"></Home-page-main>
     <Sidebar></Sidebar> -->
-    <Login></Login>
+    <Register></Register>
   </div>
 </template>
 
@@ -14,7 +14,8 @@ import './globalStyle/font/iconfont';
 // import HomePageMain from './components/Home-page_main.vue';
 // import Sidebar from './components/Sidebar.vue';
 // import Header from './components/Header.vue';
-import Login from './views/Login.vue';
+// import Login from './views/Login.vue';
+import Register from './views/Register.vue';
 
 export default defineComponent({
   name: 'App',
@@ -22,7 +23,8 @@ export default defineComponent({
     // HomePageMain,
     // Sidebar,
     // Header,
-    Login,
+    // Login,
+    Register,
   },
   setup() {
     return {

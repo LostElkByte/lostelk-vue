@@ -17,6 +17,9 @@ import { emitter } from './ValidateForm.vue';
 
 const userNameReg = /^[-_a-zA-Z0-9\u4E00-\u9FA5]{1,12}$/;
 const passwordReg = /^.{6,16}$/;
+const userFirstNameReg = /^[a-zA-Z\u4E00-\u9FA5]{0,14}$/;
+const userLastNameReg = /^[a-zA-Z\u4E00-\u9FA5]{0,4}$/;
+const userEmileReg = /^$|^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/;
 
 interface RulesProp {
   type: 'null' | 'userName' | 'password';
@@ -66,6 +69,15 @@ export default defineComponent({
               break;
             case 'password':
               passed = passwordReg.test(inputRef.val);
+              break;
+            case 'userfirstName':
+              passed = userFirstNameReg.test(inputRef.val);
+              break;
+            case 'userLastName':
+              passed = userLastNameReg.test(inputRef.val);
+              break;
+            case 'userEmile':
+              passed = userEmileReg.test(inputRef.val);
               break;
             default:
               break;
