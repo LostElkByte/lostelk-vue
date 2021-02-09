@@ -62,6 +62,7 @@
 import { defineComponent, ref } from 'vue';
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
 import ValidateForm from '../components/ValidateForm.vue';
+import { useRouter } from 'vue-router';
 export default defineComponent({
   name: 'Login',
   components: {
@@ -69,8 +70,11 @@ export default defineComponent({
     ValidateForm,
   },
   setup() {
+    const router = useRouter();
+    // 1.接收ValidateInput组件发送过来的值  2.发送默认值给ValidateInput组件
     const userNameVal = ref('');
     const passwordVal = ref('');
+    // 定义表单验证规则 发送到 ValidateInput组件中
     const userNameRule: RulesProp = [
       { type: 'null', message: '用户名不能为空' },
       { type: 'userName', message: '请输入正确的用户名' },
@@ -80,9 +84,13 @@ export default defineComponent({
       { type: 'password', message: '密码长度在6-16位之间' },
     ];
 
+    /**
+     * form-submit事件触发的函数
+     * 参数: result ValidateForm组件通过 form-submit 事件传来的最终结果
+     */
     const onFormSubmit = (result: boolean) => {
       if (result) {
-        console.log('通过');
+        router.push('/');
       } else {
         console.log('不通过');
       }

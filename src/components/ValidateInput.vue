@@ -13,53 +13,75 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, PropType, reactive } from 'vue';
+// 导入已经建立好的mitt事件监听器
 import { emitter } from './ValidateForm.vue';
 
+/**
+ * 表单验证所需的正则表达式
+ */
 const userNameReg = /^[-_a-zA-Z0-9\u4E00-\u9FA5]{1,12}$/;
 const passwordReg = /^.{6,16}$/;
 const userFirstNameReg = /^[a-zA-Z\u4E00-\u9FA5]{0,14}$/;
 const userLastNameReg = /^[a-zA-Z\u4E00-\u9FA5]{0,4}$/;
 const userEmileReg = /^$|^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/;
 
+// 声明 验证规则 RulesProp 接口类型
 interface RulesProp {
   type: 'null' | 'userName' | 'password';
   message: string;
 }
+// 导出 验证规则 RulesProp 接口类型
 export type RulesProp = RulesProp[];
 
 export default defineComponent({
   props: {
+    // 接收 父组件传过来的表单验证规则
     rules: Array as PropType<RulesProp>,
-    // 绑定modelValue属性 接收父组件发送过来的v-modal值
+    // Vue3自定义组件双向绑定  1.创建绑定modelValue属性 接收父组件发送过来的v-modal值 2.更新值的时候 发送update:modelValue事件
     modelValue: String,
   },
 
-  // 不希望继承非prop的attribute
+  // 不希望根元素继承非prop的attribute
   inheritAttrs: false,
 
   setup(props, context) {
     const inputRef = reactive({
+      // 表单input初始值 为 传入的 modelValue 没有即为 空
       val: props.modelValue || '',
+      // 错误提示判断 默认false
       error: false,
+      // 错误提示内容 默认空
       message: '',
     });
 
-    // 用户输入时触发此函数
+    /**
+     * 用户进行表单输入时触发此函数
+     * 1.拿到input实时的值更新给inputRef.val
+     * 2.将input实时的值发送给父组件
+     */
     const updateValue = (e: KeyboardEvent) => {
+      // 拿到 input 当前的值
       const targetValue = (e.target as HTMLInputElement).value;
-      //手动设置inputRef.val 值
+      //手动更新设置 inputRef.val 值
       inputRef.val = targetValue;
-      //绑定父子组件v-model向父组件发送targetValue
+      //自定义组件v-model 绑定父子组件v-model向父组件发送 targetValue
       context.emit('update:modelValue', targetValue);
     };
 
-    // validateInput 验证表单函数
+    /**
+     * validateInput 抽象验证表单流程函数
+     */
     const validateInput = () => {
+      // 判断rules 验证规则是否存在
       if (props.rules) {
+        // Array.every() 方法测试一个数组内的所有元素是否都能通过某个指定函数的测试。它返回一个布尔值。
         // 全部通过即返回true,如果有一项是false就立即停止并返回false
         const allPassed = props.rules.every(rule => {
+          // 每个 rule 的临时变量
           let passed = true;
+          // 每次循环时先将rule的错误提示message 设置给 inputRef.message
           inputRef.message = rule.message;
+          //  循环进行rule.type规则验证
           switch (rule.type) {
             case 'null':
               passed = inputRef.val.trim() !== '';
@@ -82,15 +104,21 @@ export default defineComponent({
             default:
               break;
           }
+          // 返回passed 这时 allPassed 就是通过与否的布尔类型
           return passed;
         });
+        // 如果allPassed 没有通过 即将inputRef.error设置为true 显示出来错误
         inputRef.error = !allPassed;
+        // 返回 allPassed的结果
         return allPassed;
       }
       // 没有验证规则就永远都返回true
       return true;
     };
-
+    /**
+     * 触发 form-item-created 事件
+     * 发送 validateInput 方法
+     */
     onMounted(() => {
       emitter.emit('form-item-created', validateInput);
     });
