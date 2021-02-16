@@ -60,6 +60,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { useStore } from 'vuex';
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
 import ValidateForm from '../components/ValidateForm.vue';
 import { useRouter } from 'vue-router';
@@ -70,6 +71,7 @@ export default defineComponent({
     ValidateForm,
   },
   setup() {
+    const store = useStore();
     const router = useRouter();
     // 1.接收ValidateInput组件发送过来的值  2.发送默认值给ValidateInput组件
     const userNameVal = ref('');
@@ -91,6 +93,7 @@ export default defineComponent({
     const onFormSubmit = (result: boolean) => {
       if (result) {
         router.push('/');
+        store.commit('login');
       } else {
         console.log('不通过');
       }

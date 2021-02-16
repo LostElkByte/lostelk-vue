@@ -5,7 +5,14 @@
         <a href="#"><img src="../assets/icons/logo.jpg" alt="迷鹿"/></a>
       </div>
       <div class="sidebar_toolbar_item sidebar_toolbar_item_circle-32">
-        <a href="#"><img src="../assets/images/avatar.gif" alt="用户头像"/></a>
+        <a v-if="loginJudge.isLogin" href="#">
+          <img src="../assets/images/avatar.gif" alt="用户头像" />
+        </a>
+        <router-link v-else to="/login">
+          <svg class="icon icon-size-fill" aria-hidden="true">
+            <use xlink:href="#icon-weidenglutouxiang1"></use>
+          </svg>
+        </router-link>
       </div>
       <div class="sidebar_toolbar_item sidebar_toolbar_item_square-32">
         <a href="#">
@@ -19,9 +26,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
+import { useStore } from 'vuex';
 
-export default defineComponent({});
+export default defineComponent({
+  setup() {
+    const store = useStore();
+    const loginJudge = computed(() => {
+      return store.state.user;
+    });
+    return {
+      loginJudge,
+    };
+  },
+});
 </script>
 
 <style>

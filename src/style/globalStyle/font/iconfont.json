@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "14978446",
+      "name": "未登录头像",
+      "font_class": "weidenglutouxiang1",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "3723440",
+      "name": "未登录头像",
+      "font_class": "weidenglutouxiang",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
       "icon_id": "444606",
       "name": "侧栏，列表，更多",
       "font_class": "celanliebiaogengduo",
