@@ -17,6 +17,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/Reglister',
     name: 'Reglister',
     component: () => import('../views/Register.vue')
+  },
+  {
+    path: '/UploadPicture',
+    name: 'UploadPicture',
+    component: () => import('../views/Upload-picture.vue')
   }
 ]
 

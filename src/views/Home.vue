@@ -37,5 +37,6 @@ export default defineComponent({
 </script>
 
 <style>
+@import '../style/globalStyle/layout.css';
 @import '../style/viewsStyle/home.css';
 </style>
