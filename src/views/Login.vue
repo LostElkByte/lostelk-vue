@@ -3,7 +3,9 @@
     <div class="login-form">
       <div class="text-center">
         <div class="login-logo">
-          <img src="../assets/icons/logo.jpg" alt="迷鹿" />
+          <router-link to="/">
+            <img src="../assets/icons/logo.jpg" alt="迷鹿" />
+          </router-link>
         </div>
         <h1 class="login-title">登录</h1>
         <p class="login-subtitle">Lost elk—迷鹿照片分享</p>
