@@ -3,11 +3,26 @@
     <div class="header upload-picture_header"></div>
     <Sidebar></Sidebar>
     <div class="main upload-picture_main">
-      <form action="">
+      <ValidateForm>
         <div class="content">
-          <input type="text" placeholder="标题" />
-          <input type="text" placeholder="描述" />
-          <input type="text" placeholder="标签" />
+          <ValidateInput
+            type="text"
+            placeholder="标题"
+            v-model="headlineVal"
+            :rules="headlineRule"
+          />
+          <ValidateInput
+            type="text"
+            placeholder="描述"
+            v-model="describeVal"
+            :rules="describeRule"
+          />
+          <ValidateInput
+            type="text"
+            placeholder="标签"
+            v-model="tagVal"
+            :rules="tagRule"
+          />
         </div>
         <div class="picture">
           <div class="picture-style">
@@ -24,23 +39,54 @@
             </label>
           </div>
         </div>
-        <div class="publish">
-          <a href="#" class="form-btn">
-            发布
-          </a>
-        </div>
-      </form>
+        <template v-slot:submit>
+          <div class="publish">
+            <a href="#" class="form-btn">
+              发布
+            </a>
+          </div>
+        </template>
+      </ValidateForm>
     </div>
   </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
 import Sidebar from '../components/Sidebar.vue';
+import ValidateForm from '../components/ValidateForm.vue';
+import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
+
 export default defineComponent({
   name: 'UploadPicture',
   components: {
     Sidebar,
+    ValidateForm,
+    ValidateInput,
+  },
+  setup() {
+    const headlineVal = ref('');
+    const describeVal = ref('');
+    const tagVal = ref('');
+    const headlineRule: RulesProp = [
+      { type: 'null', message: '标题不能为空' },
+      { type: 'headlineMaximum', message: '标题最多10个字符' },
+    ];
+    const describeRule: RulesProp = [
+      { type: 'null', message: '描述不能为空' },
+      { type: 'describeMaximum', message: '描述最多25个字符' },
+    ];
+    const tagRule: RulesProp = [
+      { type: 'tagMaximum', message: '标签最多5个字符' },
+    ];
+    return {
+      headlineVal,
+      describeVal,
+      tagVal,
+      headlineRule,
+      describeRule,
+      tagRule,
+    };
   },
 });
 </script>

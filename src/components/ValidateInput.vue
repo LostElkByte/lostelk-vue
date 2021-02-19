@@ -1,5 +1,13 @@
 <template>
   <input
+    v-if="tag !== 'textarea'"
+    :value="inputRef.val"
+    @blur="validateInput"
+    @input="updateValue"
+    v-bind="$attrs"
+  />
+  <textarea
+    v-else
     :value="inputRef.val"
     @blur="validateInput"
     @input="updateValue"
@@ -24,14 +32,27 @@ const passwordReg = /^.{6,16}$/;
 const userFirstNameReg = /^[a-zA-Z\u4E00-\u9FA5]{0,14}$/;
 const userLastNameReg = /^[a-zA-Z\u4E00-\u9FA5]{0,4}$/;
 const userEmileReg = /^$|^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/;
-
+const headlineMaximumReg = /^.{1,10}$/;
+const describeMaximumReg = /^.{1,25}$/;
+const tagMaximumReg = /^.{0,5}$/;
 // 声明 验证规则 RulesProp 接口类型
-interface RulesProp {
-  type: 'null' | 'userName' | 'password';
+interface RuleProp {
+  type:
+    | 'null'
+    | 'userName'
+    | 'password'
+    | 'userLastName'
+    | 'userfirstName'
+    | 'userEmile'
+    | 'headlineMaximum'
+    | 'describeMaximum'
+    | 'tagMaximum';
   message: string;
 }
 // 导出 验证规则 RulesProp 接口类型
-export type RulesProp = RulesProp[];
+export type RulesProp = RuleProp[];
+// 表单标签类型
+export type TagType = 'input' | 'textarea';
 
 export default defineComponent({
   props: {
@@ -39,6 +60,10 @@ export default defineComponent({
     rules: Array as PropType<RulesProp>,
     // Vue3自定义组件双向绑定  1.创建绑定modelValue属性 接收父组件发送过来的v-modal值 2.更新值的时候 发送update:modelValue事件
     modelValue: String,
+    // 默认将表单类型设置为input
+    tag: {
+      type: String as PropType<TagType>,
+    },
   },
 
   // 不希望根元素继承非prop的attribute
@@ -101,6 +126,15 @@ export default defineComponent({
             case 'userEmile':
               passed = userEmileReg.test(inputRef.val);
               break;
+            case 'headlineMaximum':
+              passed = headlineMaximumReg.test(inputRef.val);
+              break;
+            case 'describeMaximum':
+              passed = describeMaximumReg.test(inputRef.val);
+              break;
+            case 'tagMaximum':
+              passed = tagMaximumReg.test(inputRef.val);
+              break;
             default:
               break;
           }
@@ -132,4 +166,6 @@ export default defineComponent({
 });
 </script>
 
-<style></style>
+<style>
+@import '../style/componentsStyle/validateInput.css';
+</style>
