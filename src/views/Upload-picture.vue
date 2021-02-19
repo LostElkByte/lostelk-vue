@@ -3,7 +3,7 @@
     <div class="header upload-picture_header"></div>
     <Sidebar></Sidebar>
     <div class="main upload-picture_main">
-      <ValidateForm>
+      <ValidateForm @form-submit="onFormSubmit">
         <div class="content">
           <ValidateInput
             type="text"
@@ -53,6 +53,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import Sidebar from '../components/Sidebar.vue';
 import ValidateForm from '../components/ValidateForm.vue';
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
@@ -65,6 +67,8 @@ export default defineComponent({
     ValidateInput,
   },
   setup() {
+    const store = useStore();
+    const router = useRouter();
     const headlineVal = ref('');
     const describeVal = ref('');
     const tagVal = ref('');
@@ -79,6 +83,36 @@ export default defineComponent({
     const tagRule: RulesProp = [
       { type: 'tagMaximum', message: '标签最多5个字符' },
     ];
+
+    const onFormSubmit = (result: boolean) => {
+      if (result) {
+        const { userId } = store.state.user;
+        const { name } = store.state.user;
+        const newPicture = {
+          id: new Date().getTime(),
+          title: headlineVal.value,
+          content: describeVal.value,
+          user: {
+            id: userId,
+            name: name,
+            avatar: 0,
+          },
+          totalComments: 0,
+          file: {
+            id: 22,
+            width: 4000,
+            height: 6000,
+          },
+          tags: [],
+          totalLikes: 0,
+        };
+
+        store.commit('UploadPicture', newPicture);
+        router.push('/');
+      } else {
+        console.log('不通过');
+      }
+    };
     return {
       headlineVal,
       describeVal,
@@ -86,6 +120,7 @@ export default defineComponent({
       headlineRule,
       describeRule,
       tagRule,
+      onFormSubmit,
     };
   },
 });

@@ -39,7 +39,7 @@
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-pinglun"></use>
               </svg>
-              <span>15</span>
+              <span>{{ card.totalComments }}</span>
             </div>
           </div>
         </div>
