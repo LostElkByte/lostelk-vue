@@ -25,7 +25,7 @@ export default defineComponent({
   emits: ['form-submit'],
   setup(props, context) {
     // 存放ValidateInput组件传来的一组validateInput函数 返回结果是布尔值
-    let funcArr = [];
+    let funcArr: any[] = [];
     /**
      * 全局验证函数
      * result: 一键判断所有表单是否通过 最终的结果 true或false
@@ -41,7 +41,7 @@ export default defineComponent({
      * form-item-created事件的回调函数
      * 参数类型: func: ValidateFunc
      */
-    const callback = func => {
+    const callback = (func: any) => {
       funcArr.push(func);
     };
     // 将form-item-created事件添加到mitt监听器中
