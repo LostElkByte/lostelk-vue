@@ -33,10 +33,7 @@
               accept="image/gif,image/jpeg,image/x-png"
             />
             <label for="file">
-              <svg
-                class="icon icon-size-fill sidebar_toolbar_item_square-32"
-                aria-hidden="true"
-              >
+              <svg class="icon icon-size-32 icon-size-fill" aria-hidden="true">
                 <use xlink:href="#icon-tubiaolunkuo-"></use>
               </svg>
             </label>

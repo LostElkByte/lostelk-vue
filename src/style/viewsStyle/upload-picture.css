@@ -44,6 +44,11 @@
   padding-top: 70px;
 }
 
+.icon-size-32 {
+  width: 32px;
+  height: 32px;
+}
+
 .picture-style {
   width: 600px;
   height: 338px;

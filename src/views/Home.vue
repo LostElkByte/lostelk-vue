@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import Header from '../components/Header.vue';
 import Sidebar from '../components/Sidebar.vue';
@@ -22,6 +22,9 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    onMounted(() => {
+      store.dispatch('acquireColumns');
+    });
     const list = computed(() => {
       return store.state.columns;
     });
