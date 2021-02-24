@@ -23,10 +23,10 @@ export default defineComponent({
   setup() {
     const store = useStore();
     onMounted(() => {
-      store.dispatch('acquireColumns');
+      store.dispatch('acquireCardList');
     });
     const list = computed(() => {
-      return store.state.columns;
+      return store.state.cardList;
     });
     const loginJudge = computed(() => {
       return store.state.user;

@@ -2,27 +2,31 @@
   <div class="home-page_main">
     <div class="home-page_main_cards">
       <div
-        v-for="card in list"
+        v-for="card in cartList"
         :key="card.id"
         :class="
-          card.file.width / card.file.height >= 1
+          card.file && card.file.width / card.file.height >= 1
             ? 'home-page_main_cards_item'
             : 'home-page_main_cards_item home-page_main_cards_item-big'
         "
       >
         <img
-          :src="`https://ovoiii.com/files/${card.file.id}/serve?size=medium`"
+          :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
           :alt="card.title"
         />
         <div class="card-abstract">
           <div class="card_abstract-left">
             <img
+              v-if="card.user.avatar"
               class="card-avatar-32"
-              :src="
-                `https://ovoiii.com/users/${card.user.id}/avatar?size=small`
-              "
+              :src="`${lostelkUrl}/users/${card.user.id}/avatar?size=small`"
               :alt="card.user.name"
             />
+            <div v-else class="card-avatar-32">
+              <svg class="card-avatar-32" aria-hidden="true">
+                <use xlink:href="#icon-weidenglu"></use>
+              </svg>
+            </div>
             <div class="card-abstract-author">
               <span>{{ card.title }}</span> <br />
               <span>{{ card.user.name }}</span>
@@ -49,8 +53,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
-
+import { computed, defineComponent, PropType } from 'vue';
+import { lostelkUrl } from '../global';
 export interface CartList {
   id: number;
   title: string;
@@ -58,15 +62,16 @@ export interface CartList {
   user: {
     id: number;
     name: string;
-    avatar: number;
+    avatar?: number;
   };
   totalComments: number;
   file: {
-    id: number;
+    id?: number;
     width: number;
     height: number;
+    fakeUrl?: string;
   };
-  tags: unknown;
+  tags?: unknown;
   totalLikes: number;
 }
 export default defineComponent({
@@ -76,6 +81,25 @@ export default defineComponent({
       type: Array as PropType<CartList[]>,
       required: true,
     },
+  },
+  setup(props) {
+    // 如果图片不存在 则添加默认图片
+    const cartList = computed(() => {
+      return props.list.map(cart => {
+        if (!cart.file) {
+          cart.file = {
+            width: 300,
+            height: 200,
+            fakeUrl: require('@/assets/images/content2.jpeg'),
+          };
+        }
+        return cart;
+      });
+    });
+    return {
+      lostelkUrl,
+      cartList,
+    };
   },
 });
 </script>

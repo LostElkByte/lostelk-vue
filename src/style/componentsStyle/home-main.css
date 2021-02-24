@@ -1,5 +1,5 @@
 .home-page_main {
-  background-color:#fff;
+  background-color: #fff;
   padding: 32px;
 }
 
@@ -8,7 +8,7 @@
   grid-template-columns: repeat(auto-fit, 320px);
   grid-auto-rows: 240px;
   gap: 32px 32px;
-  justify-content: center
+  justify-content: center;
 }
 
 .home-page_main_cards_item {
