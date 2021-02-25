@@ -2,7 +2,7 @@
   <div class="home-page_main">
     <div class="home-page_main_cards">
       <div
-        v-for="card in cartList"
+        v-for="card in cardList"
         :key="card.id"
         :class="
           card.file && card.file.width / card.file.height >= 1
@@ -16,12 +16,7 @@
         />
         <div class="card-abstract">
           <div class="card_abstract-left">
-            <img
-              v-if="card.user.avatar"
-              class="card-avatar-32"
-              :src="`${lostelkUrl}/users/${card.user.id}/avatar?size=small`"
-              :alt="card.user.name"
-            />
+            <img v-if="card.user.avatar" class="card-avatar-32" :src="card.user.url" :alt="card.user.name" />
             <div v-else class="card-avatar-32">
               <svg class="card-avatar-32" aria-hidden="true">
                 <use xlink:href="#icon-weidenglu"></use>
@@ -55,7 +50,8 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
 import { lostelkUrl } from '../global';
-export interface CartList {
+// import { axios } from '../service/service';
+export interface CardList {
   id: number;
   title: string;
   content: string;
@@ -63,6 +59,7 @@ export interface CartList {
     id: number;
     name: string;
     avatar?: number;
+    url?: string;
   };
   totalComments: number;
   file: {
@@ -78,27 +75,38 @@ export default defineComponent({
   name: 'HomeMain',
   props: {
     list: {
-      type: Array as PropType<CartList[]>,
+      type: Array as PropType<CardList[]>,
       required: true,
     },
   },
   setup(props) {
-    // 如果图片不存在 则添加默认图片
-    const cartList = computed(() => {
-      return props.list.map(cart => {
-        if (!cart.file) {
-          cart.file = {
+    const cardList = computed(() => {
+      return props.list.map(card => {
+        // 如果图片不存在 则添加默认图片
+        if (!card.file) {
+          card.file = {
             width: 300,
             height: 200,
             fakeUrl: require('@/assets/images/content2.jpeg'),
           };
         }
-        return cart;
+        // 如果头像存在设置url
+        if (card.user.avatar) {
+          card.user.url = `${lostelkUrl}/users/${card.user.id}/avatar?size=small`;
+        }
+        return card;
       });
     });
+
+    // const giveLike = (id: number) => {
+    //   axios.post(`/posts/${id}/like`);
+    // };
+    //  @click="giveLike(card.id)"
+
     return {
       lostelkUrl,
-      cartList,
+      cardList,
+      // giveLike,
     };
   },
 });
