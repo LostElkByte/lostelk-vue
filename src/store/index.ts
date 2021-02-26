@@ -49,6 +49,13 @@ export default createStore({
     getCardList(state, rawdata) {
       state.cardList = rawdata
     },
+
+    /**
+     * 上传图片
+     */
+    // UploadPicture(state, newPicture) {
+    //   state.cardList.push(newPicture)
+    // },
   },
   getters: {
 
