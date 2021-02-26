@@ -1,37 +1,17 @@
 <template>
   <div class="page upload-picture-page">
-    <div class="header upload-picture_header"></div>
+    <Header :user="loginJudge"></Header>
     <Sidebar></Sidebar>
     <div class="main upload-picture_main">
       <ValidateForm @form-submit="onFormSubmit">
         <div class="content">
-          <ValidateInput
-            type="text"
-            placeholder="标题"
-            v-model="headlineVal"
-            :rules="headlineRule"
-          />
-          <ValidateInput
-            type="text"
-            placeholder="描述"
-            v-model="describeVal"
-            :rules="describeRule"
-          />
-          <ValidateInput
-            type="text"
-            placeholder="标签"
-            v-model="tagVal"
-            :rules="tagRule"
-          />
+          <ValidateInput type="text" placeholder="标题" v-model="headlineVal" :rules="headlineRule" />
+          <ValidateInput type="text" placeholder="描述" v-model="describeVal" :rules="describeRule" />
+          <ValidateInput type="text" placeholder="标签" v-model="tagVal" :rules="tagRule" />
         </div>
         <div class="picture">
           <div class="picture-style">
-            <input
-              class="picture-style_file"
-              type="file"
-              id="file"
-              accept="image/gif,image/jpeg,image/x-png"
-            />
+            <input class="picture-style_file" type="file" id="file" accept="image/gif,image/jpeg,image/x-png" />
             <label for="file">
               <svg class="icon icon-size-32 icon-size-fill" aria-hidden="true">
                 <use xlink:href="#icon-tubiaolunkuo-"></use>
@@ -52,9 +32,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import Header from '../components/Header.vue';
 import Sidebar from '../components/Sidebar.vue';
 import ValidateForm from '../components/ValidateForm.vue';
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
@@ -62,6 +43,7 @@ import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
 export default defineComponent({
   name: 'UploadPicture',
   components: {
+    Header,
     Sidebar,
     ValidateForm,
     ValidateInput,
@@ -80,9 +62,7 @@ export default defineComponent({
       { type: 'null', message: '描述不能为空' },
       { type: 'describeMaximum', message: '描述最多25个字符' },
     ];
-    const tagRule: RulesProp = [
-      { type: 'tagMaximum', message: '标签最多5个字符' },
-    ];
+    const tagRule: RulesProp = [{ type: 'tagMaximum', message: '标签最多5个字符' }];
 
     const onFormSubmit = (result: boolean) => {
       if (result) {
@@ -113,6 +93,11 @@ export default defineComponent({
         console.log('不通过');
       }
     };
+
+    const loginJudge = computed(() => {
+      return store.state.user;
+    });
+
     return {
       headlineVal,
       describeVal,
@@ -121,6 +106,7 @@ export default defineComponent({
       describeRule,
       tagRule,
       onFormSubmit,
+      loginJudge,
     };
   },
 });

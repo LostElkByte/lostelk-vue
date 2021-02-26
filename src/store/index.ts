@@ -5,7 +5,7 @@ export default createStore({
   state: {
     errorMessage: '',
     cardList: [],
-    user: { isLogin: false, id: localStorage.getItem('id') || '' },
+    user: { isLogin: false, id: localStorage.getItem('userId') || '' },
     token: localStorage.getItem('token') || ''
   },
   mutations: {
@@ -15,22 +15,10 @@ export default createStore({
     login(state, rawData) {
       state.token = rawData.token
       localStorage.setItem('token', rawData.token)
-      localStorage.setItem('id', rawData.id)
+      localStorage.setItem('userId', rawData.id)
       axios.defaults.headers.common.Authorization = `Bearer ${rawData.token}`
     },
-    /**
-     * 退出登陆
-     */
-    logout(state) {
-      state.token = ''
-      localStorage.removeItem('token')
-      localStorage.removeItem('id')
-      delete axios.defaults.headers.common.Authorization
-      state.user = {
-        isLogin: false,
-        id: ''
-      }
-    },
+
     /**
      * 获取当前用户信息
      */
@@ -40,6 +28,21 @@ export default createStore({
         ...rawData.data
       }
     },
+
+    /**
+     * 退出登陆
+     */
+    logout(state) {
+      state.token = ''
+      localStorage.removeItem('token')
+      localStorage.removeItem('userId')
+      delete axios.defaults.headers.common.Authorization
+      state.user = {
+        isLogin: false,
+        id: ''
+      }
+    },
+
     /**
      * 获得卡片列表
      */
@@ -51,17 +54,7 @@ export default createStore({
 
   },
   actions: {
-    /**
-    * 获得卡片列表
-    */
-    async getCardList(context, state) {
-      try {
-        const CardListData = await axios.get('/posts')
-        context.commit('getCardList', CardListData.data)
-      } catch (error) {
-        state.errorMessage = error.message
-      }
-    },
+
     /**
      * 登陆
      */
@@ -87,6 +80,7 @@ export default createStore({
         console.log(error.response.data.message);
       }
     },
+
     /**
      * 登陆 + 获取当前用户信息的组合
      */
@@ -96,7 +90,19 @@ export default createStore({
           return context.dispatch('getCurrentUser', data.data.id)
         }
       })
-    }
+    },
+
+    /**
+    * 获得卡片列表
+    */
+    async getCardList(context, state) {
+      try {
+        const CardListData = await axios.get('/posts')
+        context.commit('getCardList', CardListData.data)
+      } catch (error) {
+        state.errorMessage = error.message
+      }
+    },
   },
   modules: {
   }
