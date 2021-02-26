@@ -35,15 +35,36 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiredLogin && !store.state.user.isLogin) {
-    // 需要登录才可以访问的页面 并且 没有登陆
-    next({ name: 'Login' })
-  } else if (to.meta.requestNotLogin && store.state.user.isLogin) {
-    // 需要未登录才可以访问的页面 并且 已经登陆
-    next('/')
+  const { user, token } = store.state
+  const { requiredLogin, requestNotLogin } = to.meta
+  if (!user.isLogin) {
+    if (token) {
+      store.dispatch('getCurrentUser', user.id).then(() => {
+        if (requestNotLogin) {
+          next('/')
+        } else {
+          next()
+        }
+      }).catch(e => {
+        console.log(e)
+        store.commit('logout')
+        next('login')
+      })
+    } else {
+      if (requiredLogin) {
+        next('login')
+      } else {
+        next()
+      }
+    }
   } else {
-    next()
+    if (requestNotLogin) {
+      next('/')
+    } else {
+      next()
+    }
   }
+
 })
 
 export default router

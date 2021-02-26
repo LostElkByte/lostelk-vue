@@ -22,7 +22,7 @@
           <template v-slot:dropdown-content>
             <a href="#">个人主页</a>
             <a href="#">发表作品</a>
-            <a href="#">退出登录</a>
+            <a href="#" @click="logout">退出登录</a>
           </template>
         </DropDownList>
       </div>
@@ -32,6 +32,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
+import { useStore } from 'vuex';
 import DropDownList from './Drop-down-list.vue';
 export interface UserMode {
   isLogin: boolean;
@@ -49,6 +50,15 @@ export default defineComponent({
       type: Object as PropType<UserMode>,
       required: true,
     },
+  },
+  setup() {
+    const store = useStore();
+    const logout = () => {
+      store.commit('logout');
+    };
+    return {
+      logout,
+    };
   },
 });
 </script>

@@ -23,7 +23,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     onMounted(() => {
-      store.dispatch('acquireCardList');
+      store.dispatch('getCardList');
     });
     const list = computed(() => {
       return store.state.cardList;

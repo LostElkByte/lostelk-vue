@@ -94,12 +94,19 @@ export default defineComponent({
      */
     const onFormSubmit = (result: boolean) => {
       if (result) {
-        router.push('/');
-        store.commit('login');
+        const userLoginData = {
+          name: userNameVal.value,
+          password: passwordVal.value,
+        };
+
+        store.dispatch('loginAndGetCurrentUser', userLoginData).then(() => {
+          router.push('/');
+        });
       } else {
         console.log('不通过');
       }
     };
+
     return {
       userNameRule,
       userNameVal,
