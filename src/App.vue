@@ -1,5 +1,5 @@
 <template>
-  <h1 v-if="isLoading">等待....</h1>
+  <Loading v-if="isLoading">等待....</Loading>
   <router-view></router-view>
 </template>
 
@@ -7,10 +7,13 @@
 import { computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
 import './style/globalStyle/font/iconfont';
+import Loading from './components/Loading.vue';
 
 export default defineComponent({
   name: 'App',
-  components: {},
+  components: {
+    Loading,
+  },
   setup() {
     const store = useStore();
     const isLoading = computed(() => store.state.loading);
