@@ -3,7 +3,8 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    errorMessage: '',
+    loading: false,
+    // errorMessage: '',
     cardList: [],
     user: { isLogin: false, id: localStorage.getItem('userId') || '' },
     token: localStorage.getItem('token') || ''
@@ -56,6 +57,13 @@ export default createStore({
     // UploadPicture(state, newPicture) {
     //   state.cardList.push(newPicture)
     // },
+
+    /**
+     * loading
+     */
+    setLoading(state, status) {
+      state.loading = status
+    }
   },
   getters: {
 

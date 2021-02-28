@@ -1,16 +1,22 @@
 <template>
+  <h1 v-if="isLoading">等待....</h1>
   <router-view></router-view>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
+import { useStore } from 'vuex';
 import './style/globalStyle/font/iconfont';
 
 export default defineComponent({
   name: 'App',
   components: {},
   setup() {
-    return {};
+    const store = useStore();
+    const isLoading = computed(() => store.state.loading);
+    return {
+      isLoading,
+    };
   },
 });
 </script>
