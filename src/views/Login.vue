@@ -100,7 +100,9 @@ export default defineComponent({
         };
 
         store.dispatch('loginAndGetCurrentUser', userLoginData).then(() => {
-          router.push('/');
+          if (store.state.user.isLogin) {
+            router.push('/');
+          }
         });
       } else {
         console.log('不通过');

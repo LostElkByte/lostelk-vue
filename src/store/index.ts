@@ -43,6 +43,7 @@ export interface GloablDataProps {
 }
 
 export default createStore<GloablDataProps>({
+
   state: {
     loading: false,
     error: { status: false },
@@ -50,6 +51,7 @@ export default createStore<GloablDataProps>({
     user: { isLogin: false, id: localStorage.getItem('userId') || '' },
     token: localStorage.getItem('token') || ''
   },
+
   mutations: {
     /**
      * 登陆
@@ -104,11 +106,20 @@ export default createStore<GloablDataProps>({
      */
     setLoading(state, status) {
       state.loading = status
-    }
+    },
+
+    /**
+     * 全局错误
+     */
+    setError(state, e: GloablErrorProps) {
+      state.error = e
+    },
   },
+
   getters: {
 
   },
+
   actions: {
 
     /**
@@ -120,7 +131,7 @@ export default createStore<GloablDataProps>({
         context.commit('login', loginData.data)
         return loginData
       } catch (error) {
-        console.log(error.response.data.message)
+        console.log(error)
       }
     },
 
@@ -133,7 +144,7 @@ export default createStore<GloablDataProps>({
         context.commit('getCurrentUser', currentUserData)
         return currentUserData
       } catch (error) {
-        console.log(error.response.data.message);
+        console.log(error);
       }
     },
 
@@ -151,15 +162,16 @@ export default createStore<GloablDataProps>({
     /**
     * 获得卡片列表
     */
-    async getCardList(context, state) {
+    async getCardList(context) {
       try {
         const CardListData = await axios.get('/posts')
         context.commit('getCardList', CardListData.data)
       } catch (error) {
-        state.errorMessage = error.message
+        console.log(error);
       }
     },
   },
+
   modules: {
   }
 })

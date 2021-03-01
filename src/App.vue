@@ -1,4 +1,5 @@
 <template>
+  <h1>{{ error.message }}</h1>
   <Loading v-if="isLoading">等待....</Loading>
   <router-view></router-view>
 </template>
@@ -17,8 +18,10 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const isLoading = computed(() => store.state.loading);
+    const error = computed(() => store.state.error);
     return {
       isLoading,
+      error,
     };
   },
 });
