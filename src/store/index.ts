@@ -1,10 +1,51 @@
 import { axios } from '../service/service'
 import { createStore } from 'vuex'
 
-export default createStore({
+export interface CardList {
+  id: number;
+  title: string;
+  content: string;
+  user: {
+    id: number;
+    name: string;
+    avatar?: number;
+    url?: string;
+  };
+  totalComments: number;
+  file: {
+    id?: number;
+    width: number;
+    height: number;
+    fakeUrl?: string;
+  };
+  tags?: unknown;
+  totalLikes: number;
+}
+
+export interface GloablUserProps {
+  isLogin: boolean;
+  id?: string;
+  name?: string;
+  avatar?: number;
+}
+
+export interface GloablErrorProps {
+  status: boolean;
+  message?: string;
+}
+
+export interface GloablDataProps {
+  loading: boolean;
+  error: GloablErrorProps;
+  cardList: CardList[];
+  user: GloablUserProps;
+  token: string;
+}
+
+export default createStore<GloablDataProps>({
   state: {
     loading: false,
-    // errorMessage: '',
+    error: { status: false },
     cardList: [],
     user: { isLogin: false, id: localStorage.getItem('userId') || '' },
     token: localStorage.getItem('token') || ''

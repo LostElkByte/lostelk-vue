@@ -50,27 +50,9 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
 import { lostelkUrl } from '../global';
+import { CardList } from '../store';
 // import { axios } from '../service/service';
-export interface CardList {
-  id: number;
-  title: string;
-  content: string;
-  user: {
-    id: number;
-    name: string;
-    avatar?: number;
-    url?: string;
-  };
-  totalComments: number;
-  file: {
-    id?: number;
-    width: number;
-    height: number;
-    fakeUrl?: string;
-  };
-  tags?: unknown;
-  totalLikes: number;
-}
+
 export default defineComponent({
   name: 'HomeMain',
   props: {
