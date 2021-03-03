@@ -91,10 +91,8 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  -webkit-transition: background-color 0.1s ease-in-out,
-    border-color 0.1s ease-in-out, color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out,
-    color 0.1s ease-in-out;
+  -webkit-transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out, color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out, color 0.1s ease-in-out;
 }
 
 .text-secondary {
@@ -112,10 +110,10 @@
   margin-top: 10px;
 }
 
-.form-error {
+/* .form-error {
   font-size: 10px;
   color: #f1403c;
-}
+} */
 
 @media (max-width: 576px) {
   .login-form {

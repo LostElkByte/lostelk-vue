@@ -1,22 +1,12 @@
 <template>
-  <input
-    v-if="tag !== 'textarea'"
-    :value="inputRef.val"
-    @blur="validateInput"
-    @input="updateValue"
-    v-bind="$attrs"
-  />
-  <textarea
-    v-else
-    :value="inputRef.val"
-    @blur="validateInput"
-    @input="updateValue"
-    v-bind="$attrs"
-  />
+  <div class="inputParent">
+    <input v-if="tag !== 'textarea'" :value="inputRef.val" @blur="validateInput" @input="updateValue" v-bind="$attrs" />
+    <textarea v-else :value="inputRef.val" @blur="validateInput" @input="updateValue" v-bind="$attrs" />
 
-  <span class="form-error" v-if="inputRef.error">
-    {{ inputRef.message }}
-  </span>
+    <span class="form-error" v-if="inputRef.error">
+      {{ inputRef.message }}
+    </span>
+  </div>
 </template>
 
 <script lang="ts">
