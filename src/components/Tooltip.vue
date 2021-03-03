@@ -1,10 +1,10 @@
 <template>
-  <teleport to="#tooltipDom">
-    <div class="tooltip" :class="classObject" v-if="isVisible">
-      <span>{{ message }}</span>
-      <span @click="hide">×</span>
-    </div>
-  </teleport>
+  <!-- <teleport to="#tooltipDom"> -->
+  <div class="tooltip" :class="classObject" v-if="isVisible">
+    <span>{{ message }}</span>
+    <span @click="hide">×</span>
+  </div>
+  <!-- </teleport> -->
 </template>
 
 <script lang="ts">
@@ -19,12 +19,9 @@ export default defineComponent({
       default: 'default',
     },
   },
-  setup(props, context) {
-    const node = document.createElement('div');
-    node.id = 'tooltipDom';
-    document.body.appendChild(node);
-
+  setup(props) {
     const isVisible = ref(true);
+
     const classObject = {
       success: props.type === 'success',
       error: props.type === 'error',
@@ -32,6 +29,7 @@ export default defineComponent({
     const hide = () => {
       isVisible.value = false;
     };
+
     return {
       isVisible,
       classObject,
