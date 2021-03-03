@@ -22,6 +22,7 @@
               class="form-control"
               type="text"
               placeholder="请输入用户名"
+              id="user_username"
             >
             </ValidateInput>
           </div>
@@ -37,6 +38,7 @@
               type="password"
               placeholder="请输入密码"
               autocomplete="off"
+              id="user_password"
             >
             </ValidateInput>
           </div>
@@ -122,4 +124,7 @@ export default defineComponent({
 
 <style>
 @import '../style/viewsStyle/login.css';
+label {
+  cursor: pointer;
+}
 </style>

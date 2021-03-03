@@ -36,8 +36,10 @@ interface RuleProp {
     | 'userEmile'
     | 'headlineMaximum'
     | 'describeMaximum'
-    | 'tagMaximum';
+    | 'tagMaximum'
+    | 'custom';
   message: string;
+  validator?: () => boolean;
 }
 // 导出 验证规则 RulesProp 接口类型
 export type RulesProp = RuleProp[];
@@ -124,6 +126,9 @@ export default defineComponent({
               break;
             case 'tagMaximum':
               passed = tagMaximumReg.test(inputRef.val);
+              break;
+            case 'custom':
+              passed = rule.validator ? rule.validator() : true;
               break;
             default:
               break;

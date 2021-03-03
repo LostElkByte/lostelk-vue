@@ -4,11 +4,7 @@
       <div class="registrations-left-panel">
         <div class="registrations__content">
           <div>
-            <img
-              class="registrations__logo"
-              src="../assets/icons/logoWhite.png"
-              alt=""
-            />
+            <img class="registrations__logo" src="../assets/icons/logoWhite.png" alt="" />
           </div>
           <div>
             <h1 class="registrations__title">创作从这里开始</h1>
@@ -57,6 +53,7 @@
                         v-model="userLastNameVal"
                         class="form-control"
                         type="text"
+                        id="user_first_name"
                       >
                       </ValidateInput>
                     </div>
@@ -74,6 +71,7 @@
                         v-model="userFirstNameVal"
                         class="form-control"
                         type="text"
+                        id="user_last_name"
                       >
                       </ValidateInput>
                     </div>
@@ -92,6 +90,7 @@
                     v-model="userEmileVal"
                     class="form-control"
                     type="email"
+                    id="user_email"
                   >
                   </ValidateInput>
                 </div>
@@ -110,6 +109,7 @@
                     class="form-control"
                     type="text"
                     placeholder="用于登录账号使用,请牢记"
+                    id="user_username"
                   >
                   </ValidateInput>
                 </div>
@@ -128,6 +128,23 @@
                     type="password"
                     placeholder="请输入密码"
                     autocomplete="off"
+                    id="user_password"
+                  >
+                  </ValidateInput>
+                </div>
+
+                <div class="form-group">
+                  <label for="user_affirmPassword">
+                    确认密码
+                  </label>
+                  <ValidateInput
+                    :rules="affirmPasswordRule"
+                    v-model="affirmPasswordVal"
+                    class="form-control"
+                    type="password"
+                    placeholder="请输入密码"
+                    autocomplete="off"
+                    id="user_affirmPassword"
                   >
                   </ValidateInput>
                 </div>
@@ -140,8 +157,7 @@
                 </template>
               </ValidateForm>
               <span class="text-secondary zeta">
-                注册即表示您同意 <a href="#">条款</a> 和
-                <a href="#">隐私政策</a>。
+                注册即表示您同意 <a href="#">条款</a> 和 <a href="#">隐私政策</a>。
               </span>
             </div>
           </div>
@@ -155,6 +171,10 @@
 import { defineComponent, ref } from 'vue';
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
 import ValidateForm from '../components/ValidateForm.vue';
+import createTooltip from '../components/createTooltip.ts';
+import axios from 'axios';
+import router from '../router';
+
 export default defineComponent({
   name: 'Login',
   components: {
@@ -167,6 +187,7 @@ export default defineComponent({
     const userLastNameVal = ref('');
     const userFirstNameVal = ref('');
     const userEmileVal = ref('');
+    const affirmPasswordVal = ref('');
     const userNameRule: RulesProp = [
       { type: 'null', message: '用户名不能为空' },
       { type: 'userName', message: '用户名格式错误' },
@@ -175,19 +196,32 @@ export default defineComponent({
       { type: 'null', message: '密码不能为空' },
       { type: 'password', message: '密码长度在6-16位之间' },
     ];
-    const userLastNameRule: RulesProp = [
-      { type: 'userLastName', message: '名字格式错误' },
-    ];
-    const userFirstNameRule: RulesProp = [
-      { type: 'userfirstName', message: '名字格式错误' },
-    ];
-    const userEmileRule: RulesProp = [
-      { type: 'userEmile', message: '邮箱格式错误' },
+    const userLastNameRule: RulesProp = [{ type: 'userLastName', message: '名字格式错误' }];
+    const userFirstNameRule: RulesProp = [{ type: 'userfirstName', message: '名字格式错误' }];
+    const userEmileRule: RulesProp = [{ type: 'userEmile', message: '邮箱格式错误' }];
+    const affirmPasswordRule: RulesProp = [
+      { type: 'null', message: '确认密码不能为空' },
+      {
+        type: 'custom',
+        validator: () => {
+          return passwordVal.value === affirmPasswordVal.value;
+        },
+        message: '密码不相同',
+      },
     ];
 
     const onFormSubmit = (result: boolean) => {
       if (result) {
-        console.log('通过');
+        const userRegisterData = {
+          name: userNameVal.value,
+          password: passwordVal.value,
+        };
+        axios.post('/users', userRegisterData).then(() => {
+          createTooltip('注册成功 跳转到登陆页面', 'success', 2000);
+          setTimeout(() => {
+            router.push('/login');
+          }, 1000);
+        });
       } else {
         console.log('不通过');
       }
@@ -204,6 +238,8 @@ export default defineComponent({
       userFirstNameRule,
       userEmileVal,
       userEmileRule,
+      affirmPasswordVal,
+      affirmPasswordRule,
     };
   },
 });
@@ -211,4 +247,7 @@ export default defineComponent({
 
 <style>
 @import '../style/viewsStyle/register.css';
+label {
+  cursor: pointer;
+}
 </style>
