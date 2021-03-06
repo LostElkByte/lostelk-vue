@@ -40,7 +40,9 @@ export interface GloablDataProps {
   cardList: CardList[];
   user: GloablUserProps;
   token: string;
+  userLikes: CardList[];
 }
+
 
 export default createStore<GloablDataProps>({
 
@@ -49,7 +51,8 @@ export default createStore<GloablDataProps>({
     error: { status: false },
     cardList: [],
     user: { isLogin: false, id: localStorage.getItem('userId') || '' },
-    token: localStorage.getItem('token') || ''
+    token: localStorage.getItem('token') || '',
+    userLikes: [],
   },
 
   mutations: {
@@ -85,6 +88,7 @@ export default createStore<GloablDataProps>({
         isLogin: false,
         id: ''
       }
+      state.userLikes = []
     },
 
     /**
@@ -113,6 +117,13 @@ export default createStore<GloablDataProps>({
      */
     setError(state, e: GloablErrorProps) {
       state.error = e
+    },
+
+    /**
+     * 当前登陆用户点赞过的内容列表
+     */
+    getUserLikes(state, rawdata) {
+      state.userLikes = rawdata
     },
   },
 
@@ -170,6 +181,19 @@ export default createStore<GloablDataProps>({
         console.log(error);
       }
     },
+
+    /**
+     * 获得当前登陆用户赞过的内容列表
+     */
+    async getUserLikes(context, userId) {
+      try {
+        // return await axios.get(`/posts?user=${userId}&action=liked`)
+        const userLikes = await axios.get(`/posts?user=${userId}&action=liked`)
+        context.commit('getUserLikes', userLikes.data)
+      } catch (error) {
+        console.log(error);
+      }
+    }
   },
 
   modules: {
