@@ -20,6 +20,7 @@ export interface CardList {
   };
   tags?: unknown;
   totalLikes: number;
+  liked: number;
 }
 
 export interface GloablUserProps {
@@ -127,10 +128,6 @@ export default createStore<GloablDataProps>({
     },
   },
 
-  getters: {
-
-  },
-
   actions: {
 
     /**
@@ -187,13 +184,19 @@ export default createStore<GloablDataProps>({
      */
     async getUserLikes(context, userId) {
       try {
-        // return await axios.get(`/posts?user=${userId}&action=liked`)
-        const userLikes = await axios.get(`/posts?user=${userId}&action=liked`)
-        context.commit('getUserLikes', userLikes.data)
+        if (context.state.user.isLogin) {
+          const userLikes = await axios.get(`/posts?user=${userId}&action=liked`)
+          context.commit('getUserLikes', userLikes.data);
+        }
       } catch (error) {
         console.log(error);
       }
     }
+  },
+
+
+  getters: {
+
   },
 
   modules: {

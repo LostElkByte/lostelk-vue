@@ -1,6 +1,6 @@
 <template>
   <!-- <teleport to="#tooltipDom"> -->
-  <div class="tooltip" :class="classObject" v-if="isVisible">
+  <div class="tooltip" :class="classObject" v-if="isVisible" ref="tooltip">
     <span>{{ message }}</span>
     <span @click="hide">×</span>
   </div>
@@ -21,6 +21,7 @@ export default defineComponent({
   },
   setup(props) {
     const isVisible = ref(true);
+    const tooltip = ref();
 
     const classObject = {
       success: props.type === 'success',
@@ -28,12 +29,14 @@ export default defineComponent({
     };
     const hide = () => {
       isVisible.value = false;
+      tooltip.value.parentNode.parentNode.removeChild(tooltip.value.parentNode);
     };
 
     return {
       isVisible,
       classObject,
       hide,
+      tooltip,
     };
   },
 });

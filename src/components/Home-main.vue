@@ -28,12 +28,7 @@
             </div>
           </div>
           <div class="card-abstract-right">
-            <div>
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-xihuan"></use>
-              </svg>
-              <span>{{ card.totalLikes }}</span>
-            </div>
+            <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
             <div>
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-pinglun"></use>
@@ -51,10 +46,13 @@
 import { computed, defineComponent, PropType } from 'vue';
 import { lostelkUrl } from '../global';
 import { CardList } from '../store';
-// import { axios } from '../service/service';
+import Likes from '../components/Likes';
 
 export default defineComponent({
   name: 'HomeMain',
+  components: {
+    Likes,
+  },
   props: {
     list: {
       type: Array as PropType<CardList[]>,
@@ -80,15 +78,10 @@ export default defineComponent({
       });
     });
 
-    // const giveLike = (id: number) => {
-    //   axios.post(`/posts/${id}/like`);
-    // };
-    //  @click="giveLike(card.id)"
-
     return {
       lostelkUrl,
       cardList,
-      // giveLike,
+      Likes,
     };
   },
 });

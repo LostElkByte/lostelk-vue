@@ -100,10 +100,13 @@ export default defineComponent({
           name: userNameVal.value,
           password: passwordVal.value,
         };
-
+        // 登陆并且获取用户信息
         store.dispatch('loginAndGetCurrentUser', userLoginData).then(() => {
+          // 如果已经登陆成功则重新加载内容列表 并且跳转到主页
           if (store.state.user.isLogin) {
-            router.push('/');
+            store.dispatch('getCardList').then(() => {
+              router.push('/');
+            });
           }
         });
       } else {

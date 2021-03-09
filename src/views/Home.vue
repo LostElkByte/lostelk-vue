@@ -22,6 +22,7 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+
     onMounted(() => {
       store.dispatch('getCardList');
     });
