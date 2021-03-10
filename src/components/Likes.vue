@@ -28,6 +28,7 @@ export default defineComponent({
     const isLiked = ref(props.isLike);
 
     const giveLike = () => {
+      store.commit('setIsShowLoading', false);
       if (!isLiked.value) {
         axios.post(`/posts/${props.cardId}/like`).then(() => {
           store.state.cardList.forEach(item => {

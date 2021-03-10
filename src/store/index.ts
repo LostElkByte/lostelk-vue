@@ -42,6 +42,7 @@ export interface GloablDataProps {
   user: GloablUserProps;
   token: string;
   userLikes: CardList[];
+  isShowLoading: boolean;
 }
 
 
@@ -54,6 +55,7 @@ export default createStore<GloablDataProps>({
     user: { isLogin: false, id: localStorage.getItem('userId') || '' },
     token: localStorage.getItem('token') || '',
     userLikes: [],
+    isShowLoading: true
   },
 
   mutations: {
@@ -126,6 +128,13 @@ export default createStore<GloablDataProps>({
     getUserLikes(state, rawdata) {
       state.userLikes = rawdata
     },
+
+    /**
+     * 修改isShowLoading状态
+     */
+    setIsShowLoading(state, rawdata) {
+      state.isShowLoading = rawdata
+    }
   },
 
   actions: {

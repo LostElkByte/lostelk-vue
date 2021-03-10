@@ -8,7 +8,11 @@ axios.defaults.baseURL = 'https://ovoiii.com';
 
 // 拦截器 
 axios.interceptors.request.use(config => {
-  store.commit('setLoading', true)
+  if (store.state.isShowLoading) {
+    store.commit('setLoading', true)
+  } else {
+    store.commit('setIsShowLoading', true);
+  }
   store.commit('setError', { status: false, message: '' })
   return config;
 });
