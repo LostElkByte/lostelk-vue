@@ -10,10 +10,12 @@
             : 'home-page_main_cards_item home-page_main_cards_item-big'
         "
       >
-        <img
-          :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
-          :alt="card.title"
-        />
+        <div class="home-page_main_cards_img">
+          <img
+            :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
+            :alt="card.title"
+          />
+        </div>
         <div class="card-abstract">
           <div class="card_abstract-left">
             <img v-if="card.user.avatar" class="card-avatar-32" :src="card.user.url" :alt="card.user.name" />
