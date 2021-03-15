@@ -33,7 +33,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { useStore } from 'vuex';
-import DropDownList from './Drop-down-list.vue';
+import DropDownList from './drop-down-list.vue';
 export interface UserMode {
   isLogin: boolean;
   name?: string;

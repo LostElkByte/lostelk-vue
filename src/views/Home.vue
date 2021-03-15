@@ -9,8 +9,8 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
-import Header from '../components/Header.vue';
-import Sidebar from '../components/Sidebar.vue';
+import Header from '../components/header.vue';
+import Sidebar from '../components/sidebar.vue';
 import HomeMain from '../components/Home-main.vue';
 
 export default defineComponent({
