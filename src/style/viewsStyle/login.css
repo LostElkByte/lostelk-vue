@@ -12,6 +12,7 @@
   padding: 12px;
   justify-content: center;
   flex-direction: column;
+  max-width: 488px;
 }
 
 .login-logo {
