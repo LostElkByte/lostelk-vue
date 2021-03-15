@@ -35,8 +35,8 @@
 import { computed, defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
-import Header from '../components/Header.vue';
-import Sidebar from '../components/Sidebar.vue';
+import Header from '../components/header.vue';
+import Sidebar from '../components/sidebar.vue';
 import ValidateForm from '../components/ValidateForm.vue';
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
 
