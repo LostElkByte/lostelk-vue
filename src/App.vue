@@ -8,7 +8,7 @@ import { computed, defineComponent, watch } from 'vue';
 import { useStore } from 'vuex';
 import './style/globalStyle/font/iconfont';
 import Loading from './components/Loading.vue';
-import createTooltip from './components/createTooltip.ts';
+import createTooltip from './components/createTooltip';
 
 export default defineComponent({
   name: 'App',
@@ -32,7 +32,7 @@ export default defineComponent({
       () => {
         const { status, message } = error.value;
         if (status && message) {
-          createTooltip(message, 'error');
+          createTooltip(message, 'error', null);
         }
       },
     );

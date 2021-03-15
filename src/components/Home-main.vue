@@ -48,7 +48,7 @@
 import { computed, defineComponent, PropType } from 'vue';
 import { lostelkUrl } from '../global';
 import { CardList } from '../store';
-import Likes from '../components/Likes';
+import Likes from '../components/Likes.vue';
 
 export default defineComponent({
   name: 'HomeMain',
