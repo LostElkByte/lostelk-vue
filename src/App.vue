@@ -1,10 +1,10 @@
 <template>
   <Loading v-if="isLoading">等待....</Loading>
-  <router-view></router-view>
+  <router-view :cardColumn="cardColumn"></router-view>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, watch } from 'vue';
+import { computed, defineComponent, watch, ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import './style/globalStyle/font/iconfont';
 import Loading from './components/Loading.vue';
@@ -37,9 +37,38 @@ export default defineComponent({
       },
     );
 
+    /**
+     * 实时动态获取浏览器窗口大小,定义主内容区列数
+     */
+    const cardColumn = ref(3);
+    function resize() {
+      if (document.documentElement.clientWidth >= 990) {
+        cardColumn.value = 3;
+      } else if (document.documentElement.clientWidth >= 767) {
+        cardColumn.value = 2;
+      } else if (document.documentElement.clientWidth < 767) {
+        cardColumn.value = 1;
+      }
+    }
+    window.onresize = resize;
+
+    /**
+     * 初始化时获取浏览器窗口大小
+     */
+    onMounted(() => {
+      if (document.documentElement.clientWidth >= 990) {
+        cardColumn.value = 3;
+      } else if (document.documentElement.clientWidth >= 767) {
+        cardColumn.value = 2;
+      } else if (document.documentElement.clientWidth < 767) {
+        cardColumn.value = 1;
+      }
+    });
+
     return {
       isLoading,
       error,
+      cardColumn,
     };
   },
 });

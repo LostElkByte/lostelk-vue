@@ -21,9 +21,8 @@ a {
 body {
   background-color: #fff;
   color: #222;
-  font-family: -apple-system, BlinkMacSystemFont, 'San Francisco',
-    'Helvetica Neue', Helvetica, Ubuntu, Roboto, Noto, 'Segoe UI', Arial,
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Ubuntu, Roboto, Noto,
+    'Segoe UI', Arial, sans-serif;
   font-size: 15px;
 }
 
@@ -51,4 +50,8 @@ input {
 }
 .clearfix {
   *zoom: 1;
+}
+
+* {
+  box-sizing: border-box;
 }

@@ -1,26 +1,35 @@
 <template>
   <div class="home-page">
     <Header :user="loginJudge"></Header>
-    <HomeMain :list="list"></HomeMain>
+    <Home-main-min-990 v-if="cardColumnSize === 3" :list="list"></Home-main-min-990>
+    <Home-main-max-990 v-else-if="cardColumnSize === 2" :list="list"></Home-main-max-990>
+    <Home-main-max-767 v-else-if="cardColumnSize === 1" :list="list"></Home-main-max-767>
     <Sidebar></Sidebar>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted } from 'vue';
 import { useStore } from 'vuex';
-import Header from '../components/header.vue';
-import Sidebar from '../components/sidebar.vue';
-import HomeMain from '../components/Home-main.vue';
+import Header from '../components/Header.vue';
+import Sidebar from '../components/Sidebar.vue';
+import HomeMainMin990 from '../components/Home-main-min990.vue';
+import HomeMainMax990 from '../components/Home-main-max990.vue';
+import HomeMainMax767 from '../components/Home-main-max767.vue';
 
 export default defineComponent({
   name: 'Home',
   components: {
     Header,
     Sidebar,
-    HomeMain,
+    HomeMainMin990,
+    HomeMainMax990,
+    HomeMainMax767,
   },
-  setup() {
+  props: {
+    cardColumn: Number,
+  },
+  setup(props) {
     const store = useStore();
 
     onMounted(() => {
@@ -33,22 +42,12 @@ export default defineComponent({
       return store.state.user;
     });
 
-    const ceshi = ref(1);
-    function resize() {
-      if (document.documentElement.clientWidth > 990) {
-        ceshi.value = 0;
-      } else if (document.documentElement.clientWidth > 767) {
-        ceshi.value = 1;
-      } else if (document.documentElement.clientWidth < 767) {
-        ceshi.value = 2;
-      }
-    }
-    window.onresize = resize;
+    const cardColumnSize = computed(() => props.cardColumn);
 
     return {
       list,
       loginJudge,
-      ceshi,
+      cardColumnSize,
     };
   },
 });
@@ -56,5 +55,5 @@ export default defineComponent({
 
 <style>
 @import '../style/globalStyle/layout.css';
-@import '../style/viewsStyle/home.css';
+@import '../style/viewsStyle/home-reconsitution.css';
 </style>

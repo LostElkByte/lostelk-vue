@@ -20,7 +20,10 @@ import store from '../store';
 export default defineComponent({
   props: {
     isLike: Number,
-    likeCount: Number,
+    likeCount: {
+      type: Number,
+      required: true,
+    },
     cardId: Number,
   },
   setup(props) {

@@ -1,0 +1,99 @@
+<template>
+  <div class="home-page_main">
+    <div class="main_center">
+      <div class="home-page_main_cards">
+        <div class="cardColumn">
+          <div class="home-page_main_cards_item" v-for="card in cardList" :key="card.id">
+            <div class="max767-top">
+              <div class="max767-top-content">
+                <div class="card-abstract-avatar">
+                  <img v-if="card.user.avatar" class="card-avatar-32" :src="card.user.url" :alt="card.user.name" />
+                  <div v-else class="card-avatar-32">
+                    <svg class="card-avatar-32" aria-hidden="true">
+                      <use xlink:href="#icon-weidenglu"></use>
+                    </svg>
+                  </div>
+                </div>
+                <div class="card-abstract-author">
+                  <span>{{ card.title }}</span>
+                  <span>{{ card.user.name }}</span>
+                </div>
+              </div>
+            </div>
+            <img
+              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
+              :alt="card.title"
+            />
+            <div class="max767-bottom">
+              <div class="max767-bottom-left">
+                <button class="card-button-max767">
+                  <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
+                </button>
+                <button class="card-button-max767">
+                  <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-pinglun"></use>
+                  </svg>
+                  <span>32</span>
+                </button>
+              </div>
+              <div class="max767-bottom-right">
+                <button class="card-button-max767 card-button-max767-download">
+                  Download
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { computed, defineComponent, PropType } from 'vue';
+import { lostelkUrl } from '../global';
+import { CardList } from '../store';
+import Likes from '../components/Likes.vue';
+
+export default defineComponent({
+  name: 'HomeMainMax990',
+  components: {
+    Likes,
+  },
+  props: {
+    list: {
+      type: Array as PropType<CardList[]>,
+      required: true,
+    },
+  },
+  setup(props) {
+    const cardList = computed(() => {
+      return props.list.map(card => {
+        // 如果图片不存在 则添加默认图片
+        if (!card.file) {
+          card.file = {
+            width: 300,
+            height: 200,
+            fakeUrl: require('@/assets/images/content2.jpeg'),
+          };
+        }
+        // 如果头像存在设置url
+        if (card.user.avatar) {
+          card.user.url = `${lostelkUrl}/users/${card.user.id}/avatar?size=small`;
+        }
+        return card;
+      });
+    });
+
+    return {
+      lostelkUrl,
+      cardList,
+      Likes,
+    };
+  },
+});
+</script>
+
+<style>
+@import '../style/componentsStyle/home-page-main-reconsitution.css';
+</style>
