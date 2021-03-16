@@ -272,8 +272,10 @@
 
 .card-button-max767:hover {
   color: #000;
-  border: 1px solid #222;
   transition: all 0.2s ease-in-out;
+  background: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .max767-bottom-left .card-button-max767:nth-child(1) {
