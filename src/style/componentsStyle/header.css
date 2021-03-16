@@ -2,13 +2,14 @@
   background-color: #fff;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 32px;
 
   position: sticky;
   top: 0;
   box-sizing: border-box;
   z-index: 9999;
+  width: 100%;
 }
 
 .header_toolbar_item_size-24 {
@@ -45,5 +46,34 @@
   display: block;
   height: 100%;
   width: 100%;
-  font-weight: 500
+  font-weight: 500;
+}
+
+.header-title {
+  float: left;
+  margin-right: 20px;
+  width: 150px;
+  overflow: hidden;
+}
+.header-title span {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+}
+.header-title span:nth-child(2) {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.header-left {
+  display: flex;
+  justify-content: flex-start;
+  flex: 1;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .header-title {
+    display: none;
+  }
 }

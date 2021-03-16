@@ -1,5 +1,14 @@
 <template>
   <div class="header">
+    <div class="header-left">
+      <div class="header-title">
+        <span>LostElk</span>
+        <span>
+          Photos for everyone
+        </span>
+      </div>
+      <HeaderSearch></HeaderSearch>
+    </div>
     <div class="header_toolbar">
       <div v-if="!user.isLogin">
         <div class="header_loginRegister_item">
@@ -34,6 +43,7 @@
 import { defineComponent, PropType } from 'vue';
 import { useStore } from 'vuex';
 import DropDownList from './Drop-down-list.vue';
+import HeaderSearch from './Header-search.vue';
 export interface UserMode {
   isLogin: boolean;
   name?: string;
@@ -44,6 +54,7 @@ export default defineComponent({
   name: 'Header',
   components: {
     DropDownList,
+    HeaderSearch,
   },
   props: {
     user: {
