@@ -11,11 +11,11 @@
           </div>
           <form class="main-search-box">
             <label class="main-search-button" for="main-search">
-              <a href="#" class="search-button-32">
+              <div class="search-button-32">
                 <svg class="icon icon-size-fill" aria-hidden="true">
                   <use xlink:href="#icon-sousuo"></use>
                 </svg>
-              </a>
+              </div>
             </label>
             <input type="text" id="main-search" placeholder="search photos" />
           </form>
