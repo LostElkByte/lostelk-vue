@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2076193",
+      "name": "喜欢2",
+      "font_class": "xihuan2",
+      "unicode": "e86f",
+      "unicode_decimal": 59503
+    },
+    {
+      "icon_id": "3216594",
+      "name": "喜欢",
+      "font_class": "xihuan3",
+      "unicode": "e687",
+      "unicode_decimal": 59015
+    },
+    {
+      "icon_id": "5286705",
+      "name": "下载",
+      "font_class": "xiazai",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "7537768",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e78b",
+      "unicode_decimal": 59275
+    },
+    {
       "icon_id": "11623077",
       "name": "未登录",
       "font_class": "weidenglu",

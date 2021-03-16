@@ -1,10 +1,10 @@
 .home-page_main {
   background-color: #fff;
-  padding: 32px;
-  margin: 0 auto;
 }
 .main_center {
   max-width: 1320px;
+  padding: 32px;
+  margin: 0 auto;
 }
 
 .home-page_main_cards {

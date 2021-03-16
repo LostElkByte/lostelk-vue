@@ -1,5 +1,6 @@
 <template>
   <div class="home-page_main">
+    <MainSearch></MainSearch>
     <div class="main_center">
       <div class="home-page_main_cards">
         <div class="cardColumn">
@@ -138,11 +139,13 @@ import { computed, defineComponent, PropType } from 'vue';
 import { lostelkUrl } from '../global';
 import { CardList } from '../store';
 import Likes from '../components/Likes.vue';
+import MainSearch from '../components/Main-search.vue';
 
 export default defineComponent({
   name: 'HomeMainMin990',
   components: {
     Likes,
+    MainSearch,
   },
   props: {
     list: {
