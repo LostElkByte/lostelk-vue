@@ -27,8 +27,8 @@
               </span>
             </template>
             <template v-slot:dropdown-content>
-              <a href="#">登陆</a>
-              <a href="#">注册</a>
+              <router-link to="/Login">登陆</router-link>
+              <router-link to="/Reglister">注册</router-link>
             </template>
           </DropDownList>
         </div>

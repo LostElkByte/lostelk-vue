@@ -4,7 +4,9 @@
       <div class="registrations-left-panel">
         <div class="registrations__content">
           <div>
-            <img class="registrations__logo" src="../assets/icons/logoWhite.png" alt="" />
+            <router-link to="/">
+              <img class="registrations__logo" src="../assets/icons/logoWhite.png" alt="" />
+            </router-link>
           </div>
           <div>
             <h1 class="registrations__title">创作从这里开始</h1>
