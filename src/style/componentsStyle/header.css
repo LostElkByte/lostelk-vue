@@ -18,8 +18,7 @@
 }
 
 .header_toolbar div {
-  display: flex;
-  flex-direction: row;
+  float: left;
 }
 
 .header_toolbar_item {
@@ -32,11 +31,11 @@
 }
 
 .header_loginRegister_item {
-  height: 40px;
-  width: 112px;
+  height: 36px;
+  width: 100px;
   border: 1px solid #222;
   margin-left: 24px;
-  line-height: 40px;
+  line-height: 36px;
   text-align: center;
   border-radius: 4px;
   background-color: #fff;
@@ -70,6 +69,19 @@
   justify-content: flex-start;
   flex: 1;
   align-items: center;
+}
+
+.w1024 {
+  display: none;
+}
+
+@media (max-width: 1060px) {
+  .header_loginRegister_item {
+    display: none;
+  }
+  .w1024 {
+    display: block;
+  }
 }
 
 @media (max-width: 767px) {

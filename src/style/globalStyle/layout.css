@@ -135,24 +135,6 @@
   height: 100%;
 }
 
-.header_loginRegister_item {
-  height: 40px;
-  width: 112px;
-  border: 1px solid #222;
-  margin-left: 24px;
-  line-height: 40px;
-  text-align: center;
-  border-radius: 4px;
-  background-color: #fff;
-}
-
-.header_loginRegister_item > a {
-  display: block;
-  height: 100%;
-  width: 100%;
-  font-weight: 500;
-}
-
 /* 主体默认布局 */
 .main {
   background-color: #fff;

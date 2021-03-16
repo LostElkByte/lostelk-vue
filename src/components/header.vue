@@ -17,16 +17,31 @@
         <div class="header_loginRegister_item">
           <router-link to="/Reglister">注册</router-link>
         </div>
+        <div class="w1024">
+          <DropDownList>
+            <template v-slot:dropdown>
+              <span href="#" class="dropbtn">
+                <svg class="icon icon-size-fill" aria-hidden="true">
+                  <use xlink:href="#icon-celanliebiaogengduo"></use>
+                </svg>
+              </span>
+            </template>
+            <template v-slot:dropdown-content>
+              <a href="#">登陆</a>
+              <a href="#">注册</a>
+            </template>
+          </DropDownList>
+        </div>
       </div>
 
       <div v-else>
         <DropDownList>
           <template v-slot:dropdown>
-            <a href="#" class="dropbtn">
+            <span href="#" class="dropbtn">
               <svg class="icon icon-size-fill" aria-hidden="true">
                 <use xlink:href="#icon-celanliebiaogengduo"></use>
               </svg>
-            </a>
+            </span>
           </template>
           <template v-slot:dropdown-content>
             <a href="#">个人主页</a>
