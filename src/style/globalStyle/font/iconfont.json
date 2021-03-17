@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "8720455",
+      "name": "哭，404",
+      "font_class": "ku",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "19167521",
+      "name": "无照片",
+      "font_class": "wuzhaopian",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
       "icon_id": "2076193",
       "name": "喜欢2",
       "font_class": "xihuan2",

@@ -1,8 +1,8 @@
 <template>
   <div class="home-page_main">
-    <MainSearch></MainSearch>
+    <MainSearch v-if="!searchfailure"></MainSearch>
     <div class="main_center">
-      <div class="home-page_main_cards">
+      <div class="home-page_main_cards" v-if="!searchfailure">
         <div class="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardList" :key="card.id">
             <div class="max767-top">
@@ -46,6 +46,7 @@
           </div>
         </div>
       </div>
+      <SearchFailure v-else></SearchFailure>
     </div>
   </div>
 </template>
@@ -53,15 +54,17 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
 import { lostelkUrl } from '../global';
-import { CardList } from '../store';
+import store, { CardList } from '../store';
 import Likes from '../components/Likes.vue';
-import MainSearch from '../components/Main-search.vue';
+import MainSearch from '../components/Main-search-bar.vue';
+import SearchFailure from '../components/Search-failure.vue';
 
 export default defineComponent({
   name: 'HomeMainMax990',
   components: {
     Likes,
     MainSearch,
+    SearchFailure,
   },
   props: {
     list: {
@@ -88,10 +91,16 @@ export default defineComponent({
       });
     });
 
+    /**
+     * 获得搜索状态
+     */
+    const searchfailure = computed(() => store.state.searchFailure);
+
     return {
       lostelkUrl,
       cardList,
       Likes,
+      searchfailure,
     };
   },
 });

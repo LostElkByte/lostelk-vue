@@ -9,7 +9,7 @@
             <h1>The internet’s source of freely-usable images.</h1>
             <p>Powered by creators everywhere.</p>
           </div>
-          <form class="main-search-box">
+          <div class="main-search-box">
             <label class="main-search-button" for="main-search">
               <div class="search-button-32">
                 <svg class="icon icon-size-fill" aria-hidden="true">
@@ -17,8 +17,14 @@
                 </svg>
               </div>
             </label>
-            <input type="text" id="main-search" placeholder="search photos" />
-          </form>
+            <input
+              type="text"
+              id="main-search"
+              placeholder="search photos"
+              v-model.trim="tagVal"
+              @keyup.enter="search"
+            />
+          </div>
         </div>
       </div>
       <div class="search-buttom">
@@ -31,8 +37,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-export default defineComponent({});
+import { defineComponent, ref } from 'vue';
+import store from '../store';
+export default defineComponent({
+  setup() {
+    const tagVal = ref();
+    const search = () => {
+      if (tagVal.value) {
+        store.dispatch('getTagCardList', tagVal.value).then(() => {
+          if (store.state.cardList.length === 0) {
+            store.commit('setSearchFailure', true);
+          } else {
+            store.commit('setSearchFailure', false);
+          }
+        });
+      }
+    };
+    return {
+      search,
+      tagVal,
+    };
+  },
+});
 </script>
 
 <style>
