@@ -53,6 +53,7 @@
   margin-right: 20px;
   width: 150px;
   overflow: hidden;
+  cursor: pointer;
 }
 .header-title span {
   display: block;

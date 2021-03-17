@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="header-left">
-      <div class="header-title">
+      <div class="header-title" @click="goBack">
         <span>LostElk</span>
         <span>
           Photos for everyone
@@ -57,6 +57,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { useStore } from 'vuex';
+import router from '../router';
 import DropDownList from './Drop-down-list.vue';
 import HeaderSearch from './Header-search.vue';
 export interface UserMode {
@@ -82,8 +83,20 @@ export default defineComponent({
     const logout = () => {
       store.commit('logout');
     };
+
+    /**
+     * 重新加载全部照片并回到首页
+     */
+    const goBack = () => {
+      store.dispatch('getCardList').then(() => {
+        router.push('/');
+        store.commit('setSearchFailure', false);
+      });
+    };
+
     return {
       logout,
+      goBack,
     };
   },
 });

@@ -13,6 +13,7 @@
 
 .sidebar_toolbar_item {
   margin-bottom: 64px;
+  cursor: pointer;
 }
 
 .sidebar_toolbar_logo_item {
