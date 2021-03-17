@@ -38,9 +38,11 @@
                 </button>
               </div>
               <div class="max767-bottom-right">
-                <button class="card-button-max767 card-button-max767-download">
-                  Download
-                </button>
+                <DownloadFile :fileId="card.file.id">
+                  <button class="card-button-max767 card-button-max767-download">
+                    Download
+                  </button>
+                </DownloadFile>
               </div>
             </div>
           </div>
@@ -58,6 +60,7 @@ import store, { CardList } from '../store';
 import Likes from '../components/Likes.vue';
 import MainSearch from '../components/Main-search-bar.vue';
 import SearchFailure from '../components/Search-failure.vue';
+import DownloadFile from '../components/DownloadFile.vue';
 
 export default defineComponent({
   name: 'HomeMainMax990',
@@ -65,6 +68,7 @@ export default defineComponent({
     Likes,
     MainSearch,
     SearchFailure,
+    DownloadFile,
   },
   props: {
     list: {

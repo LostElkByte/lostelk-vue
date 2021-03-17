@@ -78,6 +78,10 @@
   cursor: pointer;
   outline: 0;
 }
+.card-button-xiazai {
+  font-size: 18px;
+  font-weight: 700;
+}
 .card-button:hover {
   color: #000;
   transition: all 0.2s ease-in-out;

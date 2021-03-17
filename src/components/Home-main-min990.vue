@@ -37,9 +37,13 @@
                   </div>
                 </div>
                 <div class="xiazai">
-                  <button class="card-button">
-                    download
-                  </button>
+                  <DownloadFile :fileId="card.file.id">
+                    <button class="card-button card-button-xiazai">
+                      <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-icon-arrow-btm4"></use>
+                      </svg>
+                    </button>
+                  </DownloadFile>
                 </div>
               </div>
             </div>
@@ -79,9 +83,13 @@
                   </div>
                 </div>
                 <div class="xiazai">
-                  <button class="card-button">
-                    download
-                  </button>
+                  <DownloadFile :fileId="card.file.id">
+                    <button class="card-button card-button-xiazai">
+                      <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-icon-arrow-btm4"></use>
+                      </svg>
+                    </button>
+                  </DownloadFile>
                 </div>
               </div>
             </div>
@@ -121,9 +129,13 @@
                   </div>
                 </div>
                 <div class="xiazai">
-                  <button class="card-button">
-                    download
-                  </button>
+                  <DownloadFile :fileId="card.file.id">
+                    <button class="card-button card-button-xiazai">
+                      <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#icon-icon-arrow-btm4"></use>
+                      </svg>
+                    </button>
+                  </DownloadFile>
                 </div>
               </div>
             </div>
@@ -142,6 +154,7 @@ import store, { CardList } from '../store';
 import Likes from '../components/Likes.vue';
 import MainSearch from '../components/Main-search-bar.vue';
 import SearchFailure from '../components/Search-failure.vue';
+import DownloadFile from '../components/DownloadFile.vue';
 
 export default defineComponent({
   name: 'HomeMainMin990',
@@ -149,6 +162,7 @@ export default defineComponent({
     Likes,
     MainSearch,
     SearchFailure,
+    DownloadFile,
   },
   props: {
     list: {

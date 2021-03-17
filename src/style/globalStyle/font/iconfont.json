@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "730813",
+      "name": "下",
+      "font_class": "icon-arrow-btm4",
+      "unicode": "e67a",
+      "unicode_decimal": 59002
+    },
+    {
+      "icon_id": "20384965",
+      "name": "calendar-arrow-right",
+      "font_class": "calendar-arrow-right",
+      "unicode": "eca5",
+      "unicode_decimal": 60581
+    },
+    {
+      "icon_id": "20384968",
+      "name": "arrowdown",
+      "font_class": "arrowdown",
+      "unicode": "eca6",
+      "unicode_decimal": 60582
+    },
+    {
+      "icon_id": "20384985",
+      "name": "calendar-arrow-left",
+      "font_class": "calendar-arrow-left",
+      "unicode": "eca7",
+      "unicode_decimal": 60583
+    },
+    {
       "icon_id": "8720455",
       "name": "哭，404",
       "font_class": "ku",
