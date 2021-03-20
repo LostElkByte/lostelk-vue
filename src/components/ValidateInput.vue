@@ -1,6 +1,6 @@
 <template>
   <div class="inputParent">
-    <input v-if="tag !== 'textarea'" :value="inputRef.val" @blur="validateInput" @input="updateValue" v-bind="$attrs" />
+    <input v-if="tag !== 'textarea'" :value="val" @blur="validateInput" @input="updateValue" v-bind="$attrs" />
     <textarea v-else :value="inputRef.val" @blur="validateInput" @input="updateValue" v-bind="$attrs" />
 
     <span class="form-error" v-if="inputRef.error">
@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, reactive } from 'vue';
+import { computed, defineComponent, onMounted, PropType, reactive } from 'vue';
 // 导入已经建立好的mitt事件监听器
 import { emitter } from './ValidateForm.vue';
 
@@ -62,9 +62,11 @@ export default defineComponent({
   inheritAttrs: false,
 
   setup(props, context) {
+    // 计算属性接收props的val
+    const val = computed(() => (props.modelValue ? props.modelValue : ''));
     const inputRef = reactive({
       // 表单input初始值 为 传入的 modelValue 没有即为 空
-      val: props.modelValue || '',
+      val: val.value || '',
       // 错误提示判断 默认false
       error: false,
       // 错误提示内容 默认空
@@ -156,6 +158,7 @@ export default defineComponent({
       inputRef,
       validateInput,
       updateValue,
+      val,
     };
   },
 });

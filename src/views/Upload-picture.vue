@@ -25,8 +25,9 @@
             id="file"
             v-model="pictureVal"
             :rules="pictureRule"
-            accept="image/gif,image/jpeg,image/x-png,image/jpg"
+            accept="image/jpeg,image/x-png,image/jpg"
             @change="onChangeFile"
+            ref="fileElement"
           />
         </div>
 
@@ -43,9 +44,11 @@
 </template>
 
 <script lang="ts">
+import axios from 'axios';
 import { computed, defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import createTooltip from '../components/createTooltip';
 import Header from '../components/Header.vue';
 import Sidebar from '../components/Sidebar.vue';
 import ValidateForm from '../components/ValidateForm.vue';
@@ -82,17 +85,6 @@ export default defineComponent({
     const pictureRule: RulesProp = [{ type: 'null', message: '请上传一张照片' }];
 
     /**
-     * 表单提交
-     */
-    const onFormSubmit = (result: boolean) => {
-      if (result) {
-        router.push('/');
-      } else {
-        console.log('不通过');
-      }
-    };
-
-    /**
      * 使用FileReader 预览图像
      */
     const imagePreviewUrl = ref();
@@ -108,13 +100,90 @@ export default defineComponent({
 
     /**
      * change事件处理器
+     * 选择文件用的文件字段
      */
+
+    const fileMessage = ref();
     const onChangeFile = (event: Event) => {
       const currenTarget = event.target as HTMLInputElement;
 
       if (currenTarget.files) {
         const file = currenTarget.files[0];
+
+        fileMessage.value = file;
         createImagePreview(file);
+      }
+    };
+
+    /**
+     * 请求上传文件
+     */
+    const fileElement = ref();
+    const careateFile = async (file: Blob, postId: number) => {
+      try {
+        // 创建表单
+        const formData = new FormData();
+
+        // 添加字段
+        formData.append('file', file);
+
+        // 上传文件
+        await axios.post(`/files?post=${postId}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
+        // 清理
+        fileMessage.value = null;
+        imagePreviewUrl.value = null;
+        fileElement.value = '';
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    /**
+     * 请求上传标签
+     */
+    const createTag = async (postId: number) => {
+      try {
+        await axios.post(`/posts/${postId}/tag`, { name: tagVal.value });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    /**
+     * 请求上传内容
+     */
+    const createPost = async () => {
+      try {
+        const response = await axios.post('/posts', { title: headlineVal.value, content: describeVal.value });
+        if (tagVal.value != '') {
+          createTag(response.data.insertId);
+        }
+        if (fileMessage.value) {
+          await careateFile(fileMessage.value, response.data.insertId);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    /**
+     * 表单提交
+     */
+    const onFormSubmit = async (result: boolean) => {
+      if (result) {
+        await createPost();
+        headlineVal.value = '';
+        describeVal.value = '';
+        tagVal.value = '';
+        await createTooltip('上传成功', 'success', 3000);
+        await router.push('/');
+      } else {
+        console.log('不通过');
       }
     };
 
@@ -138,6 +207,8 @@ export default defineComponent({
       pictureVal,
       onChangeFile,
       imagePreviewUrl,
+      fileMessage,
+      fileElement,
     };
   },
 });
