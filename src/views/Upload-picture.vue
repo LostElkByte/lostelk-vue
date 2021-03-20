@@ -13,7 +13,8 @@
         <div class="picture">
           <div class="picture-style">
             <label for="file">
-              <svg class="icon icon-size-32 icon-size-fill" aria-hidden="true">
+              <img v-if="imagePreviewUrl" class="image-preview" :src="imagePreviewUrl" alt="" />
+              <svg v-else class="icon icon-size-32 icon-size-fill" aria-hidden="true">
                 <use xlink:href="#icon-tubiaolunkuo-"></use>
               </svg>
             </label>
@@ -92,6 +93,20 @@ export default defineComponent({
     };
 
     /**
+     * 使用FileReader 预览图像
+     */
+    const imagePreviewUrl = ref();
+    const createImagePreview = (file: Blob) => {
+      const reader = new FileReader();
+
+      reader.readAsDataURL(file);
+
+      reader.onload = event => {
+        imagePreviewUrl.value = event.target?.result;
+      };
+    };
+
+    /**
      * change事件处理器
      */
     const onChangeFile = (event: Event) => {
@@ -99,6 +114,7 @@ export default defineComponent({
 
       if (currenTarget.files) {
         const file = currenTarget.files[0];
+        createImagePreview(file);
       }
     };
 
@@ -121,6 +137,7 @@ export default defineComponent({
       loginJudge,
       pictureVal,
       onChangeFile,
+      imagePreviewUrl,
     };
   },
 });
