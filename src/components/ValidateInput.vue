@@ -21,10 +21,11 @@ const userNameReg = /^[-_a-zA-Z0-9\u4E00-\u9FA5]{1,12}$/;
 const passwordReg = /^.{6,16}$/;
 const userFirstNameReg = /^[a-zA-Z\u4E00-\u9FA5]{0,14}$/;
 const userLastNameReg = /^[a-zA-Z\u4E00-\u9FA5]{0,4}$/;
+const TagReg = /^[a-zA-Z\u4E00-\u9FA5]{0,10}$/;
 const userEmileReg = /^$|^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/;
-const headlineMaximumReg = /^.{1,10}$/;
+const headlineMaximumReg = /^.{1,15}$/;
 const describeMaximumReg = /^.{1,25}$/;
-const tagMaximumReg = /^.{0,5}$/;
+const tagMaximumReg = /^.{0,10}$/;
 // 声明 验证规则 RulesProp 接口类型
 interface RuleProp {
   type:
@@ -38,6 +39,7 @@ interface RuleProp {
     | 'describeMaximum'
     | 'tagMaximum'
     | 'fileNull'
+    | 'tag'
     | 'custom';
   message: string;
   validator?: () => boolean;
@@ -112,6 +114,9 @@ export default defineComponent({
               break;
             case 'fileNull':
               passed = Object.keys(fileIsNull.value).length !== 0;
+              break;
+            case 'tag':
+              passed = TagReg.test(inputRef.val);
               break;
             case 'userName':
               passed = userNameReg.test(inputRef.val);
