@@ -370,7 +370,7 @@
   }
   .upload-picture_main form {
     grid-template-columns: 300px 1fr;
-    grid-template-rows: 203px 250px 1fr;
+    grid-template-rows: 203px 265px 1fr;
     grid-template-areas:
       'picture picture'
       'content content'
