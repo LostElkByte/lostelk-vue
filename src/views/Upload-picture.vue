@@ -17,6 +17,17 @@
               <svg v-else class="icon icon-size-32 icon-size-fill" aria-hidden="true">
                 <use xlink:href="#icon-tubiaolunkuo-"></use>
               </svg>
+              <div
+                v-if="imageUploadProgress"
+                class="image-upload-progress"
+                :style="'width:' + imageUploadProgress + '%'"
+              >
+                <span v-if="imageUploadProgress < 100"> {{ imageUploadProgress + '%' }}</span>
+                <div v-else class="image-upload-await">
+                  <span>图片处理中,请稍后</span>
+                  <span class="throbber-loader">Loading&#8230;</span>
+                </div>
+              </div>
             </label>
           </div>
           <ValidateInput
@@ -28,14 +39,13 @@
             accept="image/jpeg,image/x-png,image/jpg"
             @change="onChangeFile"
             ref="fileElement"
+            :fileIsNull="fileIsNull"
           />
         </div>
 
         <template v-slot:submit>
           <div class="publish">
-            <a href="#" class="form-btn">
-              发布
-            </a>
+            <input ref="isDisabled" type="submit" name="commit" value="发表" class="form-btn" />
           </div>
         </template>
       </ValidateForm>
@@ -75,14 +85,17 @@ export default defineComponent({
     const tagVal = ref('');
     const headlineRule: RulesProp = [
       { type: 'null', message: '标题不能为空' },
-      { type: 'headlineMaximum', message: '标题最多10个字符' },
+      { type: 'headlineMaximum', message: '标题最多15个字符' },
     ];
     const describeRule: RulesProp = [
       { type: 'null', message: '描述不能为空' },
       { type: 'describeMaximum', message: '描述最多25个字符' },
     ];
-    const tagRule: RulesProp = [{ type: 'tagMaximum', message: '标签最多5个字符' }];
-    const pictureRule: RulesProp = [{ type: 'null', message: '请上传一张照片' }];
+    const tagRule: RulesProp = [
+      { type: 'tagMaximum', message: '标签最多10个字符' },
+      { type: 'tag', message: '标签仅支持字母或中文' },
+    ];
+    const pictureRule: RulesProp = [{ type: 'fileNull', message: '需要上传一张照片' }];
 
     /**
      * 使用FileReader 预览图像
@@ -90,9 +103,9 @@ export default defineComponent({
     const imagePreviewUrl = ref();
     const createImagePreview = (file: Blob) => {
       const reader = new FileReader();
-
+      // 读取图像,将file处理成base64格式,并添加到event.target?.result
       reader.readAsDataURL(file);
-
+      // 读取完毕,将base64格式的图像数据设置到imagePreviewUrl上,用于src展示
       reader.onload = event => {
         imagePreviewUrl.value = event.target?.result;
       };
@@ -100,17 +113,31 @@ export default defineComponent({
 
     /**
      * change事件处理器
-     * 选择文件用的文件字段
+     * 获取选择文件用的文件字段
      */
 
+    // 存储上一次选择的图片数据的临时变量
+    const lastPrev = ref();
+    // 文件数据
     const fileMessage = ref();
+    // 传给input组件验证用的数据
+    const fileIsNull = ref();
+
     const onChangeFile = (event: Event) => {
+      // 拿到当前dom节点
       const currenTarget = event.target as HTMLInputElement;
 
+      // 判断当前节点存在files属性
       if (currenTarget.files) {
-        const file = currenTarget.files[0];
-
+        // 如果存在图像数据就将第一个图像数据给file,如没有就把上一张选择的图片数据给file
+        const file = currenTarget.files[0] || lastPrev.value;
+        // 将本次获得的file存储到lastPrev临时变量中
+        lastPrev.value = file;
+        // 将file文件数据发送给fileMessage,用作上传文件函数的file参数
         fileMessage.value = file;
+        // 获得传给input组件验证用的数据
+        fileIsNull.value = computed(() => file);
+        // 执行createImagePreview预览图像
         createImagePreview(file);
       }
     };
@@ -119,6 +146,7 @@ export default defineComponent({
      * 请求上传文件
      */
     const fileElement = ref();
+    const imageUploadProgress = ref();
     const careateFile = async (file: Blob, postId: number) => {
       try {
         // 创建表单
@@ -127,17 +155,28 @@ export default defineComponent({
         // 添加字段
         formData.append('file', file);
 
+        // 禁止显示全局请求样式
+        store.commit('setIsShowLoading', false);
+
         // 上传文件
         await axios.post(`/files?post=${postId}`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
+          },
+          // 上传进度值
+          onUploadProgress: event => {
+            const { loaded, total } = event;
+            // 将上传进度传递给imageUploadProgress
+            imageUploadProgress.value = Math.round((loaded * 100) / total);
           },
         });
 
         // 清理
         fileMessage.value = null;
         imagePreviewUrl.value = null;
-        fileElement.value = '';
+        pictureVal.value = '';
+        imageUploadProgress.value = null;
+        lastPrev.value = '';
       } catch (error) {
         console.log(error);
       }
@@ -161,7 +200,7 @@ export default defineComponent({
       try {
         const response = await axios.post('/posts', { title: headlineVal.value, content: describeVal.value });
         if (tagVal.value != '') {
-          createTag(response.data.insertId);
+          await createTag(response.data.insertId);
         }
         if (fileMessage.value) {
           await careateFile(fileMessage.value, response.data.insertId);
@@ -174,21 +213,38 @@ export default defineComponent({
     /**
      * 表单提交
      */
+
+    // 获取dom
+    const isDisabled = ref();
+
     const onFormSubmit = async (result: boolean) => {
       if (result) {
+        // 将提交按钮内容设置为...,并且禁止操作
+        isDisabled.value.disabled = 'isDisabled';
+        isDisabled.value.value = '...';
+
+        // 执行请求上传内容组件
         await createPost();
+
+        //上传完毕 清空表单内容、恢复提交按钮功能与样式
         headlineVal.value = '';
         describeVal.value = '';
         tagVal.value = '';
-        await createTooltip('上传成功', 'success', 3000);
-        await router.push('/');
+        isDisabled.value.removeAttribute('disabled');
+        isDisabled.value.value = '发表';
+
+        // 执行成功提示
+        await createTooltip('上传成功,3秒后跳转到首页', 'success', 3000);
+        await setTimeout(() => {
+          router.push('/');
+        }, 3000);
       } else {
         console.log('不通过');
       }
     };
 
     /**
-     * 判断是否登录
+     * 判断是否登录,用于header组件
      */
     const loginJudge = computed(() => {
       return store.state.user;
@@ -197,6 +253,7 @@ export default defineComponent({
     return {
       headlineVal,
       describeVal,
+      pictureVal,
       tagVal,
       headlineRule,
       describeRule,
@@ -204,11 +261,13 @@ export default defineComponent({
       tagRule,
       onFormSubmit,
       loginJudge,
-      pictureVal,
       onChangeFile,
       imagePreviewUrl,
       fileMessage,
       fileElement,
+      imageUploadProgress,
+      isDisabled,
+      fileIsNull,
     };
   },
 });
