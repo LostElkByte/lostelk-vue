@@ -37,6 +37,7 @@ interface RuleProp {
     | 'headlineMaximum'
     | 'describeMaximum'
     | 'tagMaximum'
+    | 'fileNull'
     | 'custom';
   message: string;
   validator?: () => boolean;
@@ -56,6 +57,9 @@ export default defineComponent({
     tag: {
       type: String as PropType<TagType>,
     },
+    fileIsNull: {
+      type: Object,
+    },
   },
 
   // 不希望根元素继承非prop的attribute
@@ -64,6 +68,7 @@ export default defineComponent({
   setup(props, context) {
     // 计算属性接收props的val
     const val = computed(() => (props.modelValue ? props.modelValue : ''));
+    const fileIsNull = computed(() => props.fileIsNull || []);
     const inputRef = reactive({
       // 表单input初始值 为 传入的 modelValue 没有即为 空
       val: val.value || '',
@@ -103,7 +108,10 @@ export default defineComponent({
           //  循环进行rule.type规则验证
           switch (rule.type) {
             case 'null':
-              passed = inputRef.val.trim() !== '';
+              passed = val.value.trim() !== '';
+              break;
+            case 'fileNull':
+              passed = Object.keys(fileIsNull.value).length !== 0;
               break;
             case 'userName':
               passed = userNameReg.test(inputRef.val);
