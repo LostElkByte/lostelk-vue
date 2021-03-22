@@ -38,6 +38,9 @@
   }
 
   .header_toolbar {
+    display: flex;
+    flex-direction: row;
+
     div {
       float: left;
 
@@ -76,8 +79,14 @@
   .header_loginRegister_item {
     display: none;
   }
-  .w1024 {
-    display: block;
+  .header {
+    .header_toolbar {
+      div {
+        .w1024 {
+          display: block;
+        }
+      }
+    }
   }
 }
 

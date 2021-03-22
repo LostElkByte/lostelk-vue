@@ -1,0 +1,38 @@
+.home-page {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  grid-template-rows: 96px 1fr;
+  min-height: 100vh;
+
+  grid-template-areas:
+    's h'
+    's m';
+
+  .header {
+    grid-area: h;
+  }
+
+  .sidebar {
+    grid-area: s;
+  }
+
+  .home-page_main {
+    grid-area: m;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-page {
+    grid-template-rows: 64px auto 64px;
+    grid-template-areas:
+      'h h'
+      'm m'
+      's s';
+
+    .sidebar {
+      width: 100%;
+      height: 64px;
+      bottom: 0;
+    }
+  }
+}

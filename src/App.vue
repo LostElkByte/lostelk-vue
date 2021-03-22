@@ -42,11 +42,11 @@ export default defineComponent({
      */
     const cardColumn = ref(3);
     function resize() {
-      if (document.documentElement.clientWidth >= 990) {
+      if (document.documentElement.clientWidth > 1024) {
         cardColumn.value = 3;
-      } else if (document.documentElement.clientWidth >= 767) {
+      } else if (document.documentElement.clientWidth > 767) {
         cardColumn.value = 2;
-      } else if (document.documentElement.clientWidth < 767) {
+      } else if (document.documentElement.clientWidth <= 767) {
         cardColumn.value = 1;
       }
     }
@@ -56,11 +56,11 @@ export default defineComponent({
      * 初始化时获取浏览器窗口大小
      */
     onMounted(() => {
-      if (document.documentElement.clientWidth >= 990) {
+      if (document.documentElement.clientWidth > 1024) {
         cardColumn.value = 3;
-      } else if (document.documentElement.clientWidth >= 767) {
+      } else if (document.documentElement.clientWidth > 767) {
         cardColumn.value = 2;
-      } else if (document.documentElement.clientWidth < 767) {
+      } else if (document.documentElement.clientWidth <= 767) {
         cardColumn.value = 1;
       }
     });

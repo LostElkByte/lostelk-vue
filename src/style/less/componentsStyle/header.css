@@ -32,6 +32,10 @@
   font-size: 12px;
   font-weight: 400;
 }
+.header .header_toolbar {
+  display: flex;
+  flex-direction: row;
+}
 .header .header_toolbar div {
   float: left;
 }
@@ -63,7 +67,7 @@
   .header_loginRegister_item {
     display: none;
   }
-  .w1024 {
+  .header .header_toolbar div .w1024 {
     display: block;
   }
 }

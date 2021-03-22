@@ -54,6 +54,6 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/globalStyle/layout.css';
-@import '../style/viewsStyle/home-reconsitution.css';
+/* @import '../style/globalStyle/layout.css'; */
+@import '../style/less/viewsStyle/home-reconsitution.css';
 </style>

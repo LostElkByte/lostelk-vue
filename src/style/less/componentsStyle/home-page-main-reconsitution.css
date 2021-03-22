@@ -130,12 +130,7 @@
   opacity: 1;
   transition: all 0.2s ease-in-out;
 }
-@media (min-width: 767px) {
-  .w767-author {
-    display: none;
-  }
-}
-@media (max-width: 990px) {
+@media (max-width: 1024px) {
   .home-page_main .main_center .home-page_main_cards {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -147,6 +142,9 @@
 @media (max-width: 767px) {
   .home-page_main {
     padding: 0px;
+  }
+  .home-page_main .main_center {
+    padding: 30px 20px;
   }
   .home-page_main .main_center .home-page_main_cards {
     display: grid;
@@ -185,6 +183,12 @@
     position: relative;
     margin-right: 8px;
     display: inline-block;
+  }
+  .home-page_main .main_center .home-page_main_cards .cardColumn .home-page_main_cards_item .max767-top .max767-top-content .card-abstract-avatar .card-avatar-32 {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 8px;
   }
   .home-page_main .main_center .home-page_main_cards .cardColumn .home-page_main_cards_item .max767-top .max767-top-content .card-abstract-avatar:after {
     position: absolute;

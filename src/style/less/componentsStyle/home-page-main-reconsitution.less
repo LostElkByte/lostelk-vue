@@ -153,13 +153,11 @@
   }
 }
 
-@media (min-width: 767px) {
-  .w767-author {
-    display: none;
-  }
-}
+// .w767-author {
+//   display: none;
+// }
 
-@media (max-width: 990px) {
+@media (max-width: 1024px) {
   .home-page_main {
     .main_center {
       .home-page_main_cards {
@@ -178,6 +176,7 @@
     padding: 0px;
 
     .main_center {
+      padding: 30px 20px;
       .home-page_main_cards {
         display: grid;
         grid-column-gap: 24px;
@@ -218,6 +217,13 @@
                   position: relative;
                   margin-right: 8px;
                   display: inline-block;
+
+                  .card-avatar-32 {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    margin-right: 8px;
+                  }
 
                   &:after {
                     position: absolute;
@@ -313,4 +319,7 @@
       }
     }
   }
+  // .w767-author {
+  //   display: block;
+  // }
 }

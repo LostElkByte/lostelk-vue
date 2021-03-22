@@ -186,7 +186,7 @@
       }
 
       .search-buttom {
-        padding: 20px;
+        padding: 20px 10px;
         span:nth-child(3) {
           display: none;
         }
@@ -200,12 +200,39 @@
     height: 208px;
     margin: 0;
 
-    .search-superstratum-center {
-      padding-top: 35px;
+    .main-search-superstratum {
+      .search-superstratum-center {
+        padding-top: 35px;
+      }
     }
 
     .search-buttom {
       padding: 10px;
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .main-search {
+    .main-search-superstratum {
+      .search-superstratum-center {
+        .search-superstratum-content {
+          div {
+            h1 {
+              font-size: 13px;
+            }
+
+            p {
+              font-size: 13px;
+            }
+          }
+        }
+      }
+      .search-buttom {
+        span {
+          font-size: 13px;
+        }
+      }
     }
   }
 }
