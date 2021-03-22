@@ -41,6 +41,11 @@ input {
   outline: none;
 }
 
+input:-internal-autofill-previewed,
+input:-internal-autofill-selected {
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
 .clearfix:after,
 .clearfix:before {
   content: '';

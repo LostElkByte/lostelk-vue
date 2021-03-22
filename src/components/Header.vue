@@ -103,5 +103,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/componentsStyle/header.css';
+@import '../style/less/componentsStyle/header.css';
 </style>

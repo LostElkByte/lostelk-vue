@@ -1,0 +1,29 @@
+.dropdown {
+  position: relative;
+}
+.dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+  top: 31px;
+  right: 0;
+  border-radius: 5%;
+  overflow: hidden;
+}
+.dropdown .dropdown-content a {
+  /* 下拉菜单的链接 */
+  color: #222;
+  padding: 12px 16px;
+  display: block;
+}
+.dropdown .dropdown-content a:hover {
+  /* 鼠标移上去后修改下拉菜单链接颜色 */
+  background-color: #dcdde1;
+  color: #fff;
+}
+.dropdown:hover .dropdown-content {
+  /* 在鼠标移上去后显示下拉菜单 */
+  display: block;
+}

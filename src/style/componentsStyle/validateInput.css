@@ -12,6 +12,7 @@
 .inputParent {
   position: relative;
 }
+
 input {
   overflow: hidden;
   white-space: nowrap;
