@@ -62,5 +62,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/componentsStyle/search.css';
+@import '../style/less/componentsStyle/main-search-box.css';
 </style>
