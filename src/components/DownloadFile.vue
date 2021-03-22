@@ -36,5 +36,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/componentsStyle/home-page-main-reconsitution.css';
+@import '../style/less/componentsStyle/download-file.css';
 </style>
