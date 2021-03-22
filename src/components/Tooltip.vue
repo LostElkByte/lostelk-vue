@@ -43,5 +43,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/componentsStyle/tooltip.css';
+@import '../style/less/componentsStyle/tooltip.css';
 </style>
