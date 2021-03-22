@@ -66,7 +66,5 @@ export default defineComponent({
 </script>
 
 <style>
-.like {
-  cursor: pointer;
-}
+@import '../style/less/componentsStyle/likes.css';
 </style>
