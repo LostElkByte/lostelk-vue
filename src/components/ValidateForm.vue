@@ -61,5 +61,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/componentsStyle/validateForm.css';
+@import '../style/less/componentsStyle/validateForm.css';
 </style>

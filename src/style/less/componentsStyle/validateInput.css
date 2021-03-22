@@ -1,0 +1,18 @@
+.inputParent {
+  position: relative;
+}
+.inputParent input {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.inputParent .form-error {
+  color: #f1403c;
+  position: absolute;
+  bottom: -16px;
+  left: 0;
+  font-size: 12px;
+  cursor: text;
+  transition: opacity 0.25s ease;
+  z-index: 1;
+}
