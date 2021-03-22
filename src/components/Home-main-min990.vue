@@ -11,7 +11,7 @@
             />
             <div class="card-baffle-plate">
               <div class="card-baffle-plate-top">
-                <div class="pinglun-xihuan">
+                <div class="like-comments">
                   <button class="card-button">
                     <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                   </button>
@@ -24,7 +24,7 @@
                 </div>
               </div>
               <div class="card-baffle-plate-bottom">
-                <div class="zuozhe">
+                <div class="author">
                   <img v-if="card.user.avatar" class="card-avatar-32" :src="card.user.url" :alt="card.user.name" />
                   <div v-else class="card-avatar-32">
                     <svg class="card-avatar-32" aria-hidden="true">
@@ -36,9 +36,9 @@
                     <span>{{ card.user.name }}</span>
                   </div>
                 </div>
-                <div class="xiazai">
+                <div class="download">
                   <DownloadFile :fileId="card.file.id">
-                    <button class="card-button card-button-xiazai">
+                    <button class="card-button card-button-download">
                       <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-icon-arrow-btm4"></use>
                       </svg>
@@ -57,7 +57,7 @@
             />
             <div class="card-baffle-plate">
               <div class="card-baffle-plate-top">
-                <div class="pinglun-xihuan">
+                <div class="like-comments">
                   <button class="card-button">
                     <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                   </button>
@@ -70,7 +70,7 @@
                 </div>
               </div>
               <div class="card-baffle-plate-bottom">
-                <div class="zuozhe">
+                <div class="author">
                   <img v-if="card.user.avatar" class="card-avatar-32" :src="card.user.url" :alt="card.user.name" />
                   <div v-else class="card-avatar-32">
                     <svg class="card-avatar-32" aria-hidden="true">
@@ -82,9 +82,9 @@
                     <span>{{ card.user.name }}</span>
                   </div>
                 </div>
-                <div class="xiazai">
+                <div class="download">
                   <DownloadFile :fileId="card.file.id">
-                    <button class="card-button card-button-xiazai">
+                    <button class="card-button card-button-download">
                       <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-icon-arrow-btm4"></use>
                       </svg>
@@ -103,7 +103,7 @@
             />
             <div class="card-baffle-plate">
               <div class="card-baffle-plate-top">
-                <div class="pinglun-xihuan">
+                <div class="like-comments">
                   <button class="card-button">
                     <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                   </button>
@@ -116,7 +116,7 @@
                 </div>
               </div>
               <div class="card-baffle-plate-bottom">
-                <div class="zuozhe">
+                <div class="author">
                   <img v-if="card.user.avatar" class="card-avatar-32" :src="card.user.url" :alt="card.user.name" />
                   <div v-else class="card-avatar-32">
                     <svg class="card-avatar-32" aria-hidden="true">
@@ -128,9 +128,9 @@
                     <span>{{ card.user.name }}</span>
                   </div>
                 </div>
-                <div class="xiazai">
+                <div class="download">
                   <DownloadFile :fileId="card.file.id">
-                    <button class="card-button card-button-xiazai">
+                    <button class="card-button card-button-download">
                       <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-icon-arrow-btm4"></use>
                       </svg>
@@ -236,5 +236,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/componentsStyle/home-page-main-reconsitution.css';
+@import '../style/less/componentsStyle/home-page-main-reconsitution.css';
 </style>
