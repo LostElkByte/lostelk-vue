@@ -58,5 +58,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/componentsStyle/sidebar.css';
+@import '../style/less/componentsStyle/sidebar.css';
 </style>
