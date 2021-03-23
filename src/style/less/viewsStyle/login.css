@@ -1,0 +1,110 @@
+.login-wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+}
+.login-form {
+  display: flex;
+  width: 44%;
+  padding: 12px;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 488px;
+}
+.login-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 24px;
+  margin: 0 auto;
+}
+.login-logo img {
+  width: 100%;
+  height: 100%;
+}
+.login-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 24px;
+  text-align: center;
+}
+.login-subtitle {
+  margin-top: 0;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.form-group {
+  margin-bottom: 30px;
+}
+.form-group input:focus {
+  outline: none;
+  border-color: #000;
+}
+.form-control {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 6px 12px;
+  margin-top: 5px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #111111;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid #767676;
+  border-radius: 3px;
+  -webkit-transition: border-color ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s;
+}
+.form-btn {
+  color: #ffffff;
+  background-color: #111111;
+  width: 100%;
+  display: inline-block;
+  margin-bottom: 0;
+  text-align: center;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  text-decoration: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02), 0 1px 1px rgba(0, 0, 0, 0.06);
+  padding: 9px 18px;
+  font-size: 15px;
+  line-height: 1.6;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out, color 0.1s ease-in-out;
+  transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out, color 0.1s ease-in-out;
+}
+.text-secondary {
+  margin-left: 4px;
+  margin-right: 4px;
+  color: #767676;
+}
+.register {
+  display: inline-block;
+  font-size: 13px;
+  line-height: 18px;
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+/* .form-error {
+  font-size: 10px;
+  color: #f1403c;
+} */
+@media (max-width: 750px) {
+  .login-form {
+    width: 100%;
+  }
+}

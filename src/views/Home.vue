@@ -53,7 +53,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 /* @import '../style/globalStyle/layout.css'; */
 @import '../style/less/viewsStyle/home-reconsitution.css';
 </style>

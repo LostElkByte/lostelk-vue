@@ -123,8 +123,8 @@ export default defineComponent({
 });
 </script>
 
-<style>
-@import '../style/viewsStyle/login.css';
+<style scoped>
+@import '../style/less/viewsStyle/login.css';
 label {
   cursor: pointer;
 }
