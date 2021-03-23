@@ -1,0 +1,54 @@
+/* 阿里巴巴iconfont */
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+.icon-size-fill {
+  width: 100%;
+  height: 100%;
+}
+/* 使a元素呈现出它上一级的颜色 */
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+body {
+  background-color: #fff;
+  color: #222;
+  font-family: -apple-system, BlinkMacSystemFont, 'San Francisco', 'Helvetica Neue', Helvetica, Ubuntu, Roboto, Noto, 'Segoe UI', Arial, sans-serif;
+  font-size: 15px;
+  min-width: 320px;
+}
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+input {
+  outline: none;
+}
+input:-internal-autofill-previewed,
+input:-internal-autofill-selected {
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+.clearfix:after,
+.clearfix:before {
+  content: '';
+  display: table;
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix {
+  *zoom: 1;
+}
+* {
+  box-sizing: border-box;
+}

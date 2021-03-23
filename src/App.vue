@@ -6,7 +6,7 @@
 <script lang="ts">
 import { computed, defineComponent, watch, ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
-import './style/globalStyle/font/iconfont';
+import './assets/font/iconfont';
 import Loading from './components/Loading.vue';
 import createTooltip from './components/createTooltip';
 
@@ -83,6 +83,6 @@ export default defineComponent({
 </script>
 
 <style>
-@import './style/globalStyle/normalize.css';
-@import './style/globalStyle/body.css';
+@import './style/less/globalStyle/normalize.css';
+@import './style/less/globalStyle/body.css';
 </style>

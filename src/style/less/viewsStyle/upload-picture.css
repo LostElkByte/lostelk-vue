@@ -1,6 +1,7 @@
 /* 主区域 */
 .upload-picture_main {
   display: flex;
+  margin: 32px;
 }
 .upload-picture_main form {
   display: grid;
@@ -202,6 +203,7 @@
     display: flex;
     justify-content: center;
     padding: 0px;
+    margin: 0;
   }
   .upload-picture_main form {
     grid-template-columns: 711px 1fr;
