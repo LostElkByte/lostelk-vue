@@ -1,11 +1,11 @@
 <template>
-  <div v-if="!isLiked" class="like" @click="giveLike">
+  <div v-if="!isLiked" class="like" @click.stop="giveLike">
     <svg class="icon" aria-hidden="true">
       <use xlink:href="#icon-xihuan"></use>
     </svg>
     <span>{{ likedCount }}</span>
   </div>
-  <div v-else class="like" @click="giveLike">
+  <div v-else class="like" @click.stop="giveLike">
     <svg class="icon" aria-hidden="true">
       <use xlink:href="#icon-xihuan1"></use>
     </svg>

@@ -9,7 +9,7 @@
               :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
               :alt="card.title"
             />
-            <div class="card-baffle-plate">
+            <div class="card-baffle-plate" @click="a(card.id)">
               <div class="card-baffle-plate-top">
                 <div class="like-comments">
                   <button class="card-button">
@@ -222,6 +222,10 @@ export default defineComponent({
      */
     const searchfailure = computed(() => store.state.searchFailure);
 
+    const a = (posta: number) => {
+      console.log(posta);
+    };
+
     return {
       lostelkUrl,
       cardList,
@@ -230,6 +234,7 @@ export default defineComponent({
       cardColumnTwo,
       cardColumnThree,
       searchfailure,
+      a,
     };
   },
 });

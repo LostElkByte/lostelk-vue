@@ -1,5 +1,5 @@
 <template>
-  <div @click="download">
+  <div @click.stop="download">
     <slot>
       <button class="card-button">
         <span>download</span>
