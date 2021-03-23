@@ -273,7 +273,7 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/viewsStyle/register.css';
+@import '../style/less/viewsStyle/register.css';
 label {
   cursor: pointer;
 }
