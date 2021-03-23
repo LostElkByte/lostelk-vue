@@ -102,11 +102,9 @@ export default defineComponent({
         };
         // 登陆并且获取用户信息
         store.dispatch('loginAndGetCurrentUser', userLoginData).then(() => {
-          // 如果已经登陆成功则重新加载内容列表 并且跳转到主页
+          // 如果已经登陆成功则跳转到主页
           if (store.state.user.isLogin) {
-            store.dispatch('getCardList').then(() => {
-              router.push('/');
-            });
+            router.push('/');
           }
         });
       } else {

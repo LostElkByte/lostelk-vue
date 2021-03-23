@@ -104,13 +104,6 @@ export default createStore<GloablDataProps>({
     },
 
     /**
-     * 上传图片
-     */
-    // UploadPicture(state, newPicture) {
-    //   state.cardList.push(newPicture)
-    // },
-
-    /**
      * loading
      */
     setLoading(state, status) {
@@ -143,7 +136,32 @@ export default createStore<GloablDataProps>({
      */
     setSearchFailure(state, rawdata) {
       state.searchFailure = rawdata
-    }
+    },
+
+    /**
+     * 点赞 修改卡片的like状态与值
+     */
+    clickLike(state, postId) {
+      for (let i = 0; i < state.cardList.length; i++) {
+        if (state.cardList[i].id === postId) {
+          state.cardList[i].liked = 1;
+          state.cardList[i].totalLikes++;
+          break;
+        }
+      }
+    },
+    /**
+    * 取消点赞 修改卡片的like状态与值
+    */
+    cancelLike(state, postId) {
+      for (let i = 0; i < state.cardList.length; i++) {
+        if (state.cardList[i].id === postId) {
+          state.cardList[i].liked = 0;
+          state.cardList[i].totalLikes--;
+          break;
+        }
+      }
+    },
   },
 
   actions: {

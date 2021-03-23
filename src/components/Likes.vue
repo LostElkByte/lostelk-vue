@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { axios } from '../service/service';
 import store from '../store';
 export default defineComponent({
@@ -27,32 +27,18 @@ export default defineComponent({
     cardId: Number,
   },
   setup(props) {
-    const likedCount = ref(props.likeCount);
-    const isLiked = ref(props.isLike);
+    const likedCount = computed(() => props.likeCount);
+    const isLiked = computed(() => props.isLike);
 
     const giveLike = () => {
       store.commit('setIsShowLoading', false);
       if (!isLiked.value) {
         axios.post(`/posts/${props.cardId}/like`).then(() => {
-          store.state.cardList.forEach(item => {
-            if (item.id === props.cardId) {
-              item.liked = 1;
-              item.totalLikes++;
-            }
-          });
-          isLiked.value = 1;
-          likedCount.value++;
+          store.commit('clickLike', props.cardId);
         });
       } else {
         axios.delete(`/posts/${props.cardId}/like`).then(() => {
-          store.state.cardList.forEach(item => {
-            if (item.id === props.cardId) {
-              item.liked = 0;
-              item.totalLikes--;
-            }
-          });
-          isLiked.value = 0;
-          likedCount.value--;
+          store.commit('cancelLike', props.cardId);
         });
       }
     };
