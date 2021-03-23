@@ -36,6 +36,6 @@ export default defineComponent({
 });
 </script>
 
-<style lang="less">
+<style>
 @import '../style/less/componentsStyle/header-search.css';
 </style>

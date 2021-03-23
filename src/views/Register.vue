@@ -2,6 +2,13 @@
   <div class="registrations-wrapper">
     <div class="registrations-container">
       <div class="registrations-left-panel">
+        <img
+          v-if="registeredImgArrange === 'column'"
+          class="registrations-show-figure"
+          src="../assets/images/content3.jpg"
+          alt=""
+        />
+        <img v-else class="registrations-show-figure" src="../assets/images/content2.jpeg" alt="" />
         <div class="registrations__content">
           <div>
             <router-link to="/">
@@ -11,7 +18,7 @@
           <div>
             <h1 class="registrations__title">创作从这里开始</h1>
             <h2 class="registrations__sub-title">
-              访问免费的高分辨率照片，这些都是其他地方所找不到的
+              访问免费的高分辨率照片，这些都是其它地方所找不到的
             </h2>
           </div>
           <div>
@@ -28,7 +35,7 @@
             <div class="col-xs-12">
               <div class="text-center">
                 <div class="alpha">
-                  加入LostElk——迷鹿
+                  加入LostElk—迷鹿
                 </div>
                 <p>
                   已经有帐号了？
@@ -46,15 +53,16 @@
                     <div class="form-group">
                       <label for="user_first_name">
                         名字
-                        <span class="text-secondary">
+                        <!-- <span class="text-secondary">
                           （可选）
-                        </span>
+                        </span> -->
                       </label>
                       <ValidateInput
                         :rules="userLastNameRule"
                         v-model="userLastNameVal"
                         class="form-control"
                         type="text"
+                        placeholder="可选"
                         id="user_first_name"
                       >
                       </ValidateInput>
@@ -64,15 +72,16 @@
                     <div class="form-group">
                       <label for="user_last_name">
                         姓
-                        <span class="text-secondary">
+                        <!-- <span class="text-secondary">
                           （可选）
-                        </span>
+                        </span> -->
                       </label>
                       <ValidateInput
                         :rules="userFirstNameRule"
                         v-model="userFirstNameVal"
                         class="form-control"
                         type="text"
+                        placeholder="可选"
                         id="user_last_name"
                       >
                       </ValidateInput>
@@ -83,15 +92,16 @@
                 <div class="form-group">
                   <label for="user_email">
                     电子邮件
-                    <span class="text-secondary">
+                    <!-- <span class="text-secondary">
                       （可选）
-                    </span>
+                    </span> -->
                   </label>
                   <ValidateInput
                     :rules="userEmileRule"
                     v-model="userEmileVal"
                     class="form-control"
                     type="email"
+                    placeholder="可选"
                     id="user_email"
                   >
                   </ValidateInput>
@@ -100,9 +110,9 @@
                 <div class="form-group">
                   <label for="user_username">
                     用户名
-                    <span class="text-secondary">
-                      （仅字母，数字和下划线。）
-                    </span>
+                    <!-- <span class="text-secondary">
+                      （用于登录账号,请牢记）
+                    </span> -->
                   </label>
 
                   <ValidateInput
@@ -110,7 +120,7 @@
                     v-model="userNameVal"
                     class="form-control"
                     type="text"
-                    placeholder="用于登录账号使用,请牢记"
+                    placeholder="用于登录账号,请牢记"
                     id="user_username"
                   >
                   </ValidateInput>
@@ -119,16 +129,16 @@
                 <div class="form-group">
                   <label for="user_password">
                     密码
-                    <span class="text-secondary">
+                    <!-- <span class="text-secondary">
                       （密码长度在6-16位之间。）
-                    </span>
+                    </span> -->
                   </label>
                   <ValidateInput
                     :rules="passwordRule"
                     v-model="passwordVal"
                     class="form-control"
                     type="password"
-                    placeholder="请输入密码"
+                    placeholder="密码长度在6-16位之间"
                     autocomplete="off"
                     id="user_password"
                   >
@@ -144,7 +154,7 @@
                     v-model="affirmPasswordVal"
                     class="form-control"
                     type="password"
-                    placeholder="请输入密码"
+                    placeholder="请再次输入密码"
                     autocomplete="off"
                     id="user_affirmPassword"
                   >
@@ -170,7 +180,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
 import ValidateForm from '../components/ValidateForm.vue';
 import createTooltip from '../components/createTooltip';
@@ -178,12 +188,18 @@ import axios from 'axios';
 import router from '../router';
 
 export default defineComponent({
-  name: 'Login',
+  name: 'Register',
   components: {
     ValidateInput,
     ValidateForm,
   },
-  setup() {
+  props: {
+    registeredImg: {
+      type: String,
+      required: true,
+    },
+  },
+  setup(props) {
     const userNameVal = ref('');
     const passwordVal = ref('');
     const userLastNameVal = ref('');
@@ -192,7 +208,7 @@ export default defineComponent({
     const affirmPasswordVal = ref('');
     const userNameRule: RulesProp = [
       { type: 'null', message: '用户名不能为空' },
-      { type: 'userName', message: '用户名格式错误' },
+      { type: 'userName', message: '仅限于字母、数字、下划线' },
     ];
     const passwordRule: RulesProp = [
       { type: 'null', message: '密码不能为空' },
@@ -228,6 +244,13 @@ export default defineComponent({
         console.log('不通过');
       }
     };
+
+    /**
+     * 生成随机数设置展示图片
+     */
+    const registeredImgArrange = computed(() => props.registeredImg);
+    const num = computed(() => Math.floor(Math.random() * 10) + 1);
+
     return {
       userNameRule,
       userNameVal,
@@ -242,6 +265,8 @@ export default defineComponent({
       userEmileRule,
       affirmPasswordVal,
       affirmPasswordRule,
+      num,
+      registeredImgArrange,
     };
   },
 });

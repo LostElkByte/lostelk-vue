@@ -35,7 +35,7 @@
   display: flex;
   flex-direction: column;
   opacity: 0;
-  background: linear-gradient(rgba(2, 2, 2, 0.2), rgba(2, 2, 2, 0.1), rgba(2, 2, 2, 0.1), rgba(2, 2, 2, 0.2));
+  background: hsla(0, 0%, 10%, 0.3);
 }
 .home-page_main .main_center .home-page_main_cards .cardColumn .home-page_main_cards_item .card-baffle-plate .card-baffle-plate-top {
   display: grid;

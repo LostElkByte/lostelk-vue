@@ -11,16 +11,21 @@
 
 /* left */
 .registrations-left-panel {
+  position: relative;
   background-color: #111111;
-  background-image: url(../../assets/images/content1.jpeg);
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
   flex: 1;
+}
+.registrations-show-figure {
+  width: 100%;
+  height: 100%;
 }
 
 .registrations__content {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   box-sizing: border-box;
   padding: 8% 10%;
   height: 100%;
@@ -41,7 +46,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background: hsla(0, 0%, 10%, 0.1);
+  background: hsla(0, 0%, 10%, 0.4);
   z-index: 1;
 }
 
@@ -199,23 +204,44 @@
   color: #f1403c;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .registrations-container {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
+    display: block;
   }
   .registrations-left-panel {
-    background-image: url(../../assets/images/content2.jpeg);
+    height: 500px;
+  }
+
+  .form-control {
+    height: 46px;
   }
 }
+
+@media (max-width: 767px) {
+  .registrations-left-panel {
+    height: 380px;
+  }
+  .form-control {
+    height: 40px;
+  }
+}
+
 @media (max-width: 576px) {
   .registrations__content {
-    padding: 12px;
-    max-height: 300px;
+    padding: 5% 8%;
   }
+
+  .registrations-left-panel {
+    height: 260px;
+  }
+  .registrations-right-panel {
+    padding: 60px 6% 20px;
+  }
+  .col-xs-12 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   .registrations__logo {
     width: 32px;
     height: 32px;
@@ -224,13 +250,15 @@
     font-size: 30px;
   }
   .registrations__sub-title {
-    font-size: 18px;
+    font-size: 16px;
   }
   .registrations__credit {
-    display: none;
+    /* display: none; */
+    font-size: 8px;
   }
-  .registrations-left-panel {
-    background-image: url(../../assets/images/content2.jpeg);
+
+  .form-control {
+    height: 38px;
   }
   .text-center .alpha {
     font-size: 28px;

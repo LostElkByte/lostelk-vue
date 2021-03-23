@@ -1,6 +1,6 @@
 <template>
   <Loading v-if="isLoading">等待....</Loading>
-  <router-view :cardColumn="cardColumn"></router-view>
+  <router-view :cardColumn="cardColumn" :registeredImg="registeredImg"></router-view>
 </template>
 
 <script lang="ts">
@@ -40,14 +40,18 @@ export default defineComponent({
     /**
      * 实时动态获取浏览器窗口大小,定义主内容区列数
      */
-    const cardColumn = ref(3);
+    const cardColumn = ref();
+    const registeredImg = ref();
     function resize() {
       if (document.documentElement.clientWidth > 1024) {
         cardColumn.value = 3;
+        registeredImg.value = 'column';
       } else if (document.documentElement.clientWidth > 767) {
         cardColumn.value = 2;
+        registeredImg.value = 'row';
       } else if (document.documentElement.clientWidth <= 767) {
         cardColumn.value = 1;
+        registeredImg.value = 'row';
       }
     }
     window.onresize = resize;
@@ -58,10 +62,13 @@ export default defineComponent({
     onMounted(() => {
       if (document.documentElement.clientWidth > 1024) {
         cardColumn.value = 3;
+        registeredImg.value = 'column';
       } else if (document.documentElement.clientWidth > 767) {
         cardColumn.value = 2;
+        registeredImg.value = 'row';
       } else if (document.documentElement.clientWidth <= 767) {
         cardColumn.value = 1;
+        registeredImg.value = 'row';
       }
     });
 
@@ -69,6 +76,7 @@ export default defineComponent({
       isLoading,
       error,
       cardColumn,
+      registeredImg,
     };
   },
 });

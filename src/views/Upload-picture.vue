@@ -273,7 +273,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="less">
+<style>
 @import '../style/less/globalStyle/layout.css';
 @import '../style/less/viewsStyle/upload-picture.css';
 </style>
