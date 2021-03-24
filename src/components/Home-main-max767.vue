@@ -24,6 +24,7 @@
             <img
               :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
               :alt="card.title"
+              @click="cardDetails(card.id)"
             />
             <div class="max767-bottom">
               <div class="max767-bottom-left">
@@ -51,6 +52,9 @@
       <SearchFailure v-else></SearchFailure>
     </div>
   </div>
+  <teleport to="#app">
+    <router-view></router-view>
+  </teleport>
 </template>
 
 <script lang="ts">
@@ -61,6 +65,7 @@ import Likes from '../components/Likes.vue';
 import MainSearch from './Main-search-box.vue';
 import SearchFailure from '../components/Search-failure.vue';
 import DownloadFile from '../components/DownloadFile.vue';
+import router from '../router';
 
 export default defineComponent({
   name: 'HomeMainMax990',
@@ -100,11 +105,20 @@ export default defineComponent({
      */
     const searchfailure = computed(() => store.state.searchFailure);
 
+    /**
+     * 点击卡片跳转详情页
+     */
+    const cardDetails = (posta: number) => {
+      router.push(`/card/${posta}`);
+      console.log(posta);
+    };
+
     return {
       lostelkUrl,
       cardList,
       Likes,
       searchfailure,
+      cardDetails,
     };
   },
 });

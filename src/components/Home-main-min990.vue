@@ -9,7 +9,7 @@
               :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
               :alt="card.title"
             />
-            <div class="card-baffle-plate" @click="a(card.id)">
+            <div class="card-baffle-plate" @click="cardDetails(card.id)">
               <div class="card-baffle-plate-top">
                 <div class="like-comments">
                   <button class="card-button">
@@ -145,6 +145,9 @@
       <SearchFailure v-else></SearchFailure>
     </div>
   </div>
+  <teleport to="#app">
+    <router-view></router-view>
+  </teleport>
 </template>
 
 <script lang="ts">
@@ -155,6 +158,7 @@ import Likes from '../components/Likes.vue';
 import MainSearch from './Main-search-box.vue';
 import SearchFailure from '../components/Search-failure.vue';
 import DownloadFile from '../components/DownloadFile.vue';
+import router from '../router';
 
 export default defineComponent({
   name: 'HomeMainMin990',
@@ -222,7 +226,11 @@ export default defineComponent({
      */
     const searchfailure = computed(() => store.state.searchFailure);
 
-    const a = (posta: number) => {
+    /**
+     * 点击跳转详情页
+     */
+    const cardDetails = (posta: number) => {
+      router.push(`/card/${posta}`);
       console.log(posta);
     };
 
@@ -234,7 +242,7 @@ export default defineComponent({
       cardColumnTwo,
       cardColumnThree,
       searchfailure,
-      a,
+      cardDetails,
     };
   },
 });
