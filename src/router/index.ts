@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
-import CardDetails from '../components/Card-details.vue'
+import CardDetails from '../views/Card-details.vue'
 import store from '../store'
 import axios from 'axios'
 
@@ -22,6 +22,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Login',
     component: () => import('../views/Login.vue'),
     meta: { requestNotLogin: true }
+
   },
   {
     path: '/Reglister',
