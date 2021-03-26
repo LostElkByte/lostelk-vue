@@ -124,6 +124,8 @@ export default defineComponent({
 });
 </script>
 
+<style scoped src="../style/less/viewsStyle/card-details.css"></style>
+
 <style>
 .notScroll {
   position: fixed;
@@ -134,5 +136,4 @@ export default defineComponent({
   overflow: hidden;
   height: 100vh;
 }
-@import '../style/less/viewsStyle/card-details.css';
 </style>

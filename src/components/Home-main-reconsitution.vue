@@ -298,9 +298,9 @@
       <SearchFailure v-else></SearchFailure>
     </div>
   </div>
-  <!-- <teleport to="#app">
+  <teleport to="#app">
     <router-view></router-view>
-  </teleport> -->
+  </teleport>
 </template>
 
 <script lang="ts">
@@ -428,6 +428,6 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 @import '../style/less/componentsStyle/home-page-main-reconsitution.css';
 </style>
