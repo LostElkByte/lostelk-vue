@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1042097",
+      "name": "下",
+      "font_class": "down",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "7404568",
+      "name": "下",
+      "font_class": "xia",
+      "unicode": "e791",
+      "unicode_decimal": 59281
+    },
+    {
+      "icon_id": "8039095",
+      "name": "下",
+      "font_class": "xia1",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
       "icon_id": "6306120",
       "name": "没有相关",
       "font_class": "meiyouxiangguan",

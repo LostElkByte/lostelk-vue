@@ -13,7 +13,8 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'card/:id',
-        component: CardDetails
+        component: CardDetails,
+        props: true
       }
     ]
   },

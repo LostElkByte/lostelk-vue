@@ -3,13 +3,13 @@
     <svg class="icon" aria-hidden="true">
       <use xlink:href="#icon-xihuan"></use>
     </svg>
-    <span>{{ likedCount }}</span>
+    <span v-if="likedCount">{{ likedCount }}</span>
   </div>
   <div v-else class="like" @click.stop="giveLike">
     <svg class="icon" aria-hidden="true">
       <use xlink:href="#icon-xihuan1"></use>
     </svg>
-    <span>{{ likedCount }}</span>
+    <span v-if="likedCount">{{ likedCount }}</span>
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default defineComponent({
     isLike: Number,
     likeCount: {
       type: Number,
-      required: true,
+      required: false,
     },
     cardId: Number,
   },

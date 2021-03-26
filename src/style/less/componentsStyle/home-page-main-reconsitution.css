@@ -213,6 +213,7 @@
     flex-direction: column;
   }
   .home-page_main .main_center .home-page_main_cards .cardColumn .home-page_main_cards_item .max767-top .max767-top-content .card-abstract-author span:nth-child(1) {
+    font-size: 16px;
     font-weight: 500;
     overflow: hidden;
     text-overflow: ellipsis;

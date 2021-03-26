@@ -39,6 +39,7 @@ export interface GloablDataProps {
   loading: boolean;
   error: GloablErrorProps;
   cardList: CardList[];
+  card: CardList | {};
   user: GloablUserProps;
   token: string;
   userLikes: CardList[];
@@ -53,6 +54,7 @@ export default createStore<GloablDataProps>({
     loading: false,
     error: { status: false },
     cardList: [],
+    card: {},
     user: { isLogin: false, id: localStorage.getItem('userId') || '' },
     token: localStorage.getItem('token') || '',
     userLikes: [],
@@ -101,6 +103,13 @@ export default createStore<GloablDataProps>({
      */
     getCardList(state, rawdata) {
       state.cardList = rawdata
+    },
+
+    /**
+     * 或得单个卡片
+     */
+    cardData(state, rawdata) {
+      state.card = rawdata
     },
 
     /**
@@ -216,9 +225,21 @@ export default createStore<GloablDataProps>({
     },
 
     /**
+     * 获得单个卡片内容
+     */
+    async getCard(context, postId) {
+      try {
+        const cardData = await axios.get(`/posts/${postId}`)
+        context.commit('cardData', cardData.data)
+        return cardData.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    /**
      * 获得指定标签的卡片列表
      */
-
     async getTagCardList(context, tag) {
       try {
         const TagCardListData = await axios.get(`/posts?tag=${tag}`)
