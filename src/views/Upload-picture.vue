@@ -24,7 +24,7 @@
               >
                 <span v-if="imageUploadProgress < 100"> {{ imageUploadProgress + '%' }}</span>
                 <div v-else class="image-upload-await">
-                  <span>图片处理中,请稍后</span>
+                  <span>正在处理图像,请稍后</span>
                   <span class="throbber-loader">Loading&#8230;</span>
                 </div>
               </div>
@@ -75,6 +75,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
     const router = useRouter();
+    const uploaderror = ref();
 
     /**
      * 表单校验
@@ -178,6 +179,14 @@ export default defineComponent({
         imageUploadProgress.value = null;
         lastPrev.value = '';
       } catch (error) {
+        // 清理
+        fileMessage.value = null;
+        imagePreviewUrl.value = null;
+        pictureVal.value = '';
+        imageUploadProgress.value = null;
+        lastPrev.value = '';
+
+        uploaderror.value = error;
         console.log(error);
       }
     };
@@ -224,6 +233,7 @@ export default defineComponent({
         isDisabled.value.value = '...';
 
         // 执行请求上传内容组件
+
         await createPost();
 
         //上传完毕 清空表单内容、恢复提交按钮功能与样式
@@ -233,11 +243,16 @@ export default defineComponent({
         isDisabled.value.removeAttribute('disabled');
         isDisabled.value.value = '发表';
 
-        // 执行成功提示
-        await createTooltip('上传成功,3秒后跳转到首页', 'success', 3000);
-        await setTimeout(() => {
-          router.push('/');
-        }, 3000);
+        // 如果有错误
+        if (uploaderror.value) {
+          uploaderror.value = '';
+        } else {
+          // 如果有上传成功,执行成功提示;
+          await createTooltip('上传成功,3秒后跳转到首页', 'success', 3000);
+          await setTimeout(() => {
+            router.push('/');
+          }, 3000);
+        }
       } else {
         console.log('不通过');
       }
