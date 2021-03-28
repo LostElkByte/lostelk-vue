@@ -27,7 +27,7 @@
           </div>
         </div>
       </div>
-      <div class="content">
+      <div class="card-details-content">
         <div class="content-details">
           <div class="content-header">
             <div class="content-header-author">
