@@ -42,10 +42,8 @@ export default defineComponent({
      * 重新加载全部照片并回到首页
      */
     const goBack = () => {
-      store.dispatch('getCardList').then(() => {
-        router.push('/');
-        store.commit('setSearchFailure', false);
-      });
+      router.push('/');
+      store.commit('setSearchFailure', false);
     };
 
     return {

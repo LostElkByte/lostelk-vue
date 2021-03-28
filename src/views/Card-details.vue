@@ -66,7 +66,6 @@ import { defineComponent, onMounted, onBeforeUnmount, computed, ref } from 'vue'
 import router from '../router';
 import Likes from '../components/Likes.vue';
 import DownloadFile from '../components/DownloadFile.vue';
-import axios from 'axios';
 import store from '../store';
 export default defineComponent({
   components: {
@@ -103,16 +102,28 @@ export default defineComponent({
     };
 
     /**
-     * 创建组件时给app添加响应样式,销毁时删除.
+     * 创建组件时给Id为app的节点添加响应样式,
      */
     onMounted(() => {
       const appElement = document.getElementById('app') as HTMLElement;
       appElement.classList.add('notScroll');
     });
+
+    /**
+     * 销毁时删除Id为app的dom节点
+     * 跳转到home页
+     * 调整home页纵坐标位置
+     */
     onBeforeUnmount(() => {
       const appElement = document.getElementById('app') as HTMLElement;
       appElement.classList.remove('notScroll');
+
       router.push('/');
+      // 跳转完成后将坐标调整到上次浏览的位置
+      const scrollTop = computed(() => store.state.HomeScrollTop);
+      if (scrollTop.value) {
+        window.scrollTo(0, scrollTop.value);
+      }
     });
 
     return {

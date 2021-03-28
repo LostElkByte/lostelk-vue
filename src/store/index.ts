@@ -45,6 +45,7 @@ export interface GloablDataProps {
   userLikes: CardList[];
   isShowLoading: boolean;
   searchFailure: boolean;
+  HomeScrollTop: number | null;
 }
 
 
@@ -59,7 +60,8 @@ export default createStore<GloablDataProps>({
     token: localStorage.getItem('token') || '',
     userLikes: [],
     isShowLoading: true,
-    searchFailure: false
+    searchFailure: false,
+    HomeScrollTop: null
   },
 
   mutations: {
@@ -171,6 +173,13 @@ export default createStore<GloablDataProps>({
         }
       }
     },
+
+    /**
+     * 获取home页滚动位置
+     */
+    HomeScrollTop(state, scrollTop) {
+      state.HomeScrollTop = scrollTop
+    }
   },
 
   actions: {
