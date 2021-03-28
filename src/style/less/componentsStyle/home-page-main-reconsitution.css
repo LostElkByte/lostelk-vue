@@ -21,6 +21,7 @@
 .home-page_main .main_center .home-page_main_cards .cardColumn .home-page_main_cards_item {
   position: relative;
   font-size: 0;
+  min-height: 120px;
 }
 .home-page_main .main_center .home-page_main_cards .cardColumn .home-page_main_cards_item > img {
   width: 100%;
