@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="right-arrow">
-        <div class="arrow-box">
+        <div class="arrow-box" @click="rightCut" ref="rightCutDom">
           <div class="arrow-box-24">
             <svg class="icon icon-size-fill" aria-hidden="true">
               <use xlink:href="#icon-calendar-arrow-right"></use>
@@ -34,15 +34,13 @@
               <div class="content-header-author-photo">
                 <img
                   v-if="postData.user.avatar"
-                  class=""
+                  class="content-header-author-photo-32"
                   :src="`${lostelkUrl}/users/${postData.user.id}/avatar?size=small`"
                   :alt="postData.user.name"
                 />
-                <div v-else class="">
-                  <svg class="" aria-hidden="true">
-                    <use xlink:href="#icon-weidenglu"></use>
-                  </svg>
-                </div>
+                <svg v-else class="icon content-header-author-photo-32" aria-hidden="true">
+                  <use xlink:href="#icon-icon-test"></use>
+                </svg>
               </div>
               <div class="content-header-author-data">
                 <span>{{ postData.user.name }}</span>
@@ -122,6 +120,17 @@ export default defineComponent({
     });
 
     /**
+     * 切换文章
+     */
+    const rightCutDom = ref();
+    const rightCut = () => {
+      const cardIndex = cardList.value.findIndex(item => item.id === postId.value);
+      if (cardIndex !== -1) {
+        console.log(cardIndex);
+      }
+    };
+
+    /**
      * 关闭按钮
      */
     const close = () => {
@@ -161,6 +170,8 @@ export default defineComponent({
       close,
       postId,
       postData,
+      rightCut,
+      rightCutDom,
     };
   },
 });
