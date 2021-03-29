@@ -1,7 +1,7 @@
 <template>
   <div class="shade">
     <!-- {{ cardList }} -->
-    <div class="arrange">
+    <div class="arrange" v-if="showCard">
       <div class="close" @click="close">
         <div class="close-button">
           <svg class="icon icon-size-fill" aria-hidden="true">
@@ -31,11 +31,27 @@
         <div class="content-details">
           <div class="content-header">
             <div class="content-header-author">
-              <div class="content-header-author-photo"></div>
+              <div class="content-header-author-photo">
+                <img
+                  v-if="postData.user.avatar"
+                  class=""
+                  :src="`${lostelkUrl}/users/${postData.user.id}/avatar?size=small`"
+                  :alt="postData.user.name"
+                />
+                <div v-else class="">
+                  <svg class="" aria-hidden="true">
+                    <use xlink:href="#icon-weidenglu"></use>
+                  </svg>
+                </div>
+              </div>
+              <div class="content-header-author-data">
+                <span>{{ postData.user.name }}</span>
+                <span v-if="postData.user.id <= 100">内测用户</span>
+              </div>
             </div>
             <div class="content-header-toolbar">
               <div class="content-header-toolbar-like">
-                <Likes v-if="postData" :isLike="postData.liked" :cardId="postId"></Likes>
+                <Likes :isLike="postData.liked" :cardId="postId"></Likes>
               </div>
               <div class="content-header-toolbar-comment">
                 <svg class="icon" aria-hidden="true">
@@ -43,7 +59,7 @@
                 </svg>
               </div>
               <div class="content-header-toolbar-downloadFile">
-                <DownloadFile v-if="postData" :fileId="postData.file.id">
+                <DownloadFile :fileId="postData.file.id">
                   <span>
                     Download free
                     <svg class="icon" aria-hidden="true">
@@ -63,6 +79,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, onBeforeUnmount, computed, ref } from 'vue';
+import { lostelkUrl } from '../global';
 import router from '../router';
 import Likes from '../components/Likes.vue';
 import DownloadFile from '../components/DownloadFile.vue';
@@ -85,12 +102,24 @@ export default defineComponent({
     /**
      * 获取单个文章数据
      */
+    const showCard = ref(false);
     const postData = ref();
-    store.dispatch('getCard', postId.value).then(data => {
-      postData.value = data;
+    const cardList = computed(() => store.state.cardList);
+
+    onMounted(() => {
+      const cardIndex = cardList.value.findIndex(item => item.id === postId.value);
+      if (cardIndex !== -1) {
+        showCard.value = true;
+        postData.value = cardList.value[cardIndex];
+      } else {
+        store.dispatch('getCard', postId.value).then(data => {
+          if (data) {
+            showCard.value = true;
+            postData.value = data;
+          }
+        });
+      }
     });
-    // const postData = computed(() => store.state.card);
-    // console.log(postData.value);
 
     /**
      * 关闭按钮
@@ -127,6 +156,8 @@ export default defineComponent({
     });
 
     return {
+      showCard,
+      lostelkUrl,
       close,
       postId,
       postData,
