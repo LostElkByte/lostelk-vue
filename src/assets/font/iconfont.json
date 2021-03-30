@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1703536",
+      "name": "下载",
+      "font_class": "xiazai1",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "8767555",
+      "name": "下载",
+      "font_class": "xiazai2",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "19460949",
+      "name": "下载",
+      "font_class": "xiazai3",
+      "unicode": "f0e9",
+      "unicode_decimal": 61673
+    },
+    {
       "icon_id": "5220164",
       "name": "单反",
       "font_class": "danfan",
