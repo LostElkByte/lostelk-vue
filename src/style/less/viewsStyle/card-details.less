@@ -216,20 +216,42 @@
   text-align: center;
   max-width: 100%;
 }
+
 .content-pictureLarge {
   padding: 10px 0px;
   text-align: center;
   max-width: 100%;
 }
+
 .content-picture img {
   max-width: 100%;
   min-width: 80px;
   max-height: 750px;
   cursor: zoom-in;
 }
+
 .content-pictureLarge img {
   width: 100%;
   cursor: zoom-out;
+}
+
+.content-message {
+  background-color: pink;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  padding: 9px 12px;
+  font-size: 12px;
+}
+
+.content--message-metainformation {
+  flex-basis: 0%;
+  flex-grow: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #ccc;
 }
 
 .content-cards {

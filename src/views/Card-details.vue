@@ -75,6 +75,13 @@
               @click="zoomInAndOut"
             />
           </div>
+          <div class="content-message">
+            <div class="content--message-metainformation">1</div>
+            <div class="content--message-jurisdiction">
+              <div class="content--message-compile"></div>
+              <div class="content--message-delete"></div>
+            </div>
+          </div>
         </div>
         <div class="content-cards"></div>
       </div>

@@ -216,6 +216,23 @@
   width: 100%;
   cursor: zoom-out;
 }
+.content-message {
+  background-color: pink;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  padding: 9px 12px;
+  font-size: 12px;
+}
+.content--message-metainformation {
+  flex-basis: 0%;
+  flex-grow: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #ccc;
+}
 .content-cards {
   height: 1000px;
   background-color: blue;
