@@ -61,7 +61,7 @@
                   <span>
                     Download free
                     <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#icon-xia"></use>
+                      <use xlink:href="#icon-xiazai2"></use>
                     </svg>
                   </span>
                 </DownloadFile>
