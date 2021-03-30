@@ -43,7 +43,7 @@
                 </svg>
               </div>
               <div class="content-header-author-data">
-                <span>{{ postData.title }}</span>
+                <span>{{ postData.user.name }}</span>
                 <span v-if="postData.user.id <= 100">内测用户</span>
               </div>
             </div>
@@ -67,6 +67,13 @@
                 </DownloadFile>
               </div>
             </div>
+          </div>
+          <div :class="zoom ? 'content-picture' : 'content-pictureLarge'">
+            <img
+              :src="`${lostelkUrl}/files/${postData.file.id}/serve?size=large`"
+              :alt="postData.title"
+              @click="zoomInAndOut"
+            />
           </div>
         </div>
         <div class="content-cards"></div>
@@ -120,6 +127,14 @@ export default defineComponent({
     });
 
     /**
+     * 图片放大缩小
+     */
+    const zoom = ref(true);
+    const zoomInAndOut = () => {
+      zoom.value = !zoom.value;
+    };
+
+    /**
      * 切换文章
      */
     const rightCutDom = ref();
@@ -140,21 +155,23 @@ export default defineComponent({
       }
     });
 
-    const rightCut = () => {
+    const rightCut = async () => {
+      zoom.value = true;
       if (cardList.value.length - 1 > cardIndex.value) {
         const rightCutId = cardList.value[cardIndex.value + 1].id;
         postData.value = cardList.value[cardIndex.value + 1];
-        router.push(`/card/${rightCutId}`);
+        await router.push(`/card/${rightCutId}`);
       } else {
         rightCutDom.value.classList.add('noClick');
       }
     };
 
-    const leftCut = () => {
+    const leftCut = async () => {
+      zoom.value = true;
       if (cardIndex.value > 0) {
         const leftCutId = cardList.value[cardIndex.value - 1].id;
         postData.value = cardList.value[cardIndex.value - 1];
-        router.push(`/card/${leftCutId}`);
+        await router.push(`/card/${leftCutId}`);
       } else {
         leftCutDom.value.classList.add('noClick');
       }
@@ -204,6 +221,8 @@ export default defineComponent({
       rightCutDom,
       leftCut,
       leftCutDom,
+      zoom,
+      zoomInAndOut,
     };
   },
 });

@@ -93,8 +93,9 @@
 }
 
 .content-details {
-  height: 800px;
-  background-color: yellow;
+  // height: 800px;
+  // background-color: yellow;
+  width: 100%;
 }
 
 .content-header {
@@ -209,6 +210,26 @@
   }
 }
 
+.content-picture {
+  padding: 10px 28px;
+  text-align: center;
+  max-width: 100%;
+}
+.content-pictureLarge {
+  padding: 10px 0px;
+  text-align: center;
+  max-width: 100%;
+}
+.content-picture img {
+  max-width: 100%;
+  min-width: 320px;
+  cursor: zoom-in;
+}
+.content-pictureLarge img {
+  width: 100%;
+  cursor: zoom-out;
+}
+
 .content-cards {
   height: 1000px;
   background-color: blue;
@@ -243,5 +264,9 @@
   }
   .right-arrow {
     display: none;
+  }
+  .content-picture {
+    padding: 10px 0px;
+    text-align: center;
   }
 }
