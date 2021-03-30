@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="left-arrow">
-        <div class="arrow-box">
+        <div class="arrow-box" @click="leftCut" ref="leftCutDom">
           <div class="arrow-box-24">
             <svg class="icon icon-size-fill" aria-hidden="true">
               <use xlink:href="#icon-calendar-arrow-left"></use>
@@ -43,7 +43,7 @@
                 </svg>
               </div>
               <div class="content-header-author-data">
-                <span>{{ postData.user.name }}</span>
+                <span>{{ postData.title }}</span>
                 <span v-if="postData.user.id <= 100">内测用户</span>
               </div>
             </div>
@@ -76,7 +76,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onBeforeUnmount, computed, ref } from 'vue';
+import { defineComponent, onMounted, onBeforeUnmount, computed, ref, onUpdated } from 'vue';
 import { lostelkUrl } from '../global';
 import router from '../router';
 import Likes from '../components/Likes.vue';
@@ -123,10 +123,40 @@ export default defineComponent({
      * 切换文章
      */
     const rightCutDom = ref();
+    const leftCutDom = ref();
+    const cardIndex = computed(() => cardList.value.findIndex(item => item.id === postId.value));
+
+    onUpdated(() => {
+      if (cardIndex.value === -1) {
+        leftCutDom.value.classList.add('noClick');
+        rightCutDom.value.classList.add('noClick');
+      } else if (cardIndex.value === 0) {
+        leftCutDom.value.classList.add('noClick');
+      } else if (cardList.value.length - 1 <= cardIndex.value) {
+        rightCutDom.value.classList.add('noClick');
+      } else {
+        leftCutDom.value.classList.remove('noClick');
+        rightCutDom.value.classList.remove('noClick');
+      }
+    });
+
     const rightCut = () => {
-      const cardIndex = cardList.value.findIndex(item => item.id === postId.value);
-      if (cardIndex !== -1) {
-        console.log(cardIndex);
+      if (cardList.value.length - 1 > cardIndex.value) {
+        const rightCutId = cardList.value[cardIndex.value + 1].id;
+        postData.value = cardList.value[cardIndex.value + 1];
+        router.push(`/card/${rightCutId}`);
+      } else {
+        rightCutDom.value.classList.add('noClick');
+      }
+    };
+
+    const leftCut = () => {
+      if (cardIndex.value > 0) {
+        const leftCutId = cardList.value[cardIndex.value - 1].id;
+        postData.value = cardList.value[cardIndex.value - 1];
+        router.push(`/card/${leftCutId}`);
+      } else {
+        leftCutDom.value.classList.add('noClick');
       }
     };
 
@@ -172,6 +202,8 @@ export default defineComponent({
       postData,
       rightCut,
       rightCutDom,
+      leftCut,
+      leftCutDom,
     };
   },
 });

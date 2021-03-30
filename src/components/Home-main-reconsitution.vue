@@ -406,12 +406,12 @@ export default defineComponent({
     /**
      * 点击跳转详情页
      */
-    const cardDetails = (posta: number) => {
+    const cardDetails = (postId: number) => {
       // 获取当前坐标储存在store中
       const HomeScrollTop = document.documentElement.scrollTop;
       store.commit('HomeScrollTop', HomeScrollTop);
 
-      router.push(`/card/${posta}`);
+      router.push(`/card/${postId}`);
     };
 
     return {
