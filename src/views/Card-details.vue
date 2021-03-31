@@ -76,10 +76,26 @@
             />
           </div>
           <div class="content-message">
-            <div class="content--message-metainformation">1</div>
-            <div class="content--message-jurisdiction">
-              <div class="content--message-compile"></div>
-              <div class="content--message-delete"></div>
+            <div class="content--message-metainformation">
+              <div class="content--message-metainformation-model">
+                <svg class="icon metainformation-svg" aria-hidden="true">
+                  <use xlink:href="#icon-Google-Camera"></use>
+                </svg>
+                <span>相机 {{ fileMetadata }}</span>
+              </div>
+              <div class="content--message-metainformation-in-detail"></div>
+            </div>
+
+            <div class="content--message-jurisdiction-compile">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-bianji2"></use>
+              </svg>
+              <span>编辑</span>
+            </div>
+            <div class="content--message-jurisdiction-delete">
+              <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-shanchu2"></use>
+              </svg>
             </div>
           </div>
         </div>
@@ -90,7 +106,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onBeforeUnmount, computed, ref, onUpdated } from 'vue';
+import { defineComponent, onMounted, onBeforeUnmount, computed, ref, onUpdated, onBeforeUpdate } from 'vue';
 import { lostelkUrl } from '../global';
 import router from '../router';
 import Likes from '../components/Likes.vue';
@@ -108,7 +124,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // 获取帖子ID
+    // 获取当前帖子的ID
     const postId = computed(() => Number(props.id));
 
     /**
@@ -117,21 +133,32 @@ export default defineComponent({
     const showCard = ref(false);
     const postData = ref();
     const cardList = computed(() => store.state.cardList);
+    const cardIndex = computed(() => cardList.value.findIndex(item => item.id === postId.value));
 
-    onMounted(() => {
-      const cardIndex = cardList.value.findIndex(item => item.id === postId.value);
-      if (cardIndex !== -1) {
-        showCard.value = true;
-        postData.value = cardList.value[cardIndex];
-      } else {
-        store.dispatch('getCard', postId.value).then(data => {
-          if (data) {
-            showCard.value = true;
-            postData.value = data;
-          }
-        });
-      }
-    });
+    // 如果当前帖子存在于cardList数组中,进入if 否则 进入else
+    if (cardIndex.value !== -1) {
+      // 帖子存在 开放组件dom
+      showCard.value = true;
+      // 获取帖子内容
+      postData.value = cardList.value[cardIndex.value];
+      //请求获取图像文件元信息(不要处理为同步代码,异步操作用于触发onUpdated事件)
+      store.dispatch('getFileMetadata', postData.value.file.id);
+    } else {
+      // 获取单个帖子
+      store.dispatch('getCard', postId.value).then(data => {
+        if (data) {
+          // 获取到帖子 开放组件dom
+          showCard.value = true;
+          // 获取帖子内容
+          postData.value = data;
+          //请求获取图像文件元信息(不要处理为同步代码,异步操作用于触发onUpdated事件)
+          store.dispatch('getFileMetadata', data.file.id);
+        }
+      });
+    }
+
+    // 动态获取图像文件元信息
+    const fileMetadata = computed(() => store.state.fileMetadata);
 
     /**
      * 图片放大缩小
@@ -146,7 +173,6 @@ export default defineComponent({
      */
     const rightCutDom = ref();
     const leftCutDom = ref();
-    const cardIndex = computed(() => cardList.value.findIndex(item => item.id === postId.value));
 
     onUpdated(() => {
       if (cardIndex.value === -1) {
@@ -163,23 +189,43 @@ export default defineComponent({
     });
 
     const rightCut = async () => {
+      // 图像恢复小图
       zoom.value = true;
+      // 如果当前详情的下标不是最后一个则进入if 否则 右按钮添加禁止点击样式
       if (cardList.value.length - 1 > cardIndex.value) {
+        // 获得下一张详情页的id
         const rightCutId = cardList.value[cardIndex.value + 1].id;
+        // 获得下一张详情页的内容
         postData.value = cardList.value[cardIndex.value + 1];
+        //获取图像文件元信息
+        await store.dispatch('getFileMetadata', postData.value.file.id);
+        // 跳转URL
         await router.push(`/card/${rightCutId}`);
+        // 清除禁止点击样式
+        leftCutDom.value.classList.remove('noClick');
       } else {
+        // 添加右按钮按钮禁止点击样式
         rightCutDom.value.classList.add('noClick');
       }
     };
 
     const leftCut = async () => {
+      // 图像恢复小图
       zoom.value = true;
+      // 如果当前详情的下标不是第一个则进入if 否则 左按钮添加禁止点击样式
       if (cardIndex.value > 0) {
+        // 获得上一张详情页的id
         const leftCutId = cardList.value[cardIndex.value - 1].id;
+        // 获得上一张详情页的内容
         postData.value = cardList.value[cardIndex.value - 1];
+        //获取图像文件元信息
+        await store.dispatch('getFileMetadata', postData.value.file.id);
+        // 跳转URL
         await router.push(`/card/${leftCutId}`);
+        // 清除禁止点击样式
+        rightCutDom.value.classList.remove('noClick');
       } else {
+        // 添加左按钮禁止点击样式
         leftCutDom.value.classList.add('noClick');
       }
     };
@@ -230,6 +276,7 @@ export default defineComponent({
       leftCutDom,
       zoom,
       zoomInAndOut,
+      fileMetadata,
     };
   },
 });

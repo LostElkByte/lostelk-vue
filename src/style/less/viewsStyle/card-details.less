@@ -177,6 +177,7 @@
     font-size: 16px;
     line-height: 32px;
     margin: 4px;
+    cursor: pointer;
     &:hover {
       box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
       transition: all 0.1s ease-in-out;
@@ -236,7 +237,6 @@
 }
 
 .content-message {
-  background-color: pink;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -251,7 +251,58 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  background-color: #ccc;
+  // background-color: #ccc;
+}
+
+.content--message-jurisdiction-delete,
+.content--message-jurisdiction-compile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  height: 32px;
+  color: #767676;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-color: #d1d1d1;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 4%);
+  text-align: center;
+  user-select: none;
+  fill: currentColor;
+  font-size: 20px;
+  line-height: 24px;
+  margin-left: 8px;
+  cursor: pointer;
+
+  span {
+    font-size: 14px;
+    margin-left: 3px;
+  }
+
+  &:hover {
+    box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+    transition: all 0.1s ease-in-out;
+  }
+}
+
+// .content--message-metainformation {
+// }
+.content--message-metainformation-model,
+.content--message-metainformation-in-detail {
+  display: flex;
+  align-items: center;
+  span {
+    font-size: 14px;
+    margin-left: 5px;
+  }
+  .metainformation-svg {
+    font-size: 16px;
+  }
+}
+
+.content--message-jurisdiction-delete {
+  font-size: 16px;
 }
 
 .content-cards {

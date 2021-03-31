@@ -46,6 +46,7 @@ export interface GloablDataProps {
   isShowLoading: boolean;
   searchFailure: boolean;
   HomeScrollTop: number | null;
+  fileMetadata: [];
 }
 
 
@@ -61,7 +62,8 @@ export default createStore<GloablDataProps>({
     userLikes: [],
     isShowLoading: true,
     searchFailure: false,
-    HomeScrollTop: null
+    HomeScrollTop: null,
+    fileMetadata: []
   },
 
   mutations: {
@@ -179,6 +181,13 @@ export default createStore<GloablDataProps>({
      */
     HomeScrollTop(state, scrollTop) {
       state.HomeScrollTop = scrollTop
+    },
+
+    /**
+     * 获取当前图像文件的元数据
+     */
+    fileMetadata(state, rawdata) {
+      state.fileMetadata = rawdata
     }
   },
 
@@ -267,6 +276,18 @@ export default createStore<GloablDataProps>({
           const userLikes = await axios.get(`/posts?user=${userId}&action=liked`)
           context.commit('getUserLikes', userLikes.data);
         }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    /**
+     * 获取当前文件的元数据信息
+     */
+    async getFileMetadata(context, fileId) {
+      try {
+        const fileMetadata = await axios.get(`/files/${fileId}/metadata`)
+        context.commit('fileMetadata', fileMetadata.data)
       } catch (error) {
         console.log(error);
       }
