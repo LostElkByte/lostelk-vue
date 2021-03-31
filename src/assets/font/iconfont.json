@@ -55,13 +55,6 @@
       "unicode_decimal": 58886
     },
     {
-      "icon_id": "17388820",
-      "name": "删除",
-      "font_class": "shanchu1",
-      "unicode": "e643",
-      "unicode_decimal": 58947
-    },
-    {
       "icon_id": "19494236",
       "name": "删 除",
       "font_class": "shanchu2",
@@ -109,13 +102,6 @@
       "font_class": "weidan",
       "unicode": "e608",
       "unicode_decimal": 58888
-    },
-    {
-      "icon_id": "5220181",
-      "name": "gopro",
-      "font_class": "gopro",
-      "unicode": "e609",
-      "unicode_decimal": 58889
     },
     {
       "icon_id": "6804686",
