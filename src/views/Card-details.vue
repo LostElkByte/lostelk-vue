@@ -1,14 +1,16 @@
 <template>
   <div class="shade">
-    <!-- {{ cardList }} -->
-    <div class="arrange" v-if="showCard">
-      <div class="close" @click="close">
-        <div class="close-button">
-          <svg class="icon icon-size-fill" aria-hidden="true">
-            <use xlink:href="#icon-guanbi"></use>
-          </svg>
-        </div>
+    <!-- 关闭按钮 -->
+    <div class="close" @click="close">
+      <div class="close-button">
+        <svg class="icon icon-size-fill" aria-hidden="true">
+          <use xlink:href="#icon-guanbi"></use>
+        </svg>
       </div>
+    </div>
+    <!-- 整体布局 -->
+    <div class="arrange" v-if="showCard">
+      <!-- 左切换 -->
       <div class="left-arrow">
         <div class="arrow-box" @click="leftCut" ref="leftCutDom">
           <div class="arrow-box-24">
@@ -18,6 +20,7 @@
           </div>
         </div>
       </div>
+      <!-- 右切换 -->
       <div class="right-arrow">
         <div class="arrow-box" @click="rightCut" ref="rightCutDom">
           <div class="arrow-box-24">
@@ -27,7 +30,9 @@
           </div>
         </div>
       </div>
+      <!-- 主内容区 -->
       <div class="card-details-content">
+        <!-- 单个内容详情 -->
         <div class="content-details">
           <div class="content-header">
             <div class="content-header-author">
@@ -99,6 +104,7 @@
             </div>
           </div>
         </div>
+        <!-- 内容列表 -->
         <div class="content-cards"></div>
       </div>
     </div>
@@ -106,7 +112,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onBeforeUnmount, computed, ref, onUpdated, onBeforeUpdate } from 'vue';
+import { defineComponent, onMounted, onBeforeUnmount, computed, ref, onUpdated } from 'vue';
 import { lostelkUrl } from '../global';
 import router from '../router';
 import Likes from '../components/Likes.vue';
@@ -240,7 +246,7 @@ export default defineComponent({
     };
 
     /**
-     * 创建组件时给Id为app的节点添加响应样式,
+     * 组件挂载成功后给Id为app的节点添加响应样式,
      */
     onMounted(() => {
       const appElement = document.getElementById('app') as HTMLElement;
