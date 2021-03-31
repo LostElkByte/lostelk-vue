@@ -122,13 +122,13 @@
               </div>
             </div>
 
-            <div class="content-message-jurisdiction-compile">
+            <div v-if="userId === postData.user.id" class="content-message-jurisdiction-compile">
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-bianji2"></use>
               </svg>
               <span>编辑</span>
             </div>
-            <div class="content-message-jurisdiction-delete">
+            <div v-if="userId === postData.user.id" class="content-message-jurisdiction-delete">
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-shanchu2"></use>
               </svg>
@@ -161,6 +161,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    // 获取当前用户ID
+    const userId = computed(() => store.state.user.id);
     // 获取当前帖子的ID
     const postId = computed(() => Number(props.id));
 
@@ -315,6 +317,7 @@ export default defineComponent({
     });
 
     return {
+      userId,
       showCard,
       lostelkUrl,
       close,
