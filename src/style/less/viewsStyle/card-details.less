@@ -213,13 +213,13 @@
 }
 
 .content-picture {
-  padding: 10px 20px;
+  padding: 0px 20px;
   text-align: center;
   max-width: 100%;
 }
 
 .content-pictureLarge {
-  padding: 10px 0px;
+  padding: 0px 0px;
   text-align: center;
   max-width: 100%;
 }
@@ -239,23 +239,22 @@
 .content-message {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
   padding: 9px 12px;
   font-size: 12px;
 }
 
-.content--message-metainformation {
+.content-message-metainformation {
   flex-basis: 0%;
   flex-grow: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  // background-color: #ccc;
 }
 
-.content--message-jurisdiction-delete,
-.content--message-jurisdiction-compile {
+.content-message-jurisdiction-delete,
+.content-message-jurisdiction-compile {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -286,22 +285,29 @@
   }
 }
 
-// .content--message-metainformation {
-// }
-.content--message-metainformation-model,
-.content--message-metainformation-in-detail {
+.content-message-metainformation-Make,
+.content-message-metainformation-in-detail {
   display: flex;
   align-items: center;
-  span {
-    font-size: 14px;
-    margin-left: 5px;
+  line-height: 1.5;
+  font-weight: 700;
+  > span {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    margin-right: 10px;
   }
   .metainformation-svg {
     font-size: 16px;
+    margin-right: 5px;
+  }
+  .fileMetadata-content span {
+    color: #111;
+    margin-right: 7px;
   }
 }
 
-.content--message-jurisdiction-delete {
+.content-message-jurisdiction-delete {
   font-size: 16px;
 }
 
@@ -350,7 +356,7 @@
     height: 100px;
   }
   .content-picture {
-    padding: 10px 0px;
+    padding: 0px 0px;
     text-align: center;
   }
 }

@@ -81,23 +81,54 @@
             />
           </div>
           <div class="content-message">
-            <div class="content--message-metainformation">
-              <div class="content--message-metainformation-model">
-                <svg class="icon metainformation-svg" aria-hidden="true">
-                  <use xlink:href="#icon-Google-Camera"></use>
-                </svg>
-                <span>相机 {{ fileMetadata }}</span>
+            <div class="content-message-metainformation" v-if="fileMetadata">
+              <!-- 相机型号 -->
+              <div class="content-message-metainformation-Make">
+                <span v-if="fileMetadata.metadata.Make || fileMetadata.metadata.Model">
+                  <svg class="icon metainformation-svg" aria-hidden="true">
+                    <use xlink:href="#icon-Camera-2"></use>
+                  </svg>
+                  <span class="fileMetadata-content">
+                    <span v-if="fileMetadata.metadata.Make">{{ fileMetadata.metadata.Make }}</span>
+                    <span v-if="fileMetadata.metadata.Model">{{ fileMetadata.metadata.Model }}</span>
+                  </span>
+                </span>
               </div>
-              <div class="content--message-metainformation-in-detail"></div>
+              <!-- 照片参数 -->
+              <div class="content-message-metainformation-in-detail">
+                <span
+                  v-if="
+                    fileMetadata.metadata.FocalLength ||
+                      fileMetadata.metadata.ApertureValue ||
+                      fileMetadata.metadata.ExposureProgram
+                  "
+                >
+                  <svg class="icon metainformation-svg" aria-hidden="true">
+                    <use xlink:href="#icon-Lens-1"></use>
+                  </svg>
+                  <!-- 焦距 -->
+                  <span v-if="fileMetadata.metadata.FocalLength" class="fileMetadata-content">
+                    <span>焦距 {{ fileMetadata.metadata.FocalLength }}</span>
+                  </span>
+                  <!-- 光圈 -->
+                  <span v-if="fileMetadata.metadata.ApertureValue" class="fileMetadata-content">
+                    <span>光圈 ƒ/{{ Math.round(fileMetadata.metadata.ApertureValue * 100) / 100 }}</span>
+                  </span>
+                  <!-- 曝光 -->
+                  <span v-if="fileMetadata.metadata.ExposureProgram" class="fileMetadata-content">
+                    <span>曝光 {{ Math.round(fileMetadata.metadata.ExposureProgram * 100) / 100 }}s</span>
+                  </span>
+                </span>
+              </div>
             </div>
 
-            <div class="content--message-jurisdiction-compile">
+            <div class="content-message-jurisdiction-compile">
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-bianji2"></use>
               </svg>
               <span>编辑</span>
             </div>
-            <div class="content--message-jurisdiction-delete">
+            <div class="content-message-jurisdiction-delete">
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-shanchu2"></use>
               </svg>
@@ -133,6 +164,9 @@ export default defineComponent({
     // 获取当前帖子的ID
     const postId = computed(() => Number(props.id));
 
+    // 动态获取图像文件元信息
+    const fileMetadata = ref();
+
     /**
      * 获取单个文章数据
      */
@@ -148,7 +182,9 @@ export default defineComponent({
       // 获取帖子内容
       postData.value = cardList.value[cardIndex.value];
       //请求获取图像文件元信息(不要处理为同步代码,异步操作用于触发onUpdated事件)
-      store.dispatch('getFileMetadata', postData.value.file.id);
+      store.dispatch('getFileMetadata', postData.value.file.id).then(data => {
+        fileMetadata.value = data;
+      });
     } else {
       // 获取单个帖子
       store.dispatch('getCard', postId.value).then(data => {
@@ -158,13 +194,12 @@ export default defineComponent({
           // 获取帖子内容
           postData.value = data;
           //请求获取图像文件元信息(不要处理为同步代码,异步操作用于触发onUpdated事件)
-          store.dispatch('getFileMetadata', data.file.id);
+          store.dispatch('getFileMetadata', data.file.id).then(data => {
+            fileMetadata.value = data;
+          });
         }
       });
     }
-
-    // 动态获取图像文件元信息
-    const fileMetadata = computed(() => store.state.fileMetadata);
 
     /**
      * 图片放大缩小
@@ -181,6 +216,12 @@ export default defineComponent({
     const leftCutDom = ref();
 
     onUpdated(() => {
+      /**
+       * 如果当前帖子存在于cardList数组中,将左右切换按钮全部禁用
+       * 如果当前帖子于cardList数组的第一个元素,将左切换按钮全部禁用
+       * 如果当前帖子于cardList数组的最后个元素,将右切换按钮全部禁用
+       * 条件都不成立,删除左右切换按钮禁用样式
+       */
       if (cardIndex.value === -1) {
         leftCutDom.value.classList.add('noClick');
         rightCutDom.value.classList.add('noClick');
@@ -204,7 +245,9 @@ export default defineComponent({
         // 获得下一张详情页的内容
         postData.value = cardList.value[cardIndex.value + 1];
         //获取图像文件元信息
-        await store.dispatch('getFileMetadata', postData.value.file.id);
+        const Metadata = await store.dispatch('getFileMetadata', postData.value.file.id);
+        fileMetadata.value = Metadata;
+
         // 跳转URL
         await router.push(`/card/${rightCutId}`);
         // 清除禁止点击样式
@@ -225,7 +268,8 @@ export default defineComponent({
         // 获得上一张详情页的内容
         postData.value = cardList.value[cardIndex.value - 1];
         //获取图像文件元信息
-        await store.dispatch('getFileMetadata', postData.value.file.id);
+        const Metadata = await store.dispatch('getFileMetadata', postData.value.file.id);
+        fileMetadata.value = Metadata;
         // 跳转URL
         await router.push(`/card/${leftCutId}`);
         // 清除禁止点击样式

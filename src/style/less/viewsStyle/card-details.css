@@ -198,12 +198,12 @@
   transition: all 0.1s ease-in-out;
 }
 .content-picture {
-  padding: 10px 20px;
+  padding: 0px 20px;
   text-align: center;
   max-width: 100%;
 }
 .content-pictureLarge {
-  padding: 10px 0px;
+  padding: 0px 0px;
   text-align: center;
   max-width: 100%;
 }
@@ -220,11 +220,11 @@
 .content-message {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: center;
   padding: 9px 12px;
   font-size: 12px;
 }
-.content--message-metainformation {
+.content-message-metainformation {
   flex-basis: 0%;
   flex-grow: 1;
   min-width: 0;
@@ -232,8 +232,8 @@
   flex-direction: column;
   align-items: flex-start;
 }
-.content--message-jurisdiction-delete,
-.content--message-jurisdiction-compile {
+.content-message-jurisdiction-delete,
+.content-message-jurisdiction-compile {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -253,31 +253,41 @@
   margin-left: 8px;
   cursor: pointer;
 }
-.content--message-jurisdiction-delete span,
-.content--message-jurisdiction-compile span {
+.content-message-jurisdiction-delete span,
+.content-message-jurisdiction-compile span {
   font-size: 14px;
   margin-left: 3px;
 }
-.content--message-jurisdiction-delete:hover,
-.content--message-jurisdiction-compile:hover {
+.content-message-jurisdiction-delete:hover,
+.content-message-jurisdiction-compile:hover {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   transition: all 0.1s ease-in-out;
 }
-.content--message-metainformation-model,
-.content--message-metainformation-in-detail {
+.content-message-metainformation-Make,
+.content-message-metainformation-in-detail {
   display: flex;
   align-items: center;
+  line-height: 1.5;
+  font-weight: 700;
 }
-.content--message-metainformation-model span,
-.content--message-metainformation-in-detail span {
-  font-size: 14px;
-  margin-left: 5px;
+.content-message-metainformation-Make > span,
+.content-message-metainformation-in-detail > span {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  margin-right: 10px;
 }
-.content--message-metainformation-model .metainformation-svg,
-.content--message-metainformation-in-detail .metainformation-svg {
+.content-message-metainformation-Make .metainformation-svg,
+.content-message-metainformation-in-detail .metainformation-svg {
   font-size: 16px;
+  margin-right: 5px;
 }
-.content--message-jurisdiction-delete {
+.content-message-metainformation-Make .fileMetadata-content span,
+.content-message-metainformation-in-detail .fileMetadata-content span {
+  color: #111;
+  margin-right: 7px;
+}
+.content-message-jurisdiction-delete {
   font-size: 16px;
 }
 .content-cards {
@@ -321,7 +331,7 @@
     height: 100px;
   }
   .content-picture {
-    padding: 10px 0px;
+    padding: 0px 0px;
     text-align: center;
   }
 }

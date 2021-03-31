@@ -35,6 +35,57 @@ export interface GloablErrorProps {
   message?: string;
 }
 
+export interface GloablfileMetadataProps {
+  id: number;
+  size: number;
+  width: number;
+  height: number;
+  metadata: {
+    ISO?: number;
+    Make?: string;
+    Flash?: number;
+    Model?: string;
+    Artist?: string;
+    FNumber?: number;
+    LensInfo?: [];
+    LensMake?: string;
+    Software?: string;
+    Copyright?: string;
+    LensModel?: string;
+    Sharpness?: number;
+    CreateDate?: number;
+    ModifyDate?: number;
+    FocalLength?: number;
+    LightSource?: number;
+    XResolution?: number;
+    YResolution?: number;
+    ExposureMode?: number;
+    ExposureTime?: number;
+    MeteringMode?: number;
+    SerialNumber?: string;
+    WhiteBalance?: number;
+    ApertureValue?: number;
+    SensingMethod?: number;
+    ExifImageWidth?: number;
+    ResolutionUnit?: number;
+    BrightnessValue?: number;
+    ExifImageHeight?: number;
+    ExposureProgram?: number;
+    SensitivityType?: number;
+    DateTimeOriginal?: number;
+    LensSerialNumber?: string;
+    MaxApertureValue?: number;
+    SceneCaptureType?: number;
+    ShutterSpeedValue?: number;
+    ExposureCompensation?: number;
+    SubjectDistanceRange?: number;
+    FocalPlaneXResolution?: number;
+    FocalPlaneYResolution?: number;
+    FocalLengthIn35mmFormat?: number;
+    FocalPlaneResolutionUnit?: number;
+  };
+}
+
 export interface GloablDataProps {
   loading: boolean;
   error: GloablErrorProps;
@@ -46,9 +97,8 @@ export interface GloablDataProps {
   isShowLoading: boolean;
   searchFailure: boolean;
   HomeScrollTop: number | null;
-  fileMetadata: [];
+  fileMetadata: GloablfileMetadataProps | {};
 }
-
 
 export default createStore<GloablDataProps>({
 
@@ -63,7 +113,7 @@ export default createStore<GloablDataProps>({
     isShowLoading: true,
     searchFailure: false,
     HomeScrollTop: null,
-    fileMetadata: []
+    fileMetadata: {},
   },
 
   mutations: {
@@ -288,6 +338,7 @@ export default createStore<GloablDataProps>({
       try {
         const fileMetadata = await axios.get(`/files/${fileId}/metadata`)
         context.commit('fileMetadata', fileMetadata.data)
+        return fileMetadata.data
       } catch (error) {
         console.log(error);
       }
