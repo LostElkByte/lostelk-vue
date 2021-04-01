@@ -146,7 +146,7 @@
     </div>
   </div>
   <div class="home-page_main" v-else-if="ColumnSize === 2">
-    <MainSearch v-if="!searchfailure"></MainSearch>
+    <MainSearch v-if="!searchfailure" v-show="mainSearchIsNone"></MainSearch>
     <div class="main_center">
       <div class="home-page_main_cards" v-if="!searchfailure">
         <div class="cardColumn">
@@ -246,7 +246,7 @@
     </div>
   </div>
   <div class="home-page_main" v-else-if="ColumnSize === 1">
-    <MainSearch v-if="!searchfailure"></MainSearch>
+    <MainSearch v-if="!searchfailure" v-show="mainSearchIsNone"></MainSearch>
     <div class="main_center">
       <div class="home-page_main_cards" v-if="!searchfailure">
         <div class="cardColumn">
