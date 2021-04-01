@@ -136,7 +136,7 @@
           </div>
           <div class="content-tags" v-if="postData.tags !== null">
             <p>Related tags</p>
-            <span v-for="tag in postData.tags" :key="tag.id">
+            <span v-for="tag in postData.tags" :key="tag.id" @click="RelatedTagData(tag.name)">
               {{ tag.name }}
             </span>
           </div>
@@ -298,6 +298,21 @@ export default defineComponent({
     };
 
     /**
+     * 获取相关标签数据 并跳转到首页
+     */
+    const RelatedTagData = (tagName: string) => {
+      store.dispatch('getTagCardList', tagName).then(() => {
+        if (store.state.cardList.length === 0) {
+          store.commit('setSearchFailure', true);
+        } else {
+          store.commit('setSearchFailure', false);
+          store.commit('mainSearchIsNone', false);
+          close();
+        }
+      });
+    };
+
+    /**
      * 组件挂载成功后给Id为app的节点添加响应样式,
      */
     onMounted(() => {
@@ -336,6 +351,7 @@ export default defineComponent({
       zoom,
       zoomInAndOut,
       fileMetadata,
+      RelatedTagData,
     };
   },
 });
