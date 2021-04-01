@@ -96,6 +96,7 @@ export interface GloablDataProps {
   userLikes: CardList[];
   isShowLoading: boolean;
   searchFailure: boolean;
+  mainSearchIsNone: boolean;
   HomeScrollTop: number | null;
   fileMetadata: GloablfileMetadataProps | {};
 }
@@ -112,6 +113,7 @@ export default createStore<GloablDataProps>({
     userLikes: [],
     isShowLoading: true,
     searchFailure: false,
+    mainSearchIsNone: true,
     HomeScrollTop: null,
     fileMetadata: {},
   },
@@ -192,6 +194,13 @@ export default createStore<GloablDataProps>({
      */
     setIsShowLoading(state, rawdata) {
       state.isShowLoading = rawdata
+    },
+
+    /**
+     * 修改mainSearchIsNone显示状态
+     */
+    mainSearchIsNone(state, rawdata) {
+      state.mainSearchIsNone = rawdata
     },
 
     /**

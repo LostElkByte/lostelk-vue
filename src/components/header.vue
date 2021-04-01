@@ -90,6 +90,7 @@ export default defineComponent({
     const goBack = () => {
       store.dispatch('getCardList').then(() => {
         router.push('/');
+        store.commit('mainSearchIsNone', true);
         store.commit('setSearchFailure', false);
       });
     };

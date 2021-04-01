@@ -1,6 +1,6 @@
 <template>
   <div class="home-page_main" v-if="ColumnSize === 3">
-    <MainSearch v-if="!searchfailure"></MainSearch>
+    <MainSearch v-if="!searchfailure" v-show="mainSearchIsNone"></MainSearch>
     <div class="main_center">
       <div class="home-page_main_cards" v-if="!searchfailure">
         <div class="cardColumn">
@@ -404,6 +404,13 @@ export default defineComponent({
     const searchfailure = computed(() => store.state.searchFailure);
 
     /**
+     * 修改
+     * 获得
+     * 搜索栏显示状态
+     */
+    const mainSearchIsNone = computed(() => store.state.mainSearchIsNone);
+
+    /**
      * 点击跳转详情页
      */
     const cardDetails = (postId: number) => {
@@ -426,6 +433,7 @@ export default defineComponent({
       searchfailure,
       cardDetails,
       ColumnSize,
+      mainSearchIsNone,
     };
   },
 });

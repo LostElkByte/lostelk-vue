@@ -42,8 +42,11 @@ export default defineComponent({
      * 重新加载全部照片并回到首页
      */
     const goBack = () => {
-      router.push('/');
-      store.commit('setSearchFailure', false);
+      store.dispatch('getCardList').then(() => {
+        router.push('/');
+        store.commit('mainSearchIsNone', true);
+        store.commit('setSearchFailure', false);
+      });
     };
 
     return {

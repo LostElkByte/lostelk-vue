@@ -49,6 +49,7 @@ export default defineComponent({
             store.commit('setSearchFailure', true);
           } else {
             store.commit('setSearchFailure', false);
+            store.commit('mainSearchIsNone', false);
           }
         });
       }
