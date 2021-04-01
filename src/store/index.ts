@@ -312,6 +312,7 @@ export default createStore<GloablDataProps>({
       try {
         const TagCardListData = await axios.get(`/posts?tag=${tag}`)
         context.commit('getCardList', TagCardListData.data);
+        return TagCardListData.data
       } catch (error) {
         console.log(error);
       }
