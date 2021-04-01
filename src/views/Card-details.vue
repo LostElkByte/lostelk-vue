@@ -134,8 +134,14 @@
               </svg>
             </div>
           </div>
+          <div class="content-tags" v-if="postData.tags !== null">
+            <p>Related tags</p>
+            <span v-for="tag in postData.tags" :key="tag.id">
+              {{ tag.name }}
+            </span>
+          </div>
         </div>
-        <!-- 内容列表 -->
+        <!-- 评论 -->
         <div class="content-cards"></div>
       </div>
     </div>

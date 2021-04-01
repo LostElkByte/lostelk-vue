@@ -290,6 +290,31 @@
 .content-message-jurisdiction-delete {
   font-size: 16px;
 }
+.content-tags {
+  padding: 0px 12px 10px;
+}
+.content-tags p {
+  padding-top: 10px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.content-tags span {
+  margin-right: 8px;
+  padding-right: 8px;
+  padding-left: 8px;
+  border-radius: 2px;
+  font-size: 14px;
+  transition: all 0.1s ease-in-out;
+  text-transform: capitalize;
+  display: inline-block;
+  line-height: 26px;
+  color: #767676;
+  background-color: #eee;
+  cursor: pointer;
+}
+.content-tags span:hover {
+  color: #000;
+}
 .content-cards {
   height: 1000px;
   background-color: blue;
