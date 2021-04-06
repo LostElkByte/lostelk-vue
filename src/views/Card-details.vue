@@ -142,7 +142,7 @@
           </div>
         </div>
         <!-- 评论 -->
-        <div class="content-cards"></div>
+        <Comment></Comment>
       </div>
     </div>
   </div>
@@ -154,11 +154,13 @@ import { lostelkUrl } from '../global';
 import router from '../router';
 import Likes from '../components/Likes.vue';
 import DownloadFile from '../components/DownloadFile.vue';
+import Comment from '../components/Comment.vue';
 import store from '../store';
 export default defineComponent({
   components: {
     Likes,
     DownloadFile,
+    Comment,
   },
   props: {
     id: {
