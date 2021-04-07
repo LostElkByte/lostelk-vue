@@ -1,7 +1,7 @@
 <template>
   <div class="comment">
     <div class="comment-header">
-      <div class="comment-sum">20条评论</div>
+      <div class="comment-sum">{{ commentsNumber }}条评论</div>
     </div>
     <div class="comment-list">
       <ul class="nest-comment" v-for="comment in comments" :key="comment.id">
@@ -28,7 +28,24 @@
                 {{ comment.content }}
               </div>
               <div class="comment-reply">
-                <button class="commentReply-buttom">回复</button>
+                <button class="commentReply-buttom commentReply-buttom-show">
+                  <svg class="icon commentReply-buttom-icon" aria-hidden="true">
+                    <use xlink:href="#icon-huifu2"></use>
+                  </svg>
+                  回复
+                </button>
+                <button v-if="comment.user.id === userId" class="commentReply-buttom">
+                  <svg class="icon commentReply-buttom-icon" aria-hidden="true">
+                    <use xlink:href="#icon-bianji"></use>
+                  </svg>
+                  编辑
+                </button>
+                <button v-if="comment.user.id === userId" class="commentReply-buttom">
+                  <svg class="icon commentReply-buttom-icon" aria-hidden="true">
+                    <use xlink:href="#icon-icon"></use>
+                  </svg>
+                  删除
+                </button>
               </div>
             </div>
           </div>
@@ -48,7 +65,14 @@
                     <use xlink:href="#icon-icon-test"></use>
                   </svg>
                 </div>
-                <span class="user-name"> {{ replyComment.user.name }}</span>
+                <span>
+                  <span class="user-name" v-if="postUserIdProp === replyComment.user.id">
+                    {{ replyComment.user.name }}(作者)
+                  </span>
+                  <span class="user-name" v-else>
+                    {{ replyComment.user.name }}
+                  </span>
+                </span>
                 <span class="commentText-reply">
                   回复
                 </span>
@@ -57,9 +81,7 @@
                 </span>
               </div>
               <div class="commentItem-metaSibling">
-                <div class="comment-text">
-                  {{ replyComment.content }}
-                </div>
+                <div class="comment-text">{{ replyComment.content }}</div>
               </div>
             </div>
           </li>
@@ -95,22 +117,34 @@ export default defineComponent({
   },
   props: {
     postId: Number,
+    postUserId: Number,
   },
   setup(props) {
     // 获取当前用户ID
     const userId = computed(() => store.state.user.id);
+
+    //获取当前内容的作者
+    const postUserIdProp = computed(() => props.postUserId);
+
     // // 当前帖子的ID
     const postId = computed(() => props.postId);
 
+    /**
+     * 当前帖子的评论列表
+     */
     // 当前帖子的评论列表
     const comments = ref();
 
+    // 当前帖子的评论总数
+    const commentsNumber = ref();
+
     const getComment = async () => {
       await store.dispatch('getComments', postId.value).then(data => {
-        comments.value = data;
+        commentsNumber.value = data.headers['x-total-count'];
+        comments.value = data.data;
       });
 
-      comments.value.map(async (comment: { totalReplies: number; id: number; replyComment: any }) => {
+      comments.value.map(async (comment: { totalReplies: number; id: number; replyComment: unknown }) => {
         if (comment.totalReplies !== 0) {
           await store.dispatch('getReplyComments', comment.id).then(data => {
             comment.replyComment = data;
@@ -124,8 +158,11 @@ export default defineComponent({
     });
 
     return {
+      userId,
+      postUserIdProp,
       lostelkUrl,
       comments,
+      commentsNumber,
     };
   },
 });

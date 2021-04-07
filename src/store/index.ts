@@ -360,7 +360,7 @@ export default createStore<GloablDataProps>({
     async getComments(context, postId) {
       try {
         const comments = await axios.get(`/comments?post=${postId}`)
-        return comments.data
+        return comments
       } catch (error) {
         console.log(error)
       }

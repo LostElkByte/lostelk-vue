@@ -142,7 +142,7 @@
           </div>
         </div>
         <!-- 评论 -->
-        <Comment :postId="postId"></Comment>
+        <Comment :postId="postId" :postUserId="postData.user.id"></Comment>
       </div>
     </div>
   </div>

@@ -6,6 +6,62 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "4999277",
+      "name": "回复",
+      "font_class": "huifu2",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "1004661",
+      "name": "回复",
+      "font_class": "huifu1",
+      "unicode": "e64d",
+      "unicode_decimal": 58957
+    },
+    {
+      "icon_id": "4735288",
+      "name": "icon_回复1-面",
+      "font_class": "icon_huifu-mian",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "12069404",
+      "name": "回复",
+      "font_class": "huifu",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "14061158",
+      "name": "工具栏_回复",
+      "font_class": "gerenyouxiang_cebianlan_huifu",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "172210",
+      "name": "删除",
+      "font_class": "icon",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "7775060",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "11472428",
+      "name": "已回复",
+      "font_class": "yihuifu",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
       "icon_id": "666884",
       "name": "删除",
       "font_class": "shanchu",
