@@ -3,7 +3,7 @@
     <div class="comment-header">
       <div class="comment-sum">{{ commentsNumber }}条评论</div>
     </div>
-    <div class="comment-list">
+    <div class="comment-list" id="commentAnchor">
       <ul class="nest-comment" v-for="comment in comments" :key="comment.id">
         <li class="nestComment-rootComment">
           <div class="comment-item">
@@ -103,7 +103,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import { lostelkUrl } from '../global';
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
 import ValidateForm from '../components/ValidateForm.vue';
@@ -118,6 +118,7 @@ export default defineComponent({
   props: {
     postId: Number,
     postUserId: Number,
+    showCommentsCut: Boolean,
   },
   setup(props) {
     // 获取当前用户ID
@@ -152,6 +153,15 @@ export default defineComponent({
         }
       });
     };
+    const showCommentsCut = computed(() => props.showCommentsCut);
+    watch(showCommentsCut, () => {
+      if (showCommentsCut.value) {
+        setTimeout(() => {
+          const comment = document.getElementById('commentAnchor') as HTMLElement;
+          comment.scrollIntoView(false);
+        }, 100);
+      }
+    });
 
     onMounted(() => {
       getComment();
