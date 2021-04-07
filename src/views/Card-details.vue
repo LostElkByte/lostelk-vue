@@ -142,7 +142,7 @@
           </div>
         </div>
         <!-- 评论 -->
-        <Comment></Comment>
+        <Comment :postId="postId"></Comment>
       </div>
     </div>
   </div>

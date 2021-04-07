@@ -352,6 +352,30 @@ export default createStore<GloablDataProps>({
       } catch (error) {
         console.log(error);
       }
+    },
+
+    /**
+     * 获取当前内容的评论列表
+     */
+    async getComments(context, postId) {
+      try {
+        const comments = await axios.get(`/comments?post=${postId}`)
+        return comments.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    /**
+     * 获取当前的评论的回复评论列表
+     */
+    async getReplyComments(context, commentId) {
+      try {
+        const comments = await axios.get(`/comments/${commentId}/replies`)
+        return comments.data
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
 

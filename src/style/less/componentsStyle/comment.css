@@ -71,6 +71,15 @@
   display: inline-block;
   width: 24px;
   height: 24px;
+  margin-right: 3px;
+}
+.commentItem-avatar-img {
+  width: 100%;
+  height: 100%;
+  vertical-align: top;
+  background: #fff;
+  border-radius: 2px;
+  cursor: pointer;
 }
 .commentItem-avatar img {
   width: 100%;
