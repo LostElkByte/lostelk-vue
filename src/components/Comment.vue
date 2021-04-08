@@ -4,89 +4,15 @@
       <div class="comment-sum">{{ commentsNumber }}条评论</div>
     </div>
     <div class="comment-list" id="commentAnchor">
-      <ul class="nest-comment" v-for="comment in comments" :key="comment.id">
-        <li class="nestComment-rootComment">
-          <div class="comment-item">
-            <div class="commentItem-meta">
-              <div class="commentItem-avatar">
-                <img
-                  v-if="comment.user.avatar"
-                  class="commentItem-avatar-img"
-                  :src="`${lostelkUrl}/users/${comment.user.id}/avatar?size=small`"
-                  :alt="comment.user.name"
-                />
-                <svg v-else class="icon commentItem-avatar-img" aria-hidden="true">
-                  <use xlink:href="#icon-icon-test"></use>
-                </svg>
-              </div>
-              <span class="user-name">
-                {{ comment.user.name }}
-              </span>
-            </div>
-            <div class="commentItem-metaSibling">
-              <div class="comment-text">
-                {{ comment.content }}
-              </div>
-              <div class="comment-reply">
-                <button class="commentReply-buttom commentReply-buttom-show">
-                  <svg class="icon commentReply-buttom-icon" aria-hidden="true">
-                    <use xlink:href="#icon-huifu2"></use>
-                  </svg>
-                  回复
-                </button>
-                <button v-if="comment.user.id === userId" class="commentReply-buttom">
-                  <svg class="icon commentReply-buttom-icon" aria-hidden="true">
-                    <use xlink:href="#icon-bianji"></use>
-                  </svg>
-                  编辑
-                </button>
-                <button v-if="comment.user.id === userId" class="commentReply-buttom">
-                  <svg class="icon commentReply-buttom-icon" aria-hidden="true">
-                    <use xlink:href="#icon-icon"></use>
-                  </svg>
-                  删除
-                </button>
-              </div>
-            </div>
-          </div>
-        </li>
-        <div v-if="comment.totalReplies !== 0">
-          <li class="nestComment-child" v-for="replyComment in comment.replyComment" :key="replyComment.commentId">
-            <div class="comment-item">
-              <div class="commentItem-meta">
-                <div class="commentItem-avatar">
-                  <img
-                    v-if="replyComment.user.avatar"
-                    class="commentItem-avatar-img"
-                    :src="`${lostelkUrl}/users/${replyComment.user.id}/avatar?size=small`"
-                    :alt="comment.user.name"
-                  />
-                  <svg v-else class="icon commentItem-avatar-img" aria-hidden="true">
-                    <use xlink:href="#icon-icon-test"></use>
-                  </svg>
-                </div>
-                <span>
-                  <span class="user-name" v-if="postUserIdProp === replyComment.user.id">
-                    {{ replyComment.user.name }}(作者)
-                  </span>
-                  <span class="user-name" v-else>
-                    {{ replyComment.user.name }}
-                  </span>
-                </span>
-                <span class="commentText-reply">
-                  回复
-                </span>
-                <span class="user-link">
-                  {{ comment.user.name }}
-                </span>
-              </div>
-              <div class="commentItem-metaSibling">
-                <div class="comment-text">{{ replyComment.content }}</div>
-              </div>
-            </div>
-          </li>
-        </div>
-      </ul>
+      <div v-for="comment in comments" :key="comment.id">
+        <SingleComment
+          :comment="comment"
+          :postId="postIdProp"
+          :userId="userId"
+          :postUserIdProp="postUserIdProp"
+          @reloadComments="getComment"
+        ></SingleComment>
+      </div>
     </div>
 
     <ValidateForm class="comment-footer">
@@ -108,6 +34,7 @@ import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import { lostelkUrl } from '../global';
 import ValidateInput from '../components/ValidateInput.vue';
 import ValidateForm from '../components/ValidateForm.vue';
+import SingleComment from '../components/Single-comment.vue';
 import store from '../store';
 
 export default defineComponent({
@@ -115,6 +42,7 @@ export default defineComponent({
   components: {
     ValidateInput,
     ValidateForm,
+    SingleComment,
   },
   props: {
     postId: Number,
@@ -129,7 +57,7 @@ export default defineComponent({
     const postUserIdProp = computed(() => props.postUserId);
 
     // // 当前帖子的ID
-    const postId = computed(() => props.postId);
+    const postIdProp = computed(() => props.postId);
 
     /**
      * 获取当前帖子的评论列表
@@ -139,7 +67,7 @@ export default defineComponent({
     const commentsNumber = ref();
 
     const getComment = async () => {
-      await store.dispatch('getComments', postId.value).then(data => {
+      await store.dispatch('getComments', postIdProp.value).then(data => {
         commentsNumber.value = data.headers['x-total-count'];
         comments.value = data.data;
       });
@@ -179,7 +107,7 @@ export default defineComponent({
       if (result) {
         const publishCommentData = {
           content: publishCommentVal.value,
-          postId: postId.value,
+          postId: postIdProp.value,
         };
 
         store.dispatch('publishComments', publishCommentData).then(() => {
@@ -189,6 +117,10 @@ export default defineComponent({
         console.log('不通过');
       }
     };
+
+    /**
+     * 发表按钮点击控制
+     */
     const publishCommentButton = ref(false);
     watch(publishCommentVal, () => {
       if (publishCommentVal.value) {
@@ -198,6 +130,7 @@ export default defineComponent({
       }
     });
     return {
+      postIdProp,
       userId,
       postUserIdProp,
       lostelkUrl,
@@ -206,6 +139,7 @@ export default defineComponent({
       publishCommentVal,
       onFormSubmit,
       publishCommentButton,
+      getComment,
     };
   },
 });
@@ -213,8 +147,4 @@ export default defineComponent({
 
 <style scoped>
 @import '../style/less/componentsStyle/comment.css';
-.form-error {
-  font-size: 5px;
-  color: rebeccapurple;
-}
 </style>
