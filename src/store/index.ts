@@ -376,9 +376,20 @@ export default createStore<GloablDataProps>({
       } catch (error) {
         console.log(error)
       }
-    }
-  },
+    },
 
+    /**
+     * 发表评论
+     */
+    async publishComments(context, publishCommentData) {
+      try {
+        const comments = await axios.post(`/comments`, publishCommentData)
+        return comments.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
+  },
 
   getters: {
 

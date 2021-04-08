@@ -200,3 +200,6 @@
 .inputParent {
   width: 100%;
 }
+.hidden {
+  pointer-events: none;
+}

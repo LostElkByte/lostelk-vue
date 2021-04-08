@@ -90,9 +90,10 @@
     </div>
 
     <ValidateForm class="comment-footer">
-      <ValidateInput class="comment-input" type="text" placeholder="写下你的评论" id="user_username"> </ValidateInput>
+      <ValidateInput class="comment-input" type="text" placeholder="写下你的评论" v-model="publishCommentVal">
+      </ValidateInput>
       <template v-slot:submit>
-        <div class="comment-groug">
+        <div :class="['comment-groug', { hidden: !publishCommentButton }]" @click="onFormSubmit">
           <a href="#" class="form-btn">
             发表
           </a>
@@ -105,7 +106,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import { lostelkUrl } from '../global';
-import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
+import ValidateInput from '../components/ValidateInput.vue';
 import ValidateForm from '../components/ValidateForm.vue';
 import store from '../store';
 
@@ -131,11 +132,9 @@ export default defineComponent({
     const postId = computed(() => props.postId);
 
     /**
-     * 当前帖子的评论列表
+     * 获取当前帖子的评论列表
      */
-    // 当前帖子的评论列表
     const comments = ref();
-
     // 当前帖子的评论总数
     const commentsNumber = ref();
 
@@ -153,6 +152,14 @@ export default defineComponent({
         }
       });
     };
+
+    onMounted(() => {
+      getComment();
+    });
+
+    /**
+     *  定位到评论所在区域
+     */
     const showCommentsCut = computed(() => props.showCommentsCut);
     watch(showCommentsCut, () => {
       if (showCommentsCut.value) {
@@ -163,16 +170,42 @@ export default defineComponent({
       }
     });
 
-    onMounted(() => {
-      getComment();
-    });
+    /**
+     * 发表评论
+     */
+    const publishCommentVal = ref('');
 
+    const onFormSubmit = (result: boolean) => {
+      if (result) {
+        const publishCommentData = {
+          content: publishCommentVal.value,
+          postId: postId.value,
+        };
+
+        store.dispatch('publishComments', publishCommentData).then(() => {
+          getComment();
+        });
+      } else {
+        console.log('不通过');
+      }
+    };
+    const publishCommentButton = ref(false);
+    watch(publishCommentVal, () => {
+      if (publishCommentVal.value) {
+        publishCommentButton.value = true;
+      } else {
+        publishCommentButton.value = false;
+      }
+    });
     return {
       userId,
       postUserIdProp,
       lostelkUrl,
       comments,
       commentsNumber,
+      publishCommentVal,
+      onFormSubmit,
+      publishCommentButton,
     };
   },
 });
@@ -180,4 +213,8 @@ export default defineComponent({
 
 <style scoped>
 @import '../style/less/componentsStyle/comment.css';
+.form-error {
+  font-size: 5px;
+  color: rebeccapurple;
+}
 </style>
