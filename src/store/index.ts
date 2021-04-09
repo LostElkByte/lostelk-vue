@@ -358,6 +358,18 @@ export default createStore<GloablDataProps>({
         console.log(error)
       }
     },
+
+    /**
+     * 修改评论
+     */
+    async reviseComment(context, { commentId, reviseCommentData }) {
+      try {
+        const comments = await axios.patch(`/comments/${commentId}`, reviseCommentData)
+        return comments.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
 
   getters: {

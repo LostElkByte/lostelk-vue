@@ -39,13 +39,13 @@
               <svg class="icon commentReply-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-huifu2"></use>
               </svg>
-              回复
+              {{ replyShow ? '回复' : '收起' }}
             </button>
-            <button v-if="singleComment.user.id === singleuserId" class="commentReply-buttom">
+            <button v-if="singleComment.user.id === singleuserId" class="commentReply-buttom" @click="showReviseInput">
               <svg class="icon commentReply-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-bianji"></use>
               </svg>
-              修改
+              {{ reviseShow ? '修改' : '收起' }}
             </button>
             <button v-if="singleComment.user.id === singleuserId" class="commentReply-buttom">
               <svg class="icon commentReply-buttom-icon" aria-hidden="true">
@@ -66,6 +66,23 @@
               <div :class="['comment-reply-groug', { hidden: !replyCommentButton }]" @click="replyCommentClick">
                 <a href="#" class="form-btn">
                   回复
+                </a>
+              </div>
+            </template>
+          </ValidateForm>
+
+          <ValidateForm :class="['comment-publish-revise-form', { 'comment-publish-revise-form-show': reviseShow }]">
+            <ValidateInput
+              class="comment-publish-revise-input"
+              type="text"
+              :placeholder="`修改 ${singleComment.content}`"
+              v-model="reviseCommentVal"
+            >
+            </ValidateInput>
+            <template v-slot:submit>
+              <div :class="['comment-revise-groug', { hidden: !reviseCommentButton }]" @click="reviseCommentClick">
+                <a href="#" class="form-btn">
+                  修改
                 </a>
               </div>
             </template>
@@ -141,8 +158,10 @@ export default defineComponent({
     const singleuserId = computed(() => props.userId);
     // 接收文章的的作者ID
     const PostUserId = computed(() => props.postUserIdProp);
-    // 回复input内容
+    // 回复评论input的内容
     const replyCommentVal = ref();
+    // 修改评论input的内容
+    const reviseCommentVal = ref(singleComment.value ? singleComment.value.content : '');
 
     /**
      * 查看回复列表点击隐藏
@@ -153,7 +172,7 @@ export default defineComponent({
     };
 
     /**
-     * 回复按钮点击显示隐藏
+     * 回复评论发表按钮点击事件允许或拒绝
      */
     const replyCommentButton = ref(false);
     watch(replyCommentVal, () => {
@@ -165,14 +184,40 @@ export default defineComponent({
     });
 
     /**
-     * 回复input框显示控制
+     * 修改评论发表按钮点击事件允许或拒绝
+     */
+    const reviseCommentButton = ref(false);
+    watch(reviseCommentVal, () => {
+      if (reviseCommentVal.value) {
+        reviseCommentButton.value = true;
+      } else {
+        reviseCommentButton.value = false;
+      }
+    });
+
+    /**
+     * 回复评论input框显示控制
+     * 修改评论input框显示控制
      */
     const replyShow = ref(true);
+    const reviseShow = ref(true);
+
     const showReplyInput = () => {
+      reviseShow.value = true;
       replyShow.value = !replyShow.value;
       if (!replyShow.value) {
         setTimeout(() => {
           const inputFocus = document.getElementsByClassName('comment-publish-reply-input')[0] as HTMLElement;
+          inputFocus.focus();
+        }, 100);
+      }
+    };
+    const showReviseInput = () => {
+      replyShow.value = true;
+      reviseShow.value = !reviseShow.value;
+      if (!reviseShow.value) {
+        setTimeout(() => {
+          const inputFocus = document.getElementsByClassName('comment-publish-revise-input')[0] as HTMLElement;
           inputFocus.focus();
         }, 100);
       }
@@ -189,11 +234,30 @@ export default defineComponent({
           postId: postIdData.value,
         },
       };
-      await store.dispatch('publishReplyComment', publishReplyCommentData);
-      replyShow.value = true;
-      context.emit('reloadComments');
-      replyCommentVal.value = '';
-      createTooltip('评论回复成功', 'success', 3000);
+      await store.dispatch('publishReplyComment', publishReplyCommentData).then(() => {
+        replyShow.value = true;
+        context.emit('reloadComments');
+        replyCommentVal.value = '';
+        createTooltip('评论回复成功', 'success', 3000);
+      });
+    };
+
+    /**
+     * 修改评论
+     */
+
+    const reviseCommentClick = async () => {
+      const reviseCommentData = {
+        commentId: props.comment ? props.comment.id : '',
+        reviseCommentData: {
+          content: reviseCommentVal.value,
+        },
+      };
+      await store.dispatch('reviseComment', reviseCommentData).then(() => {
+        replyShow.value = true;
+        context.emit('reloadComments');
+        createTooltip('评论修改成功', 'success', 3000);
+      });
     };
 
     return {
@@ -208,6 +272,11 @@ export default defineComponent({
       replyCommentClick,
       unfoldReplyShow,
       unfoldReplyList,
+      reviseCommentVal,
+      reviseCommentClick,
+      reviseCommentButton,
+      showReviseInput,
+      reviseShow,
     };
   },
 });

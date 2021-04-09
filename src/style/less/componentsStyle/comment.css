@@ -193,6 +193,7 @@
 .comment-groug:hover {
   opacity: 1;
 }
+.comment-publish-revise-form,
 .comment-publish-reply-form {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -200,9 +201,11 @@
   height: 62px;
   padding: 12px 0;
 }
+.comment-publish-revise-form-show,
 .comment-publish-reply-form-show {
   display: none;
 }
+.comment-publish-revise-input,
 .comment-publish-reply-input {
   background-color: #fff;
   width: 100%;
@@ -211,6 +214,7 @@
   border-radius: 3px;
   padding: 6px 12px;
 }
+.comment-revise-groug,
 .comment-reply-groug {
   height: 100%;
   display: flex;
@@ -221,6 +225,7 @@
   transition: opacity 0.2s;
   cursor: pointer;
 }
+.comment-revise-groug:hover,
 .comment-reply-groug:hover {
   opacity: 1;
 }
