@@ -102,6 +102,13 @@
 .commentItem-metaSibling:hover .commentReply-buttom {
   opacity: 1;
 }
+.comment-text {
+  font-size: 14px;
+  color: #000;
+}
+.delete-succeed {
+  color: #ccc;
+}
 .comment-reply {
   display: flex;
   -webkit-box-align: center;

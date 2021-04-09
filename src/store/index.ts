@@ -370,6 +370,18 @@ export default createStore<GloablDataProps>({
         console.log(error)
       }
     },
+
+    /**
+     * 删除评论
+     */
+    async deleteComment(context, commentId) {
+      try {
+        const comments = await axios.delete(`/comments/${commentId}`)
+        return comments.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
 
   getters: {

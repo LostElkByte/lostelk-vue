@@ -19,8 +19,11 @@
           </span>
         </div>
         <div class="commentItem-metaSibling">
-          <div class="comment-text">
+          <div class="comment-text" v-if="!isdeleteSucceed">
             {{ singleComment.content }}
+          </div>
+          <div class="comment-text delete-succeed" v-else>
+            该评论已删除
           </div>
           <div class="comment-reply">
             <button
@@ -39,15 +42,15 @@
               <svg class="icon commentReply-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-huifu2"></use>
               </svg>
-              {{ replyShow ? '回复' : '收起' }}
+              {{ replyShow ? '回复' : '取消回复' }}
             </button>
             <button v-if="singleComment.user.id === singleuserId" class="commentReply-buttom" @click="showReviseInput">
               <svg class="icon commentReply-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-bianji"></use>
               </svg>
-              {{ reviseShow ? '修改' : '收起' }}
+              {{ reviseShow ? '修改' : '取消修改' }}
             </button>
-            <button v-if="singleComment.user.id === singleuserId" class="commentReply-buttom">
+            <button v-if="singleComment.user.id === singleuserId" class="commentReply-buttom" @click="showDeleteAddirm">
               <svg class="icon commentReply-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-icon"></use>
               </svg>
@@ -127,6 +130,7 @@
       </li>
     </div>
   </ul>
+  <Addirm v-if="isDelete" @cancelDelete="cancelDelete" @confirmDelete="confirmDelete"></Addirm>
 </template>
 
 <script lang="ts">
@@ -135,6 +139,7 @@ import { lostelkUrl } from '../global';
 import ValidateInput from '../components/ValidateInput.vue';
 import ValidateForm from '../components/ValidateForm.vue';
 import createTooltip from '../components/createTooltip';
+import Addirm from '../components/Affirm.vue';
 import store from '../store';
 
 export default defineComponent({
@@ -142,7 +147,9 @@ export default defineComponent({
   components: {
     ValidateInput,
     ValidateForm,
+    Addirm,
   },
+  emits: ['reloadComments'],
   props: {
     comment: Object,
     postId: Number,
@@ -260,6 +267,26 @@ export default defineComponent({
       });
     };
 
+    /**
+     * 删除评论
+     */
+    const isDelete = ref(false);
+    const showDeleteAddirm = () => {
+      isDelete.value = true;
+    };
+    const cancelDelete = () => {
+      isDelete.value = false;
+    };
+
+    const isdeleteSucceed = ref(false);
+    const confirmDelete = async () => {
+      isDelete.value = false;
+      await store.dispatch('deleteComment', props.comment ? props.comment.id : '').then(() => {
+        isdeleteSucceed.value = true;
+        createTooltip('评论删除成功', 'success', 3000);
+      });
+    };
+
     return {
       lostelkUrl,
       singleComment,
@@ -277,6 +304,11 @@ export default defineComponent({
       reviseCommentButton,
       showReviseInput,
       reviseShow,
+      isDelete,
+      showDeleteAddirm,
+      cancelDelete,
+      confirmDelete,
+      isdeleteSucceed,
     };
   },
 });
