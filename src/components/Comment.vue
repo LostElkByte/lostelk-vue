@@ -1,9 +1,11 @@
 <template>
   <div class="comment">
     <div class="comment-header">
-      <div class="comment-sum">{{ commentsNumber }}条评论</div>
+      <div class="comment-sum">
+        {{ commentsNumber != 0 ? commentsNumber + '条评论' : '还没有评论,发表第一个评论吧' }}
+      </div>
     </div>
-    <div class="comment-list" id="commentAnchor">
+    <div class="commend-list" id="commentAnchor">
       <div v-for="comment in comments" :key="comment.id">
         <SingleComment
           :comment="comment"
@@ -111,6 +113,7 @@ export default defineComponent({
         };
 
         store.dispatch('publishComments', publishCommentData).then(() => {
+          publishCommentVal.value = '';
           getComment();
         });
       } else {

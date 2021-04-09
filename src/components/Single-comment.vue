@@ -45,7 +45,7 @@
               <svg class="icon commentReply-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-bianji"></use>
               </svg>
-              编辑
+              修改
             </button>
             <button v-if="singleComment.user.id === singleuserId" class="commentReply-buttom">
               <svg class="icon commentReply-buttom-icon" aria-hidden="true">
@@ -170,6 +170,12 @@ export default defineComponent({
     const replyShow = ref(true);
     const showReplyInput = () => {
       replyShow.value = !replyShow.value;
+      if (!replyShow.value) {
+        setTimeout(() => {
+          const inputFocus = document.getElementsByClassName('comment-publish-reply-input')[0] as HTMLElement;
+          inputFocus.focus();
+        }, 100);
+      }
     };
 
     /**
@@ -186,6 +192,7 @@ export default defineComponent({
       await store.dispatch('publishReplyComment', publishReplyCommentData);
       replyShow.value = true;
       context.emit('reloadComments');
+      replyCommentVal.value = '';
       createTooltip('评论回复成功', 'success', 3000);
     };
 
