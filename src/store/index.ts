@@ -25,7 +25,7 @@ export interface CardList {
 
 export interface GloablUserProps {
   isLogin: boolean;
-  id?: string;
+  id?: number;
   name?: string;
   avatar?: number;
 }
@@ -65,7 +65,7 @@ export default createStore<GloablDataProps>({
     error: { status: false },
     cardList: [],
     card: {},
-    user: { isLogin: false, id: localStorage.getItem('userId') || '' },
+    user: { isLogin: false, id: Number(localStorage.getItem('userId')) || -1 },
     token: localStorage.getItem('token') || '',
     userLikes: [],
     isShowLoading: true,
@@ -106,7 +106,7 @@ export default createStore<GloablDataProps>({
       delete axios.defaults.headers.common.Authorization
       state.user = {
         isLogin: false,
-        id: ''
+        id: -1
       }
       state.userLikes = []
     },

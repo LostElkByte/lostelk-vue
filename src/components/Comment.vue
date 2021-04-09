@@ -132,6 +132,7 @@ export default defineComponent({
         publishCommentButton.value = false;
       }
     });
+
     return {
       postIdProp,
       userId,

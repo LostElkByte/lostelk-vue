@@ -25,33 +25,33 @@
           <div class="comment-text delete-succeed" v-else>
             该评论已删除
           </div>
-          <div class="comment-reply">
+          <div class="comment-toolbar" v-if="!isdeleteSucceed">
             <button
-              :class="['commentReply-buttom', 'commentReply-buttom-show', { none: !singleComment.totalReplies }]"
+              :class="['comment-buttom', 'comment-buttom-show', { none: !singleComment.totalReplies }]"
               @click="unfoldReplyList"
             >
-              <svg class="icon commentReply-buttom-icon" aria-hidden="true">
+              <svg class="icon comment-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-icon_huifu-mian"></use>
               </svg>
               {{ unfoldReplyShow ? '收起回复' : '查看回复' }}
             </button>
             <button
-              :class="['commentReply-buttom', { 'commentReply-buttom-show': !singleComment.totalReplies }]"
+              :class="['comment-buttom', { 'comment-buttom-show': !singleComment.totalReplies }]"
               @click="showReplyInput"
             >
-              <svg class="icon commentReply-buttom-icon" aria-hidden="true">
+              <svg class="icon comment-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-huifu2"></use>
               </svg>
               {{ replyShow ? '回复' : '取消回复' }}
             </button>
-            <button v-if="singleComment.user.id === singleuserId" class="commentReply-buttom" @click="showReviseInput">
-              <svg class="icon commentReply-buttom-icon" aria-hidden="true">
+            <button v-if="singleComment.user.id === singleuserId" class="comment-buttom" @click="showReviseInput">
+              <svg class="icon comment-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-bianji"></use>
               </svg>
               {{ reviseShow ? '修改' : '取消修改' }}
             </button>
-            <button v-if="singleComment.user.id === singleuserId" class="commentReply-buttom" @click="showDeleteAddirm">
-              <svg class="icon commentReply-buttom-icon" aria-hidden="true">
+            <button v-if="singleComment.user.id === singleuserId" class="comment-buttom" @click="showDeleteAddirm">
+              <svg class="icon comment-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-icon"></use>
               </svg>
               删除
@@ -66,7 +66,7 @@
             >
             </ValidateInput>
             <template v-slot:submit>
-              <div :class="['comment-reply-groug', { hidden: !replyCommentButton }]" @click="replyCommentClick">
+              <div :class="['comment-reply-publish', { hidden: !replyCommentButton }]" @click="replyCommentClick">
                 <a href="#" class="form-btn">
                   回复
                 </a>
@@ -83,7 +83,7 @@
             >
             </ValidateInput>
             <template v-slot:submit>
-              <div :class="['comment-revise-groug', { hidden: !reviseCommentButton }]" @click="reviseCommentClick">
+              <div :class="['comment-revise-publish', { hidden: !reviseCommentButton }]" @click="reviseCommentClick">
                 <a href="#" class="form-btn">
                   修改
                 </a>
@@ -94,40 +94,15 @@
       </div>
     </li>
     <div v-if="singleComment.totalReplies !== 0 && unfoldReplyShow">
-      <li class="nestComment-child" v-for="replyComment in singleComment.replyComment" :key="replyComment.commentId">
-        <div class="comment-item">
-          <div class="commentItem-meta">
-            <div class="commentItem-avatar">
-              <img
-                v-if="replyComment.user.avatar"
-                class="commentItem-avatar-img"
-                :src="`${lostelkUrl}/users/${replyComment.user.id}/avatar?size=small`"
-                :alt="`${singleComment ? singleComment.user.name : ''}`"
-              />
-              <svg v-else class="icon commentItem-avatar-img" aria-hidden="true">
-                <use xlink:href="#icon-icon-test"></use>
-              </svg>
-            </div>
-            <span>
-              <span class="user-name" v-if="PostUserId === replyComment.user.id">
-                {{ replyComment.user.name }}(作者)
-              </span>
-              <span class="user-name" v-else>
-                {{ replyComment.user.name }}
-              </span>
-            </span>
-            <span class="commentText-reply">
-              回复
-            </span>
-            <span class="user-link">
-              {{ singleComment ? singleComment.user.name : '' }}
-            </span>
-          </div>
-          <div class="commentItem-metaSibling">
-            <div class="comment-text">{{ replyComment.content }}</div>
-          </div>
-        </div>
-      </li>
+      <div>
+        <SingleReplyComment
+          v-for="replyComment in singleComment.replyComment"
+          :key="replyComment.commentId"
+          :replyCommentData="replyComment"
+          :PostUserIdData="PostUserId"
+          :singleuserIdData="singleuserId"
+        ></SingleReplyComment>
+      </div>
     </div>
   </ul>
   <Addirm v-if="isDelete" @cancelDelete="cancelDelete" @confirmDelete="confirmDelete"></Addirm>
@@ -140,11 +115,13 @@ import ValidateInput from '../components/ValidateInput.vue';
 import ValidateForm from '../components/ValidateForm.vue';
 import createTooltip from '../components/createTooltip';
 import Addirm from '../components/Affirm.vue';
+import SingleReplyComment from '../components/Single-replycomment.vue';
 import store from '../store';
 
 export default defineComponent({
   name: 'Single-comment',
   components: {
+    SingleReplyComment,
     ValidateInput,
     ValidateForm,
     Addirm,
