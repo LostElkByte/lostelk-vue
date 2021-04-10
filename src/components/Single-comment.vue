@@ -36,6 +36,7 @@
               {{ unfoldReplyShow ? '收起回复' : '查看回复' }}
             </button>
             <button
+              v-if="isLogin"
               :class="['comment-buttom', { 'comment-buttom-show': !singleComment.totalReplies }]"
               @click="showReplyInput"
             >
@@ -43,6 +44,12 @@
                 <use xlink:href="#icon-huifu2"></use>
               </svg>
               {{ replyShow ? '回复' : '取消回复' }}
+            </button>
+            <button v-else class="comment-buttom comment-buttom-show" @click="goLogin">
+              <svg class="icon comment-buttom-icon" aria-hidden="true">
+                <use xlink:href="#icon-huifu2"></use>
+              </svg>
+              回复(点击登录)
             </button>
             <button v-if="singleComment.user.id === singleuserId" class="comment-buttom" @click="showReviseInput">
               <svg class="icon comment-buttom-icon" aria-hidden="true">
@@ -73,7 +80,9 @@
               </div>
             </template>
           </ValidateForm>
-
+          <span class="form-error" v-if="isReplyCommentMax">
+            最大可输入长度为60个字符
+          </span>
           <ValidateForm :class="['comment-publish-revise-form', { 'comment-publish-revise-form-show': reviseShow }]">
             <ValidateInput
               class="comment-publish-revise-input"
@@ -90,6 +99,9 @@
               </div>
             </template>
           </ValidateForm>
+          <span class="form-error" v-if="isReviseCommentMax">
+            最大可输入长度为60个字符
+          </span>
         </div>
       </div>
     </li>
@@ -117,6 +129,7 @@ import createTooltip from '../components/createTooltip';
 import Addirm from '../components/Affirm.vue';
 import SingleReplyComment from '../components/Single-replycomment.vue';
 import store from '../store';
+import router from '../router';
 
 export default defineComponent({
   name: 'Single-comment',
@@ -146,6 +159,8 @@ export default defineComponent({
     const replyCommentVal = ref();
     // 修改评论input的内容
     const reviseCommentVal = ref(singleComment.value ? singleComment.value.content : '');
+    // 判断是否登录
+    const isLogin = computed(() => store.state.user.isLogin);
 
     /**
      * 查看回复列表点击隐藏
@@ -264,6 +279,41 @@ export default defineComponent({
       });
     };
 
+    /**
+     * 跳转登陆页
+     */
+    const goLogin = async () => {
+      await router.push('/');
+      await router.push('/login');
+    };
+
+    /**
+     * 监听输入最大字符长度
+     * 回复
+     * 修改
+     */
+    const isReplyCommentMax = ref(false);
+    watch(replyCommentVal, () => {
+      const commentMaximumReg = /^.{0,60}$/;
+      if (commentMaximumReg.test(replyCommentVal.value)) {
+        isReplyCommentMax.value = false;
+      } else {
+        replyCommentButton.value = false;
+        isReplyCommentMax.value = true;
+      }
+    });
+
+    const isReviseCommentMax = ref(false);
+    watch(reviseCommentVal, () => {
+      const commentMaximumReg = /^.{0,60}$/;
+      if (commentMaximumReg.test(reviseCommentVal.value)) {
+        isReviseCommentMax.value = false;
+      } else {
+        reviseCommentButton.value = false;
+        isReviseCommentMax.value = true;
+      }
+    });
+
     return {
       lostelkUrl,
       singleComment,
@@ -286,6 +336,10 @@ export default defineComponent({
       cancelDelete,
       confirmDelete,
       isdeleteSucceed,
+      isLogin,
+      goLogin,
+      isReplyCommentMax,
+      isReviseCommentMax,
     };
   },
 });

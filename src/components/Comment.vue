@@ -16,18 +16,22 @@
         ></SingleComment>
       </div>
     </div>
-
-    <ValidateForm class="comment-footer">
-      <ValidateInput class="comment-input" type="text" placeholder="写下你的评论" v-model="publishCommentVal">
-      </ValidateInput>
-      <template v-slot:submit>
-        <div :class="['comment-groug', { hidden: !publishCommentButton }]" @click="onFormSubmit">
-          <a href="#" class="form-btn">
-            发表
-          </a>
-        </div>
-      </template>
-    </ValidateForm>
+    <div class="comment-footer">
+      <ValidateForm class="comment-form">
+        <ValidateInput class="comment-input" type="text" placeholder="写下你的评论" v-model="publishCommentVal">
+        </ValidateInput>
+        <template v-slot:submit>
+          <div :class="['comment-groug', { hidden: !publishCommentButton }]" @click="onFormSubmit">
+            <a href="#" class="form-btn">
+              发表
+            </a>
+          </div>
+        </template>
+      </ValidateForm>
+      <span class="form-error" v-if="publishCommentMax">
+        最大可输入长度为60个字符
+      </span>
+    </div>
   </div>
 </template>
 
@@ -133,6 +137,21 @@ export default defineComponent({
       }
     });
 
+    /**
+     * 监听输入最大字符长度
+     * 发表评论
+     */
+    const publishCommentMax = ref(false);
+    watch(publishCommentVal, () => {
+      const commentMaximumReg = /^.{0,60}$/;
+      if (commentMaximumReg.test(publishCommentVal.value)) {
+        publishCommentMax.value = false;
+      } else {
+        publishCommentButton.value = false;
+        publishCommentMax.value = true;
+      }
+    });
+
     return {
       postIdProp,
       userId,
@@ -144,6 +163,7 @@ export default defineComponent({
       onFormSubmit,
       publishCommentButton,
       getComment,
+      publishCommentMax,
     };
   },
 });

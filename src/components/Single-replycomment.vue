@@ -67,6 +67,9 @@
             </div>
           </template>
         </ValidateForm>
+        <span class="form-error" v-if="isReviseReplyCommentMax">
+          最大可输入长度为60个字符
+        </span>
       </div>
     </div>
   </li>
@@ -178,6 +181,22 @@ export default defineComponent({
         createTooltip('评论删除成功', 'success', 3000);
       });
     };
+
+    /**
+     * 监听输入最大字符长度
+     * 修改
+     */
+    const isReviseReplyCommentMax = ref(false);
+    watch(reviseReplyCommentVal, () => {
+      const commentMaximumReg = /^.{0,60}$/;
+      if (commentMaximumReg.test(reviseReplyCommentVal.value)) {
+        isReviseReplyCommentMax.value = false;
+      } else {
+        reviseCommentButton.value = false;
+        isReviseReplyCommentMax.value = true;
+      }
+    });
+
     return {
       lostelkUrl,
       replyComment,
@@ -193,6 +212,7 @@ export default defineComponent({
       cancelDelete,
       confirmDelete,
       isdeleteSucceed,
+      isReviseReplyCommentMax,
     };
   },
 });
