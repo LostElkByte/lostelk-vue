@@ -10,7 +10,7 @@
               :src="`${lostelkUrl}/users/${singleComment.user.id}/avatar?size=small`"
               :alt="singleComment.user.name"
             />
-            <svg v-else class="icon commentItem-avatar-img" aria-hidden="true">
+            <svg v-else class="commentItem-avatar-img" aria-hidden="true">
               <use xlink:href="#icon-icon-test"></use>
             </svg>
           </div>

@@ -92,6 +92,8 @@ export default defineComponent({
       getComment();
     });
 
+    watch(postIdProp, () => getComment());
+
     /**
      *  定位到评论所在区域
      */
@@ -105,13 +107,15 @@ export default defineComponent({
       }
     });
 
-    const StoreShowCommentsCut = computed(() => store.state.showCommentsCut);
-    if (StoreShowCommentsCut.value) {
-      setTimeout(() => {
-        const comment = document.getElementById('commentAnchor') as HTMLElement;
-        comment.scrollIntoView(false);
-      }, 100);
-    }
+    onMounted(() => {
+      const StoreShowCommentsCut = computed(() => store.state.showCommentsCut);
+      if (StoreShowCommentsCut.value) {
+        setTimeout(() => {
+          const comment = document.getElementById('commentAnchor') as HTMLElement;
+          comment.scrollIntoView(false);
+        }, 100);
+      }
+    });
 
     /**
      * 发表评论
