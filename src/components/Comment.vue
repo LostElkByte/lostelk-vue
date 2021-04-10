@@ -42,6 +42,7 @@ import ValidateInput from '../components/ValidateInput.vue';
 import ValidateForm from '../components/ValidateForm.vue';
 import SingleComment from '../components/Single-comment.vue';
 import store from '../store';
+import createTooltip from './createTooltip';
 
 export default defineComponent({
   name: 'Comment',
@@ -126,6 +127,7 @@ export default defineComponent({
 
         store.dispatch('publishComments', publishCommentData).then(() => {
           publishCommentVal.value = '';
+          createTooltip('评论成功', 'success', 3000);
           getComment();
         });
       } else {
