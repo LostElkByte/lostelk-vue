@@ -56,6 +56,7 @@ export interface GloablDataProps {
   mainSearchIsNone: boolean;
   HomeScrollTop: number | null;
   fileMetadata: GloablfileMetadataProps | {};
+  showCommentsCut: boolean;
 }
 
 export default createStore<GloablDataProps>({
@@ -73,6 +74,7 @@ export default createStore<GloablDataProps>({
     mainSearchIsNone: true,
     HomeScrollTop: null,
     fileMetadata: {},
+    showCommentsCut: false
   },
 
   mutations: {
@@ -204,6 +206,13 @@ export default createStore<GloablDataProps>({
      */
     fileMetadata(state, rawdata) {
       state.fileMetadata = rawdata
+    },
+
+    /**
+     * 切换评论列表显示隐藏
+     */
+    showCommentsCut(state, rawdata) {
+      state.showCommentsCut = rawdata
     }
   },
 

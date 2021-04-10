@@ -229,9 +229,13 @@ export default defineComponent({
      * 评论按钮
      *
      */
-    const showCommentsCut = ref(false);
+    const showCommentsCut = computed(() => store.state.showCommentsCut);
     const showComments = () => {
-      showCommentsCut.value = !showCommentsCut.value;
+      if (showCommentsCut.value) {
+        store.commit('showCommentsCut', false);
+      } else {
+        store.commit('showCommentsCut', true);
+      }
     };
 
     /**
@@ -262,7 +266,7 @@ export default defineComponent({
 
     const rightCut = async () => {
       // 评论收起
-      showCommentsCut.value = false;
+      store.commit('showCommentsCut', false);
       // 图像恢复小图
       zoom.value = true;
       // 如果当前详情的下标不是最后一个则进入if 否则 右按钮添加禁止点击样式
@@ -287,7 +291,7 @@ export default defineComponent({
 
     const leftCut = async () => {
       // 评论收起
-      showCommentsCut.value = false;
+      store.commit('showCommentsCut', false);
       // 图像恢复小图
       zoom.value = true;
       // 如果当前详情的下标不是第一个则进入if 否则 左按钮添加禁止点击样式

@@ -5,7 +5,7 @@
         {{ commentsNumber != 0 ? commentsNumber + '条评论' : '还没有评论,发表第一个评论吧' }}
       </div>
     </div>
-    <div class="commend-list" id="commentAnchor">
+    <div class="comment-list" id="commentAnchor">
       <div v-for="comment in comments" :key="comment.id">
         <SingleComment
           :comment="comment"
@@ -103,6 +103,14 @@ export default defineComponent({
         }, 100);
       }
     });
+
+    const StoreShowCommentsCut = computed(() => store.state.showCommentsCut);
+    if (StoreShowCommentsCut.value) {
+      setTimeout(() => {
+        const comment = document.getElementById('commentAnchor') as HTMLElement;
+        comment.scrollIntoView(false);
+      }, 100);
+    }
 
     /**
      * 发表评论

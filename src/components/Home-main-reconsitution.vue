@@ -16,10 +16,7 @@
                     <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                   </button>
                   <button class="card-button">
-                    <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#icon-pinglun"></use>
-                    </svg>
-                    <span>320</span>
+                    <GoCommentButton :postId="card.id" :totalComments="card.totalComments"></GoCommentButton>
                   </button>
                 </div>
               </div>
@@ -62,10 +59,7 @@
                     <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                   </button>
                   <button class="card-button">
-                    <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#icon-pinglun"></use>
-                    </svg>
-                    <span>32</span>
+                    <GoCommentButton :postId="card.id" :totalComments="card.totalComments"></GoCommentButton>
                   </button>
                 </div>
               </div>
@@ -108,10 +102,7 @@
                     <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                   </button>
                   <button class="card-button">
-                    <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#icon-pinglun"></use>
-                    </svg>
-                    <span>32</span>
+                    <GoCommentButton :postId="card.id" :totalComments="card.totalComments"></GoCommentButton>
                   </button>
                 </div>
               </div>
@@ -162,10 +153,7 @@
                     <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                   </button>
                   <button class="card-button">
-                    <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#icon-pinglun"></use>
-                    </svg>
-                    <span>320</span>
+                    <GoCommentButton :postId="card.id" :totalComments="card.totalComments"></GoCommentButton>
                   </button>
                 </div>
               </div>
@@ -208,10 +196,7 @@
                     <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                   </button>
                   <button class="card-button">
-                    <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#icon-pinglun"></use>
-                    </svg>
-                    <span>32</span>
+                    <GoCommentButton :postId="card.id" :totalComments="card.totalComments"></GoCommentButton>
                   </button>
                 </div>
               </div>
@@ -278,10 +263,7 @@
                   <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                 </button>
                 <button class="card-button-max767">
-                  <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-pinglun"></use>
-                  </svg>
-                  <span>32</span>
+                  <GoCommentButton :postId="card.id" :totalComments="card.totalComments"></GoCommentButton>
                 </button>
               </div>
               <div class="max767-bottom-right">
@@ -311,6 +293,7 @@ import Likes from '../components/Likes.vue';
 import MainSearch from './Main-search-box.vue';
 import SearchFailure from '../components/Search-failure.vue';
 import DownloadFile from '../components/DownloadFile.vue';
+import GoCommentButton from '../components/GoCommentButton.vue';
 import router from '../router';
 
 export default defineComponent({
@@ -320,6 +303,7 @@ export default defineComponent({
     MainSearch,
     SearchFailure,
     DownloadFile,
+    GoCommentButton,
   },
   props: {
     list: {
@@ -413,12 +397,12 @@ export default defineComponent({
     /**
      * 点击跳转详情页
      */
-    const cardDetails = (postId: number) => {
+    const cardDetails = async (postId: number) => {
       // 获取当前坐标储存在store中
       const HomeScrollTop = document.documentElement.scrollTop;
-      store.commit('HomeScrollTop', HomeScrollTop);
-
-      router.push(`/card/${postId}`);
+      await store.commit('HomeScrollTop', HomeScrollTop);
+      await store.commit('showCommentsCut', false);
+      await router.push(`/card/${postId}`);
     };
 
     return {
