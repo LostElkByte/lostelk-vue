@@ -130,11 +130,12 @@
               </svg>
               <span>编辑</span>
             </div>
-            <div v-if="userId === postData.user.id" class="content-message-jurisdiction-delete">
+            <!-- <div v-if="userId === postData.user.id" class="content-message-jurisdiction-delete">
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-shanchu2"></use>
               </svg>
-            </div>
+            </div> -->
+            <DeleteCard v-if="userId === postData.user.id" :postId="postId" :routerUrl="'/'"></DeleteCard>
           </div>
 
           <div class="content-description" v-if="postData.content !== ''">
@@ -169,14 +170,17 @@ import router from '../router';
 import Likes from '../components/Likes.vue';
 import DownloadFile from '../components/DownloadFile.vue';
 import Comment from '../components/Comment.vue';
+import DeleteCard from '../components/Delete-card.vue';
 import store from '../store';
 export default defineComponent({
   components: {
     Likes,
     DownloadFile,
     Comment,
+    DeleteCard,
   },
   props: {
+    // 当前帖子的ID
     id: {
       type: String,
       required: true,

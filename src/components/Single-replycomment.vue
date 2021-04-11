@@ -73,7 +73,9 @@
       </div>
     </div>
   </li>
-  <Addirm v-if="isDelete" @cancelDelete="cancelDelete" @confirmDelete="confirmDelete"></Addirm>
+  <Addirm v-if="isDelete" @cancelDelete="cancelDelete" @confirmDelete="confirmDelete">
+    你确定要删除这条回复评论吗?
+  </Addirm>
 </template>
 
 <script lang="ts">

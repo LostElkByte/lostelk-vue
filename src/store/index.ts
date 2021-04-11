@@ -391,6 +391,18 @@ export default createStore<GloablDataProps>({
         console.log(error)
       }
     },
+
+    /**
+     * 删除卡片
+     */
+    async deleteCard(context, postId) {
+      try {
+        const comments = await axios.delete(`/posts/${postId}`)
+        return comments.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
   },
 
   getters: {

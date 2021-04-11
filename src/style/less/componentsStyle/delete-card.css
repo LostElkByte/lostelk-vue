@@ -1,0 +1,29 @@
+.content-message-jurisdiction-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+  width: 32px;
+  height: 32px;
+  color: #767676;
+  background-color: #fff;
+  border: 1px solid transparent;
+  border-color: #d1d1d1;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+  text-align: center;
+  user-select: none;
+  fill: currentColor;
+  font-size: 20px;
+  line-height: 24px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+.content-message-jurisdiction-delete span {
+  font-size: 14px;
+  margin-left: 3px;
+}
+.content-message-jurisdiction-delete:hover {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease-in-out;
+}
