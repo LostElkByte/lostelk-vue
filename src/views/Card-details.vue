@@ -48,8 +48,8 @@
                 </svg>
               </div>
               <div class="content-header-author-data">
-                <span>{{ postData.user.name }}</span>
-                <span v-if="postData.user.id <= 100">内测用户</span>
+                <span>{{ postData.title }}</span>
+                <span v-if="postData.content">{{ postData.content }}</span>
               </div>
             </div>
             <div class="content-header-toolbar">

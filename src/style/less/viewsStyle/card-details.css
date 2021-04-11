@@ -103,14 +103,16 @@
   flex-grow: 1;
   flex-basis: 200px;
   display: inline-flex;
+  align-items: center;
 }
 .content-header-author-photo {
-  display: inline-flex;
-  align-items: center;
   max-width: 100%;
+  min-width: 32px;
   width: 32px;
   height: 32px;
   margin-right: 8px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 .content-header-author-photo-32 {
   width: 100%;
@@ -133,17 +135,17 @@
   color: #000;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
   cursor: pointer;
+  line-height: 1.5;
 }
 .content-header-author-data span:nth-child(2) {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 400;
   color: #767676;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
   cursor: pointer;
+  line-height: 1.1;
 }
 .content-header-toolbar {
   display: flex;
