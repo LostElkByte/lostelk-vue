@@ -24,7 +24,7 @@ const userLastNameReg = /^[a-zA-Z\u4E00-\u9FA5]{0,4}$/;
 const TagReg = /^[a-zA-Z\u4E00-\u9FA5]{0,10}$/;
 const userEmileReg = /^$|^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/;
 const headlineMaximumReg = /^.{1,15}$/;
-const describeMaximumReg = /^.{1,25}$/;
+const describeMaximumReg = /^.{1,100}$/;
 const tagMaximumReg = /^.{0,10}$/;
 // 声明 验证规则 RulesProp 接口类型
 interface RuleProp {

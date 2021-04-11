@@ -85,18 +85,19 @@ export default defineComponent({
     const pictureVal = ref('');
     const tagVal = ref('');
     const headlineRule: RulesProp = [
-      { type: 'null', message: '标题不能为空' },
+      { type: 'null', message: '需要给您的图像起一个名字' },
       { type: 'headlineMaximum', message: '标题最多15个字符' },
     ];
     const describeRule: RulesProp = [
-      { type: 'null', message: '描述不能为空' },
-      { type: 'describeMaximum', message: '描述最多25个字符' },
+      { type: 'null', message: '需要描述一下您的图像' },
+      { type: 'describeMaximum', message: '描述最多个100字符' },
     ];
     const tagRule: RulesProp = [
+      { type: 'null', message: '为了便于搜索,需要为图像添加一个初始标签' },
       { type: 'tagMaximum', message: '标签最多10个字符' },
       { type: 'tag', message: '标签仅支持字母或中文' },
     ];
-    const pictureRule: RulesProp = [{ type: 'fileNull', message: '需要上传一张照片' }];
+    const pictureRule: RulesProp = [{ type: 'fileNull', message: '需要上传一张图像' }];
 
     /**
      * 使用FileReader 预览图像
