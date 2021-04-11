@@ -6,7 +6,12 @@
       <ValidateForm @form-submit="onFormSubmit">
         <div class="content">
           <ValidateInput type="text" placeholder="标题(必选)" v-model="headlineVal" :rules="headlineRule" />
-          <ValidateInput type="text" placeholder="描述" v-model="describeVal" :rules="describeRule" />
+          <ValidateInput
+            type="text"
+            placeholder="描述一下您的制作灵感、构图、想法..."
+            v-model="describeVal"
+            :rules="describeRule"
+          />
           <ValidateInput type="text" placeholder="标签(必选)" v-model="tagVal" :rules="tagRule" />
         </div>
 
