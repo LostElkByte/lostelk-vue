@@ -49,7 +49,7 @@
               </div>
               <div class="content-header-author-data">
                 <span>{{ postData.title }}</span>
-                <span v-if="postData.content">{{ postData.content }}</span>
+                <span>{{ postData.user.name }}</span>
               </div>
             </div>
             <div class="content-header-toolbar">
@@ -73,6 +73,7 @@
               </div>
             </div>
           </div>
+
           <div :class="zoom ? 'content-picture' : 'content-pictureLarge'">
             <img
               :src="`${lostelkUrl}/files/${postData.file.id}/serve?size=large`"
@@ -80,6 +81,7 @@
               @click="zoomInAndOut"
             />
           </div>
+
           <div class="content-message">
             <div class="content-message-metainformation" v-if="fileMetadata">
               <!-- 相机型号 -->
@@ -134,8 +136,14 @@
               </svg>
             </div>
           </div>
+
+          <div class="content-description" v-if="postData.content !== null">
+            <p>Photo description</p>
+            <span>{{ postData.content }}</span>
+          </div>
+
           <div class="content-tags" v-if="postData.tags !== null">
-            <p>Related tags</p>
+            <!-- <p>Related tags</p> -->
             <span v-for="tag in postData.tags" :key="tag.id" @click="RelatedTagData(tag.name)">
               {{ tag.name }}
             </span>

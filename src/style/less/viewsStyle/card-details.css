@@ -226,6 +226,7 @@
   align-items: center;
   padding: 9px 12px;
   font-size: 12px;
+  margin-bottom: 16px;
 }
 .content-message-metainformation {
   flex-basis: 0%;
@@ -293,11 +294,29 @@
 .content-message-jurisdiction-delete {
   font-size: 16px;
 }
+.content-description {
+  font-weight: 400;
+  padding: 0px 12px 10px;
+  margin-bottom: 16px;
+}
+.content-description p {
+  margin: 0;
+  margin-bottom: 10px;
+  padding-top: 0px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.content-description span {
+  padding-top: 10px;
+  font-size: 12px;
+  font-weight: 500;
+}
 .content-tags {
   padding: 0px 12px 10px;
 }
 .content-tags p {
-  padding-top: 10px;
+  margin: 0;
+  margin-bottom: 10px;
   font-size: 18px;
   font-weight: 700;
 }
