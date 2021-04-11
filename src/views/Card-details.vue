@@ -137,7 +137,7 @@
             </div>
           </div>
 
-          <div class="content-description" v-if="postData.content !== null">
+          <div class="content-description" v-if="postData.content !== ''">
             <p>Photo description</p>
             <span>{{ postData.content }}</span>
           </div>

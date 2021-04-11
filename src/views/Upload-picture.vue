@@ -5,9 +5,9 @@
     <div class="main upload-picture_main">
       <ValidateForm @form-submit="onFormSubmit">
         <div class="content">
-          <ValidateInput type="text" placeholder="标题" v-model="headlineVal" :rules="headlineRule" />
+          <ValidateInput type="text" placeholder="标题(必选)" v-model="headlineVal" :rules="headlineRule" />
           <ValidateInput type="text" placeholder="描述" v-model="describeVal" :rules="describeRule" />
-          <ValidateInput type="text" placeholder="标签" v-model="tagVal" :rules="tagRule" />
+          <ValidateInput type="text" placeholder="标签(必选)" v-model="tagVal" :rules="tagRule" />
         </div>
 
         <div class="picture">
@@ -88,10 +88,7 @@ export default defineComponent({
       { type: 'null', message: '需要给您的图像起一个名字' },
       { type: 'headlineMaximum', message: '标题最多15个字符' },
     ];
-    const describeRule: RulesProp = [
-      { type: 'null', message: '需要描述一下您的图像' },
-      { type: 'describeMaximum', message: '描述最多个100字符' },
-    ];
+    const describeRule: RulesProp = [{ type: 'describeMaximum', message: '描述最多个100字符' }];
     const tagRule: RulesProp = [
       { type: 'null', message: '为了便于搜索,需要为图像添加一个初始标签' },
       { type: 'tagMaximum', message: '标签最多10个字符' },
