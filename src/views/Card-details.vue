@@ -180,7 +180,7 @@ export default defineComponent({
     DeleteCard,
   },
   props: {
-    // 当前帖子的ID
+    // 路由传来的当前帖子的ID
     id: {
       type: String,
       required: true,
