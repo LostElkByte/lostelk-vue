@@ -110,10 +110,7 @@ export default defineComponent({
       { type: 'headlineMaximum', message: '标题最多15个字符' },
     ];
     const describeRule: RulesProp = [{ type: 'describeMaximum', message: '描述最多个100字符' }];
-    const tagRule: RulesProp = [
-      { type: 'tagMaximum', message: '标签最多10个字符' },
-      { type: 'tag', message: '标签仅支持字母或中文' },
-    ];
+    const tagRule: RulesProp = [{ type: 'tagMaximum', message: '标签最多20个字符' }];
     const pictureRule: RulesProp = [{ type: 'fileNull', message: '需要上传一张图像' }];
 
     /**
