@@ -47,6 +47,8 @@ export default defineComponent({
     const confirmDelete = async () => {
       isDelete.value = false;
       await store.dispatch('deleteCard', postIdProps.value).then(() => {
+        const newCardList = store.state.cardList.filter(item => item.id !== postIdProps.value);
+        store.commit('getCardList', newCardList);
         createTooltip('图像删除成功', 'success', 3000);
         router.push(routerUrlProps.value);
       });

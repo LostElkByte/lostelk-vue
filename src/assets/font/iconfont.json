@@ -6,6 +6,153 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "18223037",
+      "name": "减号",
+      "font_class": "ziyuan1-copy",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "3669893",
+      "name": "加号",
+      "font_class": "jiahao10",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "4767350",
+      "name": "加号",
+      "font_class": "jiahao14",
+      "unicode": "e6e3",
+      "unicode_decimal": 59107
+    },
+    {
+      "icon_id": "6903893",
+      "name": "加号",
+      "font_class": "jiahao15",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "18005425",
+      "name": "加号",
+      "font_class": "jiahao19",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "16355363",
+      "name": "加号",
+      "font_class": "jiahao13",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "6714437",
+      "name": "加号",
+      "font_class": "jiahao11",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "6755648",
+      "name": "加号",
+      "font_class": "jiahao5",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "8360518",
+      "name": "加号",
+      "font_class": "add",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "9578551",
+      "name": "加号",
+      "font_class": "jiahao6",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "16968705",
+      "name": "加号",
+      "font_class": "jiahao9",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "1166550",
+      "name": "加号",
+      "font_class": "jiahao",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "2681691",
+      "name": "加号",
+      "font_class": "jiahao1",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "3216078",
+      "name": "减号",
+      "font_class": "icon--",
+      "unicode": "e715",
+      "unicode_decimal": 59157
+    },
+    {
+      "icon_id": "3946301",
+      "name": "020-减号",
+      "font_class": "-jianhao",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "7192356",
+      "name": "加号",
+      "font_class": "jiahao2",
+      "unicode": "e721",
+      "unicode_decimal": 59169
+    },
+    {
+      "icon_id": "7434423",
+      "name": "减号",
+      "font_class": "jianhao",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "7556165",
+      "name": "加号",
+      "font_class": "jiahao3",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "15546306",
+      "name": "加号",
+      "font_class": "jiahao4",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "19057121",
+      "name": "加号",
+      "font_class": "jia",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "20075834",
+      "name": "减号",
+      "font_class": "jianhao1",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
       "icon_id": "4999277",
       "name": "回复",
       "font_class": "huifu2",

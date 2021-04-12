@@ -130,11 +130,7 @@
               </svg>
               <span>编辑</span>
             </div>
-            <!-- <div v-if="userId === postData.user.id" class="content-message-jurisdiction-delete">
-              <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-shanchu2"></use>
-              </svg>
-            </div> -->
+
             <DeleteCard v-if="userId === postData.user.id" :postId="postId" :routerUrl="'/'"></DeleteCard>
           </div>
 

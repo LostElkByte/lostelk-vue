@@ -13,11 +13,19 @@
             :rules="describeRule"
           />
           <ValidateInput type="text" placeholder="标签(必选)" v-model="tagVal" :rules="tagRule" />
-          <div class="content-tags">
+          <div class="choose-tag" v-if="tagVal != ''" @click="addTag">
             <span>
-              秋
+              {{ tagVal }}
               <svg class="icon delete-tages-icon" aria-hidden="true">
-                <use xlink:href="#icon-guanbi1"></use>
+                <use xlink:href="#icon-jiahao10"></use>
+              </svg>
+            </span>
+          </div>
+          <div class="content-tags">
+            <span v-for="tag in tags" :key="tag">
+              {{ tag }}
+              <svg class="icon delete-tages-icon" aria-hidden="true" @click="deleteTag(tag)">
+                <use xlink:href="#icon-ziyuan1-copy"></use>
               </svg>
             </span>
           </div>
@@ -103,11 +111,28 @@ export default defineComponent({
     ];
     const describeRule: RulesProp = [{ type: 'describeMaximum', message: '描述最多个100字符' }];
     const tagRule: RulesProp = [
-      { type: 'null', message: '为了便于搜索,需要为图像添加一个初始标签' },
       { type: 'tagMaximum', message: '标签最多10个字符' },
       { type: 'tag', message: '标签仅支持字母或中文' },
     ];
     const pictureRule: RulesProp = [{ type: 'fileNull', message: '需要上传一张图像' }];
+
+    /**
+     * 监听添加标签的键盘事件
+     */
+    const tags = ref([] as string[]);
+    const addTag = () => {
+      if (tagVal.value.trim() !== '' && !tags.value.some(item => item === tagVal.value)) {
+        const tag = tagVal.value.trim();
+        tags.value.push(tag);
+        tagVal.value = '';
+      } else {
+        tagVal.value = '';
+      }
+    };
+
+    const deleteTag = (tag: string) => {
+      tags.value = tags.value.filter(item => item !== tag);
+    };
 
     /**
      * 使用FileReader 预览图像
@@ -205,9 +230,9 @@ export default defineComponent({
     /**
      * 请求上传标签
      */
-    const createTag = async (postId: number) => {
+    const createTag = async (postId: number, tag: unknown) => {
       try {
-        await axios.post(`/posts/${postId}/tag`, { name: tagVal.value });
+        await axios.post(`/posts/${postId}/tag`, { name: `${tag}` });
       } catch (error) {
         console.log(error);
       }
@@ -219,8 +244,10 @@ export default defineComponent({
     const createPost = async () => {
       try {
         const response = await axios.post('/posts', { title: headlineVal.value, content: describeVal.value });
-        if (tagVal.value != '') {
-          await createTag(response.data.insertId);
+        if (tags.value.length != 0) {
+          for (let i = 0; i < tags.value.length; i++) {
+            await createTag(response.data.insertId, tags.value[i]);
+          }
         }
         if (fileMessage.value) {
           await careateFile(fileMessage.value, response.data.insertId);
@@ -251,6 +278,7 @@ export default defineComponent({
         headlineVal.value = '';
         describeVal.value = '';
         tagVal.value = '';
+        tags.value = [];
         isDisabled.value.removeAttribute('disabled');
         isDisabled.value.value = '发表';
 
@@ -294,6 +322,9 @@ export default defineComponent({
       imageUploadProgress,
       isDisabled,
       fileIsNull,
+      addTag,
+      tags,
+      deleteTag,
     };
   },
 });
