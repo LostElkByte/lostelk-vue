@@ -13,6 +13,14 @@
             :rules="describeRule"
           />
           <ValidateInput type="text" placeholder="标签(必选)" v-model="tagVal" :rules="tagRule" />
+          <div class="content-tags">
+            <span>
+              秋
+              <svg class="icon delete-tages-icon" aria-hidden="true">
+                <use xlink:href="#icon-guanbi1"></use>
+              </svg>
+            </span>
+          </div>
         </div>
 
         <div class="picture">
