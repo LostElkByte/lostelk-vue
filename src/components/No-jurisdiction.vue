@@ -16,5 +16,5 @@ export default defineComponent({});
 </script>
 
 <style>
-@import '../style/less/componentsStyle/search-failure.css';
+@import '../style/less/componentsStyle/no-jurisdiction.css';
 </style>
