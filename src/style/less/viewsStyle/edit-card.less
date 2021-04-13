@@ -51,34 +51,6 @@
         background-color: #f3f3f4;
       }
 
-      textarea {
-        font-family: 'Haas Grot Text R Web', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        font-size: 16px;
-        font-weight: 400;
-        line-height: 24px;
-        width: 100%;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        height: 40px;
-        padding: 10px 16px;
-        outline: none;
-        border-radius: 8px;
-        -webkit-transition: background-color 200ms ease, outline 200ms ease, color 200ms ease,
-          -webkit-box-shadow 200ms ease;
-        transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, -webkit-box-shadow 200ms ease;
-        transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, box-shadow 200ms ease;
-        transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, box-shadow 200ms ease,
-          -webkit-box-shadow 200ms ease;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        color: #0d0c22;
-        background-color: #f3f3f4;
-        border: 1px solid transparent;
-        resize: vertical;
-        min-height: 108px;
-      }
-
       .choose-tag {
         color: #fff;
         background-color: rgb(147, 213, 220);
@@ -106,7 +78,7 @@
         display: inline-block;
         line-height: 26px;
         color: #fff;
-        background-color: #a4b0be;
+        background-color: #ea4c89;
         cursor: not-allowed;
       }
       .delete-tages-icon {
@@ -125,25 +97,35 @@
         width: 600px;
         height: 420px;
         margin: 0px;
-
-        .image-preview {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
         label {
           display: flex;
           width: 100%;
           height: 100%;
-          background: linear-gradient(rgba(2, 2, 2, 0), rgba(2, 2, 2, 0.1), rgba(2, 2, 2, 0.2), rgba(2, 2, 2, 0.2));
+          background-color: rgb(236, 236, 236);
           justify-content: center;
           align-items: center;
-          cursor: pointer;
 
           .image-preview {
             max-width: 100%;
             max-height: 100%;
+          }
+
+          .image-icon {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            margin: 0;
+            right: 0;
+            left: 0;
+            cursor: pointer;
+            background: linear-gradient(rgba(2, 2, 2, 0), rgba(2, 2, 2, 0), rgba(2, 2, 2, 0), rgba(2, 2, 2, 0.6));
           }
 
           .icon-size-32 {
@@ -155,7 +137,6 @@
             position: absolute;
             top: 0;
             right: 0;
-
             display: flex;
             align-items: center;
             justify-content: center;

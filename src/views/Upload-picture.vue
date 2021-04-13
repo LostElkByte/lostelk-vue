@@ -5,14 +5,24 @@
     <div class="main upload-picture_main">
       <ValidateForm @form-submit="onFormSubmit">
         <div class="content">
+          <table>
+            标题
+          </table>
           <ValidateInput type="text" placeholder="标题(必选)" v-model="headlineVal" :rules="headlineRule" />
+          <table>
+            描述
+          </table>
           <ValidateInput
-            type="text"
+            :tag="`textarea`"
+            type="textarea"
             placeholder="描述一下您的制作灵感、构图、想法..."
             v-model="describeVal"
             :rules="describeRule"
           />
-          <ValidateInput type="text" placeholder="标签(必选)" v-model="tagVal" :rules="tagRule" />
+          <table>
+            标签
+          </table>
+          <ValidateInput type="text" placeholder="标签" v-model="tagVal" :rules="tagRule" />
           <div class="choose-tag" v-if="tagVal != ''" @click="addTag">
             <span>
               {{ tagVal }}
