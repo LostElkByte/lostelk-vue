@@ -403,6 +403,28 @@ export default createStore<GloablDataProps>({
         console.log(error)
       }
     },
+
+    /**
+    * 请求上传内容标签
+    */
+    async createTag(context, { postId, tag }) {
+      try {
+        await axios.post(`/posts/${postId}/tag`, { name: `${tag}` });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    /**
+    * 删除内容标签
+    */
+    async deleteTag(context, { postId, tagId }) {
+      try {
+        await axios.delete(`/posts/${postId}/tag`, { data: { tagId: `${tagId}` } });
+      } catch (error) {
+        console.log(error);
+      }
+    },
   },
 
   getters: {

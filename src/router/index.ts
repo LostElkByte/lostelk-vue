@@ -37,6 +37,13 @@ const routes: Array<RouteRecordRaw> = [
     name: 'UploadPicture',
     component: () => import('../views/Upload-picture.vue'),
     meta: { requiredLogin: true }
+  },
+  {
+    path: '/EditCard/:id',
+    name: 'EditCard',
+    component: () => import('../views/Edit-card.vue'),
+    props: true,
+    meta: { requiredLogin: true }
   }
 ]
 
