@@ -123,6 +123,10 @@ export default defineComponent({
     const publishCommentVal = ref('');
 
     const onFormSubmit = (result: boolean) => {
+      if (userId.value === -1) {
+        createTooltip('请先登录', 'error', 3000);
+        return;
+      }
       if (result) {
         const publishCommentData = {
           content: publishCommentVal.value,
