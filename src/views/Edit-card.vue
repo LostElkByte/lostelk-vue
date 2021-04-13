@@ -2,7 +2,7 @@
   <div class="page upload-picture-page">
     <Header :user="loginJudge"></Header>
     <Sidebar></Sidebar>
-    <div class="main upload-picture_main" v-if="postData">
+    <div class="main upload-picture_main" v-if="postData && userId === postData.user.id">
       <ValidateForm @form-submit="onFormSubmit">
         <div class="content">
           <table>
@@ -88,6 +88,9 @@
         </template>
       </ValidateForm>
     </div>
+    <div v-else>
+      您没有此权限
+    </div>
   </div>
 </template>
 
@@ -138,6 +141,11 @@ export default defineComponent({
     const pictureRule: RulesProp = [];
 
     /**
+     * 获取当前用户的id
+     */
+    const userId = computed(() => store.state.user.id);
+
+    /**
      * 获取要编辑的内容
      */
     // 获取当前帖子的ID
@@ -147,7 +155,7 @@ export default defineComponent({
     const getPost = async () => {
       await store.dispatch('getCard', postId.value).then(data => {
         postData.value = data;
-        tags.value = data.tags;
+        tags.value = data.tags ? data.tags : [];
         headlineVal.value = data.title;
         describeVal.value = data.content;
       });
@@ -366,7 +374,7 @@ export default defineComponent({
 
           await setTimeout(() => {
             router.push(`/card/${postId.value}`);
-          }, 1000);
+          }, 500);
         }
       } else {
         console.log('不通过');
@@ -403,6 +411,7 @@ export default defineComponent({
       deleteTag,
       postData,
       lostelkUrl,
+      userId,
     };
   },
 });

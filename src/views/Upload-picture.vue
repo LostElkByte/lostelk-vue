@@ -14,7 +14,6 @@
           </table>
           <ValidateInput
             :tag="`textarea`"
-            type="textarea"
             placeholder="可以描述一下您的拍摄灵感、构图、想法..."
             v-model="describeVal"
             :rules="describeRule"

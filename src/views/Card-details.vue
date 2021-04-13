@@ -124,11 +124,11 @@
               </div>
             </div>
 
-            <div v-if="userId === postData.user.id" class="content-message-jurisdiction-compile">
+            <div v-if="userId === postData.user.id" class="content-message-jurisdiction-compile" @click="editCard">
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-bianji2"></use>
               </svg>
-              <span>编辑</span>
+              <span>Edit</span>
             </div>
 
             <DeleteCard v-if="userId === postData.user.id" :postId="postId" :routerUrl="'/'"></DeleteCard>
@@ -244,6 +244,14 @@ export default defineComponent({
       } else {
         store.commit('showCommentsCut', true);
       }
+    };
+
+    /**
+     * 编辑
+     */
+    const editCard = async () => {
+      await router.push('/');
+      await router.push(`/EditCard/${postId.value}`);
     };
 
     /**
@@ -387,6 +395,7 @@ export default defineComponent({
       RelatedTagData,
       showComments,
       showCommentsCut,
+      editCard,
     };
   },
 });
