@@ -88,9 +88,9 @@
         </template>
       </ValidateForm>
     </div>
-    <div v-else>
-      您没有此权限
-    </div>
+    <NoJurisdiction class="main" v-else-if="postData && userId !== postData.user.id">
+      <p>您没有编辑这个内容的权限</p>
+    </NoJurisdiction>
   </div>
 </template>
 
@@ -104,6 +104,7 @@ import createTooltip from '../components/createTooltip';
 import Header from '../components/Header.vue';
 import Sidebar from '../components/Sidebar.vue';
 import ValidateForm from '../components/ValidateForm.vue';
+import NoJurisdiction from '../components/No-jurisdiction.vue';
 import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
 
 export default defineComponent({
@@ -113,6 +114,7 @@ export default defineComponent({
     Sidebar,
     ValidateForm,
     ValidateInput,
+    NoJurisdiction,
   },
   props: {
     id: {

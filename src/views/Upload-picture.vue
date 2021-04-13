@@ -77,7 +77,7 @@
 
         <template v-slot:submit>
           <div class="publish">
-            <input ref="isDisabled" type="submit" name="commit" value="发表" class="form-btn" />
+            <input ref="isDisabled" type="submit" name="commit" value="发布" class="form-btn" />
           </div>
         </template>
       </ValidateForm>
