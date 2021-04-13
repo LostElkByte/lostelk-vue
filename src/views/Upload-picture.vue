@@ -15,7 +15,7 @@
           <ValidateInput
             :tag="`textarea`"
             type="textarea"
-            placeholder="描述一下您的制作灵感、构图、想法..."
+            placeholder="可以描述一下您的拍摄灵感、构图、想法..."
             v-model="describeVal"
             :rules="describeRule"
           />
@@ -45,9 +45,11 @@
           <div class="picture-style">
             <label for="file">
               <img v-if="imagePreviewUrl" class="image-preview" :src="imagePreviewUrl" alt="" />
-              <svg v-else class="icon icon-size-32 icon-size-fill" aria-hidden="true">
-                <use xlink:href="#icon-tubiaolunkuo-"></use>
-              </svg>
+              <div class="image-icon">
+                <svg class="icon icon-size-32 icon-size-fill" aria-hidden="true">
+                  <use xlink:href="#icon-tubiaolunkuo-"></use>
+                </svg>
+              </div>
               <div
                 v-if="imageUploadProgress"
                 class="image-upload-progress"
