@@ -49,6 +49,8 @@ export default defineComponent({
       await store.dispatch('deleteCard', postIdProps.value).then(() => {
         const newCardList = store.state.cardList.filter(item => item.id !== postIdProps.value);
         store.commit('getCardList', newCardList);
+        // 将body恢复为可以滚动
+        document.body.style.overflow = 'auto';
         createTooltip('图像删除成功', 'success', 3000);
         router.push(routerUrlProps.value);
       });

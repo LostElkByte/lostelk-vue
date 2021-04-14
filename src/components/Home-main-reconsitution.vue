@@ -398,9 +398,9 @@ export default defineComponent({
      * 点击跳转详情页
      */
     const cardDetails = async (postId: number) => {
-      // 获取当前坐标储存在store中
-      const HomeScrollTop = document.documentElement.scrollTop;
-      await store.commit('HomeScrollTop', HomeScrollTop);
+      // 将body设置为不可滚动
+      document.body.style.overflow = 'hidden';
+
       await store.commit('showCommentsCut', false);
       await router.push(`/card/${postId}`);
     };

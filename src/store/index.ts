@@ -54,7 +54,6 @@ export interface GloablDataProps {
   isShowLoading: boolean;
   searchFailure: boolean;
   mainSearchIsNone: boolean;
-  HomeScrollTop: number | null;
   fileMetadata: GloablfileMetadataProps | {};
   showCommentsCut: boolean;
 }
@@ -72,7 +71,6 @@ export default createStore<GloablDataProps>({
     isShowLoading: true,
     searchFailure: false,
     mainSearchIsNone: true,
-    HomeScrollTop: null,
     fileMetadata: {},
     showCommentsCut: false
   },
@@ -202,13 +200,6 @@ export default createStore<GloablDataProps>({
           break;
         }
       }
-    },
-
-    /**
-     * 获取home页滚动位置
-     */
-    HomeScrollTop(state, scrollTop) {
-      state.HomeScrollTop = scrollTop
     },
 
     /**

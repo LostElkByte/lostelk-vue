@@ -160,7 +160,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onBeforeUnmount, computed, ref, onUpdated } from 'vue';
+import { defineComponent, computed, ref, onUpdated } from 'vue';
 import { lostelkUrl } from '../global';
 import router from '../router';
 import Likes from '../components/Likes.vue';
@@ -250,6 +250,8 @@ export default defineComponent({
      * 编辑
      */
     const editCard = async () => {
+      // 将body恢复为可以滚动
+      document.body.style.overflow = 'auto';
       await router.push('/');
       await router.push(`/EditCard/${postId.value}`);
     };
@@ -333,8 +335,9 @@ export default defineComponent({
      * 关闭按钮
      */
     const close = () => {
-      const appElement = document.getElementById('app') as HTMLElement;
-      appElement.classList.remove('notScroll');
+      // 将body恢复为可以滚动
+      document.body.style.overflow = 'auto';
+
       router.push('/');
     };
 
@@ -342,6 +345,8 @@ export default defineComponent({
      * 获取相关标签数据 并跳转到首页
      */
     const RelatedTagData = (tagName: string) => {
+      // 将body恢复为可以滚动
+      document.body.style.overflow = 'auto';
       store.dispatch('getTagCardList', tagName).then(() => {
         if (store.state.cardList.length === 0) {
           store.commit('setSearchFailure', true);
@@ -352,31 +357,6 @@ export default defineComponent({
         }
       });
     };
-
-    /**
-     * 组件挂载成功后给Id为app的节点添加响应样式,
-     */
-    onMounted(() => {
-      const appElement = document.getElementById('app') as HTMLElement;
-      appElement.classList.add('notScroll');
-    });
-
-    /**
-     * 销毁时删除Id为app的dom节点
-     * 跳转到home页
-     * 调整home页纵坐标位置
-     */
-    onBeforeUnmount(() => {
-      const appElement = document.getElementById('app') as HTMLElement;
-      appElement.classList.remove('notScroll');
-
-      router.push('/');
-      // 跳转完成后将坐标调整到上次浏览的位置
-      const scrollTop = computed(() => store.state.HomeScrollTop);
-      if (scrollTop.value) {
-        window.scrollTo(0, scrollTop.value);
-      }
-    });
 
     return {
       userId,
@@ -403,14 +383,4 @@ export default defineComponent({
 
 <style scoped src="../style/less/viewsStyle/card-details.css"></style>
 
-<style>
-.notScroll {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  overflow: hidden;
-  height: 100vh;
-}
-</style>
+<style></style>
