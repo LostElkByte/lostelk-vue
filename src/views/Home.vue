@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted } from 'vue';
+import { computed, defineComponent, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import Header from '../components/Header.vue';
 import Sidebar from '../components/Sidebar.vue';
@@ -36,6 +36,29 @@ export default defineComponent({
     });
 
     const cardColumnSize = computed(() => props.cardColumn);
+
+    const windowScroll = () => {
+      // let isLoading = false;
+      console.log('windowScroll函数');
+      // const bottomOfWindow = (document.documentElement.offsetHeight -
+      //   document.documentElement.scrollTop -
+      //   window.innerHeight <=
+      //   200) as boolean;
+      // console.log(bottomOfWindow);
+      // if (bottomOfWindow && isLoading == false) {
+      //   isLoading = true;
+      //   await store.dispatch('getPageCardList', 2);
+      //   isLoading = false;
+      // }
+    };
+
+    onMounted(() => {
+      window.addEventListener('scroll', windowScroll);
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener('scroll', windowScroll);
+    });
 
     return {
       list,

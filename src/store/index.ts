@@ -121,6 +121,16 @@ export default createStore<GloablDataProps>({
     },
 
     /**
+     * 添加卡片列表
+     */
+    getPageCardList(state, rawdata) {
+      state.cardList.push(...rawdata)
+      console.log(state.cardList)
+      // state.cardList = { ...state.cardList, ...rawdata }
+    },
+
+
+    /**
      * 或得单个卡片
      */
     cardData(state, rawdata) {
@@ -262,6 +272,18 @@ export default createStore<GloablDataProps>({
       try {
         const CardListData = await axios.get('/posts')
         context.commit('getCardList', CardListData.data)
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    /**
+    * 卡片列表分页加载
+    */
+    async getPageCardList(context, page) {
+      try {
+        const CardListData = await axios.get(`/posts?page=${page}`)
+        context.commit('getPageCardList', CardListData.data)
       } catch (error) {
         console.log(error);
       }
