@@ -172,7 +172,14 @@
   .home-page_main .main_center {
     padding: 30px 20px;
   }
+  .home-page_main .main_center .search-results {
+    margin-bottom: 30px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #f3f3f4;
+  }
   .home-page_main .main_center .search-results .search-results-heading {
+    margin-left: 16px;
+    text-align: left;
     font-size: 24px;
     font-weight: 700;
     line-height: 29px;
