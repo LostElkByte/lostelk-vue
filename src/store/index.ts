@@ -43,6 +43,12 @@ export interface GloablfileMetadataProps {
   metadata: {};
 }
 
+export interface GloabSearchTagProps {
+  tagName: string;
+  totalCount: number;
+}
+
+
 export interface GloablDataProps {
   loading: boolean;
   error: GloablErrorProps;
@@ -53,6 +59,7 @@ export interface GloablDataProps {
   userLikes: CardList[];
   isShowLoading: boolean;
   searchFailure: boolean;
+  searchTag: GloabSearchTagProps | {};
   mainSearchIsNone: boolean;
   fileMetadata: GloablfileMetadataProps | {};
   showCommentsCut: boolean;
@@ -72,7 +79,8 @@ export default createStore<GloablDataProps>({
     searchFailure: false,
     mainSearchIsNone: true,
     fileMetadata: {},
-    showCommentsCut: false
+    showCommentsCut: false,
+    searchTag: {}
   },
 
   mutations: {
@@ -175,6 +183,13 @@ export default createStore<GloablDataProps>({
      */
     setSearchFailure(state, rawdata) {
       state.searchFailure = rawdata
+    },
+
+    /**
+    * 传入搜索标签
+    */
+    setSearchTag(state, rawdata) {
+      state.searchTag = rawdata
     },
 
     /**
@@ -300,7 +315,7 @@ export default createStore<GloablDataProps>({
       try {
         const TagCardListData = await axios.get(`/posts?tag=${tag}`)
         context.commit('getCardList', TagCardListData.data);
-        return TagCardListData.data
+        return TagCardListData
       } catch (error) {
         console.log(error);
       }

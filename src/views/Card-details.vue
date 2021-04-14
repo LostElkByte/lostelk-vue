@@ -344,15 +344,18 @@ export default defineComponent({
     /**
      * 获取相关标签数据 并跳转到首页
      */
-    const RelatedTagData = (tagName: string) => {
+    const RelatedTagData = async (tagName: string) => {
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
-      store.dispatch('getTagCardList', tagName).then(() => {
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+      await store.dispatch('getTagCardList', tagName).then(async data => {
         if (store.state.cardList.length === 0) {
-          store.commit('setSearchFailure', true);
+          await store.commit('setSearchFailure', true);
         } else {
-          store.commit('setSearchFailure', false);
-          store.commit('mainSearchIsNone', false);
+          const totalCount = data.headers['x-total-count'];
+          await store.commit('setSearchTag', { tagName: tagName, totalCount: totalCount });
+          await store.commit('setSearchFailure', false);
+          await store.commit('mainSearchIsNone', false);
           close();
         }
       });

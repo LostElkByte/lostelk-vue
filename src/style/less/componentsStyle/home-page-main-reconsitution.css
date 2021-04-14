@@ -6,6 +6,28 @@
   padding: 32px;
   margin: 0 auto;
 }
+.home-page_main .main_center .search-results {
+  padding: 0 16px 30px;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+}
+.home-page_main .main_center .search-results .search-results-heading {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38px;
+}
+.home-page_main .main_center .search-results .search-results-description {
+  max-width: 700px;
+  text-align: center;
+  color: #6e6d7a;
+  margin-bottom: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
 .home-page_main .main_center .home-page_main_cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -149,6 +171,15 @@
   }
   .home-page_main .main_center {
     padding: 30px 20px;
+  }
+  .home-page_main .main_center .search-results .search-results-heading {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29px;
+    margin-bottom: 12px;
+  }
+  .home-page_main .main_center .search-results .search-results-description {
+    text-align: left;
   }
   .home-page_main .main_center .home-page_main_cards {
     display: grid;

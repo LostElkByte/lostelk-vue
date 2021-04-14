@@ -2,6 +2,15 @@
   <div class="home-page_main" v-if="ColumnSize === 3">
     <MainSearch v-if="!searchfailure" v-show="mainSearchIsNone"></MainSearch>
     <div class="main_center">
+      <div class="search-results" v-if="!searchfailure" v-show="!mainSearchIsNone">
+        <h1 class="search-results-heading">
+          {{ sarchTag.tagName }}
+        </h1>
+        <p class="search-results-description">
+          Browse {{ sarchTag.totalCount }} {{ sarchTag.tagName }} work, designs, illustrations, and graphic elements
+        </p>
+      </div>
+
       <div class="home-page_main_cards" v-if="!searchfailure">
         <div class="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardThreeColumnOne" :key="card.id">
@@ -139,6 +148,14 @@
   <div class="home-page_main" v-else-if="ColumnSize === 2">
     <MainSearch v-if="!searchfailure" v-show="mainSearchIsNone"></MainSearch>
     <div class="main_center">
+      <div class="search-results" v-if="!searchfailure" v-show="!mainSearchIsNone">
+        <h1 class="search-results-heading">
+          {{ sarchTag.tagName }}
+        </h1>
+        <p class="search-results-description">
+          Browse {{ sarchTag.totalCount }} {{ sarchTag.tagName }} work, designs, illustrations, and graphic elements
+        </p>
+      </div>
       <div class="home-page_main_cards" v-if="!searchfailure">
         <div class="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardTwoColumnOne" :key="card.id">
@@ -233,6 +250,14 @@
   <div class="home-page_main" v-else-if="ColumnSize === 1">
     <MainSearch v-if="!searchfailure" v-show="mainSearchIsNone"></MainSearch>
     <div class="main_center">
+      <div class="search-results" v-if="!searchfailure" v-show="!mainSearchIsNone">
+        <h1 class="search-results-heading">
+          {{ sarchTag.tagName }}
+        </h1>
+        <p class="search-results-description">
+          Browse {{ sarchTag.totalCount }} {{ sarchTag.tagName }} work, designs, illustrations, and graphic elements
+        </p>
+      </div>
       <div class="home-page_main_cards" v-if="!searchfailure">
         <div class="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardList" :key="card.id">
@@ -288,7 +313,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
 import { lostelkUrl } from '../global';
-import store, { CardList } from '../store';
+import store, { CardList, GloabSearchTagProps } from '../store';
 import Likes from '../components/Likes.vue';
 import MainSearch from './Main-search-box.vue';
 import SearchFailure from '../components/Search-failure.vue';
@@ -388,6 +413,11 @@ export default defineComponent({
     const searchfailure = computed(() => store.state.searchFailure);
 
     /**
+     * 获得搜索的标签
+     */
+    const sarchTag = computed(() => (store.state.searchTag as GloabSearchTagProps) || {});
+
+    /**
      * 修改
      * 获得
      * 搜索栏显示状态
@@ -415,6 +445,7 @@ export default defineComponent({
       cardTwoColumnOne,
       cardTwoColumnTwo,
       searchfailure,
+      sarchTag,
       cardDetails,
       ColumnSize,
       mainSearchIsNone,
