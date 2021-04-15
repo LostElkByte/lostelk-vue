@@ -63,6 +63,7 @@ export interface GloablDataProps {
   mainSearchIsNone: boolean;
   fileMetadata: GloablfileMetadataProps | {};
   showCommentsCut: boolean;
+  homePageCardTotalCount: number | null;
 }
 
 export default createStore<GloablDataProps>({
@@ -80,7 +81,8 @@ export default createStore<GloablDataProps>({
     mainSearchIsNone: true,
     fileMetadata: {},
     showCommentsCut: false,
-    searchTag: {}
+    searchTag: {},
+    homePageCardTotalCount: null
   },
 
   mutations: {
@@ -131,10 +133,14 @@ export default createStore<GloablDataProps>({
      */
     getPageCardList(state, rawdata) {
       state.cardList.push(...rawdata)
-      console.log(state.cardList)
-      // state.cardList = { ...state.cardList, ...rawdata }
     },
 
+    /**
+     * 获取主页卡片总数
+     */
+    getHomePageCardTotalCount(state, rawdata) {
+      state.homePageCardTotalCount = rawdata
+    },
 
     /**
      * 或得单个卡片
@@ -278,6 +284,7 @@ export default createStore<GloablDataProps>({
       try {
         const CardListData = await axios.get('/posts')
         context.commit('getCardList', CardListData.data)
+        context.commit('getHomePageCardTotalCount', CardListData.headers['x-total-count'])
       } catch (error) {
         console.log(error);
       }
