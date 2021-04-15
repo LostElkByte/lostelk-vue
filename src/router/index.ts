@@ -52,6 +52,7 @@ const router = createRouter({
   routes
 })
 
+
 router.beforeEach((to, from, next) => {
   const { user, token } = store.state
   const { requiredLogin, requestNotLogin } = to.meta
@@ -65,6 +66,7 @@ router.beforeEach((to, from, next) => {
    *     如果token不存在, 进行未登录状态路由管理
    * 2.2 user.isLogin为true 进行已登陆状态路由权限管理
    */
+
   if (!user.isLogin) {
     if (token) {
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;

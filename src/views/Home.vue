@@ -39,7 +39,7 @@ export default defineComponent({
     const cardColumnSize = computed(() => props.cardColumn);
 
     /**
-     * 加载更多
+     * HOME页加载更多
      */
 
     // 获取home页的卡片总数
@@ -49,15 +49,18 @@ export default defineComponent({
     // 默认当前页数
     const currentPage = ref(1);
     // 是否加载默认设置为true
-    const isLoading = ref(true);
+    const isHomeScrollLoading = ref(true);
 
     // 滚动加载事件函数
     const windowScroll = async () => {
       const prevScrollTop = ref(0);
 
       // 判断 如果document 并且 isLoading 为true进入
-      if (document && isLoading.value) {
-        const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+      if (document && isHomeScrollLoading.value) {
+        const { scrollHeight, clientHeight } = document.documentElement;
+
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset || 0;
+
         // 可滚动的极限高度 = 窗口可见高度 + 滚动的高度 + 200
         const height = clientHeight + scrollTop + 200;
         // touchDown = (页面可滚动内容的高度 - 可滚动的极限高度) < 0
@@ -67,9 +70,9 @@ export default defineComponent({
         const scrollDown = scrollTop > prevScrollTop.value;
 
         // 条件全部成立,进入加载
-        if (touchDown && scrollDown && isLoading.value) {
+        if (touchDown && scrollDown && isHomeScrollLoading.value) {
           // 是否加载设置为false,防止重复加载
-          isLoading.value = false;
+          isHomeScrollLoading.value = false;
 
           await store.dispatch('getPageCardList', currentPage.value + 1).then(() => {
             // 加载完毕 将当前页数+1
@@ -79,9 +82,9 @@ export default defineComponent({
 
         // 判断本次加载是否到最后一页 , 如果判断成立则将 isLoading.value设置为false,不成立恢复为true
         if (homeTotalPage.value <= currentPage.value) {
-          isLoading.value = false;
+          isHomeScrollLoading.value = false;
         } else {
-          isLoading.value = true;
+          isHomeScrollLoading.value = true;
         }
 
         // 将当前的scrollTop 赋值给prevScrollTop,用于下次进入滚动加载事件,判断是否是向下滚动
@@ -103,6 +106,11 @@ export default defineComponent({
       cardColumnSize,
     };
   },
+  // watch: {
+  //   $route(to, from) {
+  //     console.log('数据更新操作');
+  //   },
+  // },
 });
 </script>
 
