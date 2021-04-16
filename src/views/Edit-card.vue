@@ -2,7 +2,7 @@
   <div class="page upload-picture-page">
     <Header :user="loginJudge"></Header>
     <Sidebar></Sidebar>
-    <div class="main upload-picture_main" v-if="postData && userId === postData.user.id">
+    <div class="main upload-picture_main" v-if="postData && (userId === postData.user.id || userId === 1)">
       <ValidateForm @form-submit="onFormSubmit">
         <div class="content">
           <table>
@@ -88,7 +88,7 @@
         </template>
       </ValidateForm>
     </div>
-    <NoJurisdiction class="main" v-else-if="postData && userId !== postData.user.id">
+    <NoJurisdiction class="main" v-else-if="postData && (userId !== postData.user.id || userId === 1)">
       <p>您没有编辑这个内容的权限</p>
     </NoJurisdiction>
   </div>

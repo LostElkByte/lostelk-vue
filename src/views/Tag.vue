@@ -127,6 +127,7 @@ export default defineComponent({
     onUnmounted(() => {
       window.removeEventListener('scroll', windowScroll);
     });
+
     watch(
       () => route.params.tag,
       () => {

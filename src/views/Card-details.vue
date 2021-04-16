@@ -124,14 +124,22 @@
               </div>
             </div>
 
-            <div v-if="userId === postData.user.id" class="content-message-jurisdiction-compile" @click="editCard">
+            <div
+              v-if="userId === postData.user.id || userId === 1"
+              class="content-message-jurisdiction-compile"
+              @click="editCard"
+            >
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-bianji2"></use>
               </svg>
               <span>Edit</span>
             </div>
 
-            <DeleteCard v-if="userId === postData.user.id" :postId="postId" :routerUrl="'/'"></DeleteCard>
+            <DeleteCard
+              v-if="userId === postData.user.id || userId === 1"
+              :postId="postId"
+              :routerUrl="'/'"
+            ></DeleteCard>
           </div>
 
           <div class="content-description" v-if="postData.content !== ''">
