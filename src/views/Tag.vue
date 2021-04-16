@@ -1,7 +1,11 @@
 <template>
   <div class="home-page">
     <Header :user="loginJudge"></Header>
-    <HomeMainReconsitution :cardColumnSize="cardColumnSize" :list="list"></HomeMainReconsitution>
+    <HomeMainReconsitution
+      :detailsUrlparameter="`tag/${tagVal}/tagCard`"
+      :cardColumnSize="cardColumnSize"
+      :list="list"
+    ></HomeMainReconsitution>
     <Sidebar></Sidebar>
   </div>
 </template>
@@ -31,9 +35,10 @@ export default defineComponent({
     const route = useRoute();
     const store = useStore();
 
+    const tagVal = computed(() => route.params.tag);
+
     const loading = () => {
-      const tagVal = route.params.tag;
-      store.dispatch('getTagCardList', tagVal).then(() => {
+      store.dispatch('getTagCardList', tagVal.value).then(() => {
         if (store.state.tagCardList.length === 0) {
           //修改搜索结果为true
           store.commit('setSearchFailure', true);
@@ -132,6 +137,7 @@ export default defineComponent({
       list,
       loginJudge,
       cardColumnSize,
+      tagVal,
     };
   },
 });

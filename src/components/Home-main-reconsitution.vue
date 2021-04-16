@@ -339,6 +339,10 @@ export default defineComponent({
       type: Number,
       required: true,
     },
+    detailsUrlparameter: {
+      type: String,
+      required: true,
+    },
   },
 
   setup(props) {
@@ -427,12 +431,13 @@ export default defineComponent({
     /**
      * 点击跳转详情页
      */
+    const Urlparameter = computed(() => props.detailsUrlparameter);
     const cardDetails = async (postId: number) => {
       // 将body设置为不可滚动
       document.body.style.overflow = 'hidden';
 
       await store.commit('showCommentsCut', false);
-      await router.push(`/card/${postId}`);
+      await router.push(`/${Urlparameter.value}/${postId}`);
     };
 
     return {

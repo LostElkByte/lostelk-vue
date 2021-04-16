@@ -169,7 +169,7 @@ import Comment from '../components/Comment.vue';
 import DeleteCard from '../components/Delete-card.vue';
 import store from '../store';
 export default defineComponent({
-  name: 'CardDetails',
+  name: 'TagCardDetails',
   components: {
     Likes,
     DownloadFile,

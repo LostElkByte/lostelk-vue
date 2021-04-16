@@ -1,7 +1,11 @@
 <template>
   <div class="home-page">
     <Header :user="loginJudge"></Header>
-    <HomeMainReconsitution :cardColumnSize="cardColumnSize" :list="list"></HomeMainReconsitution>
+    <HomeMainReconsitution
+      :detailsUrlparameter="`card`"
+      :cardColumnSize="cardColumnSize"
+      :list="list"
+    ></HomeMainReconsitution>
     <Sidebar></Sidebar>
   </div>
 </template>

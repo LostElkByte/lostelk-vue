@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
-import CardDetails from '../views/Card-details.vue'
 import store from '../store'
 import axios from 'axios'
 
@@ -14,7 +13,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'card/:id',
         name: 'CardDetails',
-        component: CardDetails,
+        component: () => import('../views/Card-details.vue'),
         props: true
       }
     ]
@@ -50,7 +49,15 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Tag',
     component: () => import('../views/Tag.vue'),
     props: true,
-    meta: { requiredLogin: true }
+    meta: { requiredLogin: true },
+    children: [
+      {
+        path: '/tag/:tag/tagCard/:id',
+        name: 'TagCardDetails',
+        component: () => import('../views/TagCard-details.vue'),
+        props: true
+      }
+    ]
   }
 ]
 
