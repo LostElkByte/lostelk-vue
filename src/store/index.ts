@@ -234,6 +234,13 @@ export default createStore<GloablDataProps>({
           break;
         }
       }
+      for (let i = 0; i < state.tagCardList.length; i++) {
+        if (state.tagCardList[i].id === postId) {
+          state.tagCardList[i].liked = 1;
+          state.tagCardList[i].totalLikes++;
+          break;
+        }
+      }
     },
     /**
     * 取消点赞 修改卡片的like状态与值
@@ -243,6 +250,13 @@ export default createStore<GloablDataProps>({
         if (state.cardList[i].id === postId) {
           state.cardList[i].liked = 0;
           state.cardList[i].totalLikes--;
+          break;
+        }
+      }
+      for (let i = 0; i < state.tagCardList.length; i++) {
+        if (state.tagCardList[i].id === postId) {
+          state.tagCardList[i].liked = 0;
+          state.tagCardList[i].totalLikes--;
           break;
         }
       }

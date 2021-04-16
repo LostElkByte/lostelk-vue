@@ -347,7 +347,7 @@ export default defineComponent({
     };
 
     /**
-     * 获取相关标签数据 并跳转到首页
+     * 获取相关标签数据 并跳转
      */
     const RelatedTagData = async (tagName: string) => {
       // 将body恢复为可以滚动
@@ -362,6 +362,7 @@ export default defineComponent({
           await store.commit('setSearchFailure', false);
           await store.commit('mainSearchIsNone', false);
           close();
+          router.push(`/tag/${tagName}`);
         }
       });
     };
