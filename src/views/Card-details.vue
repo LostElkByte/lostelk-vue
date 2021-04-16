@@ -182,6 +182,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    tagName: {
+      type: String,
+      required: false,
+    },
   },
   setup(props) {
     // 获取当前用户ID

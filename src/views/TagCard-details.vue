@@ -182,8 +182,13 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    tagName: {
+      type: String,
+      required: false,
+    },
   },
   setup(props) {
+    const tag = computed(() => props.tagName);
     // 获取当前用户ID
     const userId = computed(() => store.state.user.id);
     // 获取当前帖子的ID
@@ -197,7 +202,7 @@ export default defineComponent({
      */
     const showCard = ref(false);
     const postData = ref();
-    const cardList = computed(() => store.state.cardList);
+    const cardList = computed(() => store.state.tagCardList);
     const cardIndex = computed(() => cardList.value.findIndex(item => item.id === postId.value));
 
     // 如果当前帖子存在于cardList数组中,进入if 否则 进入else
@@ -299,7 +304,7 @@ export default defineComponent({
         fileMetadata.value = Metadata;
 
         // 跳转URL
-        await router.push(`/card/${rightCutId}`);
+        await router.push(`${rightCutId}`);
         // 清除禁止点击样式
         leftCutDom.value.classList.remove('noClick');
       } else {
@@ -323,7 +328,7 @@ export default defineComponent({
         const Metadata = await store.dispatch('getFileMetadata', postData.value.file.id);
         fileMetadata.value = Metadata;
         // 跳转URL
-        await router.push(`/card/${leftCutId}`);
+        await router.push(`${leftCutId}`);
         // 清除禁止点击样式
         rightCutDom.value.classList.remove('noClick');
       } else {
@@ -339,7 +344,7 @@ export default defineComponent({
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
 
-      router.push('/');
+      router.push(`/tag/${tag.value}`);
     };
 
     /**
@@ -350,7 +355,7 @@ export default defineComponent({
       document.body.style.overflow = 'auto';
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       await store.dispatch('getTagCardList', tagName).then(async data => {
-        if (store.state.cardList.length === 0) {
+        if (store.state.tagCardList.length === 0) {
           await store.commit('setSearchFailure', true);
         } else {
           const totalCount = data.headers['x-total-count'];

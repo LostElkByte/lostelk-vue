@@ -3,6 +3,7 @@
     <Header :user="loginJudge"></Header>
     <HomeMainReconsitution
       :detailsUrlparameter="`tag/${tagVal}/tagCard`"
+      :tagName="tagVal"
       :cardColumnSize="cardColumnSize"
       :list="list"
     ></HomeMainReconsitution>

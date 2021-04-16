@@ -306,7 +306,7 @@
     </div>
   </div>
   <teleport to="#app">
-    <router-view></router-view>
+    <router-view :tagName="tagNameProps"></router-view>
   </teleport>
 </template>
 
@@ -343,9 +343,14 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    tagName: {
+      type: String,
+      required: false,
+    },
   },
 
   setup(props) {
+    const tagNameProps = computed(() => props.tagName);
     const cardList = computed(() => {
       return props.list.map(card => {
         // 如果图片不存在 则添加默认图片
@@ -454,6 +459,8 @@ export default defineComponent({
       cardDetails,
       ColumnSize,
       mainSearchIsNone,
+      Urlparameter,
+      tagNameProps,
     };
   },
 });
