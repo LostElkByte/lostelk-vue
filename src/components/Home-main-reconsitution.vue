@@ -25,7 +25,11 @@
                     <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                   </button>
                   <button class="card-button">
-                    <GoCommentButton :postId="card.id" :totalComments="card.totalComments"></GoCommentButton>
+                    <GoCommentButton
+                      :postId="card.id"
+                      :totalComments="card.totalComments"
+                      :urlParameter="Urlparameter"
+                    ></GoCommentButton>
                   </button>
                 </div>
               </div>
@@ -68,7 +72,11 @@
                     <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                   </button>
                   <button class="card-button">
-                    <GoCommentButton :postId="card.id" :totalComments="card.totalComments"></GoCommentButton>
+                    <GoCommentButton
+                      :postId="card.id"
+                      :totalComments="card.totalComments"
+                      :urlParameter="Urlparameter"
+                    ></GoCommentButton>
                   </button>
                 </div>
               </div>
@@ -111,7 +119,11 @@
                     <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                   </button>
                   <button class="card-button">
-                    <GoCommentButton :postId="card.id" :totalComments="card.totalComments"></GoCommentButton>
+                    <GoCommentButton
+                      :postId="card.id"
+                      :totalComments="card.totalComments"
+                      :urlParameter="Urlparameter"
+                    ></GoCommentButton>
                   </button>
                 </div>
               </div>
@@ -170,7 +182,11 @@
                     <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                   </button>
                   <button class="card-button">
-                    <GoCommentButton :postId="card.id" :totalComments="card.totalComments"></GoCommentButton>
+                    <GoCommentButton
+                      :postId="card.id"
+                      :totalComments="card.totalComments"
+                      :urlParameter="Urlparameter"
+                    ></GoCommentButton>
                   </button>
                 </div>
               </div>
@@ -213,7 +229,11 @@
                     <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                   </button>
                   <button class="card-button">
-                    <GoCommentButton :postId="card.id" :totalComments="card.totalComments"></GoCommentButton>
+                    <GoCommentButton
+                      :postId="card.id"
+                      :totalComments="card.totalComments"
+                      :urlParameter="Urlparameter"
+                    ></GoCommentButton>
                   </button>
                 </div>
               </div>
@@ -288,7 +308,11 @@
                   <Likes :isLike="card.liked" :likeCount="card.totalLikes" :cardId="card.id"></Likes>
                 </button>
                 <button class="card-button-max767">
-                  <GoCommentButton :postId="card.id" :totalComments="card.totalComments"></GoCommentButton>
+                  <GoCommentButton
+                    :postId="card.id"
+                    :totalComments="card.totalComments"
+                    :urlParameter="Urlparameter"
+                  ></GoCommentButton>
                 </button>
               </div>
               <div class="max767-bottom-right">
@@ -351,6 +375,7 @@ export default defineComponent({
 
   setup(props) {
     const tagNameProps = computed(() => props.tagName);
+
     const cardList = computed(() => {
       return props.list.map(card => {
         // 如果图片不存在 则添加默认图片

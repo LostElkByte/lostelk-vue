@@ -35,7 +35,7 @@
         </div>
         <div class="comment-toolbar" v-if="replyComment.user.id === singleuserId && !isdeleteSucceed">
           <button
-            v-if="replyComment.user.id === singleuserId"
+            v-if="replyComment.user.id === singleuserId || singleuserId === 1"
             :class="['comment-buttom', 'comment-buttom-show']"
             @click="showReviseInput"
           >
@@ -44,7 +44,11 @@
             </svg>
             {{ reviseShow ? '修改' : '取消修改' }}
           </button>
-          <button v-if="replyComment.user.id === singleuserId" class="comment-buttom" @click="showDeleteAddirm">
+          <button
+            v-if="replyComment.user.id === singleuserId || singleuserId === 1"
+            class="comment-buttom"
+            @click="showDeleteAddirm"
+          >
             <svg class="icon comment-buttom-icon" aria-hidden="true">
               <use xlink:href="#icon-icon"></use>
             </svg>

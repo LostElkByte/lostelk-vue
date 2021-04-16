@@ -71,7 +71,7 @@ export default defineComponent({
     // 获取Tag页的卡片总数
     const tagPageCardTotalCount = computed(() => store.state.tagPageCardTotalCount);
     // 计算Tag页的总页数
-    const TagTotalPage = computed(() => Math.ceil(tagPageCardTotalCount.value / 20));
+    const TagTotalPage = computed(() => Math.ceil(tagPageCardTotalCount.value / 10));
     // 默认当前页数
     const currentPage = ref(1);
     // 是否加载默认设置为true
@@ -80,10 +80,9 @@ export default defineComponent({
     // 滚动加载事件函数
     const windowScroll = async () => {
       const prevScrollTop = ref(0);
-      console.log(currentPage.value);
 
       // 判断 如果document 并且 isLoading 为true进入
-      if (document && isTagScrollLoading.value && TagTotalPage.value <= currentPage.value) {
+      if (document && isTagScrollLoading.value) {
         const { scrollHeight, clientHeight } = document.documentElement;
 
         const scrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset || 0;
@@ -133,6 +132,10 @@ export default defineComponent({
       () => {
         if (route.params.tag) {
           loading();
+          // 默认当前页数
+          currentPage.value = 1;
+          // 是否加载默认设置为true
+          isTagScrollLoading.value = true;
         }
       },
     );

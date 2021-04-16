@@ -22,16 +22,18 @@ export default defineComponent({
       type: Number,
       required: true,
     },
+    urlParameter: {
+      type: String,
+      required: true,
+    },
   },
   setup(props) {
+    const url = computed(() => props.urlParameter);
     const commentSum = computed(() => props.totalComments);
     const id = computed(() => props.postId);
 
     const goComment = async () => {
-      // 获取当前坐标储存在store中
-      const HomeScrollTop = document.documentElement.scrollTop;
-      await store.commit('HomeScrollTop', HomeScrollTop);
-      await router.push(`/card/${id.value}`);
+      await router.push(`/${url.value}/${id.value}`);
       await store.commit('showCommentsCut', true);
     };
     return {

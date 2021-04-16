@@ -164,7 +164,7 @@ export default createStore<GloablDataProps>({
      * 添加指定标签的卡片内容
      */
     getPageTagCardList(state, rawdata) {
-      state.cardList.push(...rawdata)
+      state.tagCardList.push(...rawdata)
     },
 
     /**

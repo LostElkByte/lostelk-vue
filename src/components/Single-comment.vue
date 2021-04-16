@@ -51,13 +51,21 @@
               </svg>
               回复(点击登录)
             </button>
-            <button v-if="singleComment.user.id === singleuserId" class="comment-buttom" @click="showReviseInput">
+            <button
+              v-if="singleComment.user.id === singleuserId || singleuserId === 1"
+              class="comment-buttom"
+              @click="showReviseInput"
+            >
               <svg class="icon comment-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-bianji"></use>
               </svg>
               {{ reviseShow ? '修改' : '取消修改' }}
             </button>
-            <button v-if="singleComment.user.id === singleuserId" class="comment-buttom" @click="showDeleteAddirm">
+            <button
+              v-if="singleComment.user.id === singleuserId || singleuserId === 1"
+              class="comment-buttom"
+              @click="showDeleteAddirm"
+            >
               <svg class="icon comment-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-icon"></use>
               </svg>
@@ -153,7 +161,7 @@ export default defineComponent({
     const singleComment = computed(() => props.comment);
     // 接收当前文章的ID
     const postIdData = computed(() => props.postId);
-    // 接收单个评论的用户ID
+    // 接收当前用户ID
     const singleuserId = computed(() => props.userId);
     // 接收文章的的作者ID
     const PostUserId = computed(() => props.postUserIdProp);
