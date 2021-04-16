@@ -12,8 +12,8 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'card/:id',
-        name: 'CardDetails',
-        component: () => import('../views/Card-details.vue'),
+        name: 'HomeCardDetails',
+        component: () => import('../views/HomeCardDetails.vue'),
         props: true
       }
     ]
@@ -34,13 +34,13 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/UploadPicture',
     name: 'UploadPicture',
-    component: () => import('../views/Upload-picture.vue'),
+    component: () => import('../views/UploadPicture.vue'),
     meta: { requiredLogin: true }
   },
   {
     path: '/EditCard/:id',
     name: 'EditCard',
-    component: () => import('../views/Edit-card.vue'),
+    component: () => import('../views/EditCard.vue'),
     props: true,
     meta: { requiredLogin: true }
   },
@@ -53,7 +53,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/tag/:tag/tagCard/:id',
         name: 'TagCardDetails',
-        component: () => import('../views/TagCard-details.vue'),
+        component: () => import('../views/TagCardDetails.vue'),
         props: true
       }
     ]
