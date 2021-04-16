@@ -38,9 +38,9 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import { lostelkUrl } from '../global';
-import ValidateInput from '../components/ValidateInput.vue';
-import ValidateForm from '../components/ValidateForm.vue';
-import SingleComment from '../components/Single-comment.vue';
+import ValidateInput from './ValidateInput.vue';
+import ValidateForm from './ValidateForm.vue';
+import SingleComment from './Single-comment.vue';
 import store from '../store';
 import createTooltip from './createTooltip';
 

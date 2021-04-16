@@ -147,13 +147,13 @@
           </div>
         </div>
         <!-- 评论 -->
-        <Comment
+        <Comments
           class="comment-cat"
           :showCommentsCut="showCommentsCut"
           :postId="postId"
           :postUserId="postData.user.id"
           v-show="showCommentsCut"
-        ></Comment>
+        ></Comments>
       </div>
     </div>
   </div>
@@ -165,7 +165,7 @@ import { lostelkUrl } from '../global';
 import router from '../router';
 import Likes from '../components/Likes.vue';
 import DownloadFile from '../components/DownloadFile.vue';
-import Comment from '../components/Comment.vue';
+import Comments from '../components/Comments.vue';
 import DeleteCard from '../components/DeleteCard.vue';
 import store from '../store';
 export default defineComponent({
@@ -173,7 +173,7 @@ export default defineComponent({
   components: {
     Likes,
     DownloadFile,
-    Comment,
+    Comments,
     DeleteCard,
   },
   props: {
