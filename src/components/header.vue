@@ -60,7 +60,7 @@ import { useStore } from 'vuex';
 import router from '../router';
 import { useRoute } from 'vue-router';
 import DropDownList from './DropDownList.vue';
-import HeaderSearch from './Header-search.vue';
+import HeaderSearch from './HeaderSearch.vue';
 export interface UserMode {
   isLogin: boolean;
   name?: string;
