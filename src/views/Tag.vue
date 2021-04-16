@@ -89,6 +89,7 @@ export default defineComponent({
 
         // 可滚动的极限高度 = 窗口可见高度 + 滚动的高度 + 200
         const height = clientHeight + scrollTop + 200;
+
         // touchDown = (页面可滚动内容的高度 - 可滚动的极限高度) < 0
         const touchDown = scrollHeight - height < 0;
 

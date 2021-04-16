@@ -61,7 +61,7 @@ export default defineComponent({
     // 滚动加载事件函数
     const windowScroll = async () => {
       const prevScrollTop = ref(0);
-      console.log(currentPage.value);
+
       // 判断 如果document 并且 isLoading 为true进入
       if (document && isHomeScrollLoading.value) {
         const { scrollHeight, clientHeight } = document.documentElement;
