@@ -136,7 +136,7 @@ import { lostelkUrl } from '../global';
 import ValidateInput from '../components/ValidateInput.vue';
 import ValidateForm from '../components/ValidateForm.vue';
 import createTooltip from '../components/createTooltip';
-import ConfirmationBox from './Confirmation-box.vue';
+import ConfirmationBox from './ConfirmationBox.vue';
 import SingleReplyComment from '../components/Single-replycomment.vue';
 import store from '../store';
 import router from '../router';

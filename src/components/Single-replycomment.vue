@@ -87,7 +87,7 @@ import { computed, defineComponent, ref, watch } from 'vue';
 import { lostelkUrl } from '../global';
 import ValidateInput from '../components/ValidateInput.vue';
 import ValidateForm from '../components/ValidateForm.vue';
-import ConfirmationBox from './Confirmation-box.vue';
+import ConfirmationBox from './ConfirmationBox.vue';
 import store from '../store';
 import createTooltip from './createTooltip';
 
