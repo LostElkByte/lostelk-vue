@@ -53,6 +53,7 @@ export interface GloablDataProps {
   loading: boolean;
   error: GloablErrorProps;
   cardList: CardList[];
+  tagCardList: CardList[];
   card: CardList | {};
   user: GloablUserProps;
   token: string;
@@ -64,6 +65,7 @@ export interface GloablDataProps {
   fileMetadata: GloablfileMetadataProps | {};
   showCommentsCut: boolean;
   homePageCardTotalCount: number | null;
+  tagPageCardTotalCount: number | null;
 }
 
 export default createStore<GloablDataProps>({
@@ -72,6 +74,7 @@ export default createStore<GloablDataProps>({
     loading: false,
     error: { status: false },
     cardList: [],
+    tagCardList: [],
     card: {},
     user: { isLogin: false, id: Number(localStorage.getItem('userId')) || -1 },
     token: localStorage.getItem('token') || '',
@@ -82,7 +85,8 @@ export default createStore<GloablDataProps>({
     fileMetadata: {},
     showCommentsCut: false,
     searchTag: {},
-    homePageCardTotalCount: null
+    homePageCardTotalCount: null,
+    tagPageCardTotalCount: null
   },
 
   mutations: {
@@ -147,6 +151,27 @@ export default createStore<GloablDataProps>({
      */
     cardData(state, rawdata) {
       state.card = rawdata
+    },
+
+    /**
+     * 获得指定标签的卡片内容
+     */
+    getTagCardList(state, rawdata) {
+      state.tagCardList = rawdata
+    },
+
+    /**
+     * 添加指定标签的卡片内容
+     */
+    getPageTagCardList(state, rawdata) {
+      state.cardList.push(...rawdata)
+    },
+
+    /**
+      * 获得指定标签的卡片总数
+      */
+    getTagPageCardTotalCount(state, rawdata) {
+      state.tagPageCardTotalCount = rawdata
     },
 
     /**
@@ -321,11 +346,25 @@ export default createStore<GloablDataProps>({
     async getTagCardList(context, tag) {
       try {
         const TagCardListData = await axios.get(`/posts?tag=${tag}`)
-        context.commit('getCardList', TagCardListData.data);
+        context.commit('getTagCardList', TagCardListData.data);
+        context.commit('getTagPageCardTotalCount', TagCardListData.headers['x-total-count'])
         context.commit('setSearchTag', {
           tagName: tag,
           totalCount: TagCardListData.headers['x-total-count']
         })
+        return TagCardListData
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    /**
+     * 获得指定标签的卡片列表分页
+     */
+    async getPageTagCardList(context, { tag, page }) {
+      try {
+        const TagCardListData = await axios.get(`/posts?tag=${tag}&page=${page}`)
+        context.commit('getPageTagCardList', TagCardListData.data);
         return TagCardListData
       } catch (error) {
         console.log(error);

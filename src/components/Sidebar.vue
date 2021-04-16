@@ -30,10 +30,12 @@ import { computed, defineComponent } from 'vue';
 import { useStore } from 'vuex';
 import { lostelkUrl } from '../global';
 import router from '../router';
+import { useRoute } from 'vue-router';
 
 export default defineComponent({
   setup() {
     const store = useStore();
+    const route = useRoute();
     const loginJudge = computed(() => {
       return store.state.user;
     });
@@ -42,11 +44,11 @@ export default defineComponent({
      * 重新加载全部照片并回到首页
      */
     const goBack = () => {
-      store.dispatch('getCardList').then(() => {
+      if (route.path != '/') {
         router.push('/');
         store.commit('mainSearchIsNone', true);
         store.commit('setSearchFailure', false);
-      });
+      }
     };
 
     return {

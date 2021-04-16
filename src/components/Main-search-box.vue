@@ -38,20 +38,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import store from '../store';
+import router from '../router';
 export default defineComponent({
   setup() {
     const tagVal = ref();
     const search = () => {
       if (tagVal.value) {
-        store.dispatch('getTagCardList', tagVal.value).then(() => {
-          if (store.state.cardList.length === 0) {
-            store.commit('setSearchFailure', true);
-          } else {
-            store.commit('setSearchFailure', false);
-            store.commit('mainSearchIsNone', false);
-          }
-        });
+        router.push(`/tag/${tagVal.value}`);
       }
     };
     return {

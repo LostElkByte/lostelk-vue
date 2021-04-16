@@ -9,7 +9,6 @@ import { useStore } from 'vuex';
 import './assets/font/iconfont';
 import Loading from './components/Loading.vue';
 import createTooltip from './components/createTooltip';
-
 export default defineComponent({
   name: 'App',
   components: {

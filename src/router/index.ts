@@ -44,6 +44,13 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/Edit-card.vue'),
     props: true,
     meta: { requiredLogin: true }
+  },
+  {
+    path: '/tag/:tag',
+    name: 'Tag',
+    component: () => import('../views/Tag.vue'),
+    props: true,
+    meta: { requiredLogin: true }
   }
 ]
 

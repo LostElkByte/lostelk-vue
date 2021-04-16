@@ -58,6 +58,7 @@
 import { defineComponent, PropType } from 'vue';
 import { useStore } from 'vuex';
 import router from '../router';
+import { useRoute } from 'vue-router';
 import DropDownList from './Drop-down-list.vue';
 import HeaderSearch from './Header-search.vue';
 export interface UserMode {
@@ -79,6 +80,7 @@ export default defineComponent({
     },
   },
   setup() {
+    const route = useRoute();
     const store = useStore();
     const logout = () => {
       store.commit('logout');
@@ -88,11 +90,11 @@ export default defineComponent({
      * 重新加载全部照片并回到首页
      */
     const goBack = () => {
-      store.dispatch('getCardList').then(() => {
+      if (route.path != '/') {
         router.push('/');
         store.commit('mainSearchIsNone', true);
         store.commit('setSearchFailure', false);
-      });
+      }
     };
 
     return {
