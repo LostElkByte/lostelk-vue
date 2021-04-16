@@ -101,7 +101,7 @@ import { computed, defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import createTooltip from '../components/createTooltip';
-import Header from '../components/Header.vue';
+import Header from '../components/HeaderBox.vue';
 import Sidebar from '../components/Sidebar.vue';
 import ValidateForm from '../components/ValidateForm.vue';
 import NoJurisdiction from '../components/No-jurisdiction.vue';

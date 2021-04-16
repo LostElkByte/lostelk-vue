@@ -13,7 +13,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, onUnmounted, ref } from 'vue';
 import { useStore } from 'vuex';
-import Header from '../components/Header.vue';
+import Header from '../components/HeaderBox.vue';
 import Sidebar from '../components/Sidebar.vue';
 import HomeMainReconsitution from '../components/Home-main-reconsitution.vue';
 export default defineComponent({
