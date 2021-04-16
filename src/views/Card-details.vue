@@ -174,7 +174,7 @@ import router from '../router';
 import Likes from '../components/Likes.vue';
 import DownloadFile from '../components/DownloadFile.vue';
 import Comment from '../components/Comment.vue';
-import DeleteCard from '../components/Delete-card.vue';
+import DeleteCard from '../components/DeleteCard.vue';
 import store from '../store';
 export default defineComponent({
   name: 'CardDetails',

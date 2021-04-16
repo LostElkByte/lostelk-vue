@@ -12,7 +12,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import ConfirmationBox from './ConfirmationBox.vue';
-import createTooltip from '../components/createTooltip';
+import createTooltip from './createTooltip';
 import router from '../router';
 import store from '../store';
 
