@@ -104,7 +104,7 @@ export default defineComponent({
         store.dispatch('loginAndGetCurrentUser', userLoginData).then(() => {
           // 如果已经登陆成功则跳转到主页
           if (store.state.user.isLogin) {
-            router.push('/');
+            router.back();
           }
         });
       } else {

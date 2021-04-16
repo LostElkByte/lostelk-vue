@@ -49,7 +49,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Tag',
     component: () => import('../views/Tag.vue'),
     props: true,
-    meta: { requiredLogin: true },
     children: [
       {
         path: '/tag/:tag/tagCard/:id',
