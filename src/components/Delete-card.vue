@@ -4,21 +4,21 @@
       <use xlink:href="#icon-shanchu2"></use>
     </svg>
   </div>
-  <Addirm v-if="isDelete" @cancelDelete="cancelDelete" @confirmDelete="confirmDelete">
+  <ConfirmationBox v-if="isDelete" @cancelDelete="cancelDelete" @confirmDelete="confirmDelete">
     你确定要删除此图像吗?
-  </Addirm>
+  </ConfirmationBox>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import Addirm from '../components/Affirm.vue';
+import ConfirmationBox from './Confirmation-box.vue';
 import createTooltip from '../components/createTooltip';
 import router from '../router';
 import store from '../store';
 
 export default defineComponent({
   components: {
-    Addirm,
+    ConfirmationBox,
   },
   props: {
     postId: {

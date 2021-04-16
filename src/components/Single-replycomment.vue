@@ -77,9 +77,9 @@
       </div>
     </div>
   </li>
-  <Addirm v-if="isDelete" @cancelDelete="cancelDelete" @confirmDelete="confirmDelete">
+  <ConfirmationBox v-if="isDelete" @cancelDelete="cancelDelete" @confirmDelete="confirmDelete">
     你确定要删除这条回复评论吗?
-  </Addirm>
+  </ConfirmationBox>
 </template>
 
 <script lang="ts">
@@ -87,7 +87,7 @@ import { computed, defineComponent, ref, watch } from 'vue';
 import { lostelkUrl } from '../global';
 import ValidateInput from '../components/ValidateInput.vue';
 import ValidateForm from '../components/ValidateForm.vue';
-import Addirm from '../components/Affirm.vue';
+import ConfirmationBox from './Confirmation-box.vue';
 import store from '../store';
 import createTooltip from './createTooltip';
 
@@ -96,7 +96,7 @@ export default defineComponent({
   components: {
     ValidateInput,
     ValidateForm,
-    Addirm,
+    ConfirmationBox,
   },
   emits: ['reloadComments'],
   props: {
