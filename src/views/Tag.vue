@@ -1,12 +1,12 @@
 <template>
   <div class="home-page">
     <Header :user="loginJudge"></Header>
-    <HomeMainReconsitution
+    <CardMain
       :detailsUrlparameter="`tag/${tagVal}/tagCard`"
       :tagName="tagVal"
       :cardColumnSize="cardColumnSize"
       :list="list"
-    ></HomeMainReconsitution>
+    ></CardMain>
     <Sidebar></Sidebar>
   </div>
 </template>
@@ -16,14 +16,14 @@ import { computed, defineComponent, onMounted, onUnmounted, ref, watch } from 'v
 import { useStore } from 'vuex';
 import Header from '../components/HeaderBox.vue';
 import Sidebar from '../components/Sidebar.vue';
-import HomeMainReconsitution from '../components/Home-main-reconsitution.vue';
+import CardMain from '../components/CardMain.vue';
 import { useRoute } from 'vue-router';
 export default defineComponent({
   name: 'Tag',
   components: {
     Header,
     Sidebar,
-    HomeMainReconsitution,
+    CardMain,
   },
   props: {
     cardColumn: Number,

@@ -1,11 +1,7 @@
 <template>
   <div class="home-page">
     <Header :user="loginJudge"></Header>
-    <HomeMainReconsitution
-      :detailsUrlparameter="`card`"
-      :cardColumnSize="cardColumnSize"
-      :list="list"
-    ></HomeMainReconsitution>
+    <CardMain :detailsUrlparameter="`card`" :cardColumnSize="cardColumnSize" :list="list"></CardMain>
     <Sidebar></Sidebar>
   </div>
 </template>
@@ -15,13 +11,13 @@ import { computed, defineComponent, onMounted, onUnmounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import Header from '../components/HeaderBox.vue';
 import Sidebar from '../components/Sidebar.vue';
-import HomeMainReconsitution from '../components/Home-main-reconsitution.vue';
+import CardMain from '../components/CardMain.vue';
 export default defineComponent({
   name: 'Home',
   components: {
     Header,
     Sidebar,
-    HomeMainReconsitution,
+    CardMain,
   },
   props: {
     cardColumn: Number,
