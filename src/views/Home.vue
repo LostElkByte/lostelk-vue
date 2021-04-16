@@ -10,7 +10,7 @@
 import { computed, defineComponent, onMounted, onUnmounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import Header from '../components/HeaderBox.vue';
-import Sidebar from '../components/Sidebar.vue';
+import Sidebar from '../components/SidebarBox.vue';
 import CardMain from '../components/CardMain.vue';
 export default defineComponent({
   name: 'Home',

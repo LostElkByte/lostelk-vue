@@ -15,7 +15,7 @@
 import { computed, defineComponent, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useStore } from 'vuex';
 import Header from '../components/HeaderBox.vue';
-import Sidebar from '../components/Sidebar.vue';
+import Sidebar from '../components/SidebarBox.vue';
 import CardMain from '../components/CardMain.vue';
 import { useRoute } from 'vue-router';
 export default defineComponent({

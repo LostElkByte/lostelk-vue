@@ -68,7 +68,7 @@ export interface UserMode {
 }
 
 export default defineComponent({
-  name: 'Header',
+  name: 'HeaderBox',
   components: {
     DropDownList,
     HeaderSearch,

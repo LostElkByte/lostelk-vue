@@ -142,7 +142,7 @@ import store from '../store';
 import router from '../router';
 
 export default defineComponent({
-  name: 'comment',
+  name: 'Comment',
   components: {
     ReplyComment,
     ValidateInput,

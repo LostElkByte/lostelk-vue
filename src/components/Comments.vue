@@ -45,7 +45,7 @@ import store from '../store';
 import createTooltip from './createTooltip';
 
 export default defineComponent({
-  name: 'Comment',
+  name: 'Comments',
   components: {
     ValidateInput,
     ValidateForm,

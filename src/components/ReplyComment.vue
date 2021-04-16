@@ -92,7 +92,7 @@ import store from '../store';
 import createTooltip from './createTooltip';
 
 export default defineComponent({
-  name: 'Single-reply-comment',
+  name: 'ReplyComment',
   components: {
     ValidateInput,
     ValidateForm,

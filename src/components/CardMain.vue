@@ -346,7 +346,7 @@ import GoCommentButton from '../components/GoCommentButton.vue';
 import router from '../router';
 
 export default defineComponent({
-  name: 'HomeMain',
+  name: 'CardMain',
   components: {
     Likes,
     MainSearch,
