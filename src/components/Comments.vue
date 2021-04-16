@@ -40,7 +40,7 @@ import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import { lostelkUrl } from '../global';
 import ValidateInput from './ValidateInput.vue';
 import ValidateForm from './ValidateForm.vue';
-import SingleComment from './Single-comment.vue';
+import SingleComment from './Comment.vue';
 import store from '../store';
 import createTooltip from './createTooltip';
 

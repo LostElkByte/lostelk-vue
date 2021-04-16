@@ -115,13 +115,13 @@
     </li>
     <div v-if="singleComment.totalReplies !== 0 && unfoldReplyShow">
       <div>
-        <SingleReplyComment
+        <ReplyComment
           v-for="replyComment in singleComment.replyComment"
           :key="replyComment.commentId"
           :replyCommentData="replyComment"
           :PostUserIdData="PostUserId"
           :singleuserIdData="singleuserId"
-        ></SingleReplyComment>
+        ></ReplyComment>
       </div>
     </div>
   </ul>
@@ -133,18 +133,18 @@
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue';
 import { lostelkUrl } from '../global';
-import ValidateInput from '../components/ValidateInput.vue';
-import ValidateForm from '../components/ValidateForm.vue';
-import createTooltip from '../components/createTooltip';
+import ValidateInput from './ValidateInput.vue';
+import ValidateForm from './ValidateForm.vue';
+import createTooltip from './createTooltip';
 import ConfirmationBox from './ConfirmationBox.vue';
-import SingleReplyComment from '../components/Single-replycomment.vue';
+import ReplyComment from './ReplyComment.vue';
 import store from '../store';
 import router from '../router';
 
 export default defineComponent({
-  name: 'Single-comment',
+  name: 'comment',
   components: {
-    SingleReplyComment,
+    ReplyComment,
     ValidateInput,
     ValidateForm,
     ConfirmationBox,
