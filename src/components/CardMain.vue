@@ -339,7 +339,7 @@ import { computed, defineComponent, PropType } from 'vue';
 import { lostelkUrl } from '../global';
 import store, { CardList, GloabSearchTagProps } from '../store';
 import Likes from '../components/Likes.vue';
-import MainSearch from '../components/Main-search-box.vue';
+import MainSearch from './MainSearch.vue';
 import SearchFailure from '../components/Search-failure.vue';
 import DownloadFile from '../components/DownloadFile.vue';
 import GoCommentButton from '../components/GoCommentButton.vue';
