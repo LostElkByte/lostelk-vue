@@ -101,10 +101,13 @@ export default defineComponent({
           // 是否加载设置为false,防止重复加载
           isTagScrollLoading.value = false;
 
+          store.commit('isLoadingMore', true);
+          store.commit('setIsShowLoading', false);
           const tagParams = { tag: route.params.tag, page: currentPage.value + 1 };
           await store.dispatch('getPageTagCardList', tagParams).then(() => {
             // 加载完毕 将当前页数+1
             currentPage.value = currentPage.value + 1;
+            store.commit('isLoadingMore', false);
           });
         }
 

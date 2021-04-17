@@ -45,5 +45,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/less/componentsStyle/home-page-main-reconsitution.css';
+@import '../style/less/componentsStyle/card-main.css';
 </style>

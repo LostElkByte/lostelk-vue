@@ -75,10 +75,12 @@ export default defineComponent({
         if (touchDown && scrollDown && isHomeScrollLoading.value) {
           // 是否加载设置为false,防止重复加载
           isHomeScrollLoading.value = false;
-
+          store.commit('setIsShowLoading', false);
+          store.commit('isLoadingMore', true);
           await store.dispatch('getPageCardList', currentPage.value + 1).then(() => {
             // 加载完毕 将当前页数+1
             currentPage.value = currentPage.value + 1;
+            store.commit('isLoadingMore', false);
           });
         }
 

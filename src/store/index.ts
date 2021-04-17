@@ -68,6 +68,7 @@ export interface GloablDataProps {
   tagPageCardTotalCount: number | null;
   uploadAfterToUrl: string | null;
   fromWhichPage: string | null;
+  isLoadingMore: boolean;
 }
 
 export default createStore<GloablDataProps>({
@@ -90,7 +91,8 @@ export default createStore<GloablDataProps>({
     homePageCardTotalCount: null,
     tagPageCardTotalCount: null,
     uploadAfterToUrl: null,
-    fromWhichPage: null
+    fromWhichPage: null,
+    isLoadingMore: false,
   },
 
   mutations: {
@@ -307,8 +309,16 @@ export default createStore<GloablDataProps>({
      */
     fromWhichPage(state, rawdata) {
       state.fromWhichPage = rawdata
+    },
+
+    /**
+    * 是否在加载更多中
+    */
+    isLoadingMore(state, rawdata) {
+      state.isLoadingMore = rawdata
     }
   },
+
 
   actions: {
 

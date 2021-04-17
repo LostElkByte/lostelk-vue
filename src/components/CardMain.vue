@@ -154,7 +154,11 @@
           </div>
         </div>
       </div>
+
       <SearchFailure v-else></SearchFailure>
+      <div class="loading-more" v-if="isLoadingMore">
+        <span>Loading more…</span>
+      </div>
     </div>
   </div>
   <div class="home-page_main" v-else-if="ColumnSize === 2">
@@ -265,6 +269,9 @@
         </div>
       </div>
       <SearchFailure v-else></SearchFailure>
+      <div class="loading-more" v-if="isLoadingMore">
+        <span>Loading more…</span>
+      </div>
     </div>
   </div>
   <div class="home-page_main" v-else-if="ColumnSize === 1">
@@ -327,6 +334,9 @@
         </div>
       </div>
       <SearchFailure v-else></SearchFailure>
+      <div class="loading-more" v-if="isLoadingMore">
+        <span>Loading more…</span>
+      </div>
     </div>
   </div>
   <teleport to="#app">
@@ -375,6 +385,8 @@ export default defineComponent({
 
   setup(props) {
     const tagNameProps = computed(() => props.tagName);
+
+    const isLoadingMore = computed(() => store.state.isLoadingMore);
 
     const cardList = computed(() => {
       return props.list.map(card => {
@@ -486,11 +498,12 @@ export default defineComponent({
       mainSearchIsNone,
       Urlparameter,
       tagNameProps,
+      isLoadingMore,
     };
   },
 });
 </script>
 
 <style scoped>
-@import '../style/less/componentsStyle/home-page-main-reconsitution.css';
+@import '../style/less/componentsStyle/card-main.css';
 </style>
