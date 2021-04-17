@@ -297,6 +297,8 @@ export default defineComponent({
           // 如果有上传成功,执行成功提示;
           await createTooltip('上传成功,3秒后跳转到首页', 'success', 3000);
           await setTimeout(() => {
+            store.commit('mainSearchIsNone', true);
+            store.commit('setSearchFailure', false);
             router.push('/');
           }, 3000);
         }

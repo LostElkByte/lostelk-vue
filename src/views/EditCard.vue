@@ -126,6 +126,10 @@ export default defineComponent({
     const store = useStore();
     const router = useRouter();
     const uploaderror = ref();
+    // 获取进入页的url
+    const uploadAfterToUrl = computed(() => store.state.uploadAfterToUrl);
+    // 获取是从哪个页进入
+    const fromWhichPage = computed(() => store.state.fromWhichPage);
 
     /**
      * 表单校验
@@ -366,16 +370,25 @@ export default defineComponent({
         if (uploaderror.value) {
           uploaderror.value = '';
         } else {
+          // 如何上传成功执行
+          if (fromWhichPage.value === 'home') {
+            const card = await store.dispatch('getCard', postId.value);
+            const oldCard = store.state.cardList;
+            const newCard = oldCard.map((item: { id: unknown }) => (item.id === card.id ? card : item));
+            await store.commit('getCardList', newCard);
+          } else if (fromWhichPage.value === 'tag') {
+            const card = await store.dispatch('getCard', postId.value);
+            const oldCard = store.state.tagCardList;
+            const newCard = oldCard.map((item: { id: unknown }) => (item.id === card.id ? card : item));
+            await store.commit('getTagCardList', newCard);
+          }
+
           // 如果上传成功,执行成功提示;
           await createTooltip('修改成功', 'success', 3000);
 
-          const card = await store.dispatch('getCard', postId.value);
-          const oldCard = store.state.cardList;
-          const newCard = oldCard.map((item: { id: unknown }) => (item.id === card.id ? card : item));
-          await store.commit('getCardList', newCard);
-
           await setTimeout(() => {
-            router.push(`/card/${postId.value}`);
+            router.push(`${uploadAfterToUrl.value}`);
+            document.body.style.overflow = 'hidden';
           }, 500);
         }
       } else {

@@ -129,7 +129,7 @@ export default defineComponent({
     });
 
     watch(
-      () => route.params.tag,
+      () => route.params,
       () => {
         if (route.params.tag) {
           loading();

@@ -139,6 +139,7 @@
               v-if="userId === postData.user.id || userId === 1"
               :postId="postId"
               :routerUrl="'/'"
+              :fromWhichPage="`home`"
             ></DeleteCard>
           </div>
 
@@ -265,7 +266,12 @@ export default defineComponent({
     const editCard = async () => {
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
-      await router.push('/');
+
+      // 存储当前url
+      store.commit('uploadAfterToUrl', `/Card/${postId.value}`);
+      // 定义当前页面别名,并存储
+      store.commit('fromWhichPage', 'home');
+
       await router.push(`/EditCard/${postId.value}`);
     };
 

@@ -66,6 +66,8 @@ export interface GloablDataProps {
   showCommentsCut: boolean;
   homePageCardTotalCount: number | null;
   tagPageCardTotalCount: number | null;
+  uploadAfterToUrl: string | null;
+  fromWhichPage: string | null;
 }
 
 export default createStore<GloablDataProps>({
@@ -86,7 +88,9 @@ export default createStore<GloablDataProps>({
     showCommentsCut: false,
     searchTag: {},
     homePageCardTotalCount: null,
-    tagPageCardTotalCount: null
+    tagPageCardTotalCount: null,
+    uploadAfterToUrl: null,
+    fromWhichPage: null
   },
 
   mutations: {
@@ -147,6 +151,13 @@ export default createStore<GloablDataProps>({
     },
 
     /**
+     * 删除主页中的某一项后的卡片总数
+     */
+    deteleHomePageCardTotalCount(state, rawdata) {
+      state.homePageCardTotalCount = rawdata - 1
+    },
+
+    /**
      * 或得单个卡片
      */
     cardData(state, rawdata) {
@@ -172,6 +183,13 @@ export default createStore<GloablDataProps>({
       */
     getTagPageCardTotalCount(state, rawdata) {
       state.tagPageCardTotalCount = rawdata
+    },
+
+    /**
+     * 删除指定标签中的某一项后的卡片总数
+     */
+    deteleTagPageCardTotalCount(state, rawdata) {
+      state.tagPageCardTotalCount = rawdata - 1
     },
 
     /**
@@ -274,6 +292,21 @@ export default createStore<GloablDataProps>({
      */
     showCommentsCut(state, rawdata) {
       state.showCommentsCut = rawdata
+    },
+
+    /**
+     * 获取 uploadPicture 是从哪个url进入的
+     */
+    uploadAfterToUrl(state, rawdata) {
+      state.uploadAfterToUrl = rawdata
+    },
+
+    /**
+     * fromWhichPage
+     * 获取是从那个页面进来的
+     */
+    fromWhichPage(state, rawdata) {
+      state.fromWhichPage = rawdata
     }
   },
 

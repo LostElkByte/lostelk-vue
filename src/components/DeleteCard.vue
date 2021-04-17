@@ -29,10 +29,15 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    fromWhichPage: {
+      type: String,
+      required: true,
+    },
   },
   setup(props) {
     const postIdProps = computed(() => props.postId);
     const routerUrlProps = computed(() => props.routerUrl);
+    const fromWhichPageProps = computed(() => props.fromWhichPage);
 
     const isDelete = ref(false);
 
@@ -47,8 +52,18 @@ export default defineComponent({
     const confirmDelete = async () => {
       isDelete.value = false;
       await store.dispatch('deleteCard', postIdProps.value).then(() => {
-        const newCardList = store.state.cardList.filter(item => item.id !== postIdProps.value);
-        store.commit('getCardList', newCardList);
+        if (fromWhichPageProps.value === 'home') {
+          const newCardList = store.state.cardList.filter(item => item.id !== postIdProps.value);
+          store.commit('getCardList', newCardList);
+          const homePageCardTotalCount = computed(() => store.state.homePageCardTotalCount);
+          store.commit('deteleHomePageCardTotalCount', homePageCardTotalCount.value);
+        } else if (fromWhichPageProps.value === 'tag') {
+          const newCardList = store.state.tagCardList.filter(item => item.id !== postIdProps.value);
+          store.commit('getTagCardList', newCardList);
+          const tagPageCardTotalCount = computed(() => store.state.tagPageCardTotalCount);
+          store.commit('deteleTagPageCardTotalCount', tagPageCardTotalCount.value);
+        }
+
         // 将body恢复为可以滚动
         document.body.style.overflow = 'auto';
         createTooltip('图像删除成功', 'success', 3000);

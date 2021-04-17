@@ -124,14 +124,24 @@
               </div>
             </div>
 
-            <div v-if="userId === postData.user.id" class="content-message-jurisdiction-compile" @click="editCard">
+            <div
+              v-if="userId === postData.user.id || userId === 1"
+              class="content-message-jurisdiction-compile"
+              @click="editCard"
+            >
               <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-bianji2"></use>
               </svg>
               <span>Edit</span>
             </div>
 
-            <DeleteCard v-if="userId === postData.user.id" :postId="postId" :routerUrl="'/'"></DeleteCard>
+            <DeleteCard
+              v-if="userId === postData.user.id || userId === 1"
+              :postId="postId"
+              :routerUrl="`/tag/${tag}`"
+              :fromWhichPage="`tag`"
+            >
+            </DeleteCard>
           </div>
 
           <div class="content-description" v-if="postData.content !== ''">
@@ -255,11 +265,16 @@ export default defineComponent({
     /**
      * 编辑
      */
-    const editCard = async () => {
+    const editCard = () => {
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
-      await router.push('/');
-      await router.push(`/EditCard/${postId.value}`);
+
+      // 存储当前的url
+      store.commit('uploadAfterToUrl', `/tag/${tag.value}/tagCard/${postId.value}`);
+      // 定义当前页面别名,并存储
+      store.commit('fromWhichPage', 'tag');
+
+      router.push(`/EditCard/${postId.value}`);
     };
 
     /**
@@ -385,6 +400,7 @@ export default defineComponent({
       showComments,
       showCommentsCut,
       editCard,
+      tag,
     };
   },
 });
