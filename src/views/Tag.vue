@@ -65,7 +65,7 @@ export default defineComponent({
           store.commit('setSearchFailure', false);
           store.commit('mainSearchIsNone', false);
           // 如果总页数等于1
-          if (Math.ceil(data.headers['x-total-count'] / 3) === 1) {
+          if (Math.ceil(data.headers['x-total-count'] / 20) === 1) {
             // 将 没有更多 提示 设置为true
             store.commit('noMore', true);
           }
@@ -85,7 +85,7 @@ export default defineComponent({
     // 获取Tag页的卡片总数
     const tagPageCardTotalCount = computed(() => store.state.tagPageCardTotalCount);
     // 计算Tag页的总页数
-    const TagTotalPage = computed(() => Math.ceil(tagPageCardTotalCount.value / 3));
+    const TagTotalPage = computed(() => Math.ceil(tagPageCardTotalCount.value / 20));
     // 默认当前页数
     const currentPage = ref(1);
     // 是否加载默认设置为true
