@@ -39,7 +39,15 @@ export default defineComponent({
 
     // 加载首页数据函数
     const loading = async () => {
-      await store.dispatch('getCardList');
+      // 将 没有更多 提示  初始化设置为false
+      store.commit('noMore', false);
+      await store.dispatch('getCardList').then(data => {
+        // 如果总页数等于1
+        if (Math.ceil(data.headers['x-total-count'] / 3) === 1) {
+          // 将 没有更多 提示 设置为true
+          store.commit('noMore', true);
+        }
+      });
     };
 
     // 获取列表数据
@@ -112,8 +120,7 @@ export default defineComponent({
     onMounted(async () => {
       // 组件装载时进行加载数据
       await loading();
-      // 将没有更多提示  初始化设置为true
-      store.commit('noMore', true);
+
       // 初始化定位页面为顶部
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;

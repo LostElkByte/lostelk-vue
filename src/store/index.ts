@@ -387,6 +387,7 @@ export default createStore<GloablDataProps>({
         const CardListData = await axios.get('/posts')
         context.commit('getCardList', CardListData.data)
         context.commit('getHomePageCardTotalCount', CardListData.headers['x-total-count'])
+        return CardListData
       } catch (error) {
         console.log(error);
       }

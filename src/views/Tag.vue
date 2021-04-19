@@ -53,7 +53,10 @@ export default defineComponent({
 
     // 加载标签页内容数据函数
     const loading = async () => {
-      await store.dispatch('getTagCardList', tagVal.value).then(() => {
+      // 将 没有更多 提示 初始化设置为false
+      store.commit('noMore', false);
+
+      await store.dispatch('getTagCardList', tagVal.value).then(data => {
         if (store.state.tagCardList.length === 0) {
           //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
           store.commit('setSearchFailure', true);
@@ -61,6 +64,11 @@ export default defineComponent({
           // 搜索到内容将未没有内容提示隐藏,  并且将主页搜索框隐藏
           store.commit('setSearchFailure', false);
           store.commit('mainSearchIsNone', false);
+          // 如果总页数等于1
+          if (Math.ceil(data.headers['x-total-count'] / 3) === 1) {
+            // 将 没有更多 提示 设置为true
+            store.commit('noMore', true);
+          }
         }
       });
     };
@@ -139,8 +147,6 @@ export default defineComponent({
       // 组件装载时进行加载数据
       await loading();
 
-      // 将没有更多提示 初始化设置为true
-      store.commit('noMore', true);
       // 初始化定位页面为顶部
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
