@@ -87,7 +87,7 @@
 
 <script lang="ts">
 import axios from 'axios';
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import createTooltip from '../components/createTooltip';
@@ -312,6 +312,12 @@ export default defineComponent({
      */
     const loginJudge = computed(() => {
       return store.state.user;
+    });
+
+    onMounted(() => {
+      // 恢复到顶部
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
     });
 
     return {
