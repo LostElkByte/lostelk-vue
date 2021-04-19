@@ -140,6 +140,7 @@
               :postId="postId"
               :routerUrl="`/tag/${tag}`"
               :fromWhichPage="`tag`"
+              :tagName="tag"
             >
             </DeleteCard>
           </div>
@@ -287,7 +288,7 @@ export default defineComponent({
       /**
        * 如果当前帖子存在于cardList数组中,将左右切换按钮全部禁用
        * 如果当前帖子于cardList数组的第一个元素,将左切换按钮全部禁用
-       * 如果当前帖子于cardList数组的最后个元素,将右切换按钮全部禁用
+       * 如果当前帖子于cardList数组的最后一个元素,将右切换按钮全部禁用
        * 条件都不成立,删除左右切换按钮禁用样式
        */
       if (cardIndex.value === -1) {
@@ -363,23 +364,15 @@ export default defineComponent({
     };
 
     /**
-     * 获取相关标签数据 并跳转到首页
+     * 获取相关标签数据,并跳转的相对页面(标签页暂时不需要此方法,因为暂时后端返回的 标签详情页的数据 只包含一个所查找的标签)
      */
     const RelatedTagData = async (tagName: string) => {
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
       document.body.scrollTop = document.documentElement.scrollTop = 0;
-      await store.dispatch('getTagCardList', tagName).then(async data => {
-        if (store.state.tagCardList.length === 0) {
-          await store.commit('setSearchFailure', true);
-        } else {
-          const totalCount = data.headers['x-total-count'];
-          await store.commit('setSearchTag', { tagName: tagName, totalCount: totalCount });
-          await store.commit('setSearchFailure', false);
-          await store.commit('mainSearchIsNone', false);
-          close();
-        }
-      });
+
+      close();
+      router.push(`/tag/${tagName}`);
     };
 
     return {

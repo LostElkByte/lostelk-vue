@@ -367,18 +367,10 @@ export default defineComponent({
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
       document.body.scrollTop = document.documentElement.scrollTop = 0;
-      await store.dispatch('getTagCardList', tagName).then(async data => {
-        if (store.state.cardList.length === 0) {
-          await store.commit('setSearchFailure', true);
-        } else {
-          const totalCount = data.headers['x-total-count'];
-          await store.commit('setSearchTag', { tagName: tagName, totalCount: totalCount });
-          await store.commit('setSearchFailure', false);
-          await store.commit('mainSearchIsNone', false);
-          close();
-          router.push(`/tag/${tagName}`);
-        }
-      });
+
+      // close();
+
+      router.push(`/tag/${tagName}`);
     };
 
     return {

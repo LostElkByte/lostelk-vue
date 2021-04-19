@@ -11,6 +11,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import router from '../router';
 import store from '../store';
 export default defineComponent({
   setup() {
@@ -18,9 +19,8 @@ export default defineComponent({
      * 重新加载全部照片
      */
     const goBack = () => {
-      store.dispatch('getCardList').then(() => {
-        store.commit('setSearchFailure', false);
-      });
+      router.push('/');
+      store.commit('setSearchFailure', false);
     };
 
     return {

@@ -68,7 +68,10 @@ export interface GloablDataProps {
   tagPageCardTotalCount: number | null;
   uploadAfterToUrl: string | null;
   fromWhichPage: string | null;
-  isLoadingMore: boolean;
+  isShowLoadingMore: boolean;
+  noMore: boolean;
+  isLoading: boolean;
+  againRequest: boolean;
 }
 
 export default createStore<GloablDataProps>({
@@ -92,10 +95,20 @@ export default createStore<GloablDataProps>({
     tagPageCardTotalCount: null,
     uploadAfterToUrl: null,
     fromWhichPage: null,
-    isLoadingMore: false,
+    isShowLoadingMore: false,
+    noMore: false,
+    isLoading: true,
+    againRequest: false
   },
 
   mutations: {
+
+    /**
+     * 重新请求
+     */
+    againRequest(state, rawData) {
+      state.againRequest = rawData
+    },
     /**
      * 登陆
      */
@@ -312,10 +325,17 @@ export default createStore<GloablDataProps>({
     },
 
     /**
-    * 是否在加载更多中
+    * 设置 是否显示 加载更多提示
     */
-    isLoadingMore(state, rawdata) {
-      state.isLoadingMore = rawdata
+    isShowLoadingMore(state, rawdata) {
+      state.isShowLoadingMore = rawdata
+    },
+
+    /**
+    * 设置是否显示 没有更多 提示
+    */
+    noMore(state, rawdata) {
+      state.noMore = rawdata
     }
   },
 

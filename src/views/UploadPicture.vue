@@ -220,6 +220,7 @@ export default defineComponent({
         fileMessage.value = null;
         imagePreviewUrl.value = null;
         pictureVal.value = '';
+        describeVal.value = '';
         imageUploadProgress.value = null;
         lastPrev.value = '';
       } catch (error) {
@@ -227,6 +228,7 @@ export default defineComponent({
         fileMessage.value = null;
         imagePreviewUrl.value = null;
         pictureVal.value = '';
+        describeVal.value = '';
         imageUploadProgress.value = null;
         lastPrev.value = '';
 

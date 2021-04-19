@@ -33,11 +33,16 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    tagName: {
+      type: String,
+      required: false,
+    },
   },
   setup(props) {
     const postIdProps = computed(() => props.postId);
     const routerUrlProps = computed(() => props.routerUrl);
     const fromWhichPageProps = computed(() => props.fromWhichPage);
+    const tag = computed(() => props.tagName);
 
     const isDelete = ref(false);
 
@@ -53,15 +58,19 @@ export default defineComponent({
       isDelete.value = false;
       await store.dispatch('deleteCard', postIdProps.value).then(() => {
         if (fromWhichPageProps.value === 'home') {
-          const newCardList = store.state.cardList.filter(item => item.id !== postIdProps.value);
-          store.commit('getCardList', newCardList);
-          const homePageCardTotalCount = computed(() => store.state.homePageCardTotalCount);
-          store.commit('deteleHomePageCardTotalCount', homePageCardTotalCount.value);
+          store.commit('againRequest', true);
+          store.dispatch('getCardList');
         } else if (fromWhichPageProps.value === 'tag') {
-          const newCardList = store.state.tagCardList.filter(item => item.id !== postIdProps.value);
-          store.commit('getTagCardList', newCardList);
-          const tagPageCardTotalCount = computed(() => store.state.tagPageCardTotalCount);
-          store.commit('deteleTagPageCardTotalCount', tagPageCardTotalCount.value);
+          store.commit('againRequest', true);
+          store.dispatch('getTagCardList', tag.value).then(() => {
+            if (store.state.tagCardList.length === 0) {
+              //修改搜索结果为true
+              store.commit('setSearchFailure', true);
+            } else {
+              store.commit('setSearchFailure', false);
+              store.commit('mainSearchIsNone', false);
+            }
+          });
         }
 
         // 将body恢复为可以滚动
@@ -70,6 +79,7 @@ export default defineComponent({
         router.push(routerUrlProps.value);
       });
     };
+
     return {
       deleteCard,
       cancelDelete,

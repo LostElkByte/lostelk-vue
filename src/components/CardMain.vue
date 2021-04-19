@@ -156,8 +156,12 @@
       </div>
 
       <SearchFailure v-else></SearchFailure>
-      <div class="loading-more" v-if="isLoadingMore">
+      <div class="loading-more" v-if="isShowLoadingMore">
         <span>Loading more…</span>
+      </div>
+      <div class="no-more" v-if="noMore">
+        <span></span>
+        <span>没有更多了内容了</span>
       </div>
     </div>
   </div>
@@ -269,8 +273,12 @@
         </div>
       </div>
       <SearchFailure v-else></SearchFailure>
-      <div class="loading-more" v-if="isLoadingMore">
+      <div class="loading-more" v-if="isShowLoadingMore">
         <span>Loading more…</span>
+      </div>
+      <div class="no-more" v-if="noMore">
+        <span></span>
+        <span>没有更多了内容了</span>
       </div>
     </div>
   </div>
@@ -334,8 +342,12 @@
         </div>
       </div>
       <SearchFailure v-else></SearchFailure>
-      <div class="loading-more" v-if="isLoadingMore">
+      <div class="loading-more" v-if="isShowLoadingMore">
         <span>Loading more…</span>
+      </div>
+      <div class="no-more" v-if="noMore">
+        <span></span>
+        <span>没有更多了内容了</span>
       </div>
     </div>
   </div>
@@ -386,7 +398,9 @@ export default defineComponent({
   setup(props) {
     const tagNameProps = computed(() => props.tagName);
 
-    const isLoadingMore = computed(() => store.state.isLoadingMore);
+    const isShowLoadingMore = computed(() => store.state.isShowLoadingMore);
+
+    const noMore = computed(() => store.state.noMore);
 
     const cardList = computed(() => {
       return props.list.map(card => {
@@ -498,7 +512,8 @@ export default defineComponent({
       mainSearchIsNone,
       Urlparameter,
       tagNameProps,
-      isLoadingMore,
+      isShowLoadingMore,
+      noMore,
     };
   },
 });

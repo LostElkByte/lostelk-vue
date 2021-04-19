@@ -36,33 +36,39 @@ export default defineComponent({
     const route = useRoute();
     const store = useStore();
 
-    const tagVal = computed(() => route.params.tag);
+    /**
+     * 数据初始化
+     */
 
-    const loading = () => {
-      store.dispatch('getTagCardList', tagVal.value).then(() => {
-        if (store.state.tagCardList.length === 0) {
-          //修改搜索结果为true
-          store.commit('setSearchFailure', true);
-        } else {
-          store.commit('setSearchFailure', false);
-          store.commit('mainSearchIsNone', false);
-        }
-      });
-    };
-
-    onMounted(() => {
-      loading();
-    });
-
-    const list = computed(() => {
-      return store.state.tagCardList;
-    });
+    // 进行登陆判断
     const loginJudge = computed(() => {
       return store.state.user;
     });
 
     // 获取页面展示列的数量
     const cardColumnSize = computed(() => props.cardColumn);
+
+    // 获取当前url 的 tag 值
+    const tagVal = computed(() => route.params.tag);
+
+    // 加载标签页内容数据函数
+    const loading = async () => {
+      await store.dispatch('getTagCardList', tagVal.value).then(() => {
+        if (store.state.tagCardList.length === 0) {
+          //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
+          store.commit('setSearchFailure', true);
+        } else {
+          // 搜索到内容将未没有内容提示隐藏,  并且将主页搜索框隐藏
+          store.commit('setSearchFailure', false);
+          store.commit('mainSearchIsNone', false);
+        }
+      });
+    };
+
+    // 获取列表数据
+    const list = computed(() => {
+      return store.state.tagCardList;
+    });
 
     /**
      * Tag页加载更多
@@ -71,7 +77,7 @@ export default defineComponent({
     // 获取Tag页的卡片总数
     const tagPageCardTotalCount = computed(() => store.state.tagPageCardTotalCount);
     // 计算Tag页的总页数
-    const TagTotalPage = computed(() => Math.ceil(tagPageCardTotalCount.value / 10));
+    const TagTotalPage = computed(() => Math.ceil(tagPageCardTotalCount.value / 3));
     // 默认当前页数
     const currentPage = ref(1);
     // 是否加载默认设置为true
@@ -83,8 +89,9 @@ export default defineComponent({
 
       // 判断 如果document 并且 isLoading 为true进入
       if (document && isTagScrollLoading.value) {
+        // 解构 页面可滚动内容的高度 与 窗口可见高度
         const { scrollHeight, clientHeight } = document.documentElement;
-
+        // 获得 滚动的高度 (兼容)
         const scrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset || 0;
 
         // 可滚动的极限高度 = 窗口可见高度 + 滚动的高度 + 200
@@ -97,25 +104,30 @@ export default defineComponent({
         const scrollDown = scrollTop > prevScrollTop.value;
 
         // 条件全部成立,进入加载
-        if (touchDown && scrollDown && isTagScrollLoading.value) {
+        if (touchDown && scrollDown && isTagScrollLoading.value && TagTotalPage.value > currentPage.value) {
           // 是否加载设置为false,防止重复加载
           isTagScrollLoading.value = false;
-
-          store.commit('isLoadingMore', true);
+          // 禁止显示全局请求加载样式
           store.commit('setIsShowLoading', false);
+          // 设置 是否显示加载更多 为 true
+          store.commit('isShowLoadingMore', true);
+          // 加载下一页数据
           const tagParams = { tag: route.params.tag, page: currentPage.value + 1 };
           await store.dispatch('getPageTagCardList', tagParams).then(() => {
             // 加载完毕 将当前页数+1
             currentPage.value = currentPage.value + 1;
-            store.commit('isLoadingMore', false);
           });
+          // 加载完毕后 设置 是否显示加载更多 为 false
+          store.commit('isShowLoadingMore', false);
         }
 
         // 判断本次加载是否到最后一页 , 如果判断成立则将 isLoading.value设置为false,不成立恢复为true
         if (TagTotalPage.value <= currentPage.value) {
           isTagScrollLoading.value = false;
+          store.commit('noMore', true);
         } else {
           isTagScrollLoading.value = true;
+          store.commit('noMore', false);
         }
 
         // 将当前的scrollTop 赋值给prevScrollTop,用于下次进入滚动加载事件,判断是否是向下滚动
@@ -123,23 +135,61 @@ export default defineComponent({
       }
     };
 
-    onMounted(() => {
+    onMounted(async () => {
+      // 组件装载时进行加载数据
+      await loading();
+
+      // 将没有更多提示 初始化设置为true
+      store.commit('noMore', true);
+      // 初始化定位页面为顶部
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+
+      // 组件创建时监听scroll事件
       window.addEventListener('scroll', windowScroll);
     });
 
     onUnmounted(() => {
+      // 组件卸载时卸载scroll事件
       window.removeEventListener('scroll', windowScroll);
     });
 
+    /**
+     * 监听 路由上的tag参数是否发生改变, 如果发生改变 则 重新加载新的标签数据
+     */
     watch(
-      () => route.params,
+      () => route.params.tag,
       () => {
         if (route.params.tag) {
           loading();
+          // 恢复到顶部
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
           // 默认当前页数
           currentPage.value = 1;
           // 是否加载默认设置为true
           isTagScrollLoading.value = true;
+        }
+      },
+    );
+
+    /**
+     * 监听againRequest(用于删除功能后触发 重新加载数据)
+     */
+    watch(
+      () => store.state.againRequest,
+      () => {
+        if (store.state.againRequest === true) {
+          // 默认当前页数
+          currentPage.value = 1;
+          // 是否加载默认设置为true
+          isTagScrollLoading.value = true;
+          // 恢复到顶部
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+
+          // 恢复 againRequest 为 false
+          store.commit('againRequest', false);
         }
       },
     );
