@@ -21,7 +21,7 @@
           <table>
             标签
           </table>
-          <ValidateInput type="text" placeholder="标签" v-model="tagVal" :rules="tagRule" />
+          <ValidateInput type="text" placeholder="标签" v-model="tagVal" :value="tagVal" :rules="tagRule" />
           <div class="choose-tag" v-if="tagVal != ''" @click="addTag">
             <span>
               {{ tagVal }}
@@ -220,7 +220,6 @@ export default defineComponent({
         fileMessage.value = null;
         imagePreviewUrl.value = null;
         pictureVal.value = '';
-        describeVal.value = '';
         imageUploadProgress.value = null;
         lastPrev.value = '';
       } catch (error) {
@@ -228,7 +227,6 @@ export default defineComponent({
         fileMessage.value = null;
         imagePreviewUrl.value = null;
         pictureVal.value = '';
-        describeVal.value = '';
         imageUploadProgress.value = null;
         lastPrev.value = '';
 

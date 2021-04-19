@@ -1,6 +1,6 @@
 <template>
   <div class="inputParent">
-    <input v-if="tag !== 'textarea'" :value="val" @blur="validateInput" @input="updateValue" v-bind="$attrs" />
+    <input v-if="tag !== 'textarea'" :value="inputRef.val" @blur="validateInput" @input="updateValue" v-bind="$attrs" />
     <textarea v-else :value="inputRef.val" @blur="validateInput" @input="updateValue" v-bind="$attrs" />
 
     <span class="form-error" v-if="inputRef.error">
