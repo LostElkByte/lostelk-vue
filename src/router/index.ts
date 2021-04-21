@@ -57,7 +57,13 @@ const routes: Array<RouteRecordRaw> = [
         props: true
       }
     ]
-  }
+  },
+  {
+    path: '/@:name',
+    name: 'PersonalHomePage',
+    component: () => import('../views/PersonalHomePage.vue'),
+    props: true,
+  },
 ]
 
 const router = createRouter({

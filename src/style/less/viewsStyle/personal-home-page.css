@@ -1,0 +1,212 @@
+.personal-home-page {
+  position: relative;
+}
+.user-data {
+  position: relative;
+  margin: 40px 32px;
+}
+.container-large {
+  display: flex;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-align: start;
+  align-items: flex-start;
+}
+.user-data-content {
+  -ms-flex-order: 1;
+  order: 1;
+  margin-top: 42px;
+  margin-right: 60px;
+  min-width: 300px;
+  padding-right: 20px;
+  max-width: 500px;
+}
+.user-data-content-avatar {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  margin-bottom: 24px;
+  overflow: hidden;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.user-data-content-avatar img {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+}
+.user-data-content-name h1 {
+  margin-bottom: 12px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38px;
+}
+.user-data-content-intro h2 {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 56px;
+}
+.user-data-images {
+  -ms-flex-order: 2;
+  order: 2;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  display: -ms-flexbox;
+  display: flex;
+  max-width: 722px;
+  position: relative;
+  padding-right: 40px;
+}
+.user-data-image {
+  width: 100%;
+}
+.user-data-color-block-container {
+  width: 40%;
+  height: 95%;
+  position: absolute;
+  right: 0;
+  top: -40px;
+}
+.color-block {
+  background: #ea4c89;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.masthead-banner-image {
+  background-image: url(https://ovoiii.com/files/252/serve?size=medium);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 578px;
+  max-height: 433px;
+  background-size: cover;
+  background-position: center;
+}
+.masthead-banner-image::before {
+  content: '';
+  display: block;
+  padding-top: 75%;
+}
+.yin-zhang {
+  position: absolute;
+  width: 135px;
+  height: 135px;
+  left: -68px;
+  top: 8px;
+  transform: rotate(-40deg);
+}
+.personal-home-navigation {
+  padding-left: 32px;
+  padding-right: 32px;
+}
+.profile-subnav {
+  width: 100%;
+  border-bottom: 1px solid #e7e7e9;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.scrolling-subnav-list {
+  width: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 30px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-overflow-scrolling: touch;
+}
+.scrolling-subnav-list li {
+  margin-right: 30px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+}
+.scrolling-subnav-list li a {
+  display: inline-block;
+  color: #6e6d7a;
+}
+.scrolling-subnav-list li .scrolling-subnav-icon {
+  height: 18px;
+  fill: #6e6d7a;
+  margin-right: 5px;
+}
+.scrolling-subnav-list .active .scrolling-subnav-icon {
+  fill: #0d0c22;
+}
+.scrolling-subnav-list li.active a {
+  color: #0d0c22;
+}
+@media (max-width: 1599px) {
+  .user-data {
+    margin-right: 0;
+  }
+}
+@media (max-width: 1200px) {
+  .user-data-content {
+    max-width: 400px;
+  }
+  .user-data-content-intro h2 {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 36px;
+  }
+}
+@media (max-width: 1000px) {
+  .user-data-content-name h1 {
+    margin-bottom: 6px;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+  .user-data-content {
+    max-width: 370px;
+  }
+  .user-data-content-intro h2 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29px;
+  }
+}
+@media (max-width: 768px) {
+  .user-data {
+    margin: 40px 0px 40px 20px;
+  }
+  .container-large {
+    flex-direction: column;
+  }
+  .user-data-images {
+    order: 1;
+    max-height: 300px;
+    width: 100%;
+  }
+  .user-data-content {
+    max-width: 100%;
+    width: 100%;
+  }
+  .user-data-content-name h1 {
+    margin-bottom: 8px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29px;
+  }
+  .user-data-content-intro h2 {
+    color: #0d0c22;
+    word-break: break-word;
+    white-space: pre-wrap;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 29px;
+  }
+  .yin-zhang {
+    top: auto;
+    bottom: -50px;
+    left: auto;
+    right: 8px;
+    transform: rotate(-20deg);
+  }
+}
