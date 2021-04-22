@@ -101,7 +101,7 @@
 }
 .profile-subnav {
   width: 100%;
-  border-bottom: 1px solid #e7e7e9;
+  box-shadow: inset 0 -1px #e7e7e9;
   -ms-flex-align: center;
   align-items: center;
 }
@@ -109,7 +109,6 @@
   width: 100%;
   display: -ms-flexbox;
   display: flex;
-  padding: 30px 0;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
@@ -124,21 +123,21 @@
   line-height: 22px;
   display: flex;
   align-items: center;
-}
-.scrolling-subnav-list li a {
-  display: inline-block;
   color: #6e6d7a;
+  cursor: pointer;
+  height: 80px;
 }
 .scrolling-subnav-list li .scrolling-subnav-icon {
   height: 18px;
   fill: #6e6d7a;
   margin-right: 5px;
 }
-.scrolling-subnav-list .active .scrolling-subnav-icon {
-  fill: #0d0c22;
-}
-.scrolling-subnav-list li.active a {
+.scrolling-subnav-list .router-link-exact-active li {
   color: #0d0c22;
+  box-shadow: inset 0 -2px #111;
+}
+.scrolling-subnav-list .router-link-exact-active .scrolling-subnav-icon {
+  fill: #0d0c22;
 }
 .user-content {
   padding-top: 48px;

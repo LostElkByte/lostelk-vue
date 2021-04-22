@@ -55,6 +55,7 @@ export interface GloablDataProps {
   cardList: CardList[];
   tagCardList: CardList[];
   userCardList: CardList[];
+  userLikeCardList: CardList[];
   card: CardList | {};
   user: GloablUserProps;
   token: string;
@@ -68,6 +69,7 @@ export interface GloablDataProps {
   homePageCardTotalCount: number | null;
   tagPageCardTotalCount: number | null;
   userCardTotalCount: number | null;
+  userLikeCardTotalCount: number | null;
   uploadAfterToUrl: string | null;
   fromWhichPage: string | null;
   isShowLoadingMore: boolean;
@@ -84,6 +86,7 @@ export default createStore<GloablDataProps>({
     cardList: [],
     tagCardList: [],
     userCardList: [],
+    userLikeCardList: [],
     card: {},
     user: { isLogin: false, id: Number(localStorage.getItem('userId')) || -1 },
     token: localStorage.getItem('token') || '',
@@ -97,6 +100,7 @@ export default createStore<GloablDataProps>({
     homePageCardTotalCount: null,
     tagPageCardTotalCount: null,
     userCardTotalCount: null,
+    userLikeCardTotalCount: null,
     uploadAfterToUrl: null,
     fromWhichPage: null,
     isShowLoadingMore: false,
@@ -285,6 +289,13 @@ export default createStore<GloablDataProps>({
           break;
         }
       }
+      for (let i = 0; i < state.userLikeCardList.length; i++) {
+        if (state.userLikeCardList[i].id === postId) {
+          state.userLikeCardList[i].liked = 1;
+          state.userLikeCardList[i].totalLikes++;
+          break;
+        }
+      }
     },
     /**
     * 取消点赞 修改卡片的like状态与值
@@ -308,6 +319,13 @@ export default createStore<GloablDataProps>({
         if (state.userCardList[i].id === postId) {
           state.userCardList[i].liked = 0;
           state.userCardList[i].totalLikes--;
+          break;
+        }
+      }
+      for (let i = 0; i < state.userLikeCardList.length; i++) {
+        if (state.userLikeCardList[i].id === postId) {
+          state.userLikeCardList[i].liked = 0;
+          state.userLikeCardList[i].totalLikes--;
           break;
         }
       }
@@ -368,7 +386,21 @@ export default createStore<GloablDataProps>({
      */
     getUserCardTotalCount(state, rawdata) {
       state.userCardTotalCount = rawdata
-    }
+    },
+
+    /**
+     * 获取指定用户喜欢的内容列表
+     */
+    getUserLikeCardList(state, rawdata) {
+      state.userLikeCardList = rawdata
+    },
+
+    /**
+   * 获取指定用户喜欢的内容的数量
+   */
+    getUserLikeCardTotalCount(state, rawdata) {
+      state.userLikeCardTotalCount = rawdata
+    },
   },
 
 
@@ -446,6 +478,20 @@ export default createStore<GloablDataProps>({
         context.commit('getUserCardList', userCardListData.data)
         context.commit('getUserCardTotalCount', userCardListData.headers['x-total-count'])
         return userCardListData
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    /**
+  * 获取指定用户喜欢的内容列表
+  */
+    async getUserLikeCardList(context, userId) {
+      try {
+        const userLikeCardList = await axios.get(`/posts?user=${userId}&action=liked`)
+        context.commit('getUserLikeCardList', userLikeCardList.data)
+        context.commit('getUserLikeCardTotalCount', userLikeCardList.headers['x-total-count'])
+        return userLikeCardList
       } catch (error) {
         console.log(error);
       }

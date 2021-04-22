@@ -65,12 +65,34 @@ const routes: Array<RouteRecordRaw> = [
     props: true,
     children: [
       {
-        path: '/@:CardUserId/:id',
-        name: 'UserCardDetails',
-        component: () => import('../views/UserCardDetails.vue'),
-        props: true
+        path: '',
+        name: 'UserCardList',
+        component: () => import('../views/UserCardList.vue'),
+        props: true,
+        children: [
+          {
+            path: ':id',
+            name: 'UserCardDetails',
+            component: () => import('../views/UserCardDetails.vue'),
+            props: true
+          },
+        ]
+      },
+      {
+        path: 'likes',
+        name: 'UserLikeCardList',
+        component: () => import('../views/UserLikeCardList.vue'),
+        props: true,
+        children: [
+          {
+            path: ':id',
+            name: 'UserLikeCardDetails',
+            component: () => import('../views/UserLikeCardDetails.vue'),
+            props: true
+          }
+        ]
       }
-    ]
+    ],
   },
 ]
 

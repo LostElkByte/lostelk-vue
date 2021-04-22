@@ -43,41 +43,36 @@
       <div class="personal-home-navigation">
         <div class="profile-subnav">
           <ul class="scrolling-subnav-list">
-            <li class="active">
-              <svg class="icon scrolling-subnav-icon" aria-hidden="true">
-                <use xlink:href="#icon-zhaopian"></use>
-              </svg>
-              <a href="#">
+            <router-link :to="`/@${cardUserIdProp}`">
+              <li>
+                <svg class="icon scrolling-subnav-icon" aria-hidden="true">
+                  <use xlink:href="#icon-zhaopian"></use>
+                </svg>
                 <span>Photos</span> <span>{{ userCardTotalCount }}</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
+              </li>
+            </router-link>
+
+            <router-link :to="`/@${cardUserIdProp}/likes`">
+              <li>
                 <svg class="icon scrolling-subnav-icon" aria-hidden="true">
                   <use xlink:href="#icon-xihuan4"></use>
                 </svg>
-
                 <span>Likes</span>
-                <span>120</span>
-              </a>
-            </li>
+                <span>{{ userLikeCardTotalCount }}</span>
+              </li>
+            </router-link>
+
             <li v-if="userId === cardUserIdProp || userId === 1">
-              <a href="#">
-                <svg class="icon scrolling-subnav-icon" aria-hidden="true">
-                  <use xlink:href="#icon-zhanghaoguanli1"></use>
-                </svg>
-                <span>Account</span>
-              </a>
+              <svg class="icon scrolling-subnav-icon" aria-hidden="true">
+                <use xlink:href="#icon-zhanghaoguanli1"></use>
+              </svg>
+              <span>Account</span>
             </li>
           </ul>
         </div>
       </div>
       <div class="user-content">
-        <PersonalCardMain
-          :detailsUrlparameter="`@${cardUserIdProp}`"
-          :cardColumnSize="cardColumnSize"
-          :list="userCardlist"
-        ></PersonalCardMain>
+        <router-view :userList="userCardlist" :likeList="userLikeCardlist" :cardColumn="cardColumnSize"></router-view>
       </div>
     </div>
   </div>
@@ -89,7 +84,6 @@ import { useStore } from 'vuex';
 import { lostelkUrl } from '../global';
 import Header from '../components/header/HeaderBox.vue';
 import Sidebar from '../components/sidebar/SidebarBox.vue';
-import PersonalCardMain from '../components/cardMain/PersonalCardMain.vue';
 import axios from 'axios';
 
 export default defineComponent({
@@ -97,7 +91,6 @@ export default defineComponent({
   components: {
     Header,
     Sidebar,
-    PersonalCardMain,
   },
   props: {
     cardColumn: Number,
@@ -150,8 +143,25 @@ export default defineComponent({
     });
 
     /**
-     * 获取指定用户的喜欢列表
+     * 获取指定用户喜欢的内容列表
      */
+    const userLikeCardlist = computed(() => store.state.userLikeCardList);
+    const userLikeCardTotalCount = computed(() => store.state.userLikeCardTotalCount);
+
+    store.dispatch('getUserLikeCardList', cardUserIdProp.value).then(data => {
+      if (store.state.userCardList.length === 0) {
+        //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
+        store.commit('setSearchFailure', false);
+      } else {
+        // 搜索到内容将未没有内容提示隐藏,  并且将主页搜索框隐藏
+        store.commit('setSearchFailure', false);
+        // 如果总页数等于1
+        if (Math.ceil(data.headers['x-total-count'] / 20) === 1) {
+          // 将 没有更多 提示 设置为true
+          store.commit('noMore', true);
+        }
+      }
+    });
 
     /**
      * 判断是否登录,用于header组件
@@ -175,6 +185,8 @@ export default defineComponent({
       lostelkUrl,
       userData,
       userId,
+      userLikeCardTotalCount,
+      userLikeCardlist,
     };
   },
 });
