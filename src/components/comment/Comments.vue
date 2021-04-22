@@ -18,7 +18,13 @@
     </div>
     <div class="comment-footer">
       <ValidateForm class="comment-form">
-        <ValidateInput class="comment-input" type="text" placeholder="写下你的评论" v-model="publishCommentVal">
+        <ValidateInput
+          class="comment-input"
+          type="text"
+          placeholder="写下你的评论"
+          v-model="publishCommentVal"
+          :value="publishCommentVal"
+        >
         </ValidateInput>
         <template v-slot:submit>
           <div :class="['comment-groug', { hidden: !publishCommentButton }]" @click="onFormSubmit">

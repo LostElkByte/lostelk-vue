@@ -61,7 +61,7 @@
                 <span>120</span>
               </a>
             </li>
-            <li>
+            <li v-if="userId === cardUserIdProp || userId === 1">
               <a href="#">
                 <svg class="icon scrolling-subnav-icon" aria-hidden="true">
                   <use xlink:href="#icon-zhanghaoguanli1"></use>
@@ -74,7 +74,7 @@
       </div>
       <div class="user-content">
         <PersonalCardMain
-          :detailsUrlparameter="`@${userIdProp}`"
+          :detailsUrlparameter="`@${cardUserIdProp}`"
           :cardColumnSize="cardColumnSize"
           :list="userCardlist"
         ></PersonalCardMain>
@@ -108,23 +108,20 @@ export default defineComponent({
   },
 
   setup(props) {
-    onMounted(() => {
-      // 恢复到顶部
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    });
     const store = useStore();
     // 获取页面展示列的数量
     const cardColumnSize = computed(() => props.cardColumn);
+    // 获取当前登陆的用户ID
+    const userId = computed(() => store.state.user.id);
+    // 获取当前个人页的用户ID
+    const cardUserIdProp = computed(() => Number(props.CardUserId));
 
-    const userIdProp = computed(() => Number(props.CardUserId));
-
-    const userData = ref();
     /**
      * 获取指定用户的信息
      */
+    const userData = ref();
     try {
-      axios.get(`${lostelkUrl}/users/${userIdProp.value}`).then(data => {
+      axios.get(`${lostelkUrl}/users/${cardUserIdProp.value}`).then(data => {
         userData.value = data.data;
       });
     } catch (error) {
@@ -134,7 +131,10 @@ export default defineComponent({
     /**
      * 获取指定用户发表的内容列表
      */
-    store.dispatch('getUserCardList', userIdProp.value).then(data => {
+    const userCardlist = computed(() => store.state.userCardList);
+    const userCardTotalCount = computed(() => store.state.userCardTotalCount);
+
+    store.dispatch('getUserCardList', cardUserIdProp.value).then(data => {
       if (store.state.userCardList.length === 0) {
         //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
         store.commit('setSearchFailure', false);
@@ -148,8 +148,10 @@ export default defineComponent({
         }
       }
     });
-    const userCardlist = computed(() => store.state.userCardList);
-    const userCardTotalCount = computed(() => store.state.userCardTotalCount);
+
+    /**
+     * 获取指定用户的喜欢列表
+     */
 
     /**
      * 判断是否登录,用于header组件
@@ -158,14 +160,21 @@ export default defineComponent({
       return store.state.user;
     });
 
+    onMounted(() => {
+      // 恢复到顶部
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    });
+
     return {
       loginJudge,
       userCardlist,
       userCardTotalCount,
       cardColumnSize,
-      userIdProp,
+      cardUserIdProp,
       lostelkUrl,
       userData,
+      userId,
     };
   },
 });

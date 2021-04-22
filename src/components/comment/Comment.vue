@@ -78,6 +78,7 @@
               type="text"
               :placeholder="`回复 ${singleComment.user.name}`"
               v-model="replyCommentVal"
+              :value="replyCommentVal"
             >
             </ValidateInput>
             <template v-slot:submit>
@@ -275,6 +276,8 @@ export default defineComponent({
     const isDelete = ref(false);
     const showDeleteAddirm = () => {
       isDelete.value = true;
+      replyShow.value = true;
+      reviseShow.value = true;
     };
     const cancelDelete = () => {
       isDelete.value = false;

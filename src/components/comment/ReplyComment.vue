@@ -174,6 +174,7 @@ export default defineComponent({
     const isDelete = ref(false);
     const showDeleteAddirm = () => {
       isDelete.value = true;
+      reviseShow.value = true;
     };
     const cancelDelete = () => {
       isDelete.value = false;
