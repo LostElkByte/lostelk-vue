@@ -25,5 +25,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/less/componentsStyle/loading.css';
+@import '../../style/less/componentsStyle/loading.css';
 </style>

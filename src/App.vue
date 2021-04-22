@@ -7,8 +7,8 @@
 import { computed, defineComponent, watch, ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import './assets/font/iconfont';
-import Loading from './components/Loading.vue';
-import createTooltip from './components/createTooltip';
+import Loading from './components/globalFun/Loading.vue';
+import createTooltip from './components/globalFun/createTooltip';
 export default defineComponent({
   name: 'App',
   components: {

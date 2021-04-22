@@ -14,9 +14,9 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useStore } from 'vuex';
-import Header from '../components/HeaderBox.vue';
-import Sidebar from '../components/SidebarBox.vue';
-import CardMain from '../components/CardMain.vue';
+import Header from '../components/header/HeaderBox.vue';
+import Sidebar from '../components/sidebar/SidebarBox.vue';
+import CardMain from '../components/cardMain/CardMain.vue';
 import { useRoute } from 'vue-router';
 export default defineComponent({
   name: 'Tag',

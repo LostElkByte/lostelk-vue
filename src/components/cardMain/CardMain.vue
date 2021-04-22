@@ -1,6 +1,16 @@
 <template>
   <div class="home-page_main" v-if="ColumnSize === 3">
+    <MainSearch v-if="!searchfailure" v-show="mainSearchIsNone"></MainSearch>
     <div class="main_center">
+      <div class="search-results" v-if="!searchfailure" v-show="!mainSearchIsNone">
+        <h1 class="search-results-heading">
+          {{ sarchTag.tagName }}
+        </h1>
+        <p class="search-results-description">
+          Browse {{ sarchTag.totalCount }} {{ sarchTag.tagName }} work, designs, illustrations, and graphic elements
+        </p>
+      </div>
+
       <div class="home-page_main_cards" v-if="!searchfailure">
         <div class="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardThreeColumnOne" :key="card.id">
@@ -174,7 +184,16 @@
     </div>
   </div>
   <div class="home-page_main" v-else-if="ColumnSize === 2">
+    <MainSearch v-if="!searchfailure" v-show="mainSearchIsNone"></MainSearch>
     <div class="main_center">
+      <div class="search-results" v-if="!searchfailure" v-show="!mainSearchIsNone">
+        <h1 class="search-results-heading">
+          {{ sarchTag.tagName }}
+        </h1>
+        <p class="search-results-description">
+          Browse {{ sarchTag.totalCount }} {{ sarchTag.tagName }} work, designs, illustrations, and graphic elements
+        </p>
+      </div>
       <div class="home-page_main_cards" v-if="!searchfailure">
         <div class="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardTwoColumnOne" :key="card.id">
@@ -294,7 +313,16 @@
     </div>
   </div>
   <div class="home-page_main" v-else-if="ColumnSize === 1">
+    <MainSearch v-if="!searchfailure" v-show="mainSearchIsNone"></MainSearch>
     <div class="main_center">
+      <div class="search-results" v-if="!searchfailure" v-show="!mainSearchIsNone">
+        <h1 class="search-results-heading">
+          {{ sarchTag.tagName }}
+        </h1>
+        <p class="search-results-description">
+          Browse {{ sarchTag.totalCount }} {{ sarchTag.tagName }} work, designs, illustrations, and graphic elements
+        </p>
+      </div>
       <div class="home-page_main_cards" v-if="!searchfailure">
         <div class="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardList" :key="card.id">
@@ -360,24 +388,26 @@
     </div>
   </div>
   <teleport to="#app">
-    <router-view></router-view>
+    <router-view :tagName="tagNameProps"></router-view>
   </teleport>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
-import { lostelkUrl } from '../global';
-import store, { CardList, GloabSearchTagProps } from '../store';
-import Likes from '../components/Likes.vue';
-import SearchFailure from './SearchFailure.vue';
-import DownloadFile from '../components/DownloadFile.vue';
-import GoCommentButton from '../components/GoCommentButton.vue';
-import router from '../router';
+import { lostelkUrl } from '../../global';
+import store, { CardList, GloabSearchTagProps } from '../../store';
+import Likes from '../cardFun/Likes.vue';
+import MainSearch from '../search/MainSearch.vue';
+import SearchFailure from '../globalFun/SearchFailure.vue';
+import DownloadFile from '../cardFun/DownloadFile.vue';
+import GoCommentButton from '../cardFun/GoCommentButton.vue';
+import router from '../../router';
 
 export default defineComponent({
   name: 'CardMain',
   components: {
     Likes,
+    MainSearch,
     SearchFailure,
     DownloadFile,
     GoCommentButton,
@@ -395,9 +425,15 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    tagName: {
+      type: String,
+      required: false,
+    },
   },
 
   setup(props) {
+    const tagNameProps = computed(() => props.tagName);
+
     const isShowLoadingMore = computed(() => store.state.isShowLoadingMore);
 
     const noMore = computed(() => store.state.noMore);
@@ -520,6 +556,7 @@ export default defineComponent({
       ColumnSize,
       mainSearchIsNone,
       Urlparameter,
+      tagNameProps,
       isShowLoadingMore,
       noMore,
       toUserPage,
@@ -529,5 +566,5 @@ export default defineComponent({
 </script>
 
 <style scoped>
-@import '../style/less/componentsStyle/card-main.css';
+@import '../../style/less/componentsStyle/card-main.css';
 </style>

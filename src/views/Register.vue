@@ -181,9 +181,9 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
-import ValidateForm from '../components/ValidateForm.vue';
-import createTooltip from '../components/createTooltip';
+import ValidateInput, { RulesProp } from '../components/form/ValidateInput.vue';
+import ValidateForm from '../components/form/ValidateForm.vue';
+import createTooltip from '../components/globalFun/createTooltip';
 import axios from 'axios';
 import router from '../router';
 

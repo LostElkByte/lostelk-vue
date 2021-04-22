@@ -178,5 +178,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/less/componentsStyle/validateInput.css';
+@import '../../style/less/componentsStyle/validateInput.css';
 </style>

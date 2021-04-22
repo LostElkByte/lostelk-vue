@@ -16,5 +16,5 @@ export default defineComponent({});
 </script>
 
 <style>
-@import '../style/less/componentsStyle/no-jurisdiction.css';
+@import '../../style/less/componentsStyle/no-jurisdiction.css';
 </style>

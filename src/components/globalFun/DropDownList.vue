@@ -68,5 +68,5 @@ export default defineComponent({
 
 <style>
 /* @import '../style/componentsStyle/drop-down-list.css'; */
-@import '../style/less/componentsStyle/drop-down-list.css';
+@import '../../style/less/componentsStyle/drop-down-list.css';
 </style>

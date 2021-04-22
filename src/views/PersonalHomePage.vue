@@ -87,9 +87,9 @@
 import { defineComponent, computed, ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { lostelkUrl } from '../global';
-import Header from '../components/HeaderBox.vue';
-import Sidebar from '../components/SidebarBox.vue';
-import PersonalCardMain from '../components/PersonalCardMain.vue';
+import Header from '../components/header/HeaderBox.vue';
+import Sidebar from '../components/sidebar/SidebarBox.vue';
+import PersonalCardMain from '../components/cardMain/PersonalCardMain.vue';
 import axios from 'axios';
 
 export default defineComponent({

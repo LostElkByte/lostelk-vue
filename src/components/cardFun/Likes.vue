@@ -15,8 +15,8 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import { axios } from '../service/service';
-import store from '../store';
+import { axios } from '../../service/service';
+import store from '../../store';
 export default defineComponent({
   props: {
     isLike: Number,
@@ -52,5 +52,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/less/componentsStyle/likes.css';
+@import '../../style/less/componentsStyle/likes.css';
 </style>

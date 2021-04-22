@@ -38,11 +38,11 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import { lostelkUrl } from '../../global';
-import ValidateInput from '../ValidateInput.vue';
-import ValidateForm from '../ValidateForm.vue';
+import ValidateInput from '../form/ValidateInput.vue';
+import ValidateForm from '../form/ValidateForm.vue';
 import SingleComment from './Comment.vue';
 import store from '../../store';
-import createTooltip from '../createTooltip';
+import createTooltip from '../globalFun/createTooltip';
 
 export default defineComponent({
   name: 'Comments',

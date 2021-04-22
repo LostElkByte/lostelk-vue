@@ -11,10 +11,10 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import ConfirmationBox from './ConfirmationBox.vue';
-import createTooltip from './createTooltip';
-import router from '../router';
-import store from '../store';
+import ConfirmationBox from '../globalFun/ConfirmationBox.vue';
+import createTooltip from '../globalFun/createTooltip';
+import router from '../../router';
+import store from '../../store';
 
 export default defineComponent({
   components: {
@@ -100,4 +100,4 @@ export default defineComponent({
 });
 </script>
 
-<style scoped src="../style/less/componentsStyle/delete-card.css"></style>
+<style scoped src="../../style/less/componentsStyle/delete-card.css"></style>

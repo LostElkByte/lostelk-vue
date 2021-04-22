@@ -11,8 +11,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import router from '../router';
-import store from '../store';
+import router from '../../router';
+import store from '../../store';
 export default defineComponent({
   setup() {
     /**
@@ -31,5 +31,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/less/componentsStyle/search-failure.css';
+@import '../../style/less/componentsStyle/search-failure.css';
 </style>

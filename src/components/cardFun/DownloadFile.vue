@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { lostelkUrl } from '../global';
+import { lostelkUrl } from '../../global';
 export default defineComponent({
   props: {
     fileId: {
@@ -36,5 +36,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/less/componentsStyle/download-file.css';
+@import '../../style/less/componentsStyle/download-file.css';
 </style>

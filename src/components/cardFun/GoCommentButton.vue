@@ -9,8 +9,8 @@
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import router from '../router';
-import store from '../store';
+import router from '../../router';
+import store from '../../store';
 
 export default defineComponent({
   props: {
@@ -45,5 +45,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/less/componentsStyle/card-main.css';
+@import '../../style/less/componentsStyle/card-main.css';
 </style>

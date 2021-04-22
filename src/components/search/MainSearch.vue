@@ -1,6 +1,6 @@
 <template>
   <div class="main-search">
-    <img src="../assets/images/content2.jpeg" alt="" />
+    <img src="../../assets/images/content2.jpeg" alt="" />
     <div class="main-search-superstratum">
       <div class="search-superstratum-center">
         <div class="search-superstratum-content">
@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import router from '../router';
+import router from '../../router';
 export default defineComponent({
   setup() {
     const tagVal = ref();
@@ -56,6 +56,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/less/componentsStyle/main-search-box.css';
-/* @import '../style/componentsStyle/main-search-box.css'; */
+@import '../../style/less/componentsStyle/main-search-box.css';
 </style>

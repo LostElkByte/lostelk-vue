@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import router from '../router';
+import router from '../../router';
 export default defineComponent({
   setup() {
     const tagVal = ref();
@@ -31,5 +31,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/less/componentsStyle/header-search.css';
+@import '../../style/less/componentsStyle/header-search.css';
 </style>

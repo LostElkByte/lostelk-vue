@@ -30,5 +30,5 @@ export default defineComponent({
 });
 </script>
 <style>
-@import '../style/less/componentsStyle/Affirm.css';
+@import '../../style/less/componentsStyle/Affirm.css';
 </style>

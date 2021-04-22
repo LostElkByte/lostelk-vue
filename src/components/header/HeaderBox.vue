@@ -57,10 +57,10 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { useStore } from 'vuex';
-import router from '../router';
+import router from '../../router';
 import { useRoute } from 'vue-router';
-import DropDownList from './DropDownList.vue';
-import HeaderSearch from './HeaderSearch.vue';
+import DropDownList from '../globalFun/DropDownList.vue';
+import HeaderSearch from '../search/HeaderSearch.vue';
 export interface UserMode {
   isLogin: boolean;
   name?: string;
@@ -106,5 +106,5 @@ export default defineComponent({
 </script>
 
 <style>
-@import '../style/less/componentsStyle/header.css';
+@import '../../style/less/componentsStyle/header.css';
 </style>

@@ -133,10 +133,10 @@
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue';
 import { lostelkUrl } from '../../global';
-import ValidateInput from '../ValidateInput.vue';
-import ValidateForm from '../ValidateForm.vue';
-import createTooltip from '../createTooltip';
-import ConfirmationBox from '../ConfirmationBox.vue';
+import ValidateInput from '../form/ValidateInput.vue';
+import ValidateForm from '../form/ValidateForm.vue';
+import createTooltip from '../globalFun/createTooltip';
+import ConfirmationBox from '../globalFun/ConfirmationBox.vue';
 import ReplyComment from './ReplyComment.vue';
 import store from '../../store';
 import router from '../../router';

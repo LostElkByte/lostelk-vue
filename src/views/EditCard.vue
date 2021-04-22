@@ -100,12 +100,12 @@ import { lostelkUrl } from '../global';
 import { computed, defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
-import createTooltip from '../components/createTooltip';
-import Header from '../components/HeaderBox.vue';
-import Sidebar from '../components/SidebarBox.vue';
-import ValidateForm from '../components/ValidateForm.vue';
-import NoPermission from '../components/NoPermission.vue';
-import ValidateInput, { RulesProp } from '../components/ValidateInput.vue';
+import createTooltip from '../components/globalFun/createTooltip';
+import Header from '../components/header/HeaderBox.vue';
+import Sidebar from '../components/sidebar/SidebarBox.vue';
+import ValidateForm from '../components/form/ValidateForm.vue';
+import NoPermission from '../components/globalFun/NoPermission.vue';
+import ValidateInput, { RulesProp } from '../components/form/ValidateInput.vue';
 
 export default defineComponent({
   name: 'UploadPicture',

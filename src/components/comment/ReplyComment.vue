@@ -85,11 +85,11 @@
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue';
 import { lostelkUrl } from '../../global';
-import ValidateInput from '../ValidateInput.vue';
-import ValidateForm from '../ValidateForm.vue';
-import ConfirmationBox from '../ConfirmationBox.vue';
+import ValidateInput from '../form/ValidateInput.vue';
+import ValidateForm from '../form/ValidateForm.vue';
+import ConfirmationBox from '../globalFun/ConfirmationBox.vue';
 import store from '../../store';
-import createTooltip from '../createTooltip';
+import createTooltip from '../globalFun/createTooltip';
 
 export default defineComponent({
   name: 'ReplyComment',
