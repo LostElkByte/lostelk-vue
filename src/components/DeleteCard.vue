@@ -71,6 +71,16 @@ export default defineComponent({
               store.commit('mainSearchIsNone', false);
             }
           });
+        } else if (fromWhichPageProps.value === 'user') {
+          store.commit('againRequest', true);
+          store.dispatch('getTagCardList', tag.value).then(() => {
+            if (store.state.tagCardList.length === 0) {
+              //修改搜索结果为true
+              store.commit('setSearchFailure', true);
+            } else {
+              store.commit('setSearchFailure', false);
+            }
+          });
         }
 
         // 将body恢复为可以滚动

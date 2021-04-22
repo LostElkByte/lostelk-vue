@@ -59,10 +59,18 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
-    path: '/@:name',
+    path: '/@:CardUserId',
     name: 'PersonalHomePage',
     component: () => import('../views/PersonalHomePage.vue'),
     props: true,
+    children: [
+      {
+        path: '/@:CardUserId/:id',
+        name: 'UserCardDetails',
+        component: () => import('../views/UserCardDetails.vue'),
+        props: true
+      }
+    ]
   },
 ]
 

@@ -54,6 +54,7 @@ export interface GloablDataProps {
   error: GloablErrorProps;
   cardList: CardList[];
   tagCardList: CardList[];
+  userCardList: CardList[];
   card: CardList | {};
   user: GloablUserProps;
   token: string;
@@ -66,6 +67,7 @@ export interface GloablDataProps {
   showCommentsCut: boolean;
   homePageCardTotalCount: number | null;
   tagPageCardTotalCount: number | null;
+  userCardTotalCount: number | null;
   uploadAfterToUrl: string | null;
   fromWhichPage: string | null;
   isShowLoadingMore: boolean;
@@ -81,6 +83,7 @@ export default createStore<GloablDataProps>({
     error: { status: false },
     cardList: [],
     tagCardList: [],
+    userCardList: [],
     card: {},
     user: { isLogin: false, id: Number(localStorage.getItem('userId')) || -1 },
     token: localStorage.getItem('token') || '',
@@ -93,12 +96,13 @@ export default createStore<GloablDataProps>({
     searchTag: {},
     homePageCardTotalCount: null,
     tagPageCardTotalCount: null,
+    userCardTotalCount: null,
     uploadAfterToUrl: null,
     fromWhichPage: null,
     isShowLoadingMore: false,
     noMore: false,
     isLoading: true,
-    againRequest: false
+    againRequest: false,
   },
 
   mutations: {
@@ -274,6 +278,13 @@ export default createStore<GloablDataProps>({
           break;
         }
       }
+      for (let i = 0; i < state.userCardList.length; i++) {
+        if (state.userCardList[i].id === postId) {
+          state.userCardList[i].liked = 1;
+          state.userCardList[i].totalLikes++;
+          break;
+        }
+      }
     },
     /**
     * 取消点赞 修改卡片的like状态与值
@@ -290,6 +301,13 @@ export default createStore<GloablDataProps>({
         if (state.tagCardList[i].id === postId) {
           state.tagCardList[i].liked = 0;
           state.tagCardList[i].totalLikes--;
+          break;
+        }
+      }
+      for (let i = 0; i < state.userCardList.length; i++) {
+        if (state.userCardList[i].id === postId) {
+          state.userCardList[i].liked = 0;
+          state.userCardList[i].totalLikes--;
           break;
         }
       }
@@ -336,6 +354,20 @@ export default createStore<GloablDataProps>({
     */
     noMore(state, rawdata) {
       state.noMore = rawdata
+    },
+
+    /**
+     * 获取指定用户发表的内容列表
+     */
+    getUserCardList(state, rawdata) {
+      state.userCardList = rawdata
+    },
+
+    /**
+     * 获取指定用户发表的内容的数量
+     */
+    getUserCardTotalCount(state, rawdata) {
+      state.userCardTotalCount = rawdata
     }
   },
 
@@ -400,6 +432,20 @@ export default createStore<GloablDataProps>({
       try {
         const CardListData = await axios.get(`/posts?page=${page}`)
         context.commit('getPageCardList', CardListData.data)
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    /**
+     * 获取指定用户发表的内容列表
+     */
+    async getUserCardList(context, userId) {
+      try {
+        const userCardListData = await axios.get(`/posts?user=${userId}&action=published`)
+        context.commit('getUserCardList', userCardListData.data)
+        context.commit('getUserCardTotalCount', userCardListData.headers['x-total-count'])
+        return userCardListData
       } catch (error) {
         console.log(error);
       }

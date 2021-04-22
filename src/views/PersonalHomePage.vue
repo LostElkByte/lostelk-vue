@@ -10,20 +10,32 @@
               <div class="user-data-color-block-container">
                 <div class="color-block"></div>
               </div>
-              <div class="masthead-banner-image">
+              <div
+                v-if="userCardlist[0]"
+                class="masthead-banner-image"
+                :style="
+                  userCardlist[0]
+                    ? `background-image: url(${lostelkUrl}/files/${userCardlist[0].file.id}/serve?size=medium)`
+                    : ''
+                "
+              >
                 <img class="yin-zhang" src="../assets/images/yinZhang.png" alt="" />
               </div>
             </div>
           </div>
-          <div class="user-data-content">
+          <div class="user-data-content" v-if="userData">
             <div class="user-data-content-avatar">
-              <img src="../assets/images/avatar.gif" alt="" />
+              <img v-if="userData.avatar" :src="`${lostelkUrl}/users/${userData.id}/avatar`" :alt="userData.name" />
+
+              <svg v-else class="icon" aria-hidden="true" style="width: 100%;height: 100%">
+                <use xlink:href="#icon-weidenglu"></use>
+              </svg>
             </div>
             <div class="user-data-content-name">
-              <h1>Lostelk</h1>
+              <h1>{{ userData.name }}</h1>
             </div>
             <div class="user-data-content-intro">
-              <h2>Hello, my name is 麋鹿. Nice to meet you!</h2>
+              <h2>Hello, my name is {{ userData.name }}. Nice to meet you!</h2>
             </div>
           </div>
         </div>
@@ -35,7 +47,9 @@
               <svg class="icon scrolling-subnav-icon" aria-hidden="true">
                 <use xlink:href="#icon-zhaopian"></use>
               </svg>
-              <a href="#"><span>Photos</span> <span>16</span></a>
+              <a href="#">
+                <span>Photos</span> <span>{{ userCardTotalCount }}</span>
+              </a>
             </li>
             <li>
               <a href="#">
@@ -58,25 +72,80 @@
           </ul>
         </div>
       </div>
+      <div class="user-content">
+        <PersonalCardMain
+          :detailsUrlparameter="`@${userIdProp}`"
+          :cardColumnSize="cardColumnSize"
+          :list="userCardlist"
+        ></PersonalCardMain>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue';
+import { defineComponent, computed, ref } from 'vue';
 import { useStore } from 'vuex';
+import { lostelkUrl } from '../global';
 import Header from '../components/HeaderBox.vue';
 import Sidebar from '../components/SidebarBox.vue';
+import PersonalCardMain from '../components/PersonalCardMain.vue';
+import axios from 'axios';
 
 export default defineComponent({
   name: 'PersonalHomePage',
   components: {
     Header,
     Sidebar,
+    PersonalCardMain,
+  },
+  props: {
+    cardColumn: Number,
+    CardUserId: {
+      type: String,
+      required: true,
+    },
   },
 
-  setup() {
+  setup(props) {
     const store = useStore();
+    // 获取页面展示列的数量
+    const cardColumnSize = computed(() => props.cardColumn);
+
+    const userIdProp = computed(() => Number(props.CardUserId));
+
+    const userData = ref();
+    /**
+     * 获取指定用户的信息
+     */
+    try {
+      axios.get(`${lostelkUrl}/users/${userIdProp.value}`).then(data => {
+        userData.value = data.data;
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    /**
+     * 获取指定用户发表的内容列表
+     */
+    store.dispatch('getUserCardList', userIdProp.value).then(data => {
+      if (store.state.userCardList.length === 0) {
+        //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
+        store.commit('setSearchFailure', false);
+      } else {
+        // 搜索到内容将未没有内容提示隐藏,  并且将主页搜索框隐藏
+        store.commit('setSearchFailure', false);
+        // 如果总页数等于1
+        if (Math.ceil(data.headers['x-total-count'] / 20) === 1) {
+          // 将 没有更多 提示 设置为true
+          store.commit('noMore', true);
+        }
+      }
+    });
+    const userCardlist = computed(() => store.state.userCardList);
+    const userCardTotalCount = computed(() => store.state.userCardTotalCount);
+
     /**
      * 判断是否登录,用于header组件
      */
@@ -86,6 +155,12 @@ export default defineComponent({
 
     return {
       loginJudge,
+      userCardlist,
+      userCardTotalCount,
+      cardColumnSize,
+      userIdProp,
+      lostelkUrl,
+      userData,
     };
   },
 });
