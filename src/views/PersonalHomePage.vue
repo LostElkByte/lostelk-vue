@@ -84,7 +84,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue';
+import { defineComponent, computed, ref, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { lostelkUrl } from '../global';
 import Header from '../components/HeaderBox.vue';
@@ -108,6 +108,11 @@ export default defineComponent({
   },
 
   setup(props) {
+    onMounted(() => {
+      // 恢复到顶部
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    });
     const store = useStore();
     // 获取页面展示列的数量
     const cardColumnSize = computed(() => props.cardColumn);
