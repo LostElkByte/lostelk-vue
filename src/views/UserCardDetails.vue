@@ -175,7 +175,7 @@ import { lostelkUrl } from '../global';
 import router from '../router';
 import Likes from '../components/Likes.vue';
 import DownloadFile from '../components/DownloadFile.vue';
-import Comments from '../components/Comments.vue';
+import Comments from '../components/comment/Comments.vue';
 import DeleteCard from '../components/DeleteCard.vue';
 import store from '../store';
 export default defineComponent({

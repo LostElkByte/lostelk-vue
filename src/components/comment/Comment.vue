@@ -132,14 +132,14 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue';
-import { lostelkUrl } from '../global';
-import ValidateInput from './ValidateInput.vue';
-import ValidateForm from './ValidateForm.vue';
-import createTooltip from './createTooltip';
-import ConfirmationBox from './ConfirmationBox.vue';
+import { lostelkUrl } from '../../global';
+import ValidateInput from '../ValidateInput.vue';
+import ValidateForm from '../ValidateForm.vue';
+import createTooltip from '../createTooltip';
+import ConfirmationBox from '../ConfirmationBox.vue';
 import ReplyComment from './ReplyComment.vue';
-import store from '../store';
-import router from '../router';
+import store from '../../store';
+import router from '../../router';
 
 export default defineComponent({
   name: 'Comment',
@@ -356,5 +356,5 @@ export default defineComponent({
 </script>
 
 <style scoped>
-@import '../style/less/componentsStyle/comment.css';
+@import '../../style/less/componentsStyle/comment.css';
 </style>

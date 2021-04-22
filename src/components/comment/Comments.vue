@@ -37,12 +37,12 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, watch } from 'vue';
-import { lostelkUrl } from '../global';
-import ValidateInput from './ValidateInput.vue';
-import ValidateForm from './ValidateForm.vue';
+import { lostelkUrl } from '../../global';
+import ValidateInput from '../ValidateInput.vue';
+import ValidateForm from '../ValidateForm.vue';
 import SingleComment from './Comment.vue';
-import store from '../store';
-import createTooltip from './createTooltip';
+import store from '../../store';
+import createTooltip from '../createTooltip';
 
 export default defineComponent({
   name: 'Comments',
@@ -188,5 +188,5 @@ export default defineComponent({
 </script>
 
 <style scoped>
-@import '../style/less/componentsStyle/comment.css';
+@import '../../style/less/componentsStyle/comment.css';
 </style>
