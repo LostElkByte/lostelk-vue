@@ -61,13 +61,14 @@
                 <span>{{ userLikeCardTotalCount }}</span>
               </li>
             </router-link>
-
-            <li v-if="userId === UserIdProp || userId === 1">
-              <svg class="icon scrolling-subnav-icon" aria-hidden="true">
-                <use xlink:href="#icon-zhanghaoguanli1"></use>
-              </svg>
-              <span>Account</span>
-            </li>
+            <router-link :to="`/@${UserIdProp}/Account`">
+              <li v-if="userId === UserIdProp || userId === 1">
+                <svg class="icon scrolling-subnav-icon" aria-hidden="true">
+                  <use xlink:href="#icon-zhanghaoguanli1"></use>
+                </svg>
+                <span>Account</span>
+              </li>
+            </router-link>
           </ul>
         </div>
       </div>

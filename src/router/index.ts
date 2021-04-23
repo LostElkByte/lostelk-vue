@@ -93,6 +93,12 @@ const routes: Array<RouteRecordRaw> = [
             props: true
           }
         ]
+      },
+      {
+        path: '/@:UserId/Account',
+        name: 'EditAccount',
+        component: () => import('../views/EditAccount.vue'),
+        props: true,
       }
     ],
   },
