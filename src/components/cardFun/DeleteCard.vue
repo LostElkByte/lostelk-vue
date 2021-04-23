@@ -78,24 +78,12 @@ export default defineComponent({
           });
         } else if (fromWhichPageProps.value === 'user') {
           store.commit('againRequest', true);
-          store.dispatch('getUserPhotosCardList', userIdProps.value).then(() => {
-            if (store.state.userPhotosCardList.length === 0) {
-              //修改搜索结果为true
-              store.commit('setSearchFailure', true);
-            } else {
-              store.commit('setSearchFailure', false);
-            }
-          });
+          store.dispatch('getUserLikeCardList', userIdProps.value);
+          store.dispatch('getUserPhotosCardList', userIdProps.value);
         } else if (fromWhichPageProps.value === 'userLike') {
           store.commit('againRequest', true);
-          store.dispatch('getUserLikeCardList', userIdProps.value).then(() => {
-            if (store.state.userLikeCardList.length === 0) {
-              //修改搜索结果为true
-              store.commit('setSearchFailure', true);
-            } else {
-              store.commit('setSearchFailure', false);
-            }
-          });
+          store.dispatch('getUserPhotosCardList', userIdProps.value);
+          store.dispatch('getUserLikeCardList', userIdProps.value);
         }
 
         // 将body恢复为可以滚动

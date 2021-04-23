@@ -251,6 +251,12 @@ export default createStore<GloablDataProps>({
     },
 
     /**
+     * 添加指定用户喜欢的内容列表
+     */
+    getPageUserLikeCardList(state, rawdata) {
+      state.userLikeCardList.push(...rawdata)
+    },
+    /**
      * loading
      */
     setLoading(state, status) {
@@ -516,6 +522,20 @@ export default createStore<GloablDataProps>({
         context.commit('getUserLikeCardList', userLikeCardList.data)
         context.commit('getUserLikeCardTotalCount', userLikeCardList.headers['x-total-count'])
         return userLikeCardList
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    /**
+    * 获取指定用户喜欢的内容分页列表
+    */
+    async getPageUserLikeCardList(context, { userId, page }) {
+      try {
+        const userLikeCardListData = await axios.get(`/posts?user=${userId}&action=liked&page=${page}`)
+        context.commit('getPageUserLikeCardList', userLikeCardListData.data)
+        context.commit('getUserLikeCardTotalCount', userLikeCardListData.headers['x-total-count'])
+        return userLikeCardListData
       } catch (error) {
         console.log(error);
       }

@@ -164,7 +164,6 @@ export default defineComponent({
     watch(
       () => store.state.againRequest,
       () => {
-        console.log('3');
         if (store.state.againRequest === true) {
           // 默认当前页数
           currentPage.value = 1;

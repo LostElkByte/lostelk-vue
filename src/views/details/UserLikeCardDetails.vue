@@ -138,8 +138,9 @@
             <DeleteCard
               v-if="userId === postData.user.id || userId === 1"
               :postId="postId"
-              :routerUrl="`/@${UserIdProps}`"
+              :routerUrl="`/@${UserIdProps}/likes`"
               :fromWhichPage="`userLike`"
+              :userId="userId"
             >
             </DeleteCard>
           </div>

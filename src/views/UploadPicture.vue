@@ -123,6 +123,8 @@ export default defineComponent({
     const router = useRouter();
     const uploaderror = ref();
 
+    const userId = computed(() => store.state.user.id);
+
     /**
      * 表单校验
      */
@@ -311,11 +313,11 @@ export default defineComponent({
           uploaderror.value = '';
         } else {
           // 如果有上传成功,执行成功提示;
-          await createTooltip('发表成功,即将跳转到首页', 'success', 2000);
+          await createTooltip('感谢您为LostElk社区,贡献了一张照片!', 'success', 2000);
           await setTimeout(() => {
             store.commit('mainSearchIsNone', true);
             store.commit('setSearchFailure', false);
-            router.push('/');
+            router.push(`/@${userId.value}`);
           }, 500);
         }
       } else {

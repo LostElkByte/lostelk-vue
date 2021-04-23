@@ -162,6 +162,7 @@ export default defineComponent({
         if (route.params.UserId) {
           try {
             store.dispatch('getUserPhotosCardList', Number(route.params.UserId));
+            store.dispatch('getUserLikeCardList', Number(route.params.UserId));
             axios.get(`${lostelkUrl}/users/${Number(route.params.UserId)}`).then(data => {
               userData.value = data.data;
             });
