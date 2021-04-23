@@ -3,7 +3,9 @@ import Home from '../views/Home.vue'
 import store from '../store'
 import axios from 'axios'
 
-
+/**
+ * 以下的参数:id 均为文章卡片的ID
+ */
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
