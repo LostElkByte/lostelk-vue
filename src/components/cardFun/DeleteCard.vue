@@ -71,6 +71,7 @@ export default defineComponent({
             if (store.state.tagCardList.length === 0) {
               //修改搜索结果为true
               store.commit('setSearchFailure', true);
+              store.commit('noMore', false);
             } else {
               store.commit('setSearchFailure', false);
               store.commit('mainSearchIsNone', false);
@@ -80,10 +81,12 @@ export default defineComponent({
           store.commit('againRequest', true);
           store.dispatch('getUserLikeCardList', userIdProps.value);
           store.dispatch('getUserPhotosCardList', userIdProps.value);
+          store.commit('noMore', false);
         } else if (fromWhichPageProps.value === 'userLike') {
           store.commit('againRequest', true);
           store.dispatch('getUserPhotosCardList', userIdProps.value);
           store.dispatch('getUserLikeCardList', userIdProps.value);
+          store.commit('noMore', false);
         }
 
         // 将body恢复为可以滚动

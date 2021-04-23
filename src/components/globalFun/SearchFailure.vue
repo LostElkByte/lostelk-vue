@@ -21,6 +21,7 @@ export default defineComponent({
     const goBack = () => {
       router.push('/');
       store.commit('setSearchFailure', false);
+      store.commit('mainSearchIsNone', true);
     };
 
     return {
