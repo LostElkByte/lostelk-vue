@@ -130,10 +130,6 @@ export default defineComponent({
     };
 
     onMounted(async () => {
-      // 初始化定位页面为顶部
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-
       // 组件创建时监听scroll事件
       window.addEventListener('scroll', windowScroll);
     });

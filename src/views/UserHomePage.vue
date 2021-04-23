@@ -154,7 +154,7 @@ export default defineComponent({
     });
 
     /**
-     * 监听 路由上的tag参数是否发生改变, 如果发生改变 则 重新加载新的数据
+     * 监听 路由上的UserId参数是否发生改变, 如果发生改变 则 重新加载新的数据
      */
     watch(
       () => route.params.UserId,
