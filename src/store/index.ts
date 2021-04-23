@@ -216,6 +216,41 @@ export default createStore<GloablDataProps>({
     },
 
     /**
+    * 获取指定用户发表的内容列表
+    */
+    getUserPhotosCardList(state, rawdata) {
+      state.userPhotosCardList = rawdata
+    },
+
+    /**
+   * 添加指定用户发表的卡片列表
+   */
+    getPageUserPhotosCardList(state, rawdata) {
+      state.userPhotosCardList.push(...rawdata)
+    },
+
+    /**
+     * 获取指定用户发表的内容的数量
+     */
+    getUserPhotosCardTotalCount(state, rawdata) {
+      state.userPhotosCardTotalCount = rawdata
+    },
+
+    /**
+     * 获取指定用户喜欢的内容列表
+     */
+    getUserLikeCardList(state, rawdata) {
+      state.userLikeCardList = rawdata
+    },
+
+    /**
+   * 获取指定用户喜欢的内容的数量
+   */
+    getUserLikeCardTotalCount(state, rawdata) {
+      state.userLikeCardTotalCount = rawdata
+    },
+
+    /**
      * loading
      */
     setLoading(state, status) {
@@ -374,33 +409,7 @@ export default createStore<GloablDataProps>({
       state.noMore = rawdata
     },
 
-    /**
-     * 获取指定用户发表的内容列表
-     */
-    getUserPhotosCardList(state, rawdata) {
-      state.userPhotosCardList = rawdata
-    },
 
-    /**
-     * 获取指定用户发表的内容的数量
-     */
-    getUserPhotosCardTotalCount(state, rawdata) {
-      state.userPhotosCardTotalCount = rawdata
-    },
-
-    /**
-     * 获取指定用户喜欢的内容列表
-     */
-    getUserLikeCardList(state, rawdata) {
-      state.userLikeCardList = rawdata
-    },
-
-    /**
-   * 获取指定用户喜欢的内容的数量
-   */
-    getUserLikeCardTotalCount(state, rawdata) {
-      state.userLikeCardTotalCount = rawdata
-    },
   },
 
 
@@ -484,8 +493,23 @@ export default createStore<GloablDataProps>({
     },
 
     /**
-  * 获取指定用户喜欢的内容列表
-  */
+     * 获取指定用户发表的内容分页列表
+     */
+    async getPageUserPhotosCardList(context, { userId, page }) {
+      try {
+        const userPhotosCardListData = await axios.get(`/posts?user=${userId}&action=published&page=${page}`)
+        context.commit('getPageUserPhotosCardList', userPhotosCardListData.data)
+        context.commit('getUserPhotosCardTotalCount', userPhotosCardListData.headers['x-total-count'])
+        return userPhotosCardListData
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+
+    /**
+    * 获取指定用户喜欢的内容列表
+    */
     async getUserLikeCardList(context, userId) {
       try {
         const userLikeCardList = await axios.get(`/posts?user=${userId}&action=liked`)

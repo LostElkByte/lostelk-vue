@@ -80,12 +80,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted } from 'vue';
+import { defineComponent, computed, ref, onMounted, watch } from 'vue';
 import { useStore } from 'vuex';
 import { lostelkUrl } from '../global';
 import Header from '../components/header/HeaderBox.vue';
 import Sidebar from '../components/sidebar/SidebarBox.vue';
 import axios from 'axios';
+import { useRoute } from 'vue-router';
 
 export default defineComponent({
   name: 'UserHomePage',
@@ -102,6 +103,7 @@ export default defineComponent({
   },
 
   setup(props) {
+    const route = useRoute();
     const store = useStore();
     // 获取页面展示列的数量
     const cardColumnSize = computed(() => props.cardColumn);
@@ -150,6 +152,28 @@ export default defineComponent({
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
     });
+
+    /**
+     * 监听 路由上的tag参数是否发生改变, 如果发生改变 则 重新加载新的数据
+     */
+    watch(
+      () => route.params.UserId,
+      () => {
+        if (route.params.UserId) {
+          try {
+            store.dispatch('getUserPhotosCardList', Number(route.params.UserId));
+            axios.get(`${lostelkUrl}/users/${Number(route.params.UserId)}`).then(data => {
+              userData.value = data.data;
+            });
+          } catch (error) {
+            console.log(error);
+          }
+          // 恢复到顶部
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+        }
+      },
+    );
 
     return {
       loginJudge,

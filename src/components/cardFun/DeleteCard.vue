@@ -37,12 +37,17 @@ export default defineComponent({
       type: String,
       required: false,
     },
+    userId: {
+      type: Number,
+      required: false,
+    },
   },
   setup(props) {
     const postIdProps = computed(() => props.postId);
     const routerUrlProps = computed(() => props.routerUrl);
     const fromWhichPageProps = computed(() => props.fromWhichPage);
     const tag = computed(() => props.tagName);
+    const userIdProps = computed(() => props.userId);
 
     const isDelete = ref(false);
 
@@ -73,8 +78,8 @@ export default defineComponent({
           });
         } else if (fromWhichPageProps.value === 'user') {
           store.commit('againRequest', true);
-          store.dispatch('getTagCardList', tag.value).then(() => {
-            if (store.state.tagCardList.length === 0) {
+          store.dispatch('getUserPhotosCardList', userIdProps.value).then(() => {
+            if (store.state.userPhotosCardList.length === 0) {
               //修改搜索结果为true
               store.commit('setSearchFailure', true);
             } else {
