@@ -42,14 +42,20 @@
                   class="content-header-author-photo-32"
                   :src="`${lostelkUrl}/users/${postData.user.id}/avatar?size=small`"
                   :alt="postData.user.name"
+                  @click.stop="toUserPage(postData.user.id)"
                 />
-                <svg v-else class="icon content-header-author-photo-32" aria-hidden="true">
+                <svg
+                  v-else
+                  class="icon content-header-author-photo-32"
+                  aria-hidden="true"
+                  @click.stop="toUserPage(postData.user.id)"
+                >
                   <use xlink:href="#icon-icon-test"></use>
                 </svg>
               </div>
               <div class="content-header-author-data">
                 <span>{{ postData.title }}</span>
-                <span>{{ postData.user.name }}</span>
+                <span @click.stop="toUserPage(postData.user.id)">{{ postData.user.name }}</span>
               </div>
             </div>
             <div class="content-header-toolbar">
@@ -376,6 +382,15 @@ export default defineComponent({
       router.push(`/tag/${tagName}`);
     };
 
+    /**
+     * 进入用户页
+     */
+    const toUserPage = (userId: number) => {
+      router.push(`/@${userId}`);
+      // 将body恢复为可以滚动
+      document.body.style.overflow = 'auto';
+    };
+
     return {
       userId,
       UserIdProps,
@@ -395,6 +410,7 @@ export default defineComponent({
       showComments,
       showCommentsCut,
       editCard,
+      toUserPage,
     };
   },
 });
