@@ -44,8 +44,8 @@
             </span>
           </template>
           <template v-slot:dropdown-content>
-            <a href="#">个人主页</a>
-            <a href="#">发表作品</a>
+            <router-link :to="`/@${userId}`">个人主页</router-link>
+            <router-link to="/UploadPicture">发表作品</router-link>
             <a href="#" @click="logout">退出登录</a>
           </template>
         </DropDownList>
@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue';
+import { computed, defineComponent, PropType } from 'vue';
 import { useStore } from 'vuex';
 import router from '../../router';
 import { useRoute } from 'vue-router';
@@ -85,6 +85,9 @@ export default defineComponent({
     const logout = () => {
       store.commit('logout');
     };
+    const userId = computed(() => {
+      return store.state.user.id;
+    });
 
     /**
      * 重新加载全部照片并回到首页
@@ -100,6 +103,7 @@ export default defineComponent({
     return {
       logout,
       goBack,
+      userId,
     };
   },
 });
