@@ -110,7 +110,7 @@ export default defineComponent({
     // 获取当前登陆的用户ID
     const userId = computed(() => store.state.user.id);
     // 获取当前个人页的用户ID
-    const UserIdProp = computed(() => Number(route.params.UserId));
+    const UserIdProp = computed(() => props.UserId);
 
     /**
      * 获取指定用户的信息

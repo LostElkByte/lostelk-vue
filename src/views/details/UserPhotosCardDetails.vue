@@ -140,7 +140,7 @@
               :postId="postId"
               :routerUrl="`/@${UserIdProps}`"
               :fromWhichPage="`user`"
-              :userId="userId"
+              :userId="UserIdProps"
             >
             </DeleteCard>
           </div>

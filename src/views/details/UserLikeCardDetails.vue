@@ -140,7 +140,7 @@
               :postId="postId"
               :routerUrl="`/@${UserIdProps}/likes`"
               :fromWhichPage="`userLike`"
-              :userId="userId"
+              :userId="UserIdProps"
             >
             </DeleteCard>
           </div>
