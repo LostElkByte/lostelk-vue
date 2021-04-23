@@ -139,7 +139,7 @@
               v-if="userId === postData.user.id || userId === 1"
               :postId="postId"
               :routerUrl="`/@${UserIdProps}`"
-              :fromWhichPage="`user`"
+              :fromWhichPage="`userLike`"
             >
             </DeleteCard>
           </div>
