@@ -1,45 +1,41 @@
 <template>
-  <PersonalCardMain
-    :list="list"
-    :cardColumnSize="column"
-    :detailsUrlparameter="`@${cardUserIdProp}/likes`"
-  ></PersonalCardMain>
+  <PersonalCardMain :list="list" :cardColumnSize="column" :detailsUrlparameter="`@${UserIdProp}`"></PersonalCardMain>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
-import PersonalCardMain from '../components/cardMain/PersonalCardMain.vue';
+import PersonalCardMain from '../../components/cardMain/PersonalCardMain.vue';
 
 export default defineComponent({
-  name: 'UserLikeListCard',
+  name: 'UserPhotosListCard',
   inheritAttrs: false,
   components: {
     PersonalCardMain,
   },
   props: {
     cardColumn: Number,
-    likeList: {
+    userPhotosList: {
       type: Array,
       required: true,
     },
-    CardUserId: {
+    UserId: {
       type: String,
       required: true,
     },
-    userList: {
+    likeList: {
       type: Array,
       required: false,
     },
   },
   setup(props) {
     const column = computed(() => props.cardColumn);
-    const list = computed(() => props.likeList);
+    const list = computed(() => props.userPhotosList);
     // 获取当前个人页的用户ID
-    const cardUserIdProp = computed(() => Number(props.CardUserId));
+    const UserIdProp = computed(() => Number(props.UserId));
     return {
       list,
       column,
-      cardUserIdProp,
+      UserIdProp,
     };
   },
 });

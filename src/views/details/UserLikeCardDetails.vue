@@ -138,9 +138,8 @@
             <DeleteCard
               v-if="userId === postData.user.id || userId === 1"
               :postId="postId"
-              :routerUrl="`/tag/${tag}`"
-              :fromWhichPage="`tag`"
-              :tagName="tag"
+              :routerUrl="`/@${UserIdProps}`"
+              :fromWhichPage="`user`"
             >
             </DeleteCard>
           </div>
@@ -172,15 +171,15 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, onUpdated } from 'vue';
-import { lostelkUrl } from '../global';
-import router from '../router';
-import Likes from '../components/cardFun/Likes.vue';
-import DownloadFile from '../components/cardFun/DownloadFile.vue';
-import Comments from '../components/comment/Comments.vue';
-import DeleteCard from '../components/cardFun/DeleteCard.vue';
-import store from '../store';
+import { lostelkUrl } from '../../global';
+import router from '../../router';
+import Likes from '../../components/cardFun/Likes.vue';
+import DownloadFile from '../../components/cardFun/DownloadFile.vue';
+import Comments from '../../components/comment/Comments.vue';
+import DeleteCard from '../../components/cardFun/DeleteCard.vue';
+import store from '../../store';
 export default defineComponent({
-  name: 'TagCardDetails',
+  name: 'UserLikeCardDetails',
   components: {
     Likes,
     DownloadFile,
@@ -193,13 +192,14 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    tagName: {
+    UserId: {
       type: String,
       required: false,
     },
   },
   setup(props) {
-    const tag = computed(() => props.tagName);
+    // 获得当前访问的主页的用户ID
+    const UserIdProps = computed(() => props.UserId);
     // 获取当前用户ID
     const userId = computed(() => store.state.user.id);
     // 获取当前帖子的ID
@@ -213,7 +213,7 @@ export default defineComponent({
      */
     const showCard = ref(false);
     const postData = ref();
-    const cardList = computed(() => store.state.tagCardList);
+    const cardList = computed(() => store.state.userLikeCardList);
     const cardIndex = computed(() => cardList.value.findIndex(item => item.id === postId.value));
 
     // 如果当前帖子存在于cardList数组中,进入if 否则 进入else
@@ -271,9 +271,9 @@ export default defineComponent({
       document.body.style.overflow = 'auto';
 
       // 存储当前的url
-      store.commit('uploadAfterToUrl', `/tag/${tag.value}/tagCard/${postId.value}`);
+      store.commit('uploadAfterToUrl', `/@${UserIdProps.value}/likes/${postId.value}`);
       // 定义当前页面别名,并存储
-      store.commit('fromWhichPage', 'tag');
+      store.commit('fromWhichPage', 'userLike');
 
       router.push(`/EditCard/${postId.value}`);
     };
@@ -360,11 +360,11 @@ export default defineComponent({
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
 
-      router.push(`/tag/${tag.value}`);
+      router.push(`/@${UserIdProps.value}/likes`);
     };
 
     /**
-     * 获取相关标签数据,并跳转的相对页面(标签页暂时不需要此方法,因为暂时后端返回的 标签详情页的数据 只包含一个所查找的标签)
+     * 获取相关标签数据,并跳转的相对页面
      */
     const RelatedTagData = async (tagName: string) => {
       // 将body恢复为可以滚动
@@ -377,6 +377,7 @@ export default defineComponent({
 
     return {
       userId,
+      UserIdProps,
       showCard,
       lostelkUrl,
       close,
@@ -393,12 +394,11 @@ export default defineComponent({
       showComments,
       showCommentsCut,
       editCard,
-      tag,
     };
   },
 });
 </script>
 
-<style scoped src="../style/less/viewsStyle/card-details.css"></style>
+<style scoped src="../../style/less/viewsStyle/card-details.css"></style>
 
 <style></style>

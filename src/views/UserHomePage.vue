@@ -11,11 +11,11 @@
                 <div class="color-block"></div>
               </div>
               <div
-                v-if="userCardlist[0]"
+                v-if="userPhotosCardlist[0]"
                 class="masthead-banner-image"
                 :style="
-                  userCardlist[0]
-                    ? `background-image: url(${lostelkUrl}/files/${userCardlist[0].file.id}/serve?size=medium)`
+                  userPhotosCardlist[0]
+                    ? `background-image: url(${lostelkUrl}/files/${userPhotosCardlist[0].file.id}/serve?size=medium)`
                     : ''
                 "
               >
@@ -43,16 +43,16 @@
       <div class="personal-home-navigation">
         <div class="profile-subnav">
           <ul class="scrolling-subnav-list">
-            <router-link :to="`/@${cardUserIdProp}`">
+            <router-link :to="`/@${UserIdProp}`">
               <li>
                 <svg class="icon scrolling-subnav-icon" aria-hidden="true">
                   <use xlink:href="#icon-zhaopian"></use>
                 </svg>
-                <span>Photos</span> <span>{{ userCardTotalCount }}</span>
+                <span>Photos</span> <span>{{ userPhotosCardTotalCount }}</span>
               </li>
             </router-link>
 
-            <router-link :to="`/@${cardUserIdProp}/likes`">
+            <router-link :to="`/@${UserIdProp}/likes`">
               <li>
                 <svg class="icon scrolling-subnav-icon" aria-hidden="true">
                   <use xlink:href="#icon-xihuan4"></use>
@@ -62,7 +62,7 @@
               </li>
             </router-link>
 
-            <li v-if="userId === cardUserIdProp || userId === 1">
+            <li v-if="userId === UserIdProp || userId === 1">
               <svg class="icon scrolling-subnav-icon" aria-hidden="true">
                 <use xlink:href="#icon-zhanghaoguanli1"></use>
               </svg>
@@ -72,7 +72,11 @@
         </div>
       </div>
       <div class="user-content">
-        <router-view :userList="userCardlist" :likeList="userLikeCardlist" :cardColumn="cardColumnSize"></router-view>
+        <router-view
+          :userPhotosList="userPhotosCardlist"
+          :likeList="userLikeCardlist"
+          :cardColumn="cardColumnSize"
+        ></router-view>
       </div>
     </div>
   </div>
@@ -87,14 +91,14 @@ import Sidebar from '../components/sidebar/SidebarBox.vue';
 import axios from 'axios';
 
 export default defineComponent({
-  name: 'PersonalHomePage',
+  name: 'UserHomePage',
   components: {
     Header,
     Sidebar,
   },
   props: {
     cardColumn: Number,
-    CardUserId: {
+    UserId: {
       type: String,
       required: true,
     },
@@ -107,14 +111,14 @@ export default defineComponent({
     // 获取当前登陆的用户ID
     const userId = computed(() => store.state.user.id);
     // 获取当前个人页的用户ID
-    const cardUserIdProp = computed(() => Number(props.CardUserId));
+    const UserIdProp = computed(() => Number(props.UserId));
 
     /**
      * 获取指定用户的信息
      */
     const userData = ref();
     try {
-      axios.get(`${lostelkUrl}/users/${cardUserIdProp.value}`).then(data => {
+      axios.get(`${lostelkUrl}/users/${UserIdProp.value}`).then(data => {
         userData.value = data.data;
       });
     } catch (error) {
@@ -124,11 +128,11 @@ export default defineComponent({
     /**
      * 获取指定用户发表的内容列表
      */
-    const userCardlist = computed(() => store.state.userCardList);
-    const userCardTotalCount = computed(() => store.state.userCardTotalCount);
+    const userPhotosCardlist = computed(() => store.state.userPhotosCardList);
+    const userPhotosCardTotalCount = computed(() => store.state.userPhotosCardTotalCount);
 
-    store.dispatch('getUserCardList', cardUserIdProp.value).then(data => {
-      if (store.state.userCardList.length === 0) {
+    store.dispatch('getUserPhotosCardList', UserIdProp.value).then(data => {
+      if (store.state.userPhotosCardList.length === 0) {
         //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
         store.commit('setSearchFailure', false);
       } else {
@@ -148,8 +152,8 @@ export default defineComponent({
     const userLikeCardlist = computed(() => store.state.userLikeCardList);
     const userLikeCardTotalCount = computed(() => store.state.userLikeCardTotalCount);
 
-    store.dispatch('getUserLikeCardList', cardUserIdProp.value).then(data => {
-      if (store.state.userCardList.length === 0) {
+    store.dispatch('getUserLikeCardList', UserIdProp.value).then(data => {
+      if (store.state.userLikeCardList.length === 0) {
         //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
         store.commit('setSearchFailure', false);
       } else {
@@ -178,10 +182,10 @@ export default defineComponent({
 
     return {
       loginJudge,
-      userCardlist,
-      userCardTotalCount,
+      userPhotosCardlist,
+      userPhotosCardTotalCount,
       cardColumnSize,
-      cardUserIdProp,
+      UserIdProp,
       lostelkUrl,
       userData,
       userId,

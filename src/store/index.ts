@@ -54,7 +54,7 @@ export interface GloablDataProps {
   error: GloablErrorProps;
   cardList: CardList[];
   tagCardList: CardList[];
-  userCardList: CardList[];
+  userPhotosCardList: CardList[];
   userLikeCardList: CardList[];
   card: CardList | {};
   user: GloablUserProps;
@@ -68,7 +68,7 @@ export interface GloablDataProps {
   showCommentsCut: boolean;
   homePageCardTotalCount: number | null;
   tagPageCardTotalCount: number | null;
-  userCardTotalCount: number | null;
+  userPhotosCardTotalCount: number | null;
   userLikeCardTotalCount: number | null;
   uploadAfterToUrl: string | null;
   fromWhichPage: string | null;
@@ -85,7 +85,7 @@ export default createStore<GloablDataProps>({
     error: { status: false },
     cardList: [],
     tagCardList: [],
-    userCardList: [],
+    userPhotosCardList: [],
     userLikeCardList: [],
     card: {},
     user: { isLogin: false, id: Number(localStorage.getItem('userId')) || -1 },
@@ -99,7 +99,7 @@ export default createStore<GloablDataProps>({
     searchTag: {},
     homePageCardTotalCount: null,
     tagPageCardTotalCount: null,
-    userCardTotalCount: null,
+    userPhotosCardTotalCount: null,
     userLikeCardTotalCount: null,
     uploadAfterToUrl: null,
     fromWhichPage: null,
@@ -282,10 +282,10 @@ export default createStore<GloablDataProps>({
           break;
         }
       }
-      for (let i = 0; i < state.userCardList.length; i++) {
-        if (state.userCardList[i].id === postId) {
-          state.userCardList[i].liked = 1;
-          state.userCardList[i].totalLikes++;
+      for (let i = 0; i < state.userPhotosCardList.length; i++) {
+        if (state.userPhotosCardList[i].id === postId) {
+          state.userPhotosCardList[i].liked = 1;
+          state.userPhotosCardList[i].totalLikes++;
           break;
         }
       }
@@ -315,10 +315,10 @@ export default createStore<GloablDataProps>({
           break;
         }
       }
-      for (let i = 0; i < state.userCardList.length; i++) {
-        if (state.userCardList[i].id === postId) {
-          state.userCardList[i].liked = 0;
-          state.userCardList[i].totalLikes--;
+      for (let i = 0; i < state.userPhotosCardList.length; i++) {
+        if (state.userPhotosCardList[i].id === postId) {
+          state.userPhotosCardList[i].liked = 0;
+          state.userPhotosCardList[i].totalLikes--;
           break;
         }
       }
@@ -377,15 +377,15 @@ export default createStore<GloablDataProps>({
     /**
      * 获取指定用户发表的内容列表
      */
-    getUserCardList(state, rawdata) {
-      state.userCardList = rawdata
+    getUserPhotosCardList(state, rawdata) {
+      state.userPhotosCardList = rawdata
     },
 
     /**
      * 获取指定用户发表的内容的数量
      */
-    getUserCardTotalCount(state, rawdata) {
-      state.userCardTotalCount = rawdata
+    getUserPhotosCardTotalCount(state, rawdata) {
+      state.userPhotosCardTotalCount = rawdata
     },
 
     /**
@@ -472,12 +472,12 @@ export default createStore<GloablDataProps>({
     /**
      * 获取指定用户发表的内容列表
      */
-    async getUserCardList(context, userId) {
+    async getUserPhotosCardList(context, userId) {
       try {
-        const userCardListData = await axios.get(`/posts?user=${userId}&action=published`)
-        context.commit('getUserCardList', userCardListData.data)
-        context.commit('getUserCardTotalCount', userCardListData.headers['x-total-count'])
-        return userCardListData
+        const userPhotosCardListData = await axios.get(`/posts?user=${userId}&action=published`)
+        context.commit('getUserPhotosCardList', userPhotosCardListData.data)
+        context.commit('getUserPhotosCardTotalCount', userPhotosCardListData.headers['x-total-count'])
+        return userPhotosCardListData
       } catch (error) {
         console.log(error);
       }

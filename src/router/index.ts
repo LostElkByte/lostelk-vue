@@ -13,7 +13,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'card/:id',
         name: 'HomeCardDetails',
-        component: () => import('../views/HomeCardDetails.vue'),
+        component: () => import('../views/details/HomeCardDetails.vue'),
         props: true
       }
     ]
@@ -53,41 +53,41 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/tag/:tag/tagCard/:id',
         name: 'TagCardDetails',
-        component: () => import('../views/TagCardDetails.vue'),
+        component: () => import('../views/details/TagCardDetails.vue'),
         props: true
       }
     ]
   },
   {
-    path: '/@:CardUserId',
-    name: 'PersonalHomePage',
-    component: () => import('../views/PersonalHomePage.vue'),
+    path: '/@:UserId',
+    name: 'UserHomePage',
+    component: () => import('../views/UserHomePage.vue'),
     props: true,
     children: [
       {
         path: '',
-        name: 'UserCardList',
-        component: () => import('../views/UserCardList.vue'),
+        name: 'UserPhotosCardDetails',
+        component: () => import('../views/cardList/UserPhotosCardList.vue'),
         props: true,
         children: [
           {
-            path: '/@:CardUserId/:id',
-            name: 'UserCardDetails',
-            component: () => import('../views/UserCardDetails.vue'),
+            path: '/@:UserId/:id',
+            name: 'UserPhotosCardDetails',
+            component: () => import('../views/details/UserPhotosCardDetails.vue'),
             props: true
           },
         ]
       },
       {
-        path: '/@:CardUserId/likes',
+        path: '/@:UserId/likes',
         name: 'UserLikeCardList',
-        component: () => import('../views/UserLikeCardList.vue'),
+        component: () => import('../views/cardList/UserLikeCardList.vue'),
         props: true,
         children: [
           {
-            path: '/@:CardUserId/likes/:id',
+            path: '/@:UserId/likes/:id',
             name: 'UserLikeCardDetails',
-            component: () => import('../views/UserLikeCardDetails.vue'),
+            component: () => import('../views/details/UserLikeCardDetails.vue'),
             props: true
           }
         ]

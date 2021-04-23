@@ -138,9 +138,11 @@
             <DeleteCard
               v-if="userId === postData.user.id || userId === 1"
               :postId="postId"
-              :routerUrl="'/'"
-              :fromWhichPage="`home`"
-            ></DeleteCard>
+              :routerUrl="`/tag/${tag}`"
+              :fromWhichPage="`tag`"
+              :tagName="tag"
+            >
+            </DeleteCard>
           </div>
 
           <div class="content-description" v-if="postData.content !== ''">
@@ -170,15 +172,15 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, onUpdated } from 'vue';
-import { lostelkUrl } from '../global';
-import router from '../router';
-import Likes from '../components/cardFun/Likes.vue';
-import DownloadFile from '../components/cardFun/DownloadFile.vue';
-import Comments from '../components/comment/Comments.vue';
-import DeleteCard from '../components/cardFun/DeleteCard.vue';
-import store from '../store';
+import { lostelkUrl } from '../../global';
+import router from '../../router';
+import Likes from '../../components/cardFun/Likes.vue';
+import DownloadFile from '../../components/cardFun/DownloadFile.vue';
+import Comments from '../../components/comment/Comments.vue';
+import DeleteCard from '../../components/cardFun/DeleteCard.vue';
+import store from '../../store';
 export default defineComponent({
-  name: 'HomeCardDetails',
+  name: 'TagCardDetails',
   components: {
     Likes,
     DownloadFile,
@@ -197,6 +199,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const tag = computed(() => props.tagName);
     // 获取当前用户ID
     const userId = computed(() => store.state.user.id);
     // 获取当前帖子的ID
@@ -210,7 +213,7 @@ export default defineComponent({
      */
     const showCard = ref(false);
     const postData = ref();
-    const cardList = computed(() => store.state.cardList);
+    const cardList = computed(() => store.state.tagCardList);
     const cardIndex = computed(() => cardList.value.findIndex(item => item.id === postId.value));
 
     // 如果当前帖子存在于cardList数组中,进入if 否则 进入else
@@ -263,16 +266,16 @@ export default defineComponent({
     /**
      * 编辑
      */
-    const editCard = async () => {
+    const editCard = () => {
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
 
-      // 存储当前url
-      store.commit('uploadAfterToUrl', `/Card/${postId.value}`);
+      // 存储当前的url
+      store.commit('uploadAfterToUrl', `/tag/${tag.value}/tagCard/${postId.value}`);
       // 定义当前页面别名,并存储
-      store.commit('fromWhichPage', 'home');
+      store.commit('fromWhichPage', 'tag');
 
-      await router.push(`/EditCard/${postId.value}`);
+      router.push(`/EditCard/${postId.value}`);
     };
 
     /**
@@ -285,7 +288,7 @@ export default defineComponent({
       /**
        * 如果当前帖子存在于cardList数组中,将左右切换按钮全部禁用
        * 如果当前帖子于cardList数组的第一个元素,将左切换按钮全部禁用
-       * 如果当前帖子于cardList数组的最后个元素,将右切换按钮全部禁用
+       * 如果当前帖子于cardList数组的最后一个元素,将右切换按钮全部禁用
        * 条件都不成立,删除左右切换按钮禁用样式
        */
       if (cardIndex.value === -1) {
@@ -317,7 +320,7 @@ export default defineComponent({
         fileMetadata.value = Metadata;
 
         // 跳转URL
-        await router.push(`/card/${rightCutId}`);
+        await router.push(`${rightCutId}`);
         // 清除禁止点击样式
         leftCutDom.value.classList.remove('noClick');
       } else {
@@ -341,7 +344,7 @@ export default defineComponent({
         const Metadata = await store.dispatch('getFileMetadata', postData.value.file.id);
         fileMetadata.value = Metadata;
         // 跳转URL
-        await router.push(`/card/${leftCutId}`);
+        await router.push(`${leftCutId}`);
         // 清除禁止点击样式
         rightCutDom.value.classList.remove('noClick');
       } else {
@@ -357,19 +360,18 @@ export default defineComponent({
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
 
-      router.push('/');
+      router.push(`/tag/${tag.value}`);
     };
 
     /**
-     * 获取相关标签数据 并跳转
+     * 获取相关标签数据,并跳转的相对页面(标签页暂时不需要此方法,因为暂时后端返回的 标签详情页的数据 只包含一个所查找的标签)
      */
     const RelatedTagData = async (tagName: string) => {
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
       document.body.scrollTop = document.documentElement.scrollTop = 0;
 
-      // close();
-
+      close();
       router.push(`/tag/${tagName}`);
     };
 
@@ -391,11 +393,12 @@ export default defineComponent({
       showComments,
       showCommentsCut,
       editCard,
+      tag,
     };
   },
 });
 </script>
 
-<style scoped src="../style/less/viewsStyle/card-details.css"></style>
+<style scoped src="../../style/less/viewsStyle/card-details.css"></style>
 
 <style></style>
