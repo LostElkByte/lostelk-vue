@@ -63,8 +63,12 @@ export default defineComponent({
 
     // 计算UserPhotos页的总页数
     const userPhotosTotalPage = computed(() => Math.ceil(userPhotosCardTotalCount.value / 20));
+    // 获取当前加载的UserPhotos卡片的数量
+    const userPhotosTotalNumber = computed(() =>
+      store.state.userPhotosCardList.length === 0 ? 1 : Math.ceil(store.state.userPhotosCardList.length / 20),
+    );
     // 默认当前页数
-    const currentPage = ref(1);
+    const currentPage = ref(userPhotosTotalNumber.value);
     // 是否加载默认设置为true
     const isUserPhotosScrollLoading = ref(true);
 
@@ -140,7 +144,7 @@ export default defineComponent({
     });
 
     /**
-     * 监听 路由上的tag参数是否发生改变, 如果发生改变 则 重新加载新的标签数据
+     * 监听 路由上的UserId参数是否发生改变, 如果发生改变 则 重新加载新的标签数据
      */
     watch(
       () => route.params.UserId,
@@ -160,6 +164,7 @@ export default defineComponent({
     watch(
       () => store.state.againRequest,
       () => {
+        console.log('3');
         if (store.state.againRequest === true) {
           // 默认当前页数
           currentPage.value = 1;
