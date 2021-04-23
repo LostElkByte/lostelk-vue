@@ -271,9 +271,9 @@ export default defineComponent({
       document.body.style.overflow = 'auto';
 
       // 存储当前的url
-      store.commit('uploadAfterToUrl', `/@:${cardUserIdProps.value}/${postId.value}`);
+      store.commit('uploadAfterToUrl', `/@${cardUserIdProps.value}/likes/${postId.value}`);
       // 定义当前页面别名,并存储
-      store.commit('fromWhichPage', 'user');
+      store.commit('fromWhichPage', 'userLike');
 
       router.push(`/EditCard/${postId.value}`);
     };

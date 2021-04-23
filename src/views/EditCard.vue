@@ -383,6 +383,16 @@ export default defineComponent({
             const oldCard = store.state.tagCardList;
             const newCard = oldCard.map((item: { id: unknown }) => (item.id === card.id ? card : item));
             await store.commit('getTagCardList', newCard);
+          } else if (fromWhichPage.value === 'user') {
+            const card = await store.dispatch('getCard', postId.value);
+            const oldCard = store.state.userCardList;
+            const newCard = oldCard.map((item: { id: unknown }) => (item.id === card.id ? card : item));
+            await store.commit('getUserCardList', newCard);
+          } else if (fromWhichPage.value === 'userLike') {
+            const card = await store.dispatch('getCard', postId.value);
+            const oldCard = store.state.userLikeCardList;
+            const newCard = oldCard.map((item: { id: unknown }) => (item.id === card.id ? card : item));
+            await store.commit('getUserLikeCardList', newCard);
           }
 
           // 如果上传成功,执行成功提示;
