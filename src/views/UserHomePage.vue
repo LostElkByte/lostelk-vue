@@ -73,11 +73,7 @@
         </div>
       </div>
       <div class="user-content">
-        <router-view
-          :userPhotosList="userPhotosCardlist"
-          :likeList="userLikeCardlist"
-          :cardColumn="cardColumnSize"
-        ></router-view>
+        <router-view :cardColumn="cardColumnSize"></router-view>
       </div>
     </div>
   </div>

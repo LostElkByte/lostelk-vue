@@ -15,10 +15,6 @@ export default defineComponent({
   },
   props: {
     cardColumn: Number,
-    userPhotosList: {
-      type: Array,
-      required: true,
-    },
     UserId: {
       type: String,
       required: true,
