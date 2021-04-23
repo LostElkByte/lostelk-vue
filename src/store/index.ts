@@ -66,10 +66,10 @@ export interface GloablDataProps {
   mainSearchIsNone: boolean;
   fileMetadata: GloablfileMetadataProps | {};
   showCommentsCut: boolean;
-  homePageCardTotalCount: number | null;
-  tagPageCardTotalCount: number | null;
-  userPhotosCardTotalCount: number | null;
-  userLikeCardTotalCount: number | null;
+  homePageCardTotalCount: number | 0;
+  tagPageCardTotalCount: number | 0;
+  userPhotosCardTotalCount: number | 0;
+  userLikeCardTotalCount: number | 0;
   uploadAfterToUrl: string | null;
   fromWhichPage: string | null;
   isShowLoadingMore: boolean;
@@ -97,10 +97,10 @@ export default createStore<GloablDataProps>({
     fileMetadata: {},
     showCommentsCut: false,
     searchTag: {},
-    homePageCardTotalCount: null,
-    tagPageCardTotalCount: null,
-    userPhotosCardTotalCount: null,
-    userLikeCardTotalCount: null,
+    homePageCardTotalCount: 0,
+    tagPageCardTotalCount: 0,
+    userPhotosCardTotalCount: 0,
+    userLikeCardTotalCount: 0,
     uploadAfterToUrl: null,
     fromWhichPage: null,
     isShowLoadingMore: false,

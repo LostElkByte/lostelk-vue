@@ -132,20 +132,7 @@ export default defineComponent({
     const userPhotosCardlist = computed(() => store.state.userPhotosCardList);
     const userPhotosCardTotalCount = computed(() => store.state.userPhotosCardTotalCount);
 
-    store.dispatch('getUserPhotosCardList', UserIdProp.value).then(data => {
-      if (store.state.userPhotosCardList.length === 0) {
-        //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
-        store.commit('setSearchFailure', false);
-      } else {
-        // 搜索到内容将未没有内容提示隐藏,  并且将主页搜索框隐藏
-        store.commit('setSearchFailure', false);
-        // 如果总页数等于1
-        if (Math.ceil(data.headers['x-total-count'] / 20) === 1) {
-          // 将 没有更多 提示 设置为true
-          store.commit('noMore', true);
-        }
-      }
-    });
+    store.dispatch('getUserPhotosCardList', UserIdProp.value);
 
     /**
      * 获取指定用户喜欢的内容列表
@@ -153,20 +140,7 @@ export default defineComponent({
     const userLikeCardlist = computed(() => store.state.userLikeCardList);
     const userLikeCardTotalCount = computed(() => store.state.userLikeCardTotalCount);
 
-    store.dispatch('getUserLikeCardList', UserIdProp.value).then(data => {
-      if (store.state.userLikeCardList.length === 0) {
-        //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
-        store.commit('setSearchFailure', false);
-      } else {
-        // 搜索到内容将未没有内容提示隐藏,  并且将主页搜索框隐藏
-        store.commit('setSearchFailure', false);
-        // 如果总页数等于1
-        if (Math.ceil(data.headers['x-total-count'] / 20) === 1) {
-          // 将 没有更多 提示 设置为true
-          store.commit('noMore', true);
-        }
-      }
-    });
+    store.dispatch('getUserLikeCardList', UserIdProp.value);
 
     /**
      * 判断是否登录,用于header组件
