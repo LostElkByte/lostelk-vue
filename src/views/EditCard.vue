@@ -8,7 +8,13 @@
           <table>
             标题
           </table>
-          <ValidateInput type="text" placeholder="标题" v-model="headlineVal" :rules="headlineRule" />
+          <ValidateInput
+            type="text"
+            placeholder="标题"
+            v-model="headlineVal"
+            :value="headlineVal"
+            :rules="headlineRule"
+          />
           <table>
             描述
           </table>
@@ -16,12 +22,20 @@
             :tag="`textarea`"
             placeholder="可以描述一下您的拍摄灵感、构图、想法..."
             v-model="describeVal"
+            :value="describeVal"
             :rules="describeRule"
           />
           <table>
             标签
           </table>
-          <ValidateInput type="text" placeholder="标签" v-model="tagVal" :value="tagVal" :rules="tagRule" />
+          <ValidateInput
+            type="text"
+            placeholder="标签"
+            v-model="tagVal"
+            :value="tagVal"
+            :rules="tagRule"
+            @keyup.enter="addTag"
+          />
           <div class="choose-tag" v-if="tagVal != ''" @click="addTag">
             <span>
               {{ tagVal }}
@@ -294,6 +308,7 @@ export default defineComponent({
 
         uploaderror.value = error;
         console.log(error);
+        await createTooltip('上传失败,可能是您的照片不符合要求', 'error', 3000);
       }
     };
 
@@ -368,7 +383,7 @@ export default defineComponent({
         isDisabled.value.removeAttribute('disabled');
         isDisabled.value.value = '保存';
 
-        // 如果有错误
+        // 如果错误信息存在 则清空
         if (uploaderror.value) {
           uploaderror.value = '';
         } else {

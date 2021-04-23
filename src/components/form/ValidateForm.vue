@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form onkeydown="if(event.keyCode==13)return false;">
     <slot name="default"> </slot>
     <div class="submit-area" @click.prevent="submitForm">
       <slot name="submit">

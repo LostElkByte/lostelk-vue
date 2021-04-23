@@ -8,7 +8,13 @@
           <table>
             标题
           </table>
-          <ValidateInput type="text" placeholder="标题(必选)" v-model="headlineVal" :rules="headlineRule" />
+          <ValidateInput
+            type="text"
+            placeholder="标题(必选)"
+            v-model="headlineVal"
+            :value="headlineVal"
+            :rules="headlineRule"
+          />
           <table>
             描述
           </table>
@@ -16,12 +22,20 @@
             :tag="`textarea`"
             placeholder="可以描述一下您的拍摄灵感、构图、想法..."
             v-model="describeVal"
+            :value="describeVal"
             :rules="describeRule"
           />
           <table>
             标签
           </table>
-          <ValidateInput type="text" placeholder="标签" v-model="tagVal" :value="tagVal" :rules="tagRule" />
+          <ValidateInput
+            type="text"
+            placeholder="标签"
+            v-model="tagVal"
+            :value="tagVal"
+            :rules="tagRule"
+            @keyup.enter="addTag"
+          />
           <div class="choose-tag" v-if="tagVal != ''" @click="addTag">
             <span>
               {{ tagVal }}
@@ -232,6 +246,8 @@ export default defineComponent({
 
         uploaderror.value = error;
         console.log(error);
+
+        await createTooltip('上传失败,可能是您的照片不符合要求', 'error', 3000);
       }
     };
 
@@ -295,12 +311,12 @@ export default defineComponent({
           uploaderror.value = '';
         } else {
           // 如果有上传成功,执行成功提示;
-          await createTooltip('上传成功,3秒后跳转到首页', 'success', 3000);
+          await createTooltip('发表成功,即将跳转到首页', 'success', 2000);
           await setTimeout(() => {
             store.commit('mainSearchIsNone', true);
             store.commit('setSearchFailure', false);
             router.push('/');
-          }, 3000);
+          }, 500);
         }
       } else {
         console.log('不通过');
