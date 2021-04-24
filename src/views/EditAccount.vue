@@ -30,26 +30,9 @@
         </form>
       </div>
     </div>
-    <div class="user-name margin-bottom-36">
-      <ValidateForm>
-        <label for="user-name" class="Edit-account-header">修改用户名</label>
-        <ValidateInput
-          type="text"
-          id="user-name"
-          placeholder="输入新的用户名"
-          v-model="newUserName"
-          :rules="newUserNameRule"
-        />
-        <ValidateInput type="text" placeholder="输入密码" v-model="userPassword" :rules="userPasswordRule" />
-        <template v-slot:submit>
-          <div class="edit-account-form-submit">
-            提交
-          </div>
-        </template>
-      </ValidateForm>
-    </div>
+    <EditUserName></EditUserName>
     <div class="user-password margin-bottom-36">
-      <ValidateForm action="">
+      <ValidateForm>
         <label for="user-password" class="Edit-account-header">修改密码</label>
         <ValidateInput type="text" placeholder="输入旧的密码" v-model="oldUserPassword" :rules="oldUserPasswordRule" />
         <ValidateInput
@@ -60,9 +43,9 @@
           :rules="newUserPasswordRule"
         />
         <template v-slot:submit>
-          <div class="edit-account-form-submit">
+          <span class="edit-account-form-submit">
             提交
-          </div>
+          </span>
         </template>
       </ValidateForm>
     </div>
@@ -73,26 +56,19 @@
 import { defineComponent, ref } from 'vue';
 import ValidateForm from '../components/form/ValidateForm.vue';
 import ValidateInput, { RulesProp } from '../components/form/ValidateInput.vue';
+import EditUserName from '../components/editAccount/EditUserName.vue';
 
 export default defineComponent({
   name: 'EditAccount',
   components: {
     ValidateForm,
     ValidateInput,
+    EditUserName,
   },
   setup() {
-    const newUserName = ref();
-    const userPassword = ref();
     const oldUserPassword = ref();
     const newUserPassword = ref();
-    const newUserNameRule: RulesProp = [
-      { type: 'null', message: '用户名不能为空' },
-      { type: 'userName', message: '仅限于字母、数字、下划线,最多20个字符' },
-    ];
-    const userPasswordRule: RulesProp = [
-      { type: 'null', message: '密码不能为空' },
-      { type: 'password', message: '密码长度在6-16位之间' },
-    ];
+
     const oldUserPasswordRule: RulesProp = [
       { type: 'null', message: '旧密码不能为空' },
       { type: 'password', message: '密码长度在6-16位之间' },
@@ -102,12 +78,9 @@ export default defineComponent({
       { type: 'password', message: '密码长度在6-16位之间' },
     ];
     return {
-      newUserName,
-      userPassword,
       oldUserPassword,
       newUserPassword,
-      newUserNameRule,
-      userPasswordRule,
+
       oldUserPasswordRule,
       newUserPasswordRule,
     };

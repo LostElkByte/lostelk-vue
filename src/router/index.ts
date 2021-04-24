@@ -137,11 +137,11 @@ router.beforeEach((to, from, next) => {
       }).catch(e => {
         console.log(e)
         store.commit('logout')
-        next('login')
+        next('/login')
       })
     } else {
       if (requiredLogin) {
-        next('login')
+        next('/login')
       } else {
         next()
       }

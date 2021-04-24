@@ -206,7 +206,7 @@ export default defineComponent({
   },
   setup(props) {
     // 获得当前访问的主页的用户ID
-    const UserIdProps = computed(() => props.UserId);
+    const UserIdProps = computed(() => Number(props.UserId));
     // 获取当前用户ID
     const userId = computed(() => store.state.user.id);
     // 获取当前帖子的ID

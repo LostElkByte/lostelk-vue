@@ -59,6 +59,9 @@
   margin-bottom: 38px;
 }
 .edit-account-form-submit {
+  border: 0;
+  background-color: transparent;
+  outline: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -88,7 +91,8 @@ input {
   -webkit-transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, -webkit-box-shadow 200ms ease;
   transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, -webkit-box-shadow 200ms ease;
   transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, box-shadow 200ms ease;
-  transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, box-shadow 200ms ease, -webkit-box-shadow 200ms ease;
+  transition: background-color 200ms ease, outline 200ms ease, color 200ms ease, box-shadow 200ms ease,
+    -webkit-box-shadow 200ms ease;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -104,4 +108,17 @@ input {
   cursor: text;
   transition: opacity 0.25s ease;
   z-index: 1;
+}
+.edit-account-form-error {
+  color: #f1403c;
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  font-size: 12px;
+  cursor: text;
+  transition: opacity 0.25s ease;
+  z-index: 1;
+}
+.input-box {
+  position: relative;
 }

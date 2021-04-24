@@ -459,6 +459,18 @@ export default createStore<GloablDataProps>({
     },
 
     /**
+   * 修改当前登陆用户的用户名
+   */
+    async patchUserName(context, newUserNameObject) {
+      try {
+        await axios.patch('/users', newUserNameObject)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+
+    /**
     * 获得卡片列表
     */
     async getCardList(context) {
