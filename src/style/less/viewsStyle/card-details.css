@@ -381,4 +381,7 @@
     padding: 0px 0px;
     text-align: center;
   }
+  .content-header-author-data span:nth-child(1) {
+    font-weight: 700;
+  }
 }
