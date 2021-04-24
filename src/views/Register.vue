@@ -208,7 +208,7 @@ export default defineComponent({
     const affirmPasswordVal = ref('');
     const userNameRule: RulesProp = [
       { type: 'null', message: '用户名不能为空' },
-      { type: 'userName', message: '仅限于字母、数字、下划线' },
+      { type: 'userName', message: '仅限于字母、数字、下划线,最多20个字符' },
     ];
     const passwordRule: RulesProp = [
       { type: 'null', message: '密码不能为空' },

@@ -17,7 +17,7 @@ import { emitter } from './ValidateForm.vue';
 /**
  * 表单验证所需的正则表达式
  */
-const userNameReg = /^[-_a-zA-Z0-9\u4E00-\u9FA5]{1,12}$/;
+const userNameReg = /^[-_a-zA-Z0-9\u4E00-\u9FA5]{1,20}$/;
 const passwordReg = /^.{6,16}$/;
 const userFirstNameReg = /^[a-zA-Z\u4E00-\u9FA5]{0,14}$/;
 const userLastNameReg = /^[a-zA-Z\u4E00-\u9FA5]{0,4}$/;

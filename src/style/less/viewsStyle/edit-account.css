@@ -1,7 +1,7 @@
 .account {
   max-width: 1320px;
   padding: 32px;
-  margin: 0 auto;
+  max-width: 400px;
 }
 .choose-before {
   display: flex;
@@ -62,7 +62,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
   width: 92px;
   height: 40px;
   padding: 0 16px;
@@ -72,12 +71,14 @@
   cursor: pointer;
 }
 input {
+  display: inline-block;
+  margin-right: 15px;
+  margin-bottom: 20px;
   border: none;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
   width: 100%;
-  max-width: 300px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   height: 40px;
@@ -93,4 +94,14 @@ input {
   appearance: none;
   color: #0d0c22;
   background-color: #f3f3f4;
+}
+.account .form-error {
+  color: #f1403c;
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  font-size: 12px;
+  cursor: text;
+  transition: opacity 0.25s ease;
+  z-index: 1;
 }
