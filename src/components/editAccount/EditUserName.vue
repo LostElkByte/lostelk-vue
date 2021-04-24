@@ -37,6 +37,7 @@
 import axios from 'axios';
 import { defineComponent, ref } from 'vue';
 import router from '../../router';
+import createTooltip from '../globalFun/createTooltip';
 
 export default defineComponent({
   name: 'EditAccount',
@@ -89,7 +90,10 @@ export default defineComponent({
           await axios.patch('/users', newUserNameObject).then(() => {
             newUserNameMessage.value = '';
             newPasswordMessage.value = '';
-            router.go(0);
+            createTooltip('修改用户名成功', 'success', 1000);
+            setTimeout(() => {
+              router.go(0);
+            }, 1000);
           });
         } catch (error) {
           console.log(error);
