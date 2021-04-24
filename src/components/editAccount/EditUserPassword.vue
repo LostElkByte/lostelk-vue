@@ -51,7 +51,7 @@ import { defineComponent, ref } from 'vue';
 import createTooltip from '../globalFun/createTooltip';
 
 export default defineComponent({
-  name: 'EditAccount',
+  name: 'EditUserPassword',
   components: {},
   setup() {
     const oldUserPassword = ref('');

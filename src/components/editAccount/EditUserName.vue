@@ -40,7 +40,7 @@ import router from '../../router';
 import createTooltip from '../globalFun/createTooltip';
 
 export default defineComponent({
-  name: 'EditAccount',
+  name: 'EditUserName',
   components: {},
   setup() {
     const newUserName = ref('');
