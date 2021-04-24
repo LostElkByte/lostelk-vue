@@ -113,3 +113,7 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+@import '../../style/less/viewsStyle/edit-account.css';
+</style>
