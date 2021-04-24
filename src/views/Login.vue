@@ -1,14 +1,14 @@
 <template>
   <div class="login-wrapper">
     <div class="login-form">
-      <div class="text-center">
+      <div class="login-center">
         <div class="login-logo">
           <router-link to="/">
             <img src="../assets/icons/logo.jpg" alt="迷鹿" />
           </router-link>
         </div>
         <h1 class="login-title">登录</h1>
-        <p class="login-subtitle">Lost elk—迷鹿照片分享</p>
+        <p class="login-subtitle">Sign in to LostElk</p>
       </div>
       <div class="from">
         <ValidateForm @form-submit="onFormSubmit">
@@ -122,9 +122,8 @@ export default defineComponent({
   },
 });
 </script>
-
+<style src="../style/less/viewsStyle/login.css"></style>
 <style scoped>
-@import '../style/less/viewsStyle/login.css';
 label {
   cursor: pointer;
 }

@@ -35,7 +35,7 @@
             <div class="col-xs-12">
               <div class="text-center">
                 <div class="alpha">
-                  加入LostElk—迷鹿
+                  Sign up to LostElk
                 </div>
                 <p>
                   已经有帐号了？
@@ -272,8 +272,8 @@ export default defineComponent({
 });
 </script>
 
+<style src="../style/less/viewsStyle/register.css"></style>
 <style scoped>
-@import '../style/less/viewsStyle/register.css';
 label {
   cursor: pointer;
 }
