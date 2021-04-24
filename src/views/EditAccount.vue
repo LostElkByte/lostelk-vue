@@ -31,59 +31,24 @@
       </div>
     </div>
     <EditUserName></EditUserName>
-    <div class="user-password margin-bottom-36">
-      <ValidateForm>
-        <label for="user-password" class="Edit-account-header">修改密码</label>
-        <ValidateInput type="text" placeholder="输入旧的密码" v-model="oldUserPassword" :rules="oldUserPasswordRule" />
-        <ValidateInput
-          type="text"
-          id="user-password"
-          placeholder="输入新的密码"
-          v-model="newUserPassword"
-          :rules="newUserPasswordRule"
-        />
-        <template v-slot:submit>
-          <span class="edit-account-form-submit">
-            提交
-          </span>
-        </template>
-      </ValidateForm>
-    </div>
+    <EditUserPassword></EditUserPassword>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import ValidateForm from '../components/form/ValidateForm.vue';
-import ValidateInput, { RulesProp } from '../components/form/ValidateInput.vue';
+import { defineComponent } from 'vue';
+
 import EditUserName from '../components/editAccount/EditUserName.vue';
+import EditUserPassword from '../components/editAccount/EditUserPassword.vue';
 
 export default defineComponent({
   name: 'EditAccount',
   components: {
-    ValidateForm,
-    ValidateInput,
     EditUserName,
+    EditUserPassword,
   },
   setup() {
-    const oldUserPassword = ref();
-    const newUserPassword = ref();
-
-    const oldUserPasswordRule: RulesProp = [
-      { type: 'null', message: '旧密码不能为空' },
-      { type: 'password', message: '密码长度在6-16位之间' },
-    ];
-    const newUserPasswordRule: RulesProp = [
-      { type: 'null', message: '新密码不能为空' },
-      { type: 'password', message: '密码长度在6-16位之间' },
-    ];
-    return {
-      oldUserPassword,
-      newUserPassword,
-
-      oldUserPasswordRule,
-      newUserPasswordRule,
-    };
+    return {};
   },
 });
 </script>
