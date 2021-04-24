@@ -71,7 +71,7 @@ export default defineComponent({
 
     const newUserPasswordValidation = () => {
       if (!passwordReg.test(newUserPassword.value)) {
-        newUserPasswordMessage.value = '密码为6-16位任意组合';
+        newUserPasswordMessage.value = '密码为6-16位的任意组合';
       } else {
         newUserPasswordMessage.value = '';
       }
@@ -100,7 +100,7 @@ export default defineComponent({
         passed = false;
       }
       if (!passwordReg.test(newUserPassword.value)) {
-        newUserPasswordMessage.value = '密码为6-16位任意组合';
+        newUserPasswordMessage.value = '密码为6-16位的任意组合';
         passed = false;
       }
       if (affirmUserPassword.value !== newUserPassword.value) {
