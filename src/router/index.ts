@@ -99,6 +99,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'EditAccount',
         component: () => import('../views/EditAccount.vue'),
         props: true,
+        meta: { requiredLogin: true }
       }
     ],
   },
