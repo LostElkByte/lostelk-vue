@@ -60,6 +60,8 @@ export default defineComponent({
         if (store.state.tagCardList.length === 0) {
           //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
           store.commit('setSearchFailure', true);
+          // 将 没有更多 提示 初始化设置为false
+          store.commit('noMore', false);
         } else {
           // 搜索到内容将未没有内容提示隐藏,  并且将主页搜索框隐藏
           store.commit('setSearchFailure', false);
