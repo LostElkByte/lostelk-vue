@@ -10,7 +10,7 @@
             :alt="`${replyComment ? replyComment.user.name : ''}`"
           />
           <svg v-else class="commentItem-avatar-img" aria-hidden="true">
-            <use xlink:href="#icon-icon-test"></use>
+            <use xlink:href="#icon-touxiangnvhai"></use>
           </svg>
         </div>
         <span>

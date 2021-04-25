@@ -10,14 +10,14 @@
         </router-link>
         <router-link v-else-if="loginJudge.isLogin" :to="`/@${loginJudge.id}`">
           <svg class="icon icon-size-fill" aria-hidden="true">
-            <use xlink:href="#icon-weidenglutouxiang"></use>
+            <use xlink:href="#icon-touxiangnvhai"></use>
           </svg>
         </router-link>
-        <a v-else>
+        <router-link to="/Login" v-else>
           <svg class="icon icon-size-fill" aria-hidden="true">
             <use xlink:href="#icon-weidenglutouxiang"></use>
           </svg>
-        </a>
+        </router-link>
       </div>
       <div class="sidebar_toolbar_item sidebar_toolbar_item_square-32">
         <router-link to="/UploadPicture">

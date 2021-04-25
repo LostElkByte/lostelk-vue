@@ -6,11 +6,18 @@
   "description": "",
   "glyphs": [
     {
-      "icon_id": "11796341",
-      "name": "头像",
-      "font_class": "touxiang1",
-      "unicode": "e644",
-      "unicode_decimal": 58948
+      "icon_id": "6701305",
+      "name": "头像 女孩",
+      "font_class": "touxiangnvhai",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "15347288",
+      "name": "头像 男孩",
+      "font_class": "touxiangnanhai",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
     },
     {
       "icon_id": "4933160",
@@ -193,13 +200,6 @@
       "font_class": "xiazai2",
       "unicode": "e618",
       "unicode_decimal": 58904
-    },
-    {
-      "icon_id": "5220169",
-      "name": "镜头",
-      "font_class": "jingtou",
-      "unicode": "e604",
-      "unicode_decimal": 58884
     },
     {
       "icon_id": "6804703",
@@ -440,13 +440,6 @@
       "unicode_decimal": 58903
     },
     {
-      "icon_id": "19167521",
-      "name": "无照片",
-      "font_class": "wuzhaopian",
-      "unicode": "e631",
-      "unicode_decimal": 58929
-    },
-    {
       "icon_id": "2076193",
       "name": "喜欢2",
       "font_class": "xihuan2",
@@ -480,13 +473,6 @@
       "font_class": "weidenglu",
       "unicode": "e632",
       "unicode_decimal": 58930
-    },
-    {
-      "icon_id": "14978446",
-      "name": "未登录头像",
-      "font_class": "weidenglutouxiang1",
-      "unicode": "e600",
-      "unicode_decimal": 58880
     },
     {
       "icon_id": "3723440",

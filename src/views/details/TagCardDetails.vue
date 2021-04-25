@@ -50,7 +50,7 @@
                   aria-hidden="true"
                   @click.stop="toUserPage(postData.user.id)"
                 >
-                  <use xlink:href="#icon-icon-test"></use>
+                  <use xlink:href="#icon-touxiangnvhai"></use>
                 </svg>
               </div>
               <div class="content-header-author-data">

@@ -34,7 +34,7 @@
                   />
                   <div v-else class="card-avatar-32">
                     <svg class="card-avatar-32" aria-hidden="true">
-                      <use xlink:href="#icon-weidenglu"></use>
+                      <use xlink:href="#icon-touxiangnvhai"></use>
                     </svg>
                   </div>
                   <div class="card-baffle-plate-author">
@@ -87,7 +87,7 @@
                   />
                   <div v-else class="card-avatar-32">
                     <svg class="card-avatar-32" aria-hidden="true">
-                      <use xlink:href="#icon-weidenglu"></use>
+                      <use xlink:href="#icon-touxiangnvhai"></use>
                     </svg>
                   </div>
                   <div class="card-baffle-plate-author">
@@ -140,7 +140,7 @@
                   />
                   <div v-else class="card-avatar-32">
                     <svg class="card-avatar-32" aria-hidden="true">
-                      <use xlink:href="#icon-weidenglu"></use>
+                      <use xlink:href="#icon-touxiangnvhai"></use>
                     </svg>
                   </div>
                   <div class="card-baffle-plate-author">
@@ -208,7 +208,7 @@
                   />
                   <div v-else class="card-avatar-32">
                     <svg class="card-avatar-32" aria-hidden="true">
-                      <use xlink:href="#icon-weidenglu"></use>
+                      <use xlink:href="#icon-touxiangnvhai"></use>
                     </svg>
                   </div>
                   <div class="card-baffle-plate-author">
@@ -261,7 +261,7 @@
                   />
                   <div v-else class="card-avatar-32">
                     <svg class="card-avatar-32" aria-hidden="true">
-                      <use xlink:href="#icon-weidenglu"></use>
+                      <use xlink:href="#icon-touxiangnvhai"></use>
                     </svg>
                   </div>
                   <div class="card-baffle-plate-author">
@@ -310,7 +310,7 @@
                   />
                   <div v-else class="card-avatar-32">
                     <svg class="card-avatar-32" aria-hidden="true">
-                      <use xlink:href="#icon-weidenglu"></use>
+                      <use xlink:href="#icon-touxiangnvhai"></use>
                     </svg>
                   </div>
                 </div>

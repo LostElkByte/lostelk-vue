@@ -28,7 +28,7 @@
               <img v-if="userData.avatar" :src="`${lostelkUrl}/users/${userData.id}/avatar`" :alt="userData.name" />
 
               <svg v-else class="icon" aria-hidden="true" style="width: 100%;height: 100%">
-                <use xlink:href="#icon-weidenglu"></use>
+                <use xlink:href="#icon-touxiangnvhai"></use>
               </svg>
             </div>
             <div class="user-data-content-name">

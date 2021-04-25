@@ -13,7 +13,7 @@
               :alt="userData.name"
             />
             <svg v-else class="icon avatar-img" aria-hidden="true">
-              <use xlink:href="#icon-weidenglu"></use>
+              <use xlink:href="#icon-touxiangnvhai"></use>
             </svg>
           </div>
 
