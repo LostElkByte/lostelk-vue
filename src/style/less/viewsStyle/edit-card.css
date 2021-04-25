@@ -101,7 +101,7 @@
   cursor: pointer;
 }
 .upload-picture_main form .content .delete-tages-icon:hover {
-  color: #000;
+  color: #0d0c22;
 }
 .upload-picture_main form .picture {
   grid-area: picture;

@@ -43,7 +43,7 @@
 }
 .form-group input:focus {
   outline: none;
-  border-color: #000;
+  border-color: #0d0c22;
 }
 .form-control {
   display: block;
@@ -53,7 +53,7 @@
   margin-top: 5px;
   font-size: 15px;
   line-height: 1.6;
-  color: #111111;
+  color: #0d0c22;
   background-color: transparent;
   background-image: none;
   border: 1px solid #767676;
@@ -63,7 +63,7 @@
 }
 .form-btn {
   color: #ffffff;
-  background-color: #111111;
+  background-color: #0d0c22;
   width: 100%;
   display: inline-block;
   margin-bottom: 0;
