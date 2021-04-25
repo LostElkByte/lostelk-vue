@@ -5,10 +5,15 @@
         <img
           v-if="registeredImgArrange === 'column'"
           class="registrations-show-figure"
-          src="../assets/images/content3.jpg"
-          alt=""
+          :src="`${lostelkUrl}/files/${transverse[transverseRandom]}/serve?size=large`"
+          :alt="transverse[transverseRandom]"
         />
-        <img v-else class="registrations-show-figure" src="../assets/images/content2.jpeg" alt="" />
+        <img
+          v-else
+          class="registrations-show-figure"
+          :src="`${lostelkUrl}/files/${transverse[transverseRandom]}/serve?size=large`"
+          :alt="transverse[transverseRandom]"
+        />
         <div class="registrations__content">
           <div>
             <router-link to="/">
@@ -53,9 +58,6 @@
                     <div class="form-group">
                       <label for="user_first_name">
                         名字
-                        <!-- <span class="text-secondary">
-                          （可选）
-                        </span> -->
                       </label>
                       <ValidateInput
                         :rules="userLastNameRule"
@@ -72,9 +74,6 @@
                     <div class="form-group">
                       <label for="user_last_name">
                         姓
-                        <!-- <span class="text-secondary">
-                          （可选）
-                        </span> -->
                       </label>
                       <ValidateInput
                         :rules="userFirstNameRule"
@@ -92,9 +91,6 @@
                 <div class="form-group">
                   <label for="user_email">
                     电子邮件
-                    <!-- <span class="text-secondary">
-                      （可选）
-                    </span> -->
                   </label>
                   <ValidateInput
                     :rules="userEmileRule"
@@ -110,9 +106,6 @@
                 <div class="form-group">
                   <label for="user_username">
                     用户名
-                    <!-- <span class="text-secondary">
-                      （用于登录账号,请牢记）
-                    </span> -->
                   </label>
 
                   <ValidateInput
@@ -129,9 +122,6 @@
                 <div class="form-group">
                   <label for="user_password">
                     密码
-                    <!-- <span class="text-secondary">
-                      （密码长度在6-16位之间。）
-                    </span> -->
                   </label>
                   <ValidateInput
                     :rules="passwordRule"
@@ -181,6 +171,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
+import { lostelkUrl, transverse, transverseLength } from '../global';
 import ValidateInput, { RulesProp } from '../components/form/ValidateInput.vue';
 import ValidateForm from '../components/form/ValidateForm.vue';
 import createTooltip from '../components/globalFun/createTooltip';
@@ -200,6 +191,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const transverseRandom = ref(Math.floor(Math.random() * transverseLength));
     const userNameVal = ref('');
     const passwordVal = ref('');
     const userLastNameVal = ref('');
@@ -252,6 +244,10 @@ export default defineComponent({
     const num = computed(() => Math.floor(Math.random() * 10) + 1);
 
     return {
+      lostelkUrl,
+      transverse,
+      transverseLength,
+      transverseRandom,
       userNameRule,
       userNameVal,
       passwordVal,

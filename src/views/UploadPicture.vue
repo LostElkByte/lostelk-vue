@@ -102,7 +102,7 @@
 <script lang="ts">
 import axios from 'axios';
 import { computed, defineComponent, onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+// import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import createTooltip from '../components/globalFun/createTooltip';
 import Header from '../components/header/HeaderBox.vue';
@@ -120,10 +120,10 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    const router = useRouter();
+    // const router = useRouter();
     const uploaderror = ref();
 
-    const userId = computed(() => store.state.user.id);
+    // const userId = computed(() => store.state.user.id);
 
     /**
      * 表单校验
@@ -314,11 +314,11 @@ export default defineComponent({
         } else {
           // 如果有上传成功,执行成功提示;
           await createTooltip('感谢您为LostElk社区,贡献了一张照片!', 'success', 2000);
-          await setTimeout(() => {
-            store.commit('mainSearchIsNone', true);
-            store.commit('setSearchFailure', false);
-            router.push(`/@${userId.value}`);
-          }, 500);
+          // await setTimeout(() => {
+          //   store.commit('mainSearchIsNone', true);
+          //   store.commit('setSearchFailure', false);
+          //   router.push(`/@${userId.value}`);
+          // }, 500);
         }
       } else {
         console.log('不通过');

@@ -1,6 +1,6 @@
 <template>
   <div class="main-search">
-    <img src="../../assets/images/content2.jpeg" alt="" />
+    <img :src="`${lostelkUrl}/files/${transverse[random]}/serve?size=large`" :alt="transverse[random]" />
     <div class="main-search-superstratum">
       <div class="search-superstratum-center">
         <div class="search-superstratum-content">
@@ -38,6 +38,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { lostelkUrl, transverse, transverseLength } from '../../global';
 import router from '../../router';
 export default defineComponent({
   setup() {
@@ -47,9 +48,15 @@ export default defineComponent({
         router.push(`/tag/${tagVal.value}`);
       }
     };
+
+    const random = ref(Math.floor(Math.random() * transverseLength));
+
     return {
+      lostelkUrl,
       search,
       tagVal,
+      transverse,
+      random,
     };
   },
 });
