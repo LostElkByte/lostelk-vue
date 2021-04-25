@@ -61,22 +61,25 @@ export default defineComponent({
     const fileRef = ref();
     const fileData = ref();
 
-    // 预览图像
+    /**
+     *  预览图像
+     **/
     const imagePreviewUrl = ref();
+
     const createImagePreview = (file: File) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
-
       reader.onload = event => {
         imagePreviewUrl.value = event.target?.result;
       };
     };
 
-    // 获取图像数据
+    /**
+     * 获取图像数据
+     */
     const onChangeFile = (event: Event) => {
       // 拿到当前dom节点
       const currenTarget = event.target as HTMLInputElement;
-
       if (currenTarget.files) {
         // 拿到第一张图片
         const file = currenTarget.files[0];
@@ -87,6 +90,9 @@ export default defineComponent({
       }
     };
 
+    /**
+     * 上传头像
+     */
     const createFile = async (file: File) => {
       // 创建表单
       const formData = new FormData();
@@ -104,6 +110,7 @@ export default defineComponent({
         fileData.value = null;
 
         await createTooltip('修改头像成功', 'success', 1000);
+
         setTimeout(() => {
           router.go(0);
         }, 1000);
@@ -113,10 +120,16 @@ export default defineComponent({
       }
     };
 
+    /**
+     * 提交
+     */
     const submitFrom = () => {
       createFile(fileData.value);
     };
 
+    /**
+     * 取消
+     */
     const cancel = () => {
       imagePreviewUrl.value = null;
       fileRef.value.value = '';
