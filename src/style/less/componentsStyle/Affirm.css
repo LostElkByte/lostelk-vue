@@ -21,7 +21,6 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 .affirm-tooltip {
-  overflow: auto;
   width: 400px;
   height: 178px;
   background: #fff;

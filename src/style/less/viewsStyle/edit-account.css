@@ -41,7 +41,7 @@
   margin-left: 20px;
 }
 .avatar-form-choose:nth-child(3) {
-  background-color: #ea4c89;
+  background-color: #ff7675;
 }
 .avatar-form-choose:hover {
   opacity: 0.9;
@@ -70,7 +70,7 @@
   width: 92px;
   height: 40px;
   padding: 0 16px;
-  background-color: #ea4c89;
+  background-color: #ff7675;
   color: #fff;
   border-radius: 6px;
   cursor: pointer;
