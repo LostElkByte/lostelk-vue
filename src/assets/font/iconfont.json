@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "11796341",
+      "name": "头像",
+      "font_class": "touxiang1",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
       "icon_id": "4933160",
       "name": "喜欢",
       "font_class": "xihuan4",
@@ -74,13 +81,6 @@
       "font_class": "meiyouquanxian_lan",
       "unicode": "e8ab",
       "unicode_decimal": 59563
-    },
-    {
-      "icon_id": "3783078",
-      "name": "没有权限",
-      "font_class": "meiyouquanxian",
-      "unicode": "e6c7",
-      "unicode_decimal": 59079
     },
     {
       "icon_id": "18223037",
