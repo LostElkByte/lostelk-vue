@@ -7,6 +7,7 @@ import { computed, defineComponent, onMounted, onUnmounted, ref, watch } from 'v
 import PersonalCardMain from '../../components/cardMain/PersonalCardMain.vue';
 import store from '../../store';
 import { useRoute } from 'vue-router';
+import axios from 'axios';
 
 export default defineComponent({
   name: 'UserPhotosListCard',
@@ -35,8 +36,10 @@ export default defineComponent({
     // 获取第一页数据
     const list = computed(() => store.state.userPhotosCardList);
 
+    const userPhotosCardTotalCount = ref();
+
     // 获取列表总数量
-    const userPhotosCardTotalCount = computed(() => store.state.userPhotosCardTotalCount);
+    // const userPhotosCardTotalCount = computed(() => store.state.userPhotosCardTotalCount);
 
     /**
      * 样式控制
@@ -132,6 +135,10 @@ export default defineComponent({
     onMounted(async () => {
       // 组件创建时监听scroll事件
       window.addEventListener('scroll', windowScroll);
+
+      axios.get(`/posts?user=${UserIdProp.value}&action=published`).then(data => {
+        userPhotosCardTotalCount.value = data.headers['x-total-count'];
+      });
     });
 
     onUnmounted(() => {
