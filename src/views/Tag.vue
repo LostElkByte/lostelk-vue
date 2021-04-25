@@ -160,6 +160,7 @@ export default defineComponent({
     onUnmounted(() => {
       // 组件卸载时卸载scroll事件
       window.removeEventListener('scroll', windowScroll);
+      store.commit('mainSearchIsNone', true);
     });
 
     /**
