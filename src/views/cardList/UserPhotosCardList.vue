@@ -37,6 +37,10 @@ export default defineComponent({
     const list = computed(() => store.state.userPhotosCardList);
 
     const userPhotosCardTotalCount = ref();
+    // 获取列表总数量
+    axios.get(`/posts?user=${UserIdProp.value}&action=published`).then(data => {
+      userPhotosCardTotalCount.value = data.headers['x-total-count'];
+    });
 
     // 获取列表总数量
     // const userPhotosCardTotalCount = computed(() => store.state.userPhotosCardTotalCount);
@@ -135,10 +139,6 @@ export default defineComponent({
     onMounted(async () => {
       // 组件创建时监听scroll事件
       window.addEventListener('scroll', windowScroll);
-
-      axios.get(`/posts?user=${UserIdProp.value}&action=published`).then(data => {
-        userPhotosCardTotalCount.value = data.headers['x-total-count'];
-      });
     });
 
     onUnmounted(() => {
