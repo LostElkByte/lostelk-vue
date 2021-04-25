@@ -1,7 +1,8 @@
 <template>
   <div
+    v-if="transverse.length != 0"
     class="main-search"
-    :style="`background-image: url(${lostelkUrl}/files/${transverse[random]}/serve?size=large);`"
+    :style="`background-image: url(${lostelkUrl}/files/${transverse[random].file.id}/serve?size=large);`"
   >
     <div class="main-search-superstratum">
       <div class="search-superstratum-center">
@@ -39,9 +40,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { lostelkUrl, transverse, transverseLength } from '../../global';
+import { computed, defineComponent, ref } from 'vue';
+import { lostelkUrl } from '../../global';
 import router from '../../router';
+import store from '../../store';
 export default defineComponent({
   setup() {
     const tagVal = ref();
@@ -51,7 +53,10 @@ export default defineComponent({
       }
     };
 
-    const random = ref(Math.floor(Math.random() * transverseLength));
+    // 获取精选横图
+    const transverse = computed(() => store.state.veryGoodsTransverseList);
+    // 生成数组下标随机数
+    const random = computed(() => Math.floor(Math.random() * transverse.value.length));
 
     return {
       lostelkUrl,

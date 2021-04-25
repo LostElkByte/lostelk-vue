@@ -19,6 +19,13 @@ export default defineComponent({
     const isLoading = computed(() => store.state.loading);
     const error = computed(() => store.state.error);
 
+    // 获取精选图
+    const loadingVeryGoods = async () => {
+      store.dispatch('getVeryGoodsTransverseList', '精选横图');
+      store.dispatch('getVeryGoodsLongitudinalList', '精选纵图');
+    };
+    loadingVeryGoods();
+
     /**
      * 监听error的状态,状态发生改变就执行以下逻辑
      * 如果status状态是true,并且message存在,则调用createTooltip挂载组件

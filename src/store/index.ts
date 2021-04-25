@@ -76,6 +76,9 @@ export interface GloablDataProps {
   noMore: boolean;
   isLoading: boolean;
   againRequest: boolean;
+  isLoadingVeryGoods: boolean;
+  veryGoodsTransverseList: CardList[];
+  veryGoodsLongitudinalList: CardList[];
 }
 
 export default createStore<GloablDataProps>({
@@ -107,9 +110,30 @@ export default createStore<GloablDataProps>({
     noMore: false,
     isLoading: true,
     againRequest: false,
+    isLoadingVeryGoods: true,
+    veryGoodsTransverseList: [],
+    veryGoodsLongitudinalList: []
   },
 
   mutations: {
+
+    /**
+     * 修改是否进行加载精选图
+     */
+    alterIsLoadingVeryGoods(state, rawData) {
+      state.isLoadingVeryGoods = rawData
+    },
+
+    /**
+     * 添加精选图
+     * 横图/纵图
+     */
+    getVeryGoodsTransverseList(state, rawData) {
+      state.veryGoodsTransverseList = rawData
+    },
+    getVeryGoodsLongitudinalList(state, rawData) {
+      state.veryGoodsLongitudinalList = rawData
+    },
 
     /**
      * 重新请求
@@ -729,6 +753,33 @@ export default createStore<GloablDataProps>({
         console.log(error);
       }
     },
+
+    /**
+     * 获取精选横图
+     */
+    async getVeryGoodsTransverseList(context, tagName) {
+      try {
+        const veryGoodsTransverseData = await axios.get(`/posts?tag=${tagName}`);
+
+        context.commit('getVeryGoodsTransverseList', veryGoodsTransverseData.data)
+        return veryGoodsTransverseData
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    /**
+     * 获取精选横图
+     */
+    async getVeryGoodsLongitudinalList(context, tagName) {
+      try {
+        const getVeryGoodsLongitudinalData = await axios.get(`/posts?tag=${tagName}`);
+
+        context.commit('getVeryGoodsLongitudinalList', getVeryGoodsLongitudinalData.data)
+        return getVeryGoodsLongitudinalData
+      } catch (error) {
+        console.log(error)
+      }
+    }
   },
 
   getters: {

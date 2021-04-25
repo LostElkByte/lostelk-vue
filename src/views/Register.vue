@@ -2,9 +2,11 @@
   <div class="registrations-wrapper">
     <div class="registrations-container">
       <div
-        v-if="registeredImgArrange === 'column'"
+        v-if="registeredImgArrange === 'column' && longitudinal.length != 0"
         class="registrations-left-panel"
-        :style="`background-image: url(${lostelkUrl}/files/${longitudinal[longitudinalRandom]}/serve?size=large);`"
+        :style="
+          `background-image: url(${lostelkUrl}/files/${longitudinal[longitudinalRandom].file.id}/serve?size=large);`
+        "
       >
         <div class="registrations__content">
           <div>
@@ -26,9 +28,9 @@
         </div>
       </div>
       <div
-        v-else
+        v-else-if="registeredImgArrange === 'row' && transverse.length != 0"
         class="registrations-left-panel"
-        :style="`background-image: url(${lostelkUrl}/files/${transverse[longitudinalRandom]}/serve?size=large);`"
+        :style="`background-image: url(${lostelkUrl}/files/${transverse[transverseRandom].file.id}/serve?size=large);`"
       >
         <div class="registrations__content">
           <div>
@@ -187,12 +189,13 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { lostelkUrl, transverse, transverseLength, longitudinal, longitudinalLength } from '../global';
+import { lostelkUrl } from '../global';
 import ValidateInput, { RulesProp } from '../components/form/ValidateInput.vue';
 import ValidateForm from '../components/form/ValidateForm.vue';
 import createTooltip from '../components/globalFun/createTooltip';
 import axios from 'axios';
 import router from '../router';
+import store from '../store';
 
 export default defineComponent({
   name: 'Register',
@@ -207,8 +210,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const transverseRandom = ref(Math.floor(Math.random() * transverseLength));
-    const longitudinalRandom = ref(Math.floor(Math.random() * longitudinalLength));
     const userNameVal = ref('');
     const passwordVal = ref('');
     const userLastNameVal = ref('');
@@ -259,13 +260,19 @@ export default defineComponent({
      */
     const registeredImgArrange = computed(() => props.registeredImg);
 
+    /**
+     * 获取精选恒横图/纵图,以及随机数组下标
+     */
+    const transverse = computed(() => store.state.veryGoodsTransverseList);
+    const transverseRandom = ref(Math.floor(Math.random() * transverse.value.length));
+    const longitudinal = computed(() => store.state.veryGoodsLongitudinalList);
+    const longitudinalRandom = ref(Math.floor(Math.random() * longitudinal.value.length));
+
     return {
       lostelkUrl,
       transverse,
-      transverseLength,
       transverseRandom,
       longitudinal,
-      longitudinalLength,
       longitudinalRandom,
       userNameRule,
       userNameVal,
