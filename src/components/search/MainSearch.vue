@@ -1,6 +1,8 @@
 <template>
-  <div class="main-search">
-    <img :src="`${lostelkUrl}/files/${transverse[random]}/serve?size=large`" :alt="transverse[random]" />
+  <div
+    class="main-search"
+    :style="`background-image: url(${lostelkUrl}/files/${transverse[random]}/serve?size=large);`"
+  >
     <div class="main-search-superstratum">
       <div class="search-superstratum-center">
         <div class="search-superstratum-content">

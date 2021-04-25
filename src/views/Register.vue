@@ -1,19 +1,11 @@
 <template>
   <div class="registrations-wrapper">
     <div class="registrations-container">
-      <div class="registrations-left-panel">
-        <img
-          v-if="registeredImgArrange === 'column'"
-          class="registrations-show-figure"
-          :src="`${lostelkUrl}/files/${longitudinal[longitudinalRandom]}/serve?size=large`"
-          :alt="longitudinal[longitudinalRandom]"
-        />
-        <img
-          v-else
-          class="registrations-show-figure"
-          :src="`${lostelkUrl}/files/${transverse[transverseRandom]}/serve?size=large`"
-          :alt="transverse[transverseRandom]"
-        />
+      <div
+        v-if="registeredImgArrange === 'column'"
+        class="registrations-left-panel"
+        :style="`background-image: url(${lostelkUrl}/files/${longitudinal[longitudinalRandom]}/serve?size=large);`"
+      >
         <div class="registrations__content">
           <div>
             <router-link to="/">
@@ -28,7 +20,31 @@
           </div>
           <div>
             <p class="registrations__credit">
-              迷路中悠然自得——迷鹿
+              迷失中悠然自得—LostElk
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        v-else
+        class="registrations-left-panel"
+        :style="`background-image: url(${lostelkUrl}/files/${transverse[longitudinalRandom]}/serve?size=large);`"
+      >
+        <div class="registrations__content">
+          <div>
+            <router-link to="/">
+              <img class="registrations__logo" src="../assets/icons/logoWhite.png" alt="" />
+            </router-link>
+          </div>
+          <div>
+            <h1 class="registrations__title">创作从这里开始</h1>
+            <h2 class="registrations__sub-title">
+              访问免费的高分辨率照片，这些都是其它地方所找不到的
+            </h2>
+          </div>
+          <div>
+            <p class="registrations__credit">
+              迷失中悠然自得—LostElk
             </p>
           </div>
         </div>
@@ -239,10 +255,9 @@ export default defineComponent({
     };
 
     /**
-     * 生成随机数设置展示图片
+     * 获取图片为横图还是纵图
      */
     const registeredImgArrange = computed(() => props.registeredImg);
-    const num = computed(() => Math.floor(Math.random() * 10) + 1);
 
     return {
       lostelkUrl,
@@ -265,7 +280,6 @@ export default defineComponent({
       userEmileRule,
       affirmPasswordVal,
       affirmPasswordRule,
-      num,
       registeredImgArrange,
     };
   },
