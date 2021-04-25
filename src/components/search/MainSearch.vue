@@ -31,7 +31,10 @@
         </div>
       </div>
       <div class="search-buttom">
-        <span>This photo is from user <a href="#">麋鹿</a></span>
+        <span
+          >This photo is from user
+          <router-link :to="`/@${transverse[random].user.id}`">{{ transverse[random].user.name }}</router-link></span
+        >
         <span>LostElk</span>
         <span>Start your website with LostElk today.</span>
       </div>
