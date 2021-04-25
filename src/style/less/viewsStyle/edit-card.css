@@ -94,7 +94,7 @@
   display: inline-block;
   line-height: 26px;
   color: #fff;
-  background-color: #a4b0be;
+  background-color: #ffb8b8;
   cursor: not-allowed;
 }
 .upload-picture_main form .content .delete-tages-icon {
@@ -139,7 +139,7 @@
   right: 0;
   left: 0;
   cursor: pointer;
-  background: linear-gradient(rgba(2, 2, 2, 0), rgba(2, 2, 2, 0.1), rgba(2, 2, 2, 0.2), rgba(2, 2, 2, 0.3));
+  background: linear-gradient(rgba(223, 230, 233, 0), rgba(223, 230, 233, 0), rgba(223, 230, 233, 0.1), rgba(223, 230, 233, 0.2));
   color: #fff;
 }
 .upload-picture_main form .picture .picture-style label .icon-size-32 {
