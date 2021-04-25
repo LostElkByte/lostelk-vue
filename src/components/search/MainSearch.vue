@@ -36,7 +36,7 @@
           <router-link :to="`/@${transverse[random].user.id}`">{{ transverse[random].user.name }}</router-link></span
         >
         <span>LostElk</span>
-        <span>Start your website with LostElk today.</span>
+        <span>Discover the world’s free HD pictures & Creatives.</span>
       </div>
     </div>
   </div>

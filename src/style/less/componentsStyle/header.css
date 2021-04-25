@@ -48,12 +48,18 @@
   text-align: center;
   border-radius: 4px;
   background-color: #fff;
+  border-radius: 8px;
 }
 .header .header_toolbar div .header_loginRegister_item > a {
   display: block;
   height: 100%;
   width: 100%;
   font-weight: 500;
+}
+.header .header_toolbar div .sign-up {
+  background-color: #ea4c89;
+  color: #fff;
+  border: 0;
 }
 .header .header_toolbar div .w1024 {
   display: none;

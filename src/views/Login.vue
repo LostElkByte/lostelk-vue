@@ -7,8 +7,8 @@
             <img src="../assets/icons/logo.jpg" alt="迷鹿" />
           </router-link>
         </div>
-        <h1 class="login-title">登录</h1>
-        <p class="login-subtitle">Sign in to LostElk</p>
+        <h1 class="login-title">Sign in to LostElk</h1>
+        <p class="login-subtitle">Welcome back</p>
       </div>
       <div class="from">
         <ValidateForm @form-submit="onFormSubmit">

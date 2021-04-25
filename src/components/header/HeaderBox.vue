@@ -12,10 +12,10 @@
     <div class="header_toolbar">
       <div v-if="!user.isLogin">
         <div class="header_loginRegister_item">
-          <router-link to="/Login">登陆</router-link>
+          <router-link to="/Login">Sign in</router-link>
         </div>
-        <div class="header_loginRegister_item">
-          <router-link to="/Reglister">注册</router-link>
+        <div class="header_loginRegister_item sign-up">
+          <router-link to="/Reglister">Sign up</router-link>
         </div>
         <div class="w1024">
           <DropDownList>
@@ -27,8 +27,8 @@
               </span>
             </template>
             <template v-slot:dropdown-content>
-              <router-link to="/Login">登陆</router-link>
-              <router-link to="/Reglister">注册</router-link>
+              <router-link to="/Login">Sign in</router-link>
+              <router-link to="/Reglister">Sign up</router-link>
             </template>
           </DropDownList>
         </div>
