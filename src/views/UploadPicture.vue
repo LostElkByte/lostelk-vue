@@ -123,6 +123,11 @@ export default defineComponent({
     // const router = useRouter();
     const uploaderror = ref();
 
+    /**
+     * 获取当前登陆用户的id
+     */
+    const userId = computed(() => store.state.user.id);
+
     // const userId = computed(() => store.state.user.id);
 
     /**
@@ -146,6 +151,13 @@ export default defineComponent({
     const tags = ref([] as string[]);
     const addTag = () => {
       if (tagVal.value.trim() !== '' && !tags.value.some(item => item === tagVal.value)) {
+        if (tagVal.value === '精选横图' || tagVal.value === '精选纵图') {
+          if (userId.value !== 1) {
+            tagVal.value = '';
+            createTooltip('您没有权限使用这个标签', 'error', 3000);
+            return;
+          }
+        }
         const tag = tagVal.value.trim();
         tags.value.push(tag);
         tagVal.value = '';

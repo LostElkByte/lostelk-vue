@@ -161,7 +161,7 @@ export default defineComponent({
     const pictureRule: RulesProp = [];
 
     /**
-     * 获取当前用户的id
+     * 获取当前登陆用户的id
      */
     const userId = computed(() => store.state.user.id);
 
@@ -191,6 +191,13 @@ export default defineComponent({
     const newAddTagData = ref([] as { name: string }[]);
     const addTag = () => {
       if (tagVal.value.trim() !== '' && !tags.value.some((item: { name: string }) => item.name === tagVal.value)) {
+        if (tagVal.value === '精选横图' || tagVal.value === '精选纵图') {
+          if (userId.value !== 1) {
+            tagVal.value = '';
+            createTooltip('您没有权限使用这个标签', 'error', 3000);
+            return;
+          }
+        }
         const tag = tagVal.value.trim();
         tags.value.push({ name: tag });
         newAddTagData.value.push({ name: tag });
