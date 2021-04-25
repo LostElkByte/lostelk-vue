@@ -5,8 +5,8 @@
         <img
           v-if="registeredImgArrange === 'column'"
           class="registrations-show-figure"
-          :src="`${lostelkUrl}/files/${transverse[transverseRandom]}/serve?size=large`"
-          :alt="transverse[transverseRandom]"
+          :src="`${lostelkUrl}/files/${longitudinal[longitudinalRandom]}/serve?size=large`"
+          :alt="longitudinal[longitudinalRandom]"
         />
         <img
           v-else
@@ -171,7 +171,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
-import { lostelkUrl, transverse, transverseLength } from '../global';
+import { lostelkUrl, transverse, transverseLength, longitudinal, longitudinalLength } from '../global';
 import ValidateInput, { RulesProp } from '../components/form/ValidateInput.vue';
 import ValidateForm from '../components/form/ValidateForm.vue';
 import createTooltip from '../components/globalFun/createTooltip';
@@ -192,6 +192,7 @@ export default defineComponent({
   },
   setup(props) {
     const transverseRandom = ref(Math.floor(Math.random() * transverseLength));
+    const longitudinalRandom = ref(Math.floor(Math.random() * longitudinalLength));
     const userNameVal = ref('');
     const passwordVal = ref('');
     const userLastNameVal = ref('');
@@ -248,6 +249,9 @@ export default defineComponent({
       transverse,
       transverseLength,
       transverseRandom,
+      longitudinal,
+      longitudinalLength,
+      longitudinalRandom,
       userNameRule,
       userNameVal,
       passwordVal,
