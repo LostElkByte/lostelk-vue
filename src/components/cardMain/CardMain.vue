@@ -39,7 +39,7 @@
                     @click.stop="toUserPage(card.user.name, card.user.id)"
                     v-if="card.user.avatar"
                     class="card-avatar-32"
-                    :src="card.user.url"
+                    :src="`${lostelkUrl}/users/${card.user.id}/avatar?size=small`"
                     :alt="card.user.name"
                   />
                   <div v-else class="card-avatar-32">
@@ -92,7 +92,7 @@
                     @click.stop="toUserPage(card.user.name, card.user.id)"
                     v-if="card.user.avatar"
                     class="card-avatar-32"
-                    :src="card.user.url"
+                    :src="`${lostelkUrl}/users/${card.user.id}/avatar?size=small`"
                     :alt="card.user.name"
                   />
                   <div v-else class="card-avatar-32">
@@ -145,7 +145,7 @@
                     @click.stop="toUserPage(card.user.name, card.user.id)"
                     v-if="card.user.avatar"
                     class="card-avatar-32"
-                    :src="card.user.url"
+                    :src="`${lostelkUrl}/users/${card.user.id}/avatar?size=small`"
                     :alt="card.user.name"
                   />
                   <div v-else class="card-avatar-32">
@@ -222,7 +222,7 @@
                     @click.stop="toUserPage(card.user.name, card.user.id)"
                     v-if="card.user.avatar"
                     class="card-avatar-32"
-                    :src="card.user.url"
+                    :src="`${lostelkUrl}/users/${card.user.id}/avatar?size=small`"
                     :alt="card.user.name"
                   />
                   <div v-else class="card-avatar-32">
@@ -275,7 +275,7 @@
                     @click.stop="toUserPage(card.user.name, card.user.id)"
                     v-if="card.user.avatar"
                     class="card-avatar-32"
-                    :src="card.user.url"
+                    :src="`${lostelkUrl}/users/${card.user.id}/avatar?size=small`"
                     :alt="card.user.name"
                   />
                   <div v-else class="card-avatar-32">
@@ -333,7 +333,7 @@
                     @click.stop="toUserPage(card.user.name, card.user.id)"
                     v-if="card.user.avatar"
                     class="card-avatar-32"
-                    :src="card.user.url"
+                    :src="`${lostelkUrl}/users/${card.user.id}/avatar?size=small`"
                     :alt="card.user.name"
                   />
                   <div v-else class="card-avatar-32">
@@ -438,25 +438,7 @@ export default defineComponent({
 
     const noMore = computed(() => store.state.noMore);
 
-    const listPost = computed(() => props.list);
-
-    const cardList = computed(() => {
-      return listPost.value.map(card => {
-        // 如果图片不存在 则添加默认图片
-        if (!card.file) {
-          card.file = {
-            width: 300,
-            height: 200,
-            fakeUrl: require('@/assets/images/content2.jpeg'),
-          };
-        }
-        // 如果头像存在设置url
-        if (card.user.avatar) {
-          card.user.url = `${lostelkUrl}/users/${card.user.id}/avatar?size=small`;
-        }
-        return card;
-      });
-    });
+    const cardList = computed(() => props.list);
 
     const ColumnSize = computed(() => props.cardColumnSize);
     /**
