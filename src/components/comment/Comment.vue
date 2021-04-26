@@ -14,7 +14,10 @@
               <use xlink:href="#icon-touxiangnvhai"></use>
             </svg>
           </div>
-          <span class="user-name">
+          <span class="user-name" v-if="singleComment.user.id === PostUserId">
+            {{ singleComment.user.name }}(作者)
+          </span>
+          <span class="user-name" v-else>
             {{ singleComment.user.name }}
           </span>
         </div>
@@ -122,6 +125,7 @@
           :replyCommentData="replyComment"
           :PostUserIdData="PostUserId"
           :singleuserIdData="singleuserId"
+          :singleCommentData="singleComment"
         ></ReplyComment>
       </div>
     </div>

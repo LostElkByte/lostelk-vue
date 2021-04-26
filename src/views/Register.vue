@@ -51,6 +51,46 @@
           </div>
         </div>
       </div>
+      <div v-else-if="registeredImgArrange === 'row'" class="registrations-left-panel">
+        <div class="registrations__content">
+          <div>
+            <router-link to="/">
+              <img class="registrations__logo" src="../assets/icons/logoWhite.png" alt="" />
+            </router-link>
+          </div>
+          <div>
+            <h1 class="registrations__title">创作从这里开始</h1>
+            <h2 class="registrations__sub-title">
+              访问免费的高分辨率照片，这些都是其它地方所找不到的
+            </h2>
+          </div>
+          <div>
+            <p class="registrations__credit">
+              迷失中悠然自得—LostElk
+            </p>
+          </div>
+        </div>
+      </div>
+      <div v-if="registeredImgArrange === 'column'" class="registrations-left-panel">
+        <div class="registrations__content">
+          <div>
+            <router-link to="/">
+              <img class="registrations__logo" src="../assets/icons/logoWhite.png" alt="" />
+            </router-link>
+          </div>
+          <div>
+            <h1 class="registrations__title">创作从这里开始</h1>
+            <h2 class="registrations__sub-title">
+              访问免费的高分辨率照片，这些都是其它地方所找不到的
+            </h2>
+          </div>
+          <div>
+            <p class="registrations__credit">
+              迷失中悠然自得—LostElk
+            </p>
+          </div>
+        </div>
+      </div>
 
       <div class="registrations-right-panel">
         <div class="registrations-form">

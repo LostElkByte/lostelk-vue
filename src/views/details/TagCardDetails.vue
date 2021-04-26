@@ -177,7 +177,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onUpdated } from 'vue';
+import { defineComponent, computed, ref, onUpdated, onMounted, onUnmounted } from 'vue';
 import { lostelkUrl } from '../../global';
 import router from '../../router';
 import Likes from '../../components/cardFun/Likes.vue';
@@ -389,6 +389,14 @@ export default defineComponent({
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
     };
+
+    onMounted(() => {
+      document.body.style.overflow = 'hidden';
+    });
+
+    onUnmounted(() => {
+      document.body.style.overflow = 'auto';
+    });
 
     return {
       userId,

@@ -34,6 +34,8 @@ export default defineComponent({
 
     const goComment = async () => {
       await router.push(`/${url.value}/${id.value}`);
+      // 将body设置为不可滚动
+      document.body.style.overflow = 'hidden';
       await store.commit('showCommentsCut', true);
     };
     return {

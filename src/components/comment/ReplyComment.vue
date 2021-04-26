@@ -22,8 +22,11 @@
         <span class="commentText-reply">
           回复
         </span>
-        <span class="user-link">
-          {{ replyComment ? replyComment.user.name : '' }}
+        <span class="user-link" v-if="PostUserId === singleComment.user.id">
+          {{ singleComment ? singleComment.user.name : '' }}(作者)
+        </span>
+        <span class="user-link" v-else>
+          {{ singleComment ? singleComment.user.name : '' }}
         </span>
       </div>
       <div class="commentItem-metaSibling">
@@ -112,11 +115,16 @@ export default defineComponent({
       type: Number,
       required: true,
     },
+    singleCommentData: {
+      type: Object,
+      required: true,
+    },
   },
   setup(props) {
     const replyComment = computed(() => props.replyCommentData);
     const PostUserId = computed(() => props.PostUserIdData);
     const singleuserId = computed(() => props.singleuserIdData);
+    const singleComment = computed(() => props.singleCommentData);
 
     // 修改评论input的内容
     const reviseReplyCommentVal = ref(replyComment.value ? replyComment.value.content : '');
@@ -220,6 +228,7 @@ export default defineComponent({
       confirmDelete,
       isdeleteSucceed,
       isReviseReplyCommentMax,
+      singleComment,
     };
   },
 });
