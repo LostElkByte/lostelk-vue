@@ -407,9 +407,9 @@ export default defineComponent({
             await store.commit('getTagCardList', newCard);
           } else if (fromWhichPage.value === 'user') {
             const card = await store.dispatch('getCard', postId.value);
-            const oldCard = store.state.userCardList;
+            const oldCard = store.state.userPhotosCardList;
             const newCard = oldCard.map((item: { id: unknown }) => (item.id === card.id ? card : item));
-            await store.commit('getUserCardList', newCard);
+            await store.commit('getUserPhotosCardList', newCard);
           } else if (fromWhichPage.value === 'userLike') {
             const card = await store.dispatch('getCard', postId.value);
             const oldCard = store.state.userLikeCardList;
