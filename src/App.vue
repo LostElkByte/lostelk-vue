@@ -21,8 +21,8 @@ export default defineComponent({
 
     // 获取精选图
     const loadingVeryGoods = async () => {
-      store.dispatch('getVeryGoodsTransverseList', '精选横图1');
-      store.dispatch('getVeryGoodsLongitudinalList', '精选纵图1');
+      store.dispatch('getVeryGoodsTransverseList', '精选横图');
+      store.dispatch('getVeryGoodsLongitudinalList', '精选纵图');
     };
     loadingVeryGoods();
 
