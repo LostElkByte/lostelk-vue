@@ -71,7 +71,7 @@
           </div>
         </div>
       </div>
-      <div v-if="registeredImgArrange === 'column'" class="registrations-left-panel">
+      <div v-else-if="registeredImgArrange === 'column'" class="registrations-left-panel">
         <div class="registrations__content">
           <div>
             <router-link to="/">
