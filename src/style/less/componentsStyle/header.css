@@ -61,6 +61,26 @@
   color: #fff;
   border: 0;
 }
+.header .header_toolbar div .dropdown-sign-up {
+  background-color: #ff7675;
+  color: #fff;
+  border: 0;
+}
+.header .header_toolbar div .dropdown-sign-up:hover {
+  background-color: #ff7675;
+  color: #fff;
+  border: 0;
+}
+.header .header_toolbar div .dropdown-sign-in {
+  background-color: #fff;
+  color: #ff7675;
+  border: 0;
+}
+.header .header_toolbar div .dropdown-sign-in:hover {
+  background-color: #fff;
+  color: #ff7675;
+  border: 0;
+}
 .header .header_toolbar div .w1024 {
   display: none;
 }
