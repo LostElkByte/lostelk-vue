@@ -26,8 +26,8 @@
           </svg>
         </router-link>
       </div>
+      <div class="beian"><a href="http://beian.miit.gov.cn/" target="_blank">黑ICP备2020005791号</a></div>
     </div>
-    <div class="beian"><a style="" href="http://beian.miit.gov.cn/" target="_blank">黑ICP备2020005791号</a></div>
   </div>
 </template>
 
