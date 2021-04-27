@@ -11,12 +11,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'Home',
     component: Home,
+    meta: { title: "LostElk-发现世界上免费的高清图片和创意-Discover the world’s free HD pictures & Creatives.-免费版权商用图片素材" },
     children: [
       {
         path: 'card/:id',
         name: 'HomeCardDetails',
         component: () => import('../views/details/HomeCardDetails.vue'),
-        props: true
+        props: true,
+        meta: { title: "Is this the photos you like? | LostElk" }
       }
     ]
   },
@@ -24,39 +26,41 @@ const routes: Array<RouteRecordRaw> = [
     path: '/Login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
-    meta: { requestNotLogin: true }
+    meta: { requestNotLogin: true, title: "Sign Up | LostElk" }
 
   },
   {
     path: '/Reglister',
     name: 'Reglister',
     component: () => import('../views/Register.vue'),
-    meta: { requestNotLogin: true }
+    meta: { requestNotLogin: true, title: "Sign In | LostElk" }
   },
   {
     path: '/UploadPicture',
     name: 'UploadPicture',
     component: () => import('../views/UploadPicture.vue'),
-    meta: { requiredLogin: true }
+    meta: { requiredLogin: true, title: "Upload Photos | LostElk" }
   },
   {
     path: '/EditCard/:id',
     name: 'EditCard',
     component: () => import('../views/EditCard.vue'),
     props: true,
-    meta: { requiredLogin: true }
+    meta: { requiredLogin: true, title: "Edit Photos| LostElk" }
   },
   {
     path: '/tag/:tag',
     name: 'Tag',
     component: () => import('../views/Tag.vue'),
     props: true,
+    meta: { title: "LostElk-发现世界上免费的高清图片和创意-Discover the world’s free HD pictures & Creatives.-免费版权商用图片素材" },
     children: [
       {
         path: '/tag/:tag/tagCard/:id',
         name: 'TagCardDetails',
         component: () => import('../views/details/TagCardDetails.vue'),
-        props: true
+        props: true,
+        meta: { requiredLogin: true, title: "Is this the photos you like? | LostElk" }
       }
     ]
   },
@@ -65,18 +69,21 @@ const routes: Array<RouteRecordRaw> = [
     name: 'UserHomePage',
     component: () => import('../views/UserHomePage.vue'),
     props: true,
+    meta: { title: "Visit the home page | LostElk" },
     children: [
       {
         path: '',
         name: 'UserPhotosCardDetails',
         component: () => import('../views/cardList/UserPhotosCardList.vue'),
         props: true,
+        meta: { title: "User contributed photos | LostElk" },
         children: [
           {
             path: '/@:UserId/:id',
             name: 'UserPhotosCardDetails',
             component: () => import('../views/details/UserPhotosCardDetails.vue'),
-            props: true
+            props: true,
+            meta: { title: "Do you like this picture？ | LostElk" },
           },
         ]
       },
@@ -85,12 +92,14 @@ const routes: Array<RouteRecordRaw> = [
         name: 'UserLikeCardList',
         component: () => import('../views/cardList/UserLikeCardList.vue'),
         props: true,
+        meta: { title: "Favorite photos | LostElk" },
         children: [
           {
             path: '/@:UserId/likes/:id',
             name: 'UserLikeCardDetails',
             component: () => import('../views/details/UserLikeCardDetails.vue'),
-            props: true
+            props: true,
+            meta: { title: "Do you like this picture？ | LostElk" },
           }
         ]
       },
@@ -99,7 +108,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'EditAccount',
         component: () => import('../views/EditAccount.vue'),
         props: true,
-        meta: { requiredLogin: true }
+        meta: { requiredLogin: true, title: "Management accounts-LostElk" }
       }
     ],
   },
