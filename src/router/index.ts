@@ -36,6 +36,18 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requestNotLogin: true, title: "Sign In | LostElk" }
   },
   {
+    path: '/Clause',
+    name: 'Clause',
+    component: () => import('../views/Clause.vue'),
+    meta: { title: "Clause | LostElk" }
+  },
+  {
+    path: '/Privacy',
+    name: 'Privacy',
+    component: () => import('../views/Privacy.vue'),
+    meta: { title: "Privacy | LostElk" }
+  },
+  {
     path: '/UploadPicture',
     name: 'UploadPicture',
     component: () => import('../views/UploadPicture.vue'),

@@ -217,7 +217,8 @@
                 </template>
               </ValidateForm>
               <span class="text-secondary zeta">
-                注册即表示您同意 <a href="#">条款</a> 和 <a href="#">隐私政策</a>。
+                注册即表示您同意 <router-link to="/Clause">条款</router-link> 和
+                <router-link to="/Privacy">隐私政策</router-link>。
               </span>
             </div>
           </div>
