@@ -1,4 +1,4 @@
-const lostelkUrl = "https://ovoiii.com";
+const lostelkUrl = "https://api.lostelk.cn";
 /**
  * 固定方式随机展示精选图(暂没有使用,现在的方案是标签名方式展示)
  * 随机精选展示图ID
