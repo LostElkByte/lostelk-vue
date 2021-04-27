@@ -325,7 +325,7 @@ export default defineComponent({
           uploaderror.value = '';
         } else {
           // 如果有上传成功,执行成功提示;
-          await createTooltip('感谢您为LostElk社区,贡献了一张照片!', 'success', 2000);
+          await createTooltip('感谢您为LostElk社区,贡献了一张照片!', 'success', 3000);
           // await setTimeout(() => {
           //   store.commit('mainSearchIsNone', true);
           //   store.commit('setSearchFailure', false);
