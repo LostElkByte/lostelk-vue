@@ -72,7 +72,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'TagCardDetails',
         component: () => import('../views/details/TagCardDetails.vue'),
         props: true,
-        meta: { requiredLogin: true, title: "Is this the photos you like? | LostElk" }
+        meta: { title: "Is this the photos you like? | LostElk" }
       }
     ]
   },
