@@ -49,13 +49,13 @@ export default defineComponent({
     const cardColumn = ref();
     const registeredImg = ref();
     function resize() {
-      if (document.documentElement.clientWidth || document.body.clientWidth > 1024) {
+      if ((document.documentElement.clientWidth || document.body.clientWidth) > 1024) {
         cardColumn.value = 3;
         registeredImg.value = 'column';
-      } else if (document.documentElement.clientWidth || document.body.clientWidth > 767) {
+      } else if ((document.documentElement.clientWidth || document.body.clientWidth) > 767) {
         cardColumn.value = 2;
         registeredImg.value = 'row';
-      } else if (document.documentElement.clientWidth || document.body.clientWidth <= 767) {
+      } else if ((document.documentElement.clientWidth || document.body.clientWidth) <= 767) {
         cardColumn.value = 1;
         registeredImg.value = 'row';
       }
@@ -66,13 +66,13 @@ export default defineComponent({
      * 初始化时获取浏览器窗口大小
      */
     onMounted(() => {
-      if (document.documentElement.clientWidth || document.body.clientWidth > 1024) {
+      if ((document.documentElement.clientWidth || document.body.clientWidth) > 1024) {
         cardColumn.value = 3;
         registeredImg.value = 'column';
-      } else if (document.documentElement.clientWidth || document.body.clientWidth > 767) {
+      } else if ((document.documentElement.clientWidth || document.body.clientWidth) > 767) {
         cardColumn.value = 2;
         registeredImg.value = 'row';
-      } else if (document.documentElement.clientWidth || document.body.clientWidth <= 767) {
+      } else if ((document.documentElement.clientWidth || document.body.clientWidth) <= 767) {
         cardColumn.value = 1;
         registeredImg.value = 'row';
       }
