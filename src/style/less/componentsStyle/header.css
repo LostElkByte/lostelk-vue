@@ -62,7 +62,7 @@
   border: 0;
 }
 .header .header_toolbar div .dropdown-sign-up {
-  background-color: #222;
+  background-color: #111;
   color: #fff;
   border: 0;
   font-weight: 700;
@@ -71,7 +71,7 @@
   align-items: center;
 }
 .header .header_toolbar div .dropdown-sign-up:hover {
-  background-color: #222;
+  background-color: #111;
   color: #fff;
   border: 0;
 }
