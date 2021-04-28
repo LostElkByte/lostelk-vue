@@ -4,7 +4,7 @@
       <div class="login-center">
         <div class="login-logo">
           <router-link to="/">
-            <img src="../assets/icons/logo.jpg" alt="迷鹿" />
+            <img src="../assets/icons/logoTouMing.png" alt="迷鹿" />
           </router-link>
         </div>
         <h1 class="login-title">Sign in to LostElk</h1>
