@@ -32,7 +32,7 @@
                     :src="`${lostelkUrl}/users/${card.user.id}/avatar?size=small`"
                     :alt="card.user.name"
                   />
-                  <div v-else class="card-avatar-32">
+                  <div v-else class="card-avatar-32" @click.stop="toUserPage(card.user.name, card.user.id)">
                     <svg class="card-avatar-32" aria-hidden="true">
                       <use xlink:href="#icon-touxiangnvhai"></use>
                     </svg>
@@ -85,7 +85,7 @@
                     :src="`${lostelkUrl}/users/${card.user.id}/avatar?size=small`"
                     :alt="card.user.name"
                   />
-                  <div v-else class="card-avatar-32">
+                  <div v-else class="card-avatar-32" @click.stop="toUserPage(card.user.name, card.user.id)">
                     <svg class="card-avatar-32" aria-hidden="true">
                       <use xlink:href="#icon-touxiangnvhai"></use>
                     </svg>
@@ -138,7 +138,7 @@
                     :src="`${lostelkUrl}/users/${card.user.id}/avatar?size=small`"
                     :alt="card.user.name"
                   />
-                  <div v-else class="card-avatar-32">
+                  <div v-else class="card-avatar-32" @click.stop="toUserPage(card.user.name, card.user.id)">
                     <svg class="card-avatar-32" aria-hidden="true">
                       <use xlink:href="#icon-touxiangnvhai"></use>
                     </svg>
@@ -206,7 +206,7 @@
                     :src="`${lostelkUrl}/users/${card.user.id}/avatar?size=small`"
                     :alt="card.user.name"
                   />
-                  <div v-else class="card-avatar-32">
+                  <div v-else class="card-avatar-32" @click.stop="toUserPage(card.user.name, card.user.id)">
                     <svg class="card-avatar-32" aria-hidden="true">
                       <use xlink:href="#icon-touxiangnvhai"></use>
                     </svg>
@@ -259,7 +259,7 @@
                     :src="`${lostelkUrl}/users/${card.user.id}/avatar?size=small`"
                     :alt="card.user.name"
                   />
-                  <div v-else class="card-avatar-32">
+                  <div v-else class="card-avatar-32" @click.stop="toUserPage(card.user.name, card.user.id)">
                     <svg class="card-avatar-32" aria-hidden="true">
                       <use xlink:href="#icon-touxiangnvhai"></use>
                     </svg>
@@ -308,7 +308,7 @@
                     :src="`${lostelkUrl}/users/${card.user.id}/avatar?size=small`"
                     :alt="card.user.name"
                   />
-                  <div v-else class="card-avatar-32">
+                  <div v-else class="card-avatar-32" @click.stop="toUserPage(card.user.name, card.user.id)">
                     <svg class="card-avatar-32" aria-hidden="true">
                       <use xlink:href="#icon-touxiangnvhai"></use>
                     </svg>
