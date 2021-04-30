@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, watch, ref, onMounted } from 'vue';
+import { computed, defineComponent, watch, ref, onMounted, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import './assets/font/iconfont';
 import Loading from './components/globalFun/Loading.vue';
@@ -60,8 +60,8 @@ export default defineComponent({
         registeredImg.value = 'row';
       }
     }
-    window.onresize = resize;
-
+    // window.onresize = resize;
+    window.addEventListener('resize', resize, false);
     /**
      * 初始化时获取浏览器窗口大小
      */
@@ -76,6 +76,10 @@ export default defineComponent({
         cardColumn.value = 1;
         registeredImg.value = 'row';
       }
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', resize, false);
     });
 
     return {

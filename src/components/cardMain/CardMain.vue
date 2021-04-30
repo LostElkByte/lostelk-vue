@@ -12,8 +12,13 @@
       </div>
 
       <div class="home-page_main_cards" v-if="!searchfailure">
-        <div class="cardColumn">
-          <div class="home-page_main_cards_item" v-for="card in cardThreeColumnOne" :key="card.id">
+        <div class="cardColumn" ref="cardColumn">
+          <div
+            class="home-page_main_cards_item"
+            v-for="card in cardThreeColumnOne"
+            :key="card.id"
+            :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px `"
+          >
             <img
               :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
               :alt="card.title"
@@ -70,6 +75,7 @@
             <img
               :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
               :alt="card.title"
+              :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
             />
             <div class="card-baffle-plate" @click="cardDetails(card.id)">
               <div class="card-baffle-plate-top">
@@ -123,6 +129,7 @@
             <img
               :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
               :alt="card.title"
+              :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
             />
             <div class="card-baffle-plate" @click="cardDetails(card.id)">
               <div class="card-baffle-plate-top">
@@ -195,11 +202,12 @@
         </p>
       </div>
       <div class="home-page_main_cards" v-if="!searchfailure">
-        <div class="cardColumn">
+        <div class="cardColumn" ref="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardTwoColumnOne" :key="card.id">
             <img
               :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
               :alt="card.title"
+              :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
             />
             <div class="card-baffle-plate" @click="cardDetails(card.id)">
               <div class="card-baffle-plate-top">
@@ -253,6 +261,7 @@
             <img
               :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
               :alt="card.title"
+              :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
             />
             <div class="card-baffle-plate" @click="cardDetails(card.id)">
               <div class="card-baffle-plate-top">
@@ -324,7 +333,7 @@
         </p>
       </div>
       <div class="home-page_main_cards" v-if="!searchfailure">
-        <div class="cardColumn">
+        <div class="cardColumn" ref="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardList" :key="card.id">
             <div class="max767-top">
               <div class="max767-top-content">
@@ -352,6 +361,7 @@
               :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
               :alt="card.title"
               @click="cardDetails(card.id)"
+              :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
             />
             <div class="max767-bottom">
               <div class="max767-bottom-left">
@@ -393,7 +403,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, onMounted, onUnmounted, PropType, ref } from 'vue';
 import { lostelkUrl } from '../../global';
 import store, { CardList, GloabSearchTagProps } from '../../store';
 import Likes from '../cardFun/Likes.vue';
@@ -523,6 +533,24 @@ export default defineComponent({
       router.push(`/@${userId}`);
     };
 
+    /**
+     * 实时获取cardColumn宽度
+     */
+    const cardColumnWidth = ref();
+    const cardColumn = ref();
+    onMounted(() => {
+      cardColumnWidth.value = cardColumn.value.clientWidth;
+    });
+
+    function cardColumnSize() {
+      cardColumnWidth.value = cardColumn.value.clientWidth;
+    }
+    window.addEventListener('resize', cardColumnSize, false);
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', cardColumnSize, false);
+    });
+
     return {
       lostelkUrl,
       cardList,
@@ -542,6 +570,8 @@ export default defineComponent({
       isShowLoadingMore,
       noMore,
       toUserPage,
+      cardColumn,
+      cardColumnWidth,
     };
   },
 });
