@@ -80,7 +80,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted, watch } from 'vue';
+import { defineComponent, computed, ref, onMounted, watch, onUnmounted } from 'vue';
 import { useStore } from 'vuex';
 import { lostelkUrl } from '../global';
 import Header from '../components/header/HeaderBox.vue';
@@ -151,6 +151,12 @@ export default defineComponent({
       // 恢复到顶部
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
+    });
+    onUnmounted(() => {
+      store.commit('getUserPhotosCardList', []);
+      store.commit('getUserLikeCardList', []);
+      store.commit('getHomePageCardTotalCount', 0);
+      store.commit('getUserLikeCardTotalCount', 0);
     });
 
     /**
