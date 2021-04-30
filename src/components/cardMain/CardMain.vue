@@ -534,6 +534,7 @@ export default defineComponent({
      */
     const cardColumnWidth = ref();
     const cardColumn = ref();
+
     function cardColumnSize() {
       cardColumnWidth.value = cardColumn.value.clientWidth;
     }
