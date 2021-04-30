@@ -1,6 +1,6 @@
 .registrations-wrapper {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 }
 .registrations-wrapper .registrations-container {
   flex: 1;
