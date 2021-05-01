@@ -15,7 +15,7 @@
         <div class="cardColumn" ref="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardThreeColumnOne" :key="card.id">
             <img
-              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
+              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
               :alt="card.title"
               :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
             />
@@ -69,7 +69,7 @@
         <div class="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardThreeColumnTwo" :key="card.id">
             <img
-              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
+              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
               :alt="card.title"
               :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
             />
@@ -123,7 +123,7 @@
         <div class="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardThreeColumnThree" :key="card.id">
             <img
-              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
+              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
               :alt="card.title"
               :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
             />
@@ -201,7 +201,7 @@
         <div class="cardColumn" ref="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardTwoColumnOne" :key="card.id">
             <img
-              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
+              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
               :alt="card.title"
               :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
             />
@@ -255,7 +255,7 @@
         <div class="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardTwoColumnTwo" :key="card.id">
             <img
-              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
+              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
               :alt="card.title"
               :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
             />
@@ -354,7 +354,7 @@
               </div>
             </div>
             <img
-              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=medium` : card.file.fakeUrl"
+              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
               :alt="card.title"
               @click="cardDetails(card.id)"
               :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
