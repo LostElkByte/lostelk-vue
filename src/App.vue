@@ -20,11 +20,8 @@ export default defineComponent({
     const error = computed(() => store.state.error);
 
     // 获取精选图
-    const loadingVeryGoods = async () => {
-      store.dispatch('getVeryGoodsTransverseList', '精选横图');
-      store.dispatch('getVeryGoodsLongitudinalList', '精选纵图');
-    };
-    loadingVeryGoods();
+    store.dispatch('getVeryGoodsTransverseList', '精选横图');
+    store.dispatch('getVeryGoodsLongitudinalList', '精选纵图');
 
     /**
      * 监听error的状态,状态发生改变就执行以下逻辑
