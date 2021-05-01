@@ -500,9 +500,7 @@ export default defineComponent({
     const cardColumn = ref();
 
     function personalcardColumnSize() {
-      setTimeout(() => {
-        cardColumnWidth.value = cardColumn.value.clientWidth;
-      }, 500);
+      cardColumnWidth.value = cardColumn.value.clientWidth;
     }
     onMounted(() => {
       cardColumnWidth.value = cardColumn.value.clientWidth;
