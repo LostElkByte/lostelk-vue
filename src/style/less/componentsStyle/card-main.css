@@ -86,7 +86,7 @@
 .home-page_main .main_center .home-page_main_cards .cardColumn .home-page_main_cards_item > img {
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }
 .home-page_main .main_center .home-page_main_cards .cardColumn .home-page_main_cards_item .card-baffle-plate {
   position: absolute;
