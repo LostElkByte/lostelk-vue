@@ -38,10 +38,10 @@
   background-size: 50px 50px;
   background-repeat: no-repeat;
   background-position: 0 50%;
-  margin-bottom: 5px;
 }
 .home-page_main .main_center .no-more span:nth-child(2) {
   font-weight: 500;
+  font-size: 12px;
   color: #6e6d7a;
 }
 .home-page_main .main_center .search-results {
