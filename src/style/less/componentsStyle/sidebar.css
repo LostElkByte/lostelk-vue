@@ -23,7 +23,6 @@
 }
 .sidebar .sidebar_toolbar .sidebar_toolbar_item_circle-32 {
   width: 32px;
-  height: 32px;
   border-radius: 50%;
 }
 .sidebar .sidebar_toolbar .sidebar_toolbar_item_circle-32 img {
@@ -33,7 +32,6 @@
 }
 .sidebar .sidebar_toolbar .sidebar_toolbar_item_square-32 {
   width: 32px;
-  height: 25px;
 }
 .beian {
   position: absolute;
