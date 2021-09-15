@@ -2,9 +2,9 @@
   <div class="header">
     <div class="header-left">
       <div class="header-title" @click="goBack">
-        <span>MINUSONE TEAM</span>
+        <span>MINUSONE</span>
         <span>
-          MINUSONE TEAM since 2017.10
+          since 2017.10
         </span>
       </div>
       <HeaderSearch></HeaderSearch>
