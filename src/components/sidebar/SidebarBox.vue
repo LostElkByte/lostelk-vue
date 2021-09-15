@@ -2,7 +2,7 @@
   <div class="sidebar">
     <div class="sidebar_toolbar">
       <div class="sidebar_toolbar_item sidebar_toolbar_item_circle-32" @click="goBack">
-        <img src="../../assets/icons/logoTouMing.png" alt="迷鹿" />
+        <img src="../../assets/icons/MINUSONE.png" alt="迷鹿" />
       </div>
       <div class="sidebar_toolbar_item sidebar_toolbar_item_circle-32">
         <router-link :to="`/@${loginJudge.id}`" v-if="loginJudge.isLogin && loginJudge.avatar">

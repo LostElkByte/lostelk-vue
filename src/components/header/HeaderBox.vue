@@ -2,9 +2,9 @@
   <div class="header">
     <div class="header-left">
       <div class="header-title" @click="goBack">
-        <span>LostElk</span>
+        <span>MINUSONE TEAM</span>
         <span>
-          Photos for everyone
+          MINUSONE TEAM since 2017.10
         </span>
       </div>
       <HeaderSearch></HeaderSearch>
@@ -28,7 +28,7 @@
             </template>
             <template v-slot:dropdown-content>
               <router-link to="/Login" class="dropdown-sign-in">登陆</router-link>
-              <router-link to="/Reglister" class="dropdown-sign-up">加入LostElk</router-link>
+              <router-link to="/Reglister" class="dropdown-sign-up">加入MINUSONE TEAM</router-link>
             </template>
           </DropDownList>
         </div>

@@ -11,18 +11,18 @@
         <div class="registrations__content">
           <div>
             <router-link to="/">
-              <img class="registrations__logo" src="../assets/icons/logoWhite.png" alt="" />
+              <img class="registrations__logo" src="../assets/icons/MINUSONE.png" alt="" />
             </router-link>
           </div>
           <div>
-            <h1 class="registrations__title">创作从这里开始</h1>
+            <h1 class="registrations__title">MINUSONE TEAM</h1>
             <h2 class="registrations__sub-title">
-              访问免费的高分辨率照片，这些都是其它地方所找不到的
+              MINUSONE TEAM, 四余年的团队记忆.
             </h2>
           </div>
           <div>
             <p class="registrations__credit">
-              迷失中悠然自得—LostElk
+              热爱、坚持、初心, 敢作敢当、凭心而活—MINUSONE
             </p>
           </div>
         </div>
@@ -35,18 +35,18 @@
         <div class="registrations__content">
           <div>
             <router-link to="/">
-              <img class="registrations__logo" src="../assets/icons/logoWhite.png" alt="" />
+              <img class="registrations__logo" src="../assets/icons/MINUSONE.png" alt="" />
             </router-link>
           </div>
           <div>
-            <h1 class="registrations__title">创作从这里开始</h1>
+            <h1 class="registrations__title">MINUSONE TEAM</h1>
             <h2 class="registrations__sub-title">
-              访问免费的高分辨率照片，这些都是其它地方所找不到的
+              MINUSONE TEAM, 四余年的团队记忆.
             </h2>
           </div>
           <div>
             <p class="registrations__credit">
-              迷失中悠然自得—LostElk
+              热爱、坚持、初心, 敢作敢当、凭心而活—MINUSONE
             </p>
           </div>
         </div>
@@ -59,14 +59,14 @@
             </router-link>
           </div>
           <div>
-            <h1 class="registrations__title">创作从这里开始</h1>
+            <h1 class="registrations__title">MINUSONE TEAM</h1>
             <h2 class="registrations__sub-title">
-              访问免费的高分辨率照片，这些都是其它地方所找不到的
+              MINUSONE TEAM, 四余年的团队记忆.
             </h2>
           </div>
           <div>
             <p class="registrations__credit">
-              迷失中悠然自得—LostElk
+              热爱、坚持、初心, 敢作敢当、凭心而活—MINUSONE
             </p>
           </div>
         </div>
@@ -79,14 +79,14 @@
             </router-link>
           </div>
           <div>
-            <h1 class="registrations__title">创作从这里开始</h1>
+            <h1 class="registrations__title">MINUSONE TEAM</h1>
             <h2 class="registrations__sub-title">
-              访问免费的高分辨率照片，这些都是其它地方所找不到的
+              MINUSONE TEAM, 四余年的团队记忆.
             </h2>
           </div>
           <div>
             <p class="registrations__credit">
-              迷失中悠然自得—LostElk
+              热爱、坚持、初心, 敢作敢当、凭心而活—MINUSONE
             </p>
           </div>
         </div>
@@ -98,7 +98,7 @@
             <div class="col-xs-12">
               <div class="text-center">
                 <div class="alpha">
-                  Sign up to LostElk
+                  Sign up to MinusOne
                 </div>
                 <p>
                   已经有帐号了？

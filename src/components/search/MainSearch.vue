@@ -7,10 +7,10 @@
     <div class="main-search-superstratum">
       <div class="search-superstratum-center">
         <div class="search-superstratum-content">
-          <span>LostElk</span>
+          <span>MINUSONE</span>
           <div>
-            <h1>The internet’s source of freely-usable images.</h1>
-            <p>Powered by creators everywhere.</p>
+            <h1>minus one team since 2017.10.</h1>
+            <p>开始享受你的滑行吧.</p>
           </div>
           <div class="main-search-box">
             <label class="main-search-button" for="main-search">
@@ -35,8 +35,8 @@
           >This photo is from user
           <router-link :to="`/@${transverse[random].user.id}`">{{ transverse[random].user.name }}</router-link></span
         >
-        <span>LostElk</span>
-        <span>Discover the world’s free HD pictures & Creatives.</span>
+        <span>MinuOne</span>
+        <span>Four years of MinuOne team memories.</span>
       </div>
     </div>
   </div>
