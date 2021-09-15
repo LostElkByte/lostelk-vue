@@ -35,7 +35,7 @@ export default defineComponent({
       () => {
         const { status, message } = error.value;
         if (status && message) {
-          createTooltip(message, 'error', null);
+          createTooltip(message, 'error', 3000);
         }
       },
     );
