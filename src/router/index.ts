@@ -11,14 +11,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'Home',
     component: Home,
-    meta: { title: "LostElk-发现世界上免费的高清图片和创意-Discover the world’s free HD pictures & Creatives.-免费版权商用图片素材" },
+    meta: { title: "MINUSONE TEAM-since 2017.10, 开始享受你的滑行吧! -团队纪念相册" },
     children: [
       {
         path: 'card/:id',
         name: 'HomeCardDetails',
         component: () => import('../views/details/HomeCardDetails.vue'),
         props: true,
-        meta: { title: "Is this the photos you like? | LostElk" }
+        meta: { title: "Is this the photos you like? | MINUSONE TEAM" }
       }
     ]
   },
@@ -26,53 +26,53 @@ const routes: Array<RouteRecordRaw> = [
     path: '/Login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
-    meta: { requestNotLogin: true, title: "Sign Up | LostElk" }
+    meta: { requestNotLogin: true, title: "Sign Up | MINUSONE TEAM" }
 
   },
   {
     path: '/Reglister',
     name: 'Reglister',
     component: () => import('../views/Register.vue'),
-    meta: { requestNotLogin: true, title: "Sign In | LostElk" }
+    meta: { requestNotLogin: true, title: "Sign In | MINUSONE TEAM" }
   },
   {
     path: '/Clause',
     name: 'Clause',
     component: () => import('../views/Clause.vue'),
-    meta: { title: "Clause | LostElk" }
+    meta: { title: "Clause | MINUSONE TEAM" }
   },
   {
     path: '/Privacy',
     name: 'Privacy',
     component: () => import('../views/Privacy.vue'),
-    meta: { title: "Privacy | LostElk" }
+    meta: { title: "Privacy | MINUSONE TEAM" }
   },
   {
     path: '/UploadPicture',
     name: 'UploadPicture',
     component: () => import('../views/UploadPicture.vue'),
-    meta: { requiredLogin: true, title: "Upload Photos | LostElk" }
+    meta: { requiredLogin: true, title: "Upload Photos | MINUSONE TEAM" }
   },
   {
     path: '/EditCard/:id',
     name: 'EditCard',
     component: () => import('../views/EditCard.vue'),
     props: true,
-    meta: { requiredLogin: true, title: "Edit Photos| LostElk" }
+    meta: { requiredLogin: true, title: "Edit Photos| MINUSONE TEAM" }
   },
   {
     path: '/tag/:tag',
     name: 'Tag',
     component: () => import('../views/Tag.vue'),
     props: true,
-    meta: { title: "LostElk-发现世界上免费的高清图片和创意-Discover the world’s free HD pictures & Creatives.-免费版权商用图片素材" },
+    meta: { title: "MINUSONE TEAM-since 2017.10, 开始享受你的滑行吧! -团队纪念相册" },
     children: [
       {
         path: '/tag/:tag/tagCard/:id',
         name: 'TagCardDetails',
         component: () => import('../views/details/TagCardDetails.vue'),
         props: true,
-        meta: { title: "Is this the photos you like? | LostElk" }
+        meta: { title: "Is this the photos you like? | MINUSONE TEAM" }
       }
     ]
   },
@@ -81,21 +81,21 @@ const routes: Array<RouteRecordRaw> = [
     name: 'UserHomePage',
     component: () => import('../views/UserHomePage.vue'),
     props: true,
-    meta: { title: "Visit the home page | LostElk" },
+    meta: { title: "Visit the home page | MINUSONE TEAM" },
     children: [
       {
         path: '',
         name: 'UserPhotosCardDetails',
         component: () => import('../views/cardList/UserPhotosCardList.vue'),
         props: true,
-        meta: { title: "User contributed photos | LostElk" },
+        meta: { title: "User contributed photos | MINUSONE TEAM" },
         children: [
           {
             path: '/@:UserId/:id',
             name: 'UserPhotosCardDetails',
             component: () => import('../views/details/UserPhotosCardDetails.vue'),
             props: true,
-            meta: { title: "Do you like this picture？ | LostElk" },
+            meta: { title: "Do you like this picture？ | MINUSONE TEAM" },
           },
         ]
       },
@@ -111,7 +111,7 @@ const routes: Array<RouteRecordRaw> = [
             name: 'UserLikeCardDetails',
             component: () => import('../views/details/UserLikeCardDetails.vue'),
             props: true,
-            meta: { title: "Do you like this picture？ | LostElk" },
+            meta: { title: "Do you like this picture？ | MINUSONE TEAM" },
           }
         ]
       },
@@ -120,7 +120,7 @@ const routes: Array<RouteRecordRaw> = [
         name: 'EditAccount',
         component: () => import('../views/EditAccount.vue'),
         props: true,
-        meta: { requiredLogin: true, title: "Management accounts-LostElk" }
+        meta: { requiredLogin: true, title: "Management accounts-MINUSONE TEAM" }
       }
     ],
   },
