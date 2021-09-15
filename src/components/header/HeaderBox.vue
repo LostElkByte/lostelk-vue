@@ -28,7 +28,7 @@
             </template>
             <template v-slot:dropdown-content>
               <router-link to="/Login" class="dropdown-sign-in">登陆</router-link>
-              <router-link to="/Reglister" class="dropdown-sign-up">加入MINUSONE TEAM</router-link>
+              <router-link to="/Reglister" class="dropdown-sign-up">加入</router-link>
             </template>
           </DropDownList>
         </div>
