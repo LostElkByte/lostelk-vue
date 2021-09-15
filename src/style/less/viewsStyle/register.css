@@ -36,8 +36,7 @@
   display: inline-block;
 }
 .registrations__content div .registrations__logo {
-  width: 46px;
-  height: 46px;
+  width: 64px;
   margin-top: 0;
   border-radius: 50%;
   overflow: hidden;
@@ -183,7 +182,7 @@
     display: block;
   }
   .registrations__content div .registrations__logo {
-    width: 46px;
+    width: 64px;
   }
   .registrations-left-panel {
     height: 500px;
@@ -215,8 +214,7 @@
     padding: 5% 8%;
   }
   .registrations__content div .registrations__logo {
-    width: 32px;
-    height: 32px;
+    width: 64px;
   }
   .registrations__content div .registrations__title {
     font-size: 30px;
