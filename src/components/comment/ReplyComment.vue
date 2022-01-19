@@ -208,12 +208,6 @@ export default defineComponent({
       });
     };
 
-    onMounted(() => {
-      console.log(1);
-
-      console.log(props.replyCommentData);
-    });
-
     /**
      * 监听输入最大字符长度
      * 修改
