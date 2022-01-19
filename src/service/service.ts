@@ -4,7 +4,7 @@ import store from '../store'
 
 
 // 默认url头
-axios.defaults.baseURL = 'https://api.lostelk.cn';
+axios.defaults.baseURL = 'http://localhost:3000';
 
 // 拦截器 
 axios.interceptors.request.use(config => {
