@@ -22,11 +22,22 @@
         <span class="commentText-reply">
           回复
         </span>
-        <span class="user-link" v-if="PostUserId === singleComment.user.id">
-          {{ singleComment ? singleComment.user.name : '' }}(作者)
+        <div class="commentItem-avatar">
+          <img
+            v-if="replyComment.replyUser.avatar"
+            class="commentItem-avatar-img"
+            :src="`${lostelkUrl}/users/${replyComment.replyUser.id}/avatar?size=small`"
+            :alt="`${replyComment ? replyComment.replyUser.name : ''}`"
+          />
+          <svg v-else class="commentItem-avatar-img" aria-hidden="true">
+            <use xlink:href="#icon-touxiangnvhai"></use>
+          </svg>
+        </div>
+        <span class="user-link" v-if="PostUserId === replyComment.replyUser.id">
+          {{ replyComment ? replyComment.replyUser.name : '' }}(作者)
         </span>
         <span class="user-link" v-else>
-          {{ singleComment ? singleComment.user.name : '' }}
+          {{ replyComment ? replyComment.replyUser.name : '' }}
         </span>
       </div>
       <div class="commentItem-metaSibling">
@@ -86,7 +97,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from 'vue';
+import { computed, defineComponent, ref, watch, onMounted } from 'vue';
 import { lostelkUrl } from '../../global';
 import ValidateInput from '../form/ValidateInput.vue';
 import ValidateForm from '../form/ValidateForm.vue';
@@ -196,6 +207,12 @@ export default defineComponent({
         createTooltip('评论删除成功', 'success', 3000);
       });
     };
+
+    onMounted(() => {
+      console.log(1);
+
+      console.log(props.replyCommentData);
+    });
 
     /**
      * 监听输入最大字符长度
