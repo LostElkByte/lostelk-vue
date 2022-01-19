@@ -97,7 +97,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch, onMounted } from 'vue';
+import { computed, defineComponent, ref, watch } from 'vue';
 import { lostelkUrl } from '../../global';
 import ValidateInput from '../form/ValidateInput.vue';
 import ValidateForm from '../form/ValidateForm.vue';
@@ -172,7 +172,6 @@ export default defineComponent({
     /**
      * 修改评论
      */
-
     const reviseCommentClick = async () => {
       const reviseCommentData = {
         commentId: replyComment.value ? replyComment.value.id : '',

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import store from '../store'
-
+import { io } from 'socket.io-client'
 
 
 // 默认url头
@@ -29,4 +29,8 @@ axios.interceptors.response.use(config => {
 }
 );
 
-export { axios }
+/**
+ * Socket
+ */
+const socket = io('http://127.0.0.1:3000')
+export { axios, socket }
