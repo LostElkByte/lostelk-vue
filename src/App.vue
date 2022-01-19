@@ -9,6 +9,7 @@ import { useStore } from 'vuex';
 import './assets/font/iconfont';
 import Loading from './components/globalFun/Loading.vue';
 import createTooltip from './components/globalFun/createTooltip';
+import { socket, axios } from './service/service';
 export default defineComponent({
   name: 'App',
   components: {
@@ -18,6 +19,11 @@ export default defineComponent({
     const store = useStore();
     const isLoading = computed(() => store.state.loading);
     const error = computed(() => store.state.error);
+
+    // 设置请求头部
+    socket.on('connect', () => {
+      axios.defaults.headers.common['X-Socket-Id'] = socket.id;
+    });
 
     // 获取精选图
     store.dispatch('getVeryGoodsTransverseList', '精选横图');
