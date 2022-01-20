@@ -362,6 +362,7 @@ export default createStore<GloablDataProps>({
         }
       }
     },
+
     /**
     * 取消点赞 修改卡片的like状态与值
     */
@@ -395,6 +396,73 @@ export default createStore<GloablDataProps>({
         }
       }
     },
+
+
+    /**
+    * 监听实时点赞 修改卡片的like的值
+    */
+    realTimeClickLike(state, postId) {
+      for (let i = 0; i < state.cardList.length; i++) {
+        if (state.cardList[i].id === postId) {
+          state.cardList[i].totalLikes++;
+          break;
+        }
+      }
+      for (let i = 0; i < state.tagCardList.length; i++) {
+        if (state.tagCardList[i].id === postId) {
+          state.tagCardList[i].totalLikes++;
+          break;
+        }
+      }
+      for (let i = 0; i < state.userPhotosCardList.length; i++) {
+        if (state.userPhotosCardList[i].id === postId) {
+          state.userPhotosCardList[i].totalLikes++;
+          break;
+        }
+      }
+      for (let i = 0; i < state.userLikeCardList.length; i++) {
+        if (state.userLikeCardList[i].id === postId) {
+          state.userLikeCardList[i].totalLikes++;
+          break;
+        }
+      }
+    },
+
+
+    /**
+    * 实时取消点赞 修改卡片的like值
+    */
+    realTimeCancelLike(state, postId) {
+      for (let i = 0; i < state.cardList.length; i++) {
+        if (state.cardList[i].id === postId) {
+
+          state.cardList[i].totalLikes--;
+          break;
+        }
+      }
+      for (let i = 0; i < state.tagCardList.length; i++) {
+        if (state.tagCardList[i].id === postId) {
+
+          state.tagCardList[i].totalLikes--;
+          break;
+        }
+      }
+      for (let i = 0; i < state.userPhotosCardList.length; i++) {
+        if (state.userPhotosCardList[i].id === postId) {
+
+          state.userPhotosCardList[i].totalLikes--;
+          break;
+        }
+      }
+      for (let i = 0; i < state.userLikeCardList.length; i++) {
+        if (state.userLikeCardList[i].id === postId) {
+
+          state.userLikeCardList[i].totalLikes--;
+          break;
+        }
+      }
+    },
+
 
     /**
      * 获取当前图像文件的元数据

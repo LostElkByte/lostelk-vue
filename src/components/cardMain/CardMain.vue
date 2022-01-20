@@ -540,6 +540,7 @@ export default defineComponent({
       cardColumnWidth.value = cardColumn.value.clientWidth;
       // }, 500);
     }
+
     onMounted(() => {
       cardColumnWidth.value = cardColumn.value.clientWidth;
       window.addEventListener('resize', cardColumnSize, false);
