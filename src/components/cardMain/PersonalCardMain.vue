@@ -379,6 +379,7 @@ import SearchFailure from '../globalFun/SearchFailure.vue';
 import DownloadFile from '../cardFun/DownloadFile.vue';
 import GoCommentButton from '../cardFun/GoCommentButton.vue';
 import router from '../../router';
+import { socket } from '../../service/service';
 
 export default defineComponent({
   name: 'CardMain',
@@ -502,6 +503,29 @@ export default defineComponent({
     function personalcardColumnSize() {
       cardColumnWidth.value = cardColumn.value.clientWidth;
     }
+
+    /**
+     * 监听实时服务端点赞事件
+     */
+    const onUserLikePostCreated = (data: { postId: number; socketId: string }) => {
+      const { postId, socketId } = data;
+      if (socket.id === socketId) return;
+      store.commit('realTimeClickLike', postId);
+    };
+
+    socket.on('userLikePostCreated', onUserLikePostCreated);
+
+    /**
+     * 监听实时服务端取消点赞事件
+     */
+    const onUserLikePostDelete = (data: { postId: number; socketId: string }) => {
+      const { postId, socketId } = data;
+      if (socket.id === socketId) return;
+      store.commit('realTimeCancelLike', postId);
+    };
+
+    socket.on('userLikePostDelete', onUserLikePostDelete);
+
     onMounted(() => {
       cardColumnWidth.value = cardColumn.value.clientWidth;
       window.addEventListener('resize', personalcardColumnSize, false);
@@ -509,6 +533,9 @@ export default defineComponent({
 
     onUnmounted(() => {
       window.removeEventListener('resize', personalcardColumnSize, false);
+
+      socket.off('userLikePostCreated', onUserLikePostCreated);
+      socket.off('userLikePostDelete', onUserLikePostDelete);
     });
 
     return {

@@ -12,7 +12,6 @@ import { useStore } from 'vuex';
 import Header from '../components/header/HeaderBox.vue';
 import Sidebar from '../components/sidebar/SidebarBox.vue';
 import CardMain from '../components/cardMain/CardMain.vue';
-import { socket } from '../service/service';
 export default defineComponent({
   name: 'Home',
   components: {
@@ -118,28 +117,6 @@ export default defineComponent({
       }
     };
 
-    /**
-     * 监听实时服务端点赞事件
-     */
-    const onUserLikePostCreated = (data: { postId: number; socketId: string }) => {
-      const { postId, socketId } = data;
-      if (socket.id === socketId) return;
-      store.commit('realTimeClickLike', postId);
-    };
-
-    socket.on('userLikePostCreated', onUserLikePostCreated);
-
-    /**
-     * 监听实时服务端取消点赞事件
-     */
-    const onUserLikePostDelete = (data: { postId: number; socketId: string }) => {
-      const { postId, socketId } = data;
-      if (socket.id === socketId) return;
-      store.commit('realTimeCancelLike', postId);
-    };
-
-    socket.on('userLikePostDelete', onUserLikePostDelete);
-
     onMounted(async () => {
       // 组件装载时进行加载数据
       await loading();
@@ -154,9 +131,6 @@ export default defineComponent({
     onUnmounted(() => {
       // 组件卸载时卸载scroll事件
       window.removeEventListener('scroll', windowScroll);
-
-      socket.off('userLikePostCreated', onUserLikePostCreated);
-      socket.off('userLikePostDelete', onUserLikePostDelete);
     });
 
     /**
