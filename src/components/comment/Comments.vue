@@ -13,6 +13,7 @@
           :userId="userId"
           :postUserIdProp="postUserIdProp"
           @reloadComments="getComment"
+          @minusOneCommentsNumber="minusOneCommentsNumber"
         ></SingleComment>
       </div>
     </div>
@@ -125,19 +126,6 @@ export default defineComponent({
     });
 
     /**
-     * 监听实时服务端创建评论事件
-     */
-    const onCommentCreated = (data: { comment: Array<unknown>; socketId: string }) => {
-      const { comment } = data;
-      // if (socket.id === socketId) return;
-      // store.commit('realTimeClickLike', postId);
-      comments.value.push(comment);
-      commentsNumber.value++;
-    };
-
-    socket.on('commentCreated', onCommentCreated);
-
-    /**
      * 发表评论
      */
     const publishCommentVal = ref('');
@@ -190,6 +178,48 @@ export default defineComponent({
       }
     });
 
+    /**
+     * 评论数量计数减一
+     */
+    const minusOneCommentsNumber = () => {
+      commentsNumber.value--;
+    };
+
+    /**
+     * 监听实时服务端创建评论事件
+     */
+    const onCommentCreated = (data: { comment: Array<unknown>; socketId: string }) => {
+      const { comment } = data;
+      comments.value.push(comment);
+      commentsNumber.value++;
+    };
+
+    socket.on('commentCreated', onCommentCreated);
+
+    /**
+     * 实时删除评论方法
+     */
+    const commentDeleted = (commentId: number) => {
+      for (let index = 0; index < comments.value.length; index++) {
+        if (comments.value[index].id == commentId) {
+          comments.value.splice(index, 1);
+        }
+      }
+      commentsNumber.value--;
+    };
+
+    /**
+     * 监听实时服务端删除评论事件
+     */
+    const onCommentDeleted = async (data: { commentId: number; socketId: string }) => {
+      const { commentId, socketId } = data;
+
+      if (socket.id === socketId) return;
+      commentDeleted(commentId);
+    };
+
+    socket.on('commentDelete', onCommentDeleted);
+
     return {
       postIdProp,
       userId,
@@ -202,6 +232,8 @@ export default defineComponent({
       publishCommentButton,
       getComment,
       publishCommentMax,
+      commentDeleted,
+      minusOneCommentsNumber,
     };
   },
 });
