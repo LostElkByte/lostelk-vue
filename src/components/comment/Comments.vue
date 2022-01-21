@@ -197,6 +197,22 @@ export default defineComponent({
     socket.on('commentCreated', onCommentCreated);
 
     /**
+     * 监听实时服务端修改评论事件
+     */
+    const onUpdateDelete = (data: { commentId: number; content: string; socketId: string }) => {
+      const { commentId, content, socketId } = data;
+
+      if (socket.id === socketId) return;
+      for (let index = 0; index < comments.value.length; index++) {
+        if (comments.value[index].id == commentId) {
+          comments.value[index].content = content;
+        }
+      }
+    };
+
+    socket.on('updateDelete', onUpdateDelete);
+
+    /**
      * 实时删除评论方法
      */
     const commentDeleted = (commentId: number) => {
