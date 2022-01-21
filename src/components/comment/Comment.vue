@@ -283,7 +283,7 @@ export default defineComponent({
         },
       };
       await store.dispatch('reviseComment', reviseCommentData).then(() => {
-        replyShow.value = true;
+        reviseShow.value = true;
         context.emit('reloadComments');
         createTooltip('评论修改成功', 'success', 3000);
       });
