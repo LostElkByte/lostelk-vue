@@ -147,6 +147,7 @@ import ConfirmationBox from '../globalFun/ConfirmationBox.vue';
 import ReplyComment from './ReplyComment.vue';
 import store from '../../store';
 import router from '../../router';
+import { socket } from '../../service/service';
 
 export default defineComponent({
   name: 'Comment',
@@ -165,7 +166,8 @@ export default defineComponent({
   },
   setup(props, context) {
     // 接收单个评论数据
-    const singleComment = computed(() => props.comment);
+    const singleComment = ref(props.comment as any);
+
     // 接收当前文章的ID
     const postIdData = computed(() => props.postId);
     // 接收当前用户ID
@@ -266,7 +268,7 @@ export default defineComponent({
       };
       await store.dispatch('publishReplyComment', publishReplyCommentData).then(async () => {
         replyShow.value = true;
-        await getReplyComments();
+        // await getReplyComments();
         replyCommentVal.value = '';
         createTooltip('评论回复成功', 'success', 3000);
       });
@@ -350,6 +352,24 @@ export default defineComponent({
         isReviseCommentMax.value = true;
       }
     });
+
+    /**
+     * 监听实时服务端创建回复评论事件
+     */
+    const onCommentReplyCreated = (data: { comment: unknown; socketId: string }) => {
+      const { comment } = data;
+      console.log(comment);
+
+      if (replyComment.value && replyComment.value.length != 0) {
+        replyComment.value.push(comment);
+      } else {
+        replyComment.value = [comment];
+      }
+
+      singleComment.value.totalReplies++;
+    };
+
+    socket.on('commentReplyCreated', onCommentReplyCreated);
 
     return {
       lostelkUrl,
