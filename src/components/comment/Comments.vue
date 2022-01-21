@@ -85,13 +85,13 @@ export default defineComponent({
         comments.value = data.data;
       });
 
-      comments.value.map(async (comment: { totalReplies: number; id: number; replyComment: unknown }) => {
-        if (comment.totalReplies !== 0) {
-          await store.dispatch('getReplyComments', comment.id).then(data => {
-            comment.replyComment = data;
-          });
-        }
-      });
+      // comments.value.map(async (comment: { totalReplies: number; id: number; replyComment: unknown }) => {
+      //   if (comment.totalReplies !== 0) {
+      //     await store.dispatch('getReplyComments', comment.id).then(data => {
+      //       comment.replyComment = data;
+      //     });
+      //   }
+      // });
     };
 
     onMounted(() => {

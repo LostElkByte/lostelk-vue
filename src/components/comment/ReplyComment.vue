@@ -47,10 +47,22 @@
         <div class="comment-text delete-succeed" v-else>
           该评论已删除
         </div>
-        <div class="comment-toolbar" v-if="replyComment.user.id === singleuserId && !isdeleteSucceed">
+        <div class="comment-toolbar" v-if="!isdeleteSucceed">
+          <button v-if="isLogin" :class="['comment-buttom', 'comment-buttom-show']" @click="showReplyInput">
+            <svg class="icon comment-buttom-icon" aria-hidden="true">
+              <use xlink:href="#icon-huifu2"></use>
+            </svg>
+            {{ replyShow ? '回复' : '取消回复' }}
+          </button>
+          <button v-else class="comment-buttom comment-buttom-show" @click="goLogin">
+            <svg class="icon comment-buttom-icon" aria-hidden="true">
+              <use xlink:href="#icon-huifu2"></use>
+            </svg>
+            回复(点击登录)
+          </button>
           <button
             v-if="replyComment.user.id === singleuserId || singleuserId === 1"
-            :class="['comment-buttom', 'comment-buttom-show']"
+            :class="['comment-buttom']"
             @click="showReviseInput"
           >
             <svg class="icon comment-buttom-icon" aria-hidden="true">
@@ -69,6 +81,26 @@
             删除
           </button>
         </div>
+        <ValidateForm :class="['comment-publish-reply-form', { 'comment-publish-reply-form-show': replyShow }]">
+          <ValidateInput
+            class="comment-publish-reply-input"
+            type="text"
+            :placeholder="`回复 ${replyComment.user.name}`"
+            v-model="replyCommentVal"
+            :value="replyCommentVal"
+          >
+          </ValidateInput>
+          <template v-slot:submit>
+            <div :class="['comment-reply-publish', { hidden: !replyCommentButton }]" @click="replyCommentClick">
+              <a href="#" class="form-btn">
+                回复
+              </a>
+            </div>
+          </template>
+        </ValidateForm>
+        <span class="form-error" v-if="isReplyCommentMax">
+          最大可输入长度为60个字符
+        </span>
         <ValidateForm :class="['comment-publish-revise-form', { 'comment-publish-revise-form-show': reviseShow }]">
           <ValidateInput
             class="comment-publish-revise-input"
@@ -104,6 +136,7 @@ import ValidateForm from '../form/ValidateForm.vue';
 import ConfirmationBox from '../globalFun/ConfirmationBox.vue';
 import store from '../../store';
 import createTooltip from '../globalFun/createTooltip';
+import router from '../../router';
 
 export default defineComponent({
   name: 'ReplyComment',
@@ -112,7 +145,7 @@ export default defineComponent({
     ValidateForm,
     ConfirmationBox,
   },
-  emits: ['reloadComments'],
+  emits: ['reloadReplyComments'],
   props: {
     replyCommentData: {
       type: Object,
@@ -130,21 +163,42 @@ export default defineComponent({
       type: Object,
       required: true,
     },
+    postId: {
+      type: Number,
+      required: true,
+    },
   },
-  setup(props) {
+  setup(props, context) {
     const replyComment = computed(() => props.replyCommentData);
     const PostUserId = computed(() => props.PostUserIdData);
     const singleuserId = computed(() => props.singleuserIdData);
     const singleComment = computed(() => props.singleCommentData);
-
+    // 接收当前文章的ID
+    const postIdData = computed(() => props.postId);
+    // 判断是否登录
+    const isLogin = computed(() => store.state.user.isLogin);
+    // 回复评论input的内容
+    const replyCommentVal = ref();
     // 修改评论input的内容
     const reviseReplyCommentVal = ref(replyComment.value ? replyComment.value.content : '');
 
     /**
+     * 回复评论input框显示控制
      * 修改评论input框显示控制
      */
     const replyShow = ref(true);
     const reviseShow = ref(true);
+
+    const showReplyInput = () => {
+      reviseShow.value = true;
+      replyShow.value = !replyShow.value;
+      if (!replyShow.value) {
+        setTimeout(() => {
+          const inputFocus = document.getElementsByClassName('comment-publish-reply-input')[0] as HTMLElement;
+          inputFocus.focus();
+        }, 100);
+      }
+    };
 
     const showReviseInput = () => {
       replyShow.value = true;
@@ -170,6 +224,26 @@ export default defineComponent({
     });
 
     /**
+     * 回复评论
+     */
+    const replyCommentClick = async () => {
+      const publishReplyCommentData = {
+        commentId: replyComment.value ? replyComment.value.id : '',
+        publishReplyCommentData: {
+          content: replyCommentVal.value,
+          postId: postIdData.value,
+          isReplyParentComment: 0,
+        },
+      };
+      await store.dispatch('publishReplyComment', publishReplyCommentData).then(async () => {
+        replyShow.value = true;
+        context.emit('reloadReplyComments');
+        replyCommentVal.value = '';
+        createTooltip('评论回复成功', 'success', 3000);
+      });
+    };
+
+    /**
      * 修改评论
      */
     const reviseCommentClick = async () => {
@@ -179,15 +253,16 @@ export default defineComponent({
           content: reviseReplyCommentVal.value,
         },
       };
-      await store.dispatch('reviseComment', reviseCommentData).then(() => {
+      await store.dispatch('reviseReplyComment', reviseCommentData).then(() => {
         replyShow.value = true;
+        reviseShow.value = true;
         replyComment.value.content = reviseReplyCommentVal.value;
         createTooltip('评论修改成功', 'success', 3000);
       });
     };
 
     /**
-     * 删除评论
+     * 删除回复评论
      */
     const isDelete = ref(false);
     const showDeleteAddirm = () => {
@@ -197,20 +272,55 @@ export default defineComponent({
     const cancelDelete = () => {
       isDelete.value = false;
     };
-
     const isdeleteSucceed = ref(false);
     const confirmDelete = async () => {
       isDelete.value = false;
-      await store.dispatch('deleteComment', replyComment.value ? replyComment.value.id : '').then(() => {
+
+      try {
+        await store.dispatch('deleteReplyComment', replyComment.value ? replyComment.value.id : '');
         isdeleteSucceed.value = true;
         createTooltip('评论删除成功', 'success', 3000);
-      });
+      } catch (error) {
+        // createTooltip(message, 'success', 3000);
+      }
     };
 
     /**
+     * 跳转登陆页
+     */
+    const goLogin = async () => {
+      await router.push('/');
+      await router.push('/login');
+    };
+
+    /**
+     * 回复评论发表按钮点击事件允许或拒绝
+     */
+    const replyCommentButton = ref(false);
+    watch(replyCommentVal, () => {
+      if (replyCommentVal.value) {
+        replyCommentButton.value = true;
+      } else {
+        replyCommentButton.value = false;
+      }
+    });
+
+    /**
      * 监听输入最大字符长度
+     * 新增
      * 修改
      */
+    const isReplyCommentMax = ref(false);
+    watch(replyCommentVal, () => {
+      const commentMaximumReg = /^.{0,60}$/;
+      if (commentMaximumReg.test(replyCommentVal.value)) {
+        isReplyCommentMax.value = false;
+      } else {
+        replyCommentButton.value = false;
+        isReplyCommentMax.value = true;
+      }
+    });
+
     const isReviseReplyCommentMax = ref(false);
     watch(reviseReplyCommentVal, () => {
       const commentMaximumReg = /^.{0,60}$/;
@@ -226,10 +336,12 @@ export default defineComponent({
       lostelkUrl,
       replyComment,
       PostUserId,
+      showReplyInput,
       showReviseInput,
       singleuserId,
       reviseShow,
       showDeleteAddirm,
+      replyCommentVal,
       reviseReplyCommentVal,
       reviseCommentButton,
       reviseCommentClick,
@@ -239,6 +351,12 @@ export default defineComponent({
       isdeleteSucceed,
       isReviseReplyCommentMax,
       singleComment,
+      goLogin,
+      isLogin,
+      replyCommentButton,
+      replyShow,
+      replyCommentClick,
+      isReplyCommentMax,
     };
   },
 });

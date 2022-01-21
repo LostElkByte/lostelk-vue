@@ -120,12 +120,14 @@
     <div v-if="singleComment.totalReplies !== 0 && unfoldReplyShow">
       <div>
         <ReplyComment
-          v-for="replyComment in singleComment.replyComment"
+          v-for="replyComment in replyComment"
           :key="replyComment.commentId"
           :replyCommentData="replyComment"
           :PostUserIdData="PostUserId"
           :singleuserIdData="singleuserId"
           :singleCommentData="singleComment"
+          :postId="postIdData"
+          @reloadReplyComments="getReplyComments"
         ></ReplyComment>
       </div>
     </div>
@@ -178,10 +180,23 @@ export default defineComponent({
     const isLogin = computed(() => store.state.user.isLogin);
 
     /**
-     * 查看回复列表点击隐藏
+     * 获取子评论数据
      */
+    const replyComment = ref();
+    const getReplyComments = async () => {
+      if (!singleComment.value) return;
+      await store.dispatch('getReplyComments', singleComment.value.id).then(data => {
+        replyComment.value = data;
+      });
+    };
+
+    /**
+     * 查看回复列表点击隐藏 获取子评论数据
+     */
+
     const unfoldReplyShow = ref(false);
-    const unfoldReplyList = () => {
+    const unfoldReplyList = async () => {
+      await getReplyComments();
       unfoldReplyShow.value = !unfoldReplyShow.value;
     };
 
@@ -246,11 +261,12 @@ export default defineComponent({
         publishReplyCommentData: {
           content: replyCommentVal.value,
           postId: postIdData.value,
+          isReplyParentComment: 1,
         },
       };
-      await store.dispatch('publishReplyComment', publishReplyCommentData).then(() => {
+      await store.dispatch('publishReplyComment', publishReplyCommentData).then(async () => {
         replyShow.value = true;
-        context.emit('reloadComments');
+        await getReplyComments();
         replyCommentVal.value = '';
         createTooltip('评论回复成功', 'success', 3000);
       });
@@ -259,7 +275,6 @@ export default defineComponent({
     /**
      * 修改评论
      */
-
     const reviseCommentClick = async () => {
       const reviseCommentData = {
         commentId: props.comment ? props.comment.id : '',
@@ -290,10 +305,13 @@ export default defineComponent({
     const isdeleteSucceed = ref(false);
     const confirmDelete = async () => {
       isDelete.value = false;
-      await store.dispatch('deleteComment', props.comment ? props.comment.id : '').then(() => {
+      try {
+        await store.dispatch('deleteComment', props.comment ? props.comment.id : '');
         isdeleteSucceed.value = true;
         createTooltip('评论删除成功', 'success', 3000);
-      });
+      } catch (error) {
+        createTooltip(error as string, 'success', 3000);
+      }
     };
 
     /**
@@ -357,6 +375,9 @@ export default defineComponent({
       goLogin,
       isReplyCommentMax,
       isReviseCommentMax,
+      postIdData,
+      replyComment,
+      getReplyComments,
     };
   },
 });

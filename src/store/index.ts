@@ -777,11 +777,36 @@ export default createStore<GloablDataProps>({
     },
 
     /**
+   * 修改回复评论
+   */
+    async reviseReplyComment(context, { commentId, reviseCommentData }) {
+      try {
+        const comments = await axios.patch(`/reply_comment/${commentId}`, reviseCommentData)
+        return comments.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+
+    /**
      * 删除评论
      */
     async deleteComment(context, commentId) {
       try {
         const comments = await axios.delete(`/comments/${commentId}`)
+        return comments.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
+
+    /**
+     * 删除回复评论
+     */
+    async deleteReplyComment(context, commentId) {
+      try {
+        const comments = await axios.delete(`/reply_comment/${commentId}`)
         return comments.data
       } catch (error) {
         console.log(error)
