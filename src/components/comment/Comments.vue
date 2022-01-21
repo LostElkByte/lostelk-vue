@@ -49,6 +49,7 @@ import ValidateForm from '../form/ValidateForm.vue';
 import SingleComment from './Comment.vue';
 import store from '../../store';
 import createTooltip from '../globalFun/createTooltip';
+import { socket } from '../../service/service';
 
 export default defineComponent({
   name: 'Comments',
@@ -124,6 +125,19 @@ export default defineComponent({
     });
 
     /**
+     * 监听实时服务端创建评论事件
+     */
+    const onCommentCreated = (data: { comment: Array<unknown>; socketId: string }) => {
+      const { comment } = data;
+      // if (socket.id === socketId) return;
+      // store.commit('realTimeClickLike', postId);
+      comments.value.push(comment);
+      commentsNumber.value++;
+    };
+
+    socket.on('commentCreated', onCommentCreated);
+
+    /**
      * 发表评论
      */
     const publishCommentVal = ref('');
@@ -142,7 +156,7 @@ export default defineComponent({
         store.dispatch('publishComments', publishCommentData).then(() => {
           publishCommentVal.value = '';
           createTooltip('评论成功', 'success', 3000);
-          getComment();
+          // getComment();
         });
       } else {
         console.log('不通过');
