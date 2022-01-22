@@ -4,7 +4,7 @@ import { io } from 'socket.io-client'
 
 
 // 默认url头
-axios.defaults.baseURL = 'http://192.168.43.202:3000';
+axios.defaults.baseURL = 'http://192.168.1.101:3000';
 
 // 拦截器 
 axios.interceptors.request.use(config => {
@@ -32,5 +32,5 @@ axios.interceptors.response.use(config => {
 /**
  * Socket
  */
-const socket = io('http://192.168.43.202:3000')
+const socket = io('http://192.168.1.101:3000')
 export { axios, socket }

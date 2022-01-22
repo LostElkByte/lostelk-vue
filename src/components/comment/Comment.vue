@@ -167,7 +167,6 @@ export default defineComponent({
   setup(props, context) {
     // 接收单个评论数据
     const singleComment = ref(props.comment as any);
-
     // 接收当前文章的ID
     const postIdData = computed(() => props.postId);
     // 接收当前用户ID
