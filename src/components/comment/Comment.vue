@@ -166,7 +166,8 @@ export default defineComponent({
   },
   setup(props, context) {
     // 接收单个评论数据
-    const singleComment = ref(props.comment as Record<string, any>);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const singleComment = ref(props.comment as any);
     // 接收当前文章的ID
     const postIdData = computed(() => props.postId);
     // 接收当前用户ID
@@ -355,6 +356,7 @@ export default defineComponent({
     /**
      * 监听实时服务端创建回复评论事件
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onCommentReplyCreated = (data: { comment: any; socketId: string }) => {
       const { comment } = data;
       if (comment.parentId !== singleComment.value.id) return;
