@@ -348,6 +348,19 @@ export default defineComponent({
 
     socket.on('updateReplyComment', onUpdateReplyComment);
 
+    /**
+     * 监听实时服务端删除评论事件
+     */
+    const onCommentReplyDeleted = async (data: { replyCommentId: number; socketId: string }) => {
+      const { replyCommentId, socketId } = data;
+      if (replyCommentId != replyComment.value.id) return;
+
+      if (socket.id === socketId) return;
+      isdeleteSucceed.value = true;
+    };
+
+    socket.on('commentReplyDelete', onCommentReplyDeleted);
+
     return {
       lostelkUrl,
       replyComment,

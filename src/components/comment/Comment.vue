@@ -166,7 +166,7 @@ export default defineComponent({
   },
   setup(props, context) {
     // 接收单个评论数据
-    const singleComment = ref(props.comment as any);
+    const singleComment = ref(props.comment);
     // 接收当前文章的ID
     const postIdData = computed(() => props.postId);
     // 接收当前用户ID
@@ -364,7 +364,7 @@ export default defineComponent({
         replyComment.value = [comment];
       }
 
-      singleComment.value.totalReplies++;
+      singleComment.value && singleComment.value.totalReplies++;
     };
 
     socket.on('commentReplyCreated', onCommentReplyCreated);
