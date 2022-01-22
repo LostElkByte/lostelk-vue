@@ -166,7 +166,7 @@ export default defineComponent({
   },
   setup(props, context) {
     // 接收单个评论数据
-    const singleComment = ref(props.comment);
+    const singleComment = ref(props.comment as Record<string, any>);
     // 接收当前文章的ID
     const postIdData = computed(() => props.postId);
     // 接收当前用户ID
@@ -355,9 +355,10 @@ export default defineComponent({
     /**
      * 监听实时服务端创建回复评论事件
      */
-    const onCommentReplyCreated = (data: { comment: unknown; socketId: string }) => {
+    const onCommentReplyCreated = (data: { comment: any; socketId: string }) => {
       const { comment } = data;
-
+      if (comment.parentId !== singleComment.value.id) return;
+      console.log(comment);
       if (replyComment.value && replyComment.value.length != 0) {
         replyComment.value.push(comment);
       } else {
