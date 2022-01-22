@@ -230,7 +230,7 @@ export default defineComponent({
     const onCommentDeleted = async (data: { commentId: number; socketId: string }) => {
       const { commentId, socketId } = data;
 
-      if (socket.id === socketId) return;
+      // if (socket.id === socketId) return;
       commentDeleted(commentId);
     };
 

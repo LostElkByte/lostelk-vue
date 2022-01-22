@@ -309,8 +309,8 @@ export default defineComponent({
       isDelete.value = false;
       try {
         await store.dispatch('deleteComment', props.comment ? props.comment.id : '');
-        context.emit('minusOneCommentsNumber');
-        isdeleteSucceed.value = true;
+        // context.emit('minusOneCommentsNumber');
+        // isdeleteSucceed.value = true;
 
         createTooltip('评论删除成功', 'success', 3000);
       } catch (error) {
