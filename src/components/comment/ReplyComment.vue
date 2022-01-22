@@ -137,6 +137,7 @@ import ConfirmationBox from '../globalFun/ConfirmationBox.vue';
 import store from '../../store';
 import createTooltip from '../globalFun/createTooltip';
 import router from '../../router';
+import { socket } from '../../service/service';
 
 export default defineComponent({
   name: 'ReplyComment',
@@ -168,7 +169,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props, context) {
+  setup(props) {
     const replyComment = computed(() => props.replyCommentData);
     const PostUserId = computed(() => props.PostUserIdData);
     const singleuserId = computed(() => props.singleuserIdData);
@@ -237,7 +238,7 @@ export default defineComponent({
       };
       await store.dispatch('publishReplyComment', publishReplyCommentData).then(async () => {
         replyShow.value = true;
-        context.emit('reloadReplyComments');
+        // context.emit('reloadReplyComments');
         replyCommentVal.value = '';
         createTooltip('评论回复成功', 'success', 3000);
       });
@@ -331,6 +332,21 @@ export default defineComponent({
         isReviseReplyCommentMax.value = true;
       }
     });
+
+    /**
+     * 监听实时服务端修改回复评论事件
+     */
+    const onUpdateReplyComment = (data: { replyCommentId: number; content: string; socketId: string }) => {
+      const { replyCommentId, content, socketId } = data;
+
+      if (replyCommentId != replyComment.value.id) return;
+
+      if (socket.id === socketId) return;
+
+      replyComment.value.content = content;
+    };
+
+    socket.on('updateReplyComment', onUpdateReplyComment);
 
     return {
       lostelkUrl,

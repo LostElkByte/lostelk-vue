@@ -199,7 +199,7 @@ export default defineComponent({
     /**
      * 监听实时服务端修改评论事件
      */
-    const onUpdateDelete = (data: { commentId: number; content: string; socketId: string }) => {
+    const onupdateComment = (data: { commentId: number; content: string; socketId: string }) => {
       const { commentId, content, socketId } = data;
 
       if (socket.id === socketId) return;
@@ -210,7 +210,7 @@ export default defineComponent({
       }
     };
 
-    socket.on('updateDelete', onUpdateDelete);
+    socket.on('updateComment', onupdateComment);
 
     /**
      * 实时删除评论方法

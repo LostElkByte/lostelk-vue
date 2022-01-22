@@ -357,7 +357,6 @@ export default defineComponent({
      */
     const onCommentReplyCreated = (data: { comment: unknown; socketId: string }) => {
       const { comment } = data;
-      console.log(comment);
 
       if (replyComment.value && replyComment.value.length != 0) {
         replyComment.value.push(comment);
