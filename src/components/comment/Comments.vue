@@ -228,7 +228,7 @@ export default defineComponent({
      * 监听实时服务端删除评论事件
      */
     const onCommentDeleted = async (data: { commentId: number; socketId: string }) => {
-      const { commentId, socketId } = data;
+      const { commentId } = data;
 
       // if (socket.id === socketId) return;
       commentDeleted(commentId);
