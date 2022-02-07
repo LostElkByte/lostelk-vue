@@ -65,6 +65,10 @@
   padding-left: 1px;
   margin-bottom: 4px;
   line-height: 24px;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .commentItem-avatar {
   display: inline-block;
@@ -250,4 +254,9 @@
   font-size: 12px;
   cursor: text;
   transition: opacity 0.25s ease;
+}
+@media (max-width: 767px) {
+  .commentItem-meta {
+    font-size: 12px;
+  }
 }
