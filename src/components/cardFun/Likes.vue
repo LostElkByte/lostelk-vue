@@ -18,6 +18,7 @@ import { computed, defineComponent } from 'vue';
 import { axios } from '../../service/service';
 import store from '../../store';
 export default defineComponent({
+  emits: ['singleCardReviseLike'],
   props: {
     isLike: Number,
     likeCount: {
@@ -25,20 +26,31 @@ export default defineComponent({
       required: false,
     },
     cardId: Number,
+    singleCard: {
+      type: Boolean,
+      required: false,
+    },
   },
-  setup(props) {
+  setup(props, context) {
     const likedCount = computed(() => props.likeCount);
     const isLiked = computed(() => props.isLike);
+    const singleCard = computed(() => props.singleCard);
 
     const giveLike = () => {
       store.commit('setIsShowLoading', false);
       if (!isLiked.value) {
         axios.post(`/posts/${props.cardId}/like`).then(() => {
           store.commit('clickLike', props.cardId);
+          if (singleCard.value) {
+            context.emit('singleCardReviseLike', 1);
+          }
         });
       } else {
         axios.delete(`/posts/${props.cardId}/like`).then(() => {
           store.commit('cancelLike', props.cardId);
+          if (singleCard.value) {
+            context.emit('singleCardReviseLike', 0);
+          }
         });
       }
     };
