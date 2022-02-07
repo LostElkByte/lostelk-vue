@@ -1,10 +1,10 @@
 import axios from 'axios'
 import store from '../store'
 import { io } from 'socket.io-client'
-
+import { serveUrl } from '../global';
 
 // 默认url头
-axios.defaults.baseURL = 'http://192.168.1.101:3000';
+axios.defaults.baseURL = serveUrl;
 
 // 拦截器 
 axios.interceptors.request.use(config => {
@@ -32,5 +32,5 @@ axios.interceptors.response.use(config => {
 /**
  * Socket
  */
-const socket = io('http://192.168.1.101:3000')
+const socket = io(serveUrl)
 export { axios, socket }
