@@ -55,7 +55,7 @@ export default defineComponent({
       // 搜索到内容将未没有内容提示隐藏,  并且将主页搜索框隐藏
       store.commit('setSearchFailure', false);
       // 如果总页数等于1
-      if (Math.ceil(userLikeCardTotalCount.value / 20) === 1) {
+      if (Math.ceil(userLikeCardTotalCount.value / 10) === 1) {
         // 将 没有更多 提示 设置为true
         store.commit('noMore', true);
       }
@@ -66,10 +66,10 @@ export default defineComponent({
      */
 
     // 计算userLike页的总页数
-    const userLikeTotalPage = computed(() => Math.ceil(userLikeCardTotalCount.value / 20));
+    const userLikeTotalPage = computed(() => Math.ceil(userLikeCardTotalCount.value / 10));
     // 获取当前加载的UserLike卡片的数量
     const userLikeTotalNumber = computed(() =>
-      store.state.userLikeCardList.length === 0 ? 1 : Math.ceil(store.state.userLikeCardList.length / 20),
+      store.state.userLikeCardList.length === 0 ? 1 : Math.ceil(store.state.userLikeCardList.length / 10),
     );
     // 默认当前页数
     const currentPage = ref(userLikeTotalNumber.value);

@@ -43,7 +43,7 @@ export default defineComponent({
       store.commit('noMore', false);
       await store.dispatch('getCardList').then(data => {
         // 如果总页数等于1
-        if (Math.ceil(data.headers['x-total-count'] / 20) === 1) {
+        if (Math.ceil(data.headers['x-total-count'] / 10) === 1) {
           // 将 没有更多 提示 设置为true
           store.commit('noMore', true);
         }
@@ -62,7 +62,7 @@ export default defineComponent({
     // 获取home页的卡片总数
     const homePageCardTotalCount = computed(() => store.state.homePageCardTotalCount);
     // 计算home页的总页数
-    const homeTotalPage = computed(() => Math.ceil(homePageCardTotalCount.value / 20));
+    const homeTotalPage = computed(() => Math.ceil(homePageCardTotalCount.value / 10));
     // 默认当前页数
     const currentPage = ref(1);
     // 是否加载默认设置为true

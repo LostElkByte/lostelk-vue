@@ -58,7 +58,7 @@ export default defineComponent({
       // 搜索到内容将未没有内容提示隐藏,  并且将主页搜索框隐藏
       store.commit('setSearchFailure', false);
       // 如果总页数等于1
-      if (Math.ceil(userPhotosCardTotalCount.value / 20) === 1) {
+      if (Math.ceil(userPhotosCardTotalCount.value / 10) === 1) {
         // 将 没有更多 提示 设置为true
         store.commit('noMore', true);
       }
@@ -69,10 +69,10 @@ export default defineComponent({
      */
 
     // 计算UserPhotos页的总页数
-    const userPhotosTotalPage = computed(() => Math.ceil(userPhotosCardTotalCount.value / 20));
+    const userPhotosTotalPage = computed(() => Math.ceil(userPhotosCardTotalCount.value / 10));
     // 获取当前加载的UserPhotos卡片的数量
     const userPhotosTotalNumber = computed(() =>
-      store.state.userPhotosCardList.length === 0 ? 1 : Math.ceil(store.state.userPhotosCardList.length / 20),
+      store.state.userPhotosCardList.length === 0 ? 1 : Math.ceil(store.state.userPhotosCardList.length / 10),
     );
     // 默认当前页数
     const currentPage = ref(userPhotosTotalNumber.value);
