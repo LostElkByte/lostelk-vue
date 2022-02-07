@@ -2,24 +2,29 @@
   <ul class="nest-comment" v-if="singleComment">
     <li class="nestComment-rootComment">
       <div class="comment-item">
-        <div class="commentItem-meta" @click="toUserPage(singleComment.user.id)">
-          <div class="commentItem-avatar">
-            <img
-              v-if="singleComment.user.avatar"
-              class="commentItem-avatar-img"
-              :src="`${lostelkUrl}/users/${singleComment.user.id}/avatar?size=small`"
-              :alt="singleComment.user.name"
-            />
-            <svg v-else class="commentItem-avatar-img" aria-hidden="true">
-              <use xlink:href="#icon-touxiangnvhai"></use>
-            </svg>
+        <div style="display: flex;justify-content: space-between; align-items: center;">
+          <div class="commentItem-meta" @click="toUserPage(singleComment.user.id)">
+            <div class="commentItem-avatar">
+              <img
+                v-if="singleComment.user.avatar"
+                class="commentItem-avatar-img"
+                :src="`${lostelkUrl}/users/${singleComment.user.id}/avatar?size=small`"
+                :alt="singleComment.user.name"
+              />
+              <svg v-else class="commentItem-avatar-img" aria-hidden="true">
+                <use xlink:href="#icon-touxiangnvhai"></use>
+              </svg>
+            </div>
+            <span class="user-name" v-if="singleComment.user.id === PostUserId">
+              {{ singleComment.user.name }}(作者)
+            </span>
+            <span class="user-name" v-else>
+              {{ singleComment.user.name }}
+            </span>
           </div>
-          <span class="user-name" v-if="singleComment.user.id === PostUserId">
-            {{ singleComment.user.name }}(作者)
-          </span>
-          <span class="user-name" v-else>
-            {{ singleComment.user.name }}
-          </span>
+          <div style="float: right;font-size: 12px;color: #8590a6;">
+            {{ dayjs.unix(singleComment.create_time).format('YYYY-MM-DD') }}
+          </div>
         </div>
         <div class="commentItem-metaSibling">
           <div class="comment-text" v-if="!isdeleteSucceed">
