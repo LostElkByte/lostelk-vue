@@ -2,7 +2,7 @@
   <ul class="nest-comment" v-if="singleComment">
     <li class="nestComment-rootComment">
       <div class="comment-item">
-        <div class="commentItem-meta">
+        <div class="commentItem-meta" @click="toUserPage(singleComment.user.id)">
           <div class="commentItem-avatar">
             <img
               v-if="singleComment.user.avatar"
@@ -354,6 +354,13 @@ export default defineComponent({
     });
 
     /**
+     * 进入用户页
+     */
+    const toUserPage = (userId: number) => {
+      router.push(`/@${userId}`);
+    };
+
+    /**
      * 监听实时服务端创建回复评论事件
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -401,6 +408,7 @@ export default defineComponent({
       postIdData,
       replyComment,
       getReplyComments,
+      toUserPage,
     };
   },
 });

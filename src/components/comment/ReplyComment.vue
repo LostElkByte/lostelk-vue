@@ -1,45 +1,55 @@
 <template>
   <li class="nestComment-child" v-if="replyComment">
     <div class="comment-item">
+      <!-- 回复用户与被回复用户 头像与账号名 -->
       <div class="commentItem-meta">
-        <div class="commentItem-avatar">
-          <img
-            v-if="replyComment.user.avatar"
-            class="commentItem-avatar-img"
-            :src="`${lostelkUrl}/users/${replyComment.user.id}/avatar?size=small`"
-            :alt="`${replyComment ? replyComment.user.name : ''}`"
-          />
-          <svg v-else class="commentItem-avatar-img" aria-hidden="true">
-            <use xlink:href="#icon-touxiangnvhai"></use>
-          </svg>
-        </div>
-        <span>
-          <span class="user-name" v-if="PostUserId === replyComment.user.id"> {{ replyComment.user.name }}(作者) </span>
-          <span class="user-name" v-else>
-            {{ replyComment.user.name }}
+        <!-- 回复用户 -->
+        <span @click="toUserPage(replyComment.user.id)">
+          <div class="commentItem-avatar">
+            <img
+              v-if="replyComment.user.avatar"
+              class="commentItem-avatar-img"
+              :src="`${lostelkUrl}/users/${replyComment.user.id}/avatar?size=small`"
+              :alt="`${replyComment ? replyComment.user.name : ''}`"
+            />
+            <svg v-else class="commentItem-avatar-img" aria-hidden="true">
+              <use xlink:href="#icon-touxiangnvhai"></use>
+            </svg>
+          </div>
+          <span>
+            <span class="user-name" v-if="PostUserId === replyComment.user.id">
+              {{ replyComment.user.name }}(作者)
+            </span>
+            <span class="user-name" v-else>
+              {{ replyComment.user.name }}
+            </span>
           </span>
         </span>
         <span class="commentText-reply">
           回复
         </span>
-        <div class="commentItem-avatar">
-          <img
-            v-if="replyComment.replyUser.avatar"
-            class="commentItem-avatar-img"
-            :src="`${lostelkUrl}/users/${replyComment.replyUser.id}/avatar?size=small`"
-            :alt="`${replyComment ? replyComment.replyUser.name : ''}`"
-          />
-          <svg v-else class="commentItem-avatar-img" aria-hidden="true">
-            <use xlink:href="#icon-touxiangnvhai"></use>
-          </svg>
-        </div>
-        <span class="user-link" v-if="PostUserId === replyComment.replyUser.id">
-          {{ replyComment ? replyComment.replyUser.name : '' }}(作者)
-        </span>
-        <span class="user-link" v-else>
-          {{ replyComment ? replyComment.replyUser.name : '' }}
+        <!-- 被回复用户 -->
+        <span @click="toUserPage(replyComment.replyUser.id)">
+          <div class="commentItem-avatar">
+            <img
+              v-if="replyComment.replyUser.avatar"
+              class="commentItem-avatar-img"
+              :src="`${lostelkUrl}/users/${replyComment.replyUser.id}/avatar?size=small`"
+              :alt="`${replyComment ? replyComment.replyUser.name : ''}`"
+            />
+            <svg v-else class="commentItem-avatar-img" aria-hidden="true">
+              <use xlink:href="#icon-touxiangnvhai"></use>
+            </svg>
+          </div>
+          <span class="user-link" v-if="PostUserId === replyComment.replyUser.id">
+            {{ replyComment ? replyComment.replyUser.name : '' }}(作者)
+          </span>
+          <span class="user-link" v-else>
+            {{ replyComment ? replyComment.replyUser.name : '' }}
+          </span>
         </span>
       </div>
+      <!-- 回复内容 -->
       <div class="commentItem-metaSibling">
         <div class="comment-text" v-if="!isdeleteSucceed">
           {{ replyComment.content }}
@@ -334,6 +344,13 @@ export default defineComponent({
     });
 
     /**
+     * 进入用户页
+     */
+    const toUserPage = (userId: number) => {
+      router.push(`/@${userId}`);
+    };
+
+    /**
      * 监听实时服务端修改回复评论事件
      */
     const onUpdateReplyComment = (data: { replyCommentId: number; content: string; socketId: string }) => {
@@ -386,6 +403,7 @@ export default defineComponent({
       replyShow,
       replyCommentClick,
       isReplyCommentMax,
+      toUserPage,
     };
   },
 });
