@@ -60,7 +60,12 @@
             </div>
             <div class="content-header-toolbar">
               <div class="content-header-toolbar-like">
-                <Likes :isLike="postData.liked" :cardId="postId"></Likes>
+                <Likes
+                  :isLike="postData.liked"
+                  :cardId="postId"
+                  @singleCardReviseLike="singleCardReviseLike"
+                  :singleCard="singleCard"
+                ></Likes>
               </div>
               <div class="content-header-toolbar-comment" @click="showComments">
                 <svg class="icon" aria-hidden="true">
@@ -205,6 +210,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    // 是否为单个卡片
+    const singleCard = ref(false);
     // 获得当前访问的主页的用户ID
     const UserIdProps = computed(() => Number(props.UserId));
     // 获取当前用户ID
@@ -225,6 +232,7 @@ export default defineComponent({
 
     // 如果当前帖子存在于cardList数组中,进入if 否则 进入else
     if (cardIndex.value !== -1) {
+      singleCard.value = false;
       // 帖子存在 开放组件dom
       showCard.value = true;
       // 获取帖子内容
@@ -234,6 +242,7 @@ export default defineComponent({
         fileMetadata.value = data;
       });
     } else {
+      singleCard.value = true;
       // 获取单个帖子
       store.dispatch('getCard', postId.value).then(data => {
         if (data) {
@@ -248,6 +257,13 @@ export default defineComponent({
         }
       });
     }
+
+    /**
+     * 修改单个卡片点赞状态
+     */
+    const singleCardReviseLike = (state: number) => {
+      postData.value.liked = state;
+    };
 
     /**
      * 图片放大缩小
@@ -419,6 +435,8 @@ export default defineComponent({
       showCommentsCut,
       editCard,
       toUserPage,
+      singleCardReviseLike,
+      singleCard,
     };
   },
 });
