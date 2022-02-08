@@ -656,11 +656,11 @@ export default defineComponent({
 img[lazy='loading'] {
   width: 100%;
   height: 100%;
-  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
-  -ms-filter: blur(5px);
-  filter: blur(5px);
+  -webkit-filter: blur(50px);
+  -moz-filter: blur(50px);
+  -o-filter: blur(50px);
+  -ms-filter: blur(50px);
+  filter: blur(50px);
 }
 img[lazy='error'] {
   width: 100%;
