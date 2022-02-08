@@ -14,11 +14,19 @@
       <div class="home-page_main_cards" v-if="!searchfailure">
         <div class="cardColumn" ref="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardThreeColumnOne" :key="card.id">
-            <img
-              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
-              :alt="card.title"
-              :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
-            />
+            <div
+              class="lazy-loading"
+              v-lazy-container="{
+                selector: 'img',
+                loading: `${lostelkUrl}/files/${card.file.id}/serve?size=thumbnail`,
+              }"
+            >
+              <img
+                :data-src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
+                :alt="card.title"
+                :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
+              />
+            </div>
             <div class="card-baffle-plate" @click="cardDetails(card.id)">
               <div class="card-baffle-plate-top">
                 <div class="like-comments">
@@ -68,11 +76,19 @@
         </div>
         <div class="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardThreeColumnTwo" :key="card.id">
-            <img
-              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
-              :alt="card.title"
-              :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
-            />
+            <div
+              class="lazy-loading"
+              v-lazy-container="{
+                selector: 'img',
+                loading: `${lostelkUrl}/files/${card.file.id}/serve?size=thumbnail`,
+              }"
+            >
+              <img
+                :data-src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
+                :alt="card.title"
+                :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
+              />
+            </div>
             <div class="card-baffle-plate" @click="cardDetails(card.id)">
               <div class="card-baffle-plate-top">
                 <div class="like-comments">
@@ -122,11 +138,19 @@
         </div>
         <div class="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardThreeColumnThree" :key="card.id">
-            <img
-              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
-              :alt="card.title"
-              :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
-            />
+            <div
+              class="lazy-loading"
+              v-lazy-container="{
+                selector: 'img',
+                loading: `${lostelkUrl}/files/${card.file.id}/serve?size=thumbnail`,
+              }"
+            >
+              <img
+                :data-src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
+                :alt="card.title"
+                :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
+              />
+            </div>
             <div class="card-baffle-plate" @click="cardDetails(card.id)">
               <div class="card-baffle-plate-top">
                 <div class="like-comments">
@@ -200,11 +224,19 @@
       <div class="home-page_main_cards" v-if="!searchfailure">
         <div class="cardColumn" ref="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardTwoColumnOne" :key="card.id">
-            <img
-              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
-              :alt="card.title"
-              :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
-            />
+            <div
+              class="lazy-loading"
+              v-lazy-container="{
+                selector: 'img',
+                loading: `${lostelkUrl}/files/${card.file.id}/serve?size=thumbnail`,
+              }"
+            >
+              <img
+                :data-src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
+                :alt="card.title"
+                :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
+              />
+            </div>
             <div class="card-baffle-plate" @click="cardDetails(card.id)">
               <div class="card-baffle-plate-top">
                 <div class="like-comments">
@@ -254,11 +286,20 @@
         </div>
         <div class="cardColumn">
           <div class="home-page_main_cards_item" v-for="card in cardTwoColumnTwo" :key="card.id">
-            <img
-              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
-              :alt="card.title"
-              :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
-            />
+            <div
+              class="lazy-loading"
+              v-lazy-container="{
+                selector: 'img',
+                loading: `${lostelkUrl}/files/${card.file.id}/serve?size=thumbnail`,
+              }"
+            >
+              <img
+                :data-src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
+                :alt="card.title"
+                :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
+              />
+            </div>
+
             <div class="card-baffle-plate" @click="cardDetails(card.id)">
               <div class="card-baffle-plate-top">
                 <div class="like-comments">
@@ -353,12 +394,20 @@
                 </div>
               </div>
             </div>
-            <img
-              :src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
-              :alt="card.title"
-              @click="cardDetails(card.id)"
-              :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
-            />
+            <div
+              class="lazy-loading"
+              v-lazy-container="{
+                selector: 'img',
+                loading: `${lostelkUrl}/files/${card.file.id}/serve?size=thumbnail`,
+              }"
+            >
+              <img
+                :data-src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
+                :alt="card.title"
+                @click="cardDetails(card.id)"
+                :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
+              />
+            </div>
             <div class="max767-bottom">
               <div class="max767-bottom-left">
                 <button class="card-button-max767">
@@ -604,4 +653,18 @@ export default defineComponent({
 
 <style scoped>
 @import '../../style/less/componentsStyle/card-main.css';
+img[lazy='loading'] {
+  width: 100%;
+  height: 100%;
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+}
+img[lazy='error'] {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+}
 </style>
