@@ -161,7 +161,7 @@ export default defineComponent({
     ValidateForm,
     ConfirmationBox,
   },
-  emits: ['reloadReplyComments'],
+  emits: ['reloadReplyComments', 'replyCommentPositioning'],
   props: {
     replyCommentData: {
       type: Object,
@@ -184,7 +184,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  setup(props, context) {
     const replyComment = computed(() => props.replyCommentData);
     const PostUserId = computed(() => props.PostUserIdData);
     const singleuserId = computed(() => props.singleuserIdData);
@@ -255,6 +255,7 @@ export default defineComponent({
         replyShow.value = true;
         // context.emit('reloadReplyComments');
         replyCommentVal.value = '';
+        context.emit('replyCommentPositioning');
         createTooltip('评论回复成功', 'success', 3000);
       });
     };

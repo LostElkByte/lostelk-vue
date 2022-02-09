@@ -123,7 +123,7 @@
       </div>
     </li>
     <div v-if="singleComment.totalReplies !== 0 && unfoldReplyShow">
-      <div>
+      <div :id="`replyComment${singleComment.id}`">
         <ReplyComment
           v-for="replyComment in replyComment"
           :key="replyComment.commentId"
@@ -133,6 +133,7 @@
           :singleCommentData="singleComment"
           :postId="postIdData"
           @reloadReplyComments="getReplyComments"
+          @replyCommentPositioning="replyCommentPositioning"
         ></ReplyComment>
       </div>
     </div>
@@ -203,7 +204,10 @@ export default defineComponent({
 
     const unfoldReplyShow = ref(false);
     const unfoldReplyList = async () => {
-      await getReplyComments();
+      if (!unfoldReplyShow.value) {
+        await getReplyComments();
+      }
+
       unfoldReplyShow.value = !unfoldReplyShow.value;
     };
 
@@ -230,6 +234,18 @@ export default defineComponent({
         reviseCommentButton.value = false;
       }
     });
+
+    /**
+     * 回复评论定位
+     */
+    const replyCommentPositioning = () => {
+      setTimeout(() => {
+        const comment = document.getElementById(`replyComment${singleComment.value.id}`) as HTMLElement;
+        comment.style.setProperty('padding-bottom', '60px');
+        comment.scrollIntoView(false);
+        comment.style.removeProperty('padding-bottom');
+      }, 100);
+    };
 
     /**
      * 回复评论input框显示控制
@@ -273,8 +289,13 @@ export default defineComponent({
       };
       await store.dispatch('publishReplyComment', publishReplyCommentData).then(async () => {
         replyShow.value = true;
-        // await getReplyComments();
+
         replyCommentVal.value = '';
+        if (!unfoldReplyShow.value) {
+          await getReplyComments();
+          unfoldReplyShow.value = true;
+        }
+        replyCommentPositioning();
         createTooltip('评论回复成功', 'success', 3000);
       });
     };
@@ -414,6 +435,7 @@ export default defineComponent({
       replyComment,
       getReplyComments,
       toUserPage,
+      replyCommentPositioning,
     };
   },
 });
