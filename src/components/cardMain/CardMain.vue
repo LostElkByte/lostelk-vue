@@ -24,7 +24,11 @@
               <img
                 :data-src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
                 :alt="card.title"
-                :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
+                :style="
+                  initialHeight
+                    ? `height: ${(cardColumnWidth / card.file.width) * card.file.height}px`
+                    : `width: 100%; height: auto;`
+                "
               />
             </div>
             <div class="card-baffle-plate" @click="cardDetails(card.id)">
@@ -86,7 +90,11 @@
               <img
                 :data-src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
                 :alt="card.title"
-                :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
+                :style="
+                  initialHeight
+                    ? `height: ${(cardColumnWidth / card.file.width) * card.file.height}px`
+                    : `width: 100%; height: auto;`
+                "
               />
             </div>
             <div class="card-baffle-plate" @click="cardDetails(card.id)">
@@ -148,7 +156,11 @@
               <img
                 :data-src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
                 :alt="card.title"
-                :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
+                :style="
+                  initialHeight
+                    ? `height: ${(cardColumnWidth / card.file.width) * card.file.height}px`
+                    : `width: 100%; height: auto;`
+                "
               />
             </div>
             <div class="card-baffle-plate" @click="cardDetails(card.id)">
@@ -234,7 +246,11 @@
               <img
                 :data-src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
                 :alt="card.title"
-                :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
+                :style="
+                  initialHeight
+                    ? `height: ${(cardColumnWidth / card.file.width) * card.file.height}px`
+                    : `width: 100%; height: auto;`
+                "
               />
             </div>
             <div class="card-baffle-plate" @click="cardDetails(card.id)">
@@ -296,7 +312,11 @@
               <img
                 :data-src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
                 :alt="card.title"
-                :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
+                :style="
+                  initialHeight
+                    ? `height: ${(cardColumnWidth / card.file.width) * card.file.height}px`
+                    : `width: 100%; height: auto;`
+                "
               />
             </div>
 
@@ -405,7 +425,11 @@
                 :data-src="card.file.id ? `${lostelkUrl}/files/${card.file.id}/serve?size=large` : card.file.fakeUrl"
                 :alt="card.title"
                 @click="cardDetails(card.id)"
-                :style="`height: ${(cardColumnWidth / card.file.width) * card.file.height}px`"
+                :style="
+                  initialHeight
+                    ? `height: ${(cardColumnWidth / card.file.width) * card.file.height}px`
+                    : `width: 100%; height: auto;`
+                "
               />
             </div>
             <div class="max767-bottom">
@@ -448,7 +472,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, onUnmounted, PropType, ref } from 'vue';
+import { computed, defineComponent, onMounted, onUnmounted, PropType, ref, watch } from 'vue';
 import { lostelkUrl } from '../../global';
 import store, { CardList, GloabSearchTagProps } from '../../store';
 import Likes from '../cardFun/Likes.vue';
@@ -579,6 +603,12 @@ export default defineComponent({
       router.push(`/@${userId}`);
     };
 
+    // 初始高度控制变量
+    const initialHeight = ref(false);
+    watch(cardList, () => {
+      initialHeight.value = true;
+    });
+
     /**
      * 实时获取cardColumn宽度
      */
@@ -586,6 +616,7 @@ export default defineComponent({
     const cardColumn = ref();
 
     function cardColumnSize() {
+      initialHeight.value = false;
       // setTimeout(() => {
       cardColumnWidth.value = cardColumn.value.clientWidth;
       // }, 500);
@@ -646,6 +677,7 @@ export default defineComponent({
       toUserPage,
       cardColumn,
       cardColumnWidth,
+      initialHeight,
     };
   },
 });
