@@ -145,6 +145,10 @@ export default defineComponent({
           publishCommentVal.value = '';
           createTooltip('评论成功', 'success', 3000);
           // getComment();
+          setTimeout(() => {
+            const comment = document.getElementById('commentAnchor') as HTMLElement;
+            comment.scrollIntoView(true);
+          }, 100);
         });
       } else {
         console.log('不通过');
@@ -190,7 +194,7 @@ export default defineComponent({
      */
     const onCommentCreated = (data: { comment: Array<unknown>; socketId: string }) => {
       const { comment } = data;
-      comments.value.push(comment);
+      comments.value.unshift(comment);
       commentsNumber.value++;
     };
 
