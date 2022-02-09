@@ -155,7 +155,7 @@
                     v-model="userEmileVal"
                     class="form-control"
                     type="email"
-                    placeholder="可选"
+                    placeholder="请输入电子邮箱"
                     id="user_email"
                   >
                   </ValidateInput>
@@ -171,7 +171,7 @@
                     v-model="userNameVal"
                     class="form-control"
                     type="text"
-                    placeholder="用于登录账号,请牢记"
+                    placeholder="请输入用户名"
                     id="user_username"
                   >
                   </ValidateInput>
@@ -267,7 +267,10 @@ export default defineComponent({
     ];
     const userLastNameRule: RulesProp = [{ type: 'userLastName', message: '名字格式错误' }];
     const userFirstNameRule: RulesProp = [{ type: 'userfirstName', message: '名字格式错误' }];
-    const userEmileRule: RulesProp = [{ type: 'userEmile', message: '邮箱格式错误' }];
+    const userEmileRule: RulesProp = [
+      { type: 'null', message: '邮箱不能为空' },
+      { type: 'userEmile', message: '邮箱格式错误' },
+    ];
     const affirmPasswordRule: RulesProp = [
       { type: 'null', message: '确认密码不能为空' },
       {
