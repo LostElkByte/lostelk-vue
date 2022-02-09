@@ -688,11 +688,11 @@ export default defineComponent({
 img[lazy='loading'] {
   width: 100%;
   height: 100%;
-  -webkit-filter: blur(50px);
-  -moz-filter: blur(50px);
-  -o-filter: blur(50px);
-  -ms-filter: blur(50px);
-  filter: blur(50px);
+  -webkit-filter: blur(25px);
+  -moz-filter: blur(25px);
+  -o-filter: blur(25px);
+  -ms-filter: blur(25px);
+  filter: blur(25px);
 }
 img[lazy='error'] {
   width: 100%;
