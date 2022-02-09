@@ -23,7 +23,7 @@
             </span>
           </div>
           <div style="float: right;font-size: 12px;color: #8590a6;">
-            {{ dayjs.unix(singleComment.create_time).format('YYYY-MM-DD') }}
+            {{ singleComment.create_time ? dayjs.unix(singleComment.create_time).format('YYYY-MM-DD') : '刚刚' }}
           </div>
         </div>
         <div class="commentItem-metaSibling">
