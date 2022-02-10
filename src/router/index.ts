@@ -124,6 +124,12 @@ const routes: Array<RouteRecordRaw> = [
       }
     ],
   },
+  {
+    path: `/RegisterActivation`,
+    name: 'RegisterActivation',
+    component: () => import('../views/RegisterActivation.vue'),
+    meta: { requiredLogin: false, title: "Register Activation | LostElk" }
+  },
 ]
 
 const router = createRouter({

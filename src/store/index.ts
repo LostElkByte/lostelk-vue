@@ -860,17 +860,30 @@ export default createStore<GloablDataProps>({
         console.log(error)
       }
     },
+
     /**
      * 获取精选横图
      */
     async getVeryGoodsLongitudinalList(context, tagName) {
       try {
         const getVeryGoodsLongitudinalData = await axios.get(`/posts?tag=${tagName}`);
-
         context.commit('getVeryGoodsLongitudinalList', getVeryGoodsLongitudinalData.data)
         return getVeryGoodsLongitudinalData
       } catch (error) {
         console.log(error)
+      }
+    },
+
+    /**
+     * 注册 - 激活账户
+     */
+    async registerActivation(context, { email, name, registrationVerifyKey }) {
+      try {
+        const res = await axios.get(`/activat_email?email=${email}&name=${name}&registration_verify_key=${registrationVerifyKey}`);
+        return res
+      } catch (error) {
+        console.log(error);
+
       }
     }
   },
