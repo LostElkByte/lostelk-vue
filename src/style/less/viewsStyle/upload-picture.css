@@ -24,7 +24,7 @@
   margin-top: 30px;
 }
 .upload-picture_main form .content input {
-  border: none;
+  border: 3px solid transparent;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -44,6 +44,11 @@
   appearance: none;
   color: #111111;
   background-color: #f3f3f4;
+}
+.upload-picture_main form .content input:focus,
+.upload-picture_main form .content input:hover {
+  border: 1px solid #f8c8c8;
+  box-shadow: 2px 2px 10px #f8d1d1;
 }
 .upload-picture_main form .content textarea {
   resize: none;
@@ -68,6 +73,11 @@
   background-color: #f3f3f4;
   border: 1px solid transparent;
   min-height: 108px;
+}
+.upload-picture_main form .content textarea:focus,
+.upload-picture_main form .content textarea:hover {
+  border: 1px solid #f8c8c8;
+  box-shadow: 0px 0px 10px #f8d1d1;
 }
 .upload-picture_main form .content .choose-tag {
   color: #fff;
