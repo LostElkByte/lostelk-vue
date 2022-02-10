@@ -22,7 +22,7 @@ const passwordReg = /^.{6,16}$/;
 const userFirstNameReg = /^[a-zA-Z\u4E00-\u9FA5]{0,14}$/;
 const userLastNameReg = /^[a-zA-Z\u4E00-\u9FA5]{0,4}$/;
 const TagReg = /^[a-zA-Z\u4E00-\u9FA5]{0,20}$/;
-const userEmileReg = /^$|^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/;
+const userEmailReg = /^$|^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/;
 const headlineMaximumReg = /^.{1,15}$/;
 const describeMaximumReg = /^.{0,100}$/;
 const tagMaximumReg = /^.{0,10}$/;
@@ -34,7 +34,7 @@ interface RuleProp {
     | 'password'
     | 'userLastName'
     | 'userfirstName'
-    | 'userEmile'
+    | 'userEmail'
     | 'headlineMaximum'
     | 'describeMaximum'
     | 'tagMaximum'
@@ -130,8 +130,8 @@ export default defineComponent({
             case 'userLastName':
               passed = userLastNameReg.test(inputRef.val);
               break;
-            case 'userEmile':
-              passed = userEmileReg.test(inputRef.val);
+            case 'userEmail':
+              passed = userEmailReg.test(inputRef.val);
               break;
             case 'headlineMaximum':
               passed = headlineMaximumReg.test(inputRef.val);

@@ -30,8 +30,8 @@ const routes: Array<RouteRecordRaw> = [
 
   },
   {
-    path: '/Reglister',
-    name: 'Reglister',
+    path: '/Register',
+    name: 'Register',
     component: () => import('../views/Register.vue'),
     meta: { requestNotLogin: true, title: "Sign In | LostElk" }
   },
@@ -123,12 +123,6 @@ const routes: Array<RouteRecordRaw> = [
         meta: { requiredLogin: true, title: "Management accounts-LostElk" }
       }
     ],
-  },
-  {
-    path: `/RegisterActivation`,
-    name: 'RegisterActivation',
-    component: () => import('../views/RegisterActivation.vue'),
-    meta: { requiredLogin: false, title: "Register Activation | LostElk" }
   },
 ]
 

@@ -3,8 +3,10 @@
   color: #fff;
   display: block;
   z-index: 9999;
-  height: 58px;
-  line-height: 58px;
+  min-height: 58px;
+  height: auto;
+  display: flex;
+  align-items: center;
   text-align: center;
   opacity: 1;
   position: fixed;
@@ -26,6 +28,11 @@
   -ms-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
   -o-box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.28);
+}
+.tooltip span:nth-child(1) {
+  padding: 10px 30px;
+  width: 100%;
+  line-height: 20px;
 }
 .tooltip span:nth-child(2) {
   position: absolute;

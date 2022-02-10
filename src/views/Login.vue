@@ -54,7 +54,7 @@
         <p class="register">
           还没有帐号？
           <span class="text-secondary">
-            <router-link to="/Reglister">注册</router-link>
+            <router-link to="/Register">注册</router-link>
           </span>
         </p>
       </div>

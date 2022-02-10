@@ -9,9 +9,12 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, onUnmounted, ref, watch } from 'vue';
 import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
 import Header from '../components/header/HeaderBox.vue';
 import Sidebar from '../components/sidebar/SidebarBox.vue';
 import CardMain from '../components/cardMain/CardMain.vue';
+import createTooltip from '../components/globalFun/createTooltip';
+import router from '../router';
 export default defineComponent({
   name: 'Home',
   components: {
@@ -23,7 +26,27 @@ export default defineComponent({
     cardColumn: Number,
   },
   setup(props) {
+    const route = useRoute();
     const store = useStore();
+
+    onMounted(() => {
+      /**
+       * 注册 - 邮箱激活
+       */
+      const email = route.query.email;
+      const name = route.query.name;
+      const registrationVerifyKey = route.query.registration_verify_key;
+      if (email && name && registrationVerifyKey) {
+        store.dispatch('registerActivation', { email, name, registrationVerifyKey }).then(async data => {
+          if (data.isSucceed) {
+            await createTooltip(`${data.message}可以正常登陆啦~`, 'success', 10000);
+            router.push('/login');
+          } else {
+            await createTooltip(data, 'error', null);
+          }
+        });
+      }
+    });
 
     /**
      * 数据初始化

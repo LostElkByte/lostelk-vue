@@ -151,8 +151,8 @@
                     电子邮件
                   </label>
                   <ValidateInput
-                    :rules="userEmileRule"
-                    v-model="userEmileVal"
+                    :rules="userEmailRule"
+                    v-model="userEmailVal"
                     class="form-control"
                     type="email"
                     placeholder="请输入电子邮箱"
@@ -255,7 +255,7 @@ export default defineComponent({
     const passwordVal = ref('');
     const userLastNameVal = ref('');
     const userFirstNameVal = ref('');
-    const userEmileVal = ref('');
+    const userEmailVal = ref('');
     const affirmPasswordVal = ref('');
     const userNameRule: RulesProp = [
       { type: 'null', message: '用户名不能为空' },
@@ -267,9 +267,9 @@ export default defineComponent({
     ];
     const userLastNameRule: RulesProp = [{ type: 'userLastName', message: '名字格式错误' }];
     const userFirstNameRule: RulesProp = [{ type: 'userfirstName', message: '名字格式错误' }];
-    const userEmileRule: RulesProp = [
+    const userEmailRule: RulesProp = [
       { type: 'null', message: '邮箱不能为空' },
-      { type: 'userEmile', message: '邮箱格式错误' },
+      { type: 'userEmail', message: '邮箱格式错误' },
     ];
     const affirmPasswordRule: RulesProp = [
       { type: 'null', message: '确认密码不能为空' },
@@ -285,14 +285,15 @@ export default defineComponent({
     const onFormSubmit = (result: boolean) => {
       if (result) {
         const userRegisterData = {
+          email: userEmailVal.value,
           name: userNameVal.value,
           password: passwordVal.value,
         };
         axios.post('/users', userRegisterData).then(() => {
-          createTooltip('注册成功 跳转到登陆页面', 'success', 2000);
-          setTimeout(() => {
-            router.push('/login');
-          }, 1000);
+          createTooltip('注册成功, 激活链接已发送到您的邮箱。请在30分钟内激活账号~', 'default', null);
+          // setTimeout(() => {
+          //   router.push('/login');
+          // }, 1000);
         });
       } else {
         console.log('不通过');
@@ -327,8 +328,8 @@ export default defineComponent({
       userLastNameRule,
       userFirstNameVal,
       userFirstNameRule,
-      userEmileVal,
-      userEmileRule,
+      userEmailVal,
+      userEmailRule,
       affirmPasswordVal,
       affirmPasswordRule,
       registeredImgArrange,

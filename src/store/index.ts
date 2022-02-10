@@ -880,10 +880,9 @@ export default createStore<GloablDataProps>({
     async registerActivation(context, { email, name, registrationVerifyKey }) {
       try {
         const res = await axios.get(`/activat_email?email=${email}&name=${name}&registration_verify_key=${registrationVerifyKey}`);
-        return res
+        return res.data
       } catch (error) {
-        console.log(error);
-
+        return error
       }
     }
   },
