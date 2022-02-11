@@ -17,8 +17,8 @@
     "mitt": "^2.1.0",
     "socket.io-client": "^3.0.4",
     "vue": "^3.0.0",
-    "vue-lazyload-next": "0.0.2",
     "vue-router": "^4.0.0-0",
+    "vue3-lazyload": "^0.2.5-beta",
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {

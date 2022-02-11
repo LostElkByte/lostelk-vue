@@ -3,12 +3,12 @@ import router from './router'
 import store from './store'
 import App from './App.vue'
 import dayjs from 'dayjs'
-import VueLazyloadNext from 'vue-lazyload-next'
+import VueLazyLoad from 'vue3-lazyload'
 
 
 const app = createApp(App)
 
-app.use(VueLazyloadNext)
+app.use(VueLazyLoad)
 
 app.use(store).use(router).mount('#app')
 
