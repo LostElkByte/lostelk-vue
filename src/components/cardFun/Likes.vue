@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import { axios } from '../../service/service';
 import store from '../../store';
 export default defineComponent({
@@ -35,8 +35,12 @@ export default defineComponent({
     const likedCount = computed(() => props.likeCount);
     const isLiked = computed(() => props.isLike);
     const singleCard = computed(() => props.singleCard);
-
+    const loading = ref(false);
     const giveLike = () => {
+      if (loading.value) {
+        return;
+      }
+      loading.value = true;
       store.commit('setIsShowLoading', false);
       if (!isLiked.value) {
         axios.post(`/posts/${props.cardId}/like`).then(() => {
@@ -44,6 +48,7 @@ export default defineComponent({
           if (singleCard.value) {
             context.emit('singleCardReviseLike', 1);
           }
+          loading.value = false;
         });
       } else {
         axios.delete(`/posts/${props.cardId}/like`).then(() => {
@@ -51,6 +56,7 @@ export default defineComponent({
           if (singleCard.value) {
             context.emit('singleCardReviseLike', 0);
           }
+          loading.value = false;
         });
       }
     };
