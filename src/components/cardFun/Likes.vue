@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent } from 'vue';
 import { axios } from '../../service/service';
 import store from '../../store';
 export default defineComponent({
@@ -35,29 +35,20 @@ export default defineComponent({
     const likedCount = computed(() => props.likeCount);
     const isLiked = computed(() => props.isLike);
     const singleCard = computed(() => props.singleCard);
-    const loading = ref(false);
     const giveLike = () => {
-      if (loading.value) {
-        return;
-      }
-      loading.value = true;
       store.commit('setIsShowLoading', false);
       if (!isLiked.value) {
-        axios.post(`/posts/${props.cardId}/like`).then(() => {
-          store.commit('clickLike', props.cardId);
-          if (singleCard.value) {
-            context.emit('singleCardReviseLike', 1);
-          }
-          loading.value = false;
-        });
+        store.commit('clickLike', props.cardId);
+        if (singleCard.value) {
+          context.emit('singleCardReviseLike', 1);
+        }
+        axios.post(`/posts/${props.cardId}/like`);
       } else {
-        axios.delete(`/posts/${props.cardId}/like`).then(() => {
-          store.commit('cancelLike', props.cardId);
-          if (singleCard.value) {
-            context.emit('singleCardReviseLike', 0);
-          }
-          loading.value = false;
-        });
+        store.commit('cancelLike', props.cardId);
+        if (singleCard.value) {
+          context.emit('singleCardReviseLike', 0);
+        }
+        axios.delete(`/posts/${props.cardId}/like`);
       }
     };
     return {
