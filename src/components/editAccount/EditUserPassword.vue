@@ -4,6 +4,7 @@
       <div class="input-box">
         <label for="user-password" class="Edit-account-header">修改密码</label>
         <input
+          class="EditUserInput"
           type="password"
           autocomplete="off"
           placeholder="输入原密码"
@@ -16,6 +17,7 @@
       </div>
       <div class="input-box">
         <input
+          class="EditUserInput"
           type="password"
           autocomplete="off"
           placeholder="输入新的密码"
@@ -28,6 +30,7 @@
       </div>
       <div class="input-box">
         <input
+          class="EditUserInput"
           type="password"
           autocomplete="off"
           placeholder="确认一下新的密码"

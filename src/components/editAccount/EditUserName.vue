@@ -4,6 +4,7 @@
       <div class="input-box">
         <label for="user-name" class="Edit-account-header">修改用户名</label>
         <input
+          class="EditUserInput"
           type="text"
           id="user-name"
           placeholder="输入新的用户名"
@@ -16,6 +17,7 @@
       </div>
       <div class="input-box">
         <input
+          class="EditUserInput"
           type="password"
           autocomplete="off"
           placeholder="输入密码"
