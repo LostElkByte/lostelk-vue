@@ -178,7 +178,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   padding-right: 94px;
-  padding: 12px 20px 18px 20px;
+  padding: 12px 20px 20px 20px;
   background: #fff;
   position: sticky;
   bottom: 0;
@@ -253,10 +253,36 @@
   }
 }
 
-.form-btn {
-  display: flex !important;
-  align-items: center !important;
-  line-height: 1.3 !important;
+.comment-publish-reply-form-btn {
+  display: flex;
+  align-items: center;
+  line-height: 1.3;
+  color: #ffffff;
+  background-color: #111111;
+  width: 100%;
+  /* display: inline-block; */
+  margin-bottom: 0;
+  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  text-decoration: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02), 0 1px 1px rgba(0, 0, 0, 0.06);
+  padding: 9px 18px;
+  font-size: 15px;
+  /* line-height: 1.6; */
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 .inputParent {
@@ -265,6 +291,10 @@
 
 .hidden {
   pointer-events: none;
+  cursor: default;
+  opacity: 0.8;
+  -webkit-transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .none {

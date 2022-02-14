@@ -165,7 +165,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   padding-right: 94px;
-  padding: 12px 20px 18px 20px;
+  padding: 12px 20px 20px 20px;
   background: #fff;
   position: sticky;
   bottom: 0;
@@ -261,14 +261,18 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  -webkit-transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out, color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out, color 0.1s ease-in-out;
+  -webkit-transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 .inputParent {
   width: 100%;
 }
 .hidden {
   pointer-events: none;
+  cursor: default;
+  opacity: 0.8;
+  -webkit-transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 .none {
   display: none;
