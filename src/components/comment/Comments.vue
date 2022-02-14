@@ -29,7 +29,7 @@
         </ValidateInput>
         <template v-slot:submit>
           <div :class="['comment-groug', { hidden: !publishCommentButton }]" @click="onFormSubmit">
-            <a href="#" class="form-btn">
+            <a href="#" class="comment-publish-reply-form-btn">
               发表
             </a>
           </div>

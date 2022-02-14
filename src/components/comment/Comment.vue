@@ -91,7 +91,7 @@
             </ValidateInput>
             <template v-slot:submit>
               <div :class="['comment-reply-publish', { hidden: !replyCommentButton }]" @click="replyCommentClick">
-                <a href="#" class="form-btn">
+                <a href="#" class="comment-publish-reply-form-btn">
                   回复
                 </a>
               </div>
@@ -110,7 +110,7 @@
             </ValidateInput>
             <template v-slot:submit>
               <div :class="['comment-revise-publish', { hidden: !reviseCommentButton }]" @click="reviseCommentClick">
-                <a href="#" class="form-btn">
+                <a href="#" class="comment-publish-reply-form-btn">
                   修改
                 </a>
               </div>
