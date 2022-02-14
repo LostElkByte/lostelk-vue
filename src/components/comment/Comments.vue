@@ -85,6 +85,7 @@ export default defineComponent({
       await store.dispatch('getComments', postIdProp.value).then(data => {
         commentsNumber.value = data.headers['x-total-count'];
         comments.value = data.data;
+        console.log(comments.value);
       });
 
       // comments.value.map(async (comment: { totalReplies: number; id: number; replyComment: unknown }) => {

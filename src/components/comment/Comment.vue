@@ -80,7 +80,7 @@
               删除
             </button>
           </div>
-          <ValidateForm :class="['comment-publish-reply-form', { 'comment-publish-reply-form-show': replyShow }]">
+          <ValidateForm v-if="!replyShow" :class="['comment-publish-reply-form']">
             <ValidateInput
               class="comment-publish-reply-input"
               type="text"
@@ -100,7 +100,7 @@
           <span class="form-error" v-if="isReplyCommentMax">
             最大可输入长度为60个字符
           </span>
-          <ValidateForm :class="['comment-publish-revise-form', { 'comment-publish-revise-form-show': reviseShow }]">
+          <ValidateForm v-if="!reviseShow" :class="['comment-publish-revise-form']">
             <ValidateInput
               class="comment-publish-revise-input"
               type="text"
@@ -170,7 +170,7 @@ export default defineComponent({
     userId: Number,
     postUserIdProp: Number,
   },
-  setup(props, context) {
+  setup(props) {
     // 接收单个评论数据
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const singleComment = ref(props.comment as any);
@@ -248,6 +248,33 @@ export default defineComponent({
     };
 
     /**
+     * 监听输入最大字符长度
+     * 回复
+     * 修改
+     */
+    const isReplyCommentMax = ref(false);
+    watch(replyCommentVal, () => {
+      const commentMaximumReg = /^.{0,60}$/;
+      if (commentMaximumReg.test(replyCommentVal.value)) {
+        isReplyCommentMax.value = false;
+      } else {
+        replyCommentButton.value = false;
+        isReplyCommentMax.value = true;
+      }
+    });
+
+    const isReviseCommentMax = ref(false);
+    watch(reviseCommentVal, () => {
+      const commentMaximumReg = /^.{0,60}$/;
+      if (commentMaximumReg.test(reviseCommentVal.value)) {
+        isReviseCommentMax.value = false;
+      } else {
+        reviseCommentButton.value = false;
+        isReviseCommentMax.value = true;
+      }
+    });
+
+    /**
      * 回复评论input框显示控制
      * 修改评论input框显示控制
      */
@@ -257,23 +284,34 @@ export default defineComponent({
     const showReplyInput = () => {
       reviseShow.value = true;
       replyShow.value = !replyShow.value;
+
       if (!replyShow.value) {
         setTimeout(() => {
           const inputFocus = document.getElementsByClassName('comment-publish-reply-input')[0] as HTMLElement;
           inputFocus.focus();
-        }, 100);
+        }, 0);
       }
     };
+
     const showReviseInput = () => {
       replyShow.value = true;
       reviseShow.value = !reviseShow.value;
+
       if (!reviseShow.value) {
         setTimeout(() => {
           const inputFocus = document.getElementsByClassName('comment-publish-revise-input')[0] as HTMLElement;
           inputFocus.focus();
-        }, 100);
+        }, 0);
       }
     };
+
+    watch(replyShow, () => {
+      replyCommentVal.value = '';
+    });
+
+    watch(reviseShow, () => {
+      reviseCommentVal.value = singleComment.value.content;
+    });
 
     /**
      * 回复评论
@@ -312,7 +350,8 @@ export default defineComponent({
       };
       await store.dispatch('reviseComment', reviseCommentData).then(() => {
         reviseShow.value = true;
-        context.emit('reloadComments');
+        // context.emit('reloadComments');
+        singleComment.value.content = reviseCommentVal.value;
         createTooltip('评论修改成功', 'success', 3000);
       });
     };
@@ -351,33 +390,6 @@ export default defineComponent({
       await router.push('/');
       await router.push('/login');
     };
-
-    /**
-     * 监听输入最大字符长度
-     * 回复
-     * 修改
-     */
-    const isReplyCommentMax = ref(false);
-    watch(replyCommentVal, () => {
-      const commentMaximumReg = /^.{0,60}$/;
-      if (commentMaximumReg.test(replyCommentVal.value)) {
-        isReplyCommentMax.value = false;
-      } else {
-        replyCommentButton.value = false;
-        isReplyCommentMax.value = true;
-      }
-    });
-
-    const isReviseCommentMax = ref(false);
-    watch(reviseCommentVal, () => {
-      const commentMaximumReg = /^.{0,60}$/;
-      if (commentMaximumReg.test(reviseCommentVal.value)) {
-        isReviseCommentMax.value = false;
-      } else {
-        reviseCommentButton.value = false;
-        isReviseCommentMax.value = true;
-      }
-    });
 
     /**
      * 进入用户页
