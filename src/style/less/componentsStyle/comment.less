@@ -194,10 +194,16 @@
 .comment-input {
   background-color: #fff;
   width: 100%;
-  border: 1px solid #8590a6;
+  border: 1px solid #ebebeb;
   height: 100%;
   border-radius: 3px;
   padding: 6px 12px;
+  &:focus {
+    border: 1px solid #8590a6;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02), 0 1px 1px rgba(0, 0, 0, 0.06);
+    -webkit-transition: border-color 0.2s ease-in-out box-shadow 0.2s ease-in-out;
+    transition: border-color 0.2s ease-in-out box-shadow 0.2s ease-in-out;
+  }
 }
 
 .comment-groug {
@@ -232,10 +238,16 @@
 .comment-publish-reply-input {
   background-color: #fff;
   width: 100%;
-  border: 1px solid #8590a6;
+  border: 1px solid #ebebeb;
   height: 100%;
   border-radius: 3px;
   padding: 6px 12px;
+  &:focus {
+    border: 1px solid #8590a6;
+    box-shadow: 0 1px 3px rgba(82, 54, 54, 0.02), 0 1px 1px rgba(0, 0, 0, 0.06);
+    -webkit-transition: border-color 0.2s ease-in-out box-shadow 0.2s ease-in-out;
+    transition: border-color 0.2s ease-in-out box-shadow 0.2s ease-in-out;
+  }
 }
 
 .comment-revise-publish,

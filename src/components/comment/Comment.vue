@@ -82,6 +82,7 @@
           </div>
           <ValidateForm v-if="!replyShow" :class="['comment-publish-reply-form']">
             <ValidateInput
+              :id="`comment-publish-reply-input-id-${singleComment.id}`"
               class="comment-publish-reply-input"
               type="text"
               :placeholder="`回复 ${singleComment.user.name}`"
@@ -102,6 +103,7 @@
           </span>
           <ValidateForm v-if="!reviseShow" :class="['comment-publish-revise-form']">
             <ValidateInput
+              :id="`comment-publish-revise-input-id-${singleComment.id}`"
               class="comment-publish-revise-input"
               type="text"
               :placeholder="`修改 ${singleComment.content}`"
@@ -287,7 +289,9 @@ export default defineComponent({
 
       if (!replyShow.value) {
         setTimeout(() => {
-          const inputFocus = document.getElementsByClassName('comment-publish-reply-input')[0] as HTMLElement;
+          const inputFocus = document.getElementById(
+            `comment-publish-reply-input-id-${singleComment.value.id}`,
+          ) as HTMLElement;
           inputFocus.focus();
         }, 0);
       }
@@ -299,7 +303,9 @@ export default defineComponent({
 
       if (!reviseShow.value) {
         setTimeout(() => {
-          const inputFocus = document.getElementsByClassName('comment-publish-revise-input')[0] as HTMLElement;
+          const inputFocus = document.getElementById(
+            `comment-publish-revise-input-id-${singleComment.value.id}`,
+          ) as HTMLElement;
           inputFocus.focus();
         }, 0);
       }
