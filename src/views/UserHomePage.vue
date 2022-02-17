@@ -8,14 +8,14 @@
           <div class="user-data-images">
             <div class="user-data-image">
               <div class="user-data-color-block-container">
-                <div class="color-block"></div>
+                <div id="color-block-id0" class="color-block"></div>
               </div>
               <div
                 v-if="userPhotosCardlist[0]"
                 class="masthead-banner-image"
                 :style="
                   userPhotosCardlist[0]
-                    ? `background-image: url(${lostelkUrl}/files/${userPhotosCardlist[0].file.id}/serve?size=medium)`
+                    ? `background-image: url(${lostelkUrl}/files/${userPhotosCardlist[0].file.id}/serve?size=large)`
                     : ''
                 "
               >
@@ -23,6 +23,7 @@
               </div>
             </div>
           </div>
+          <canvas style="display: none" id="canvas"></canvas>
           <div class="user-data-content" v-if="userData">
             <div class="user-data-content-avatar">
               <img v-if="userData.avatar" :src="`${lostelkUrl}/users/${userData.id}/avatar`" :alt="userData.name" />
@@ -87,6 +88,7 @@ import Header from '../components/header/HeaderBox.vue';
 import Sidebar from '../components/sidebar/SidebarBox.vue';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
+import themeColor from '../components/colorExtraction';
 
 export default defineComponent({
   name: 'UserHomePage',
@@ -113,6 +115,13 @@ export default defineComponent({
     const UserIdProp = computed(() => Number(props.UserId));
 
     /**
+     * 判断是否登录,用于header组件
+     */
+    const loginJudge = computed(() => {
+      return store.state.user;
+    });
+
+    /**
      * 获取指定用户的信息
      */
     const userData = ref();
@@ -129,7 +138,6 @@ export default defineComponent({
      */
     const userPhotosCardlist = computed(() => store.state.userPhotosCardList);
     const userPhotosCardTotalCount = computed(() => store.state.userPhotosCardTotalCount);
-
     store.dispatch('getUserPhotosCardList', UserIdProp.value);
 
     /**
@@ -137,27 +145,33 @@ export default defineComponent({
      */
     const userLikeCardlist = computed(() => store.state.userLikeCardList);
     const userLikeCardTotalCount = computed(() => store.state.userLikeCardTotalCount);
-
     store.dispatch('getUserLikeCardList', UserIdProp.value);
 
     /**
-     * 判断是否登录,用于header组件
+     * 设置颜色
      */
-    const loginJudge = computed(() => {
-      return store.state.user;
-    });
+    const SetColor = (colorArr: any[]) => {
+      const bgc = '(' + colorArr[0][0] + ',' + colorArr[0][1] + ',' + colorArr[0][2] + ')';
+      const colorBlock = document.getElementById(`color-block-id${0}`) as HTMLElement;
+      colorBlock.style.backgroundColor = `rgb${bgc}`;
+    };
 
-    onMounted(() => {
-      // 恢复到顶部
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    });
-    onUnmounted(() => {
-      store.commit('getUserPhotosCardList', []);
-      store.commit('getUserLikeCardList', []);
-      store.commit('getHomePageCardTotalCount', 0);
-      store.commit('getUserLikeCardTotalCount', 0);
-    });
+    /**
+     * 监听照片列表改变 提取首图背景色
+     */
+    watch(
+      () => userPhotosCardlist.value,
+      () => {
+        const img = new Image();
+        if (userPhotosCardlist.value.length != 0) {
+          img.src = `${lostelkUrl}/files/${userPhotosCardlist.value[0].file.id}/serve?size=thumbnail`;
+          img.crossOrigin = 'anonymous';
+          img.onload = () => {
+            themeColor(8, img, SetColor);
+          };
+        }
+      },
+    );
 
     /**
      * 监听 路由上的UserId参数是否发生改变, 如果发生改变 则 重新加载新的数据
@@ -181,6 +195,19 @@ export default defineComponent({
         }
       },
     );
+
+    onMounted(() => {
+      // 恢复到顶部
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    });
+
+    onUnmounted(() => {
+      store.commit('getUserPhotosCardList', []);
+      store.commit('getUserLikeCardList', []);
+      store.commit('getHomePageCardTotalCount', 0);
+      store.commit('getUserLikeCardTotalCount', 0);
+    });
 
     return {
       loginJudge,
