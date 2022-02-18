@@ -2,14 +2,13 @@
   <div class="page">
     <Header :user="loginJudge"></Header>
     <Sidebar></Sidebar>
+
     <div class="main personal-home-page">
       <section class="user-data">
         <div class="container-large">
           <div class="user-data-images">
             <div class="user-data-image">
-              <div class="user-data-color-block-container">
-                <div id="color-block-id0" class="color-block"></div>
-              </div>
+              <div id="color-block-container" class="user-data-color-block-container"></div>
               <div
                 v-if="userPhotosCardlist[0]"
                 class="masthead-banner-image"
@@ -148,12 +147,21 @@ export default defineComponent({
     store.dispatch('getUserLikeCardList', UserIdProp.value);
 
     /**
-     * 设置颜色
+     * 设置颜色方法
      */
     const SetColor = (colorArr: number[][]) => {
+      // 初始化删除多余子节点
+      const extractColor = document.querySelector('#color-block-container') as HTMLElement;
+      while (extractColor.firstChild) {
+        extractColor.removeChild(extractColor.firstChild);
+      }
+      // 创建子节点
       const bgc = '(' + colorArr[0][0] + ',' + colorArr[0][1] + ',' + colorArr[0][2] + ')';
-      const colorBlock = document.getElementById(`color-block-id${0}`) as HTMLElement;
+      const colorBlock = document.createElement('div') as HTMLElement;
+      colorBlock.id = `color-block-id${0}`;
+      colorBlock.classList.add('color-block');
       colorBlock.style.backgroundColor = `rgb${bgc}`;
+      extractColor.appendChild(colorBlock);
     };
 
     /**
@@ -167,7 +175,7 @@ export default defineComponent({
           img.src = `${lostelkUrl}/files/${userPhotosCardlist.value[0].file.id}/serve?size=thumbnail`;
           img.crossOrigin = 'anonymous';
           img.onload = () => {
-            themeColor(50, img, 10, SetColor);
+            themeColor(20, img, 10, SetColor);
           };
         }
       },

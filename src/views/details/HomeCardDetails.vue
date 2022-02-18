@@ -91,17 +91,12 @@
               :alt="postData.title"
               @click="zoomInAndOut"
             />
-
-            <div class="extract-color" style="display: flex;padding: 0 20px; justify-content: end;">
-              <canvas style="display: none" id="canvas"></canvas>
-
-              <div
-                style="height: 50px;width: 50px;margin-right: 10px;border-radius: 50%;"
-                v-for="(item, index) in 20"
-                :key="index"
-                :id="`color-block-id${index}`"
-              ></div>
-            </div>
+            <canvas style="display: none" id="canvas"></canvas>
+            <div
+              id="extract-color-id"
+              class="extract-color"
+              style="display: flex;padding: 0 20px; justify-content: end;"
+            ></div>
           </div>
 
           <div class="content-message">
@@ -270,11 +265,19 @@ export default defineComponent({
      * 设置颜色方法
      */
     const SetColor = (colorArr: number[][]) => {
-      // console.log(colorArr);
+      // 初始化删除多余子节点
+      const extractColor = document.querySelector('#extract-color-id') as HTMLElement;
+      while (extractColor.firstChild) {
+        extractColor.removeChild(extractColor.firstChild);
+      }
+      // 创建子节点
       for (let index = 0; index < colorArr.length; index++) {
         const bgc = '(' + colorArr[index][0] + ',' + colorArr[index][1] + ',' + colorArr[index][2] + ')';
-        const colorBlock = document.getElementById(`color-block-id${index}`) as HTMLElement;
+        const colorBlock = document.createElement('div') as HTMLElement;
+        colorBlock.id = `color-block-id${index}`;
+        colorBlock.style.cssText = 'height: 50px;width: 50px;margin-right: 10px;border-radius: 50%;';
         colorBlock.style.backgroundColor = `rgb${bgc}`;
+        extractColor.appendChild(colorBlock);
       }
     };
 
