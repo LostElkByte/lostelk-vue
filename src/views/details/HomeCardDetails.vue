@@ -288,7 +288,7 @@ export default defineComponent({
         img.src = `${lostelkUrl}/files/${postData.value.file.id}/serve?size=thumbnail`;
         img.crossOrigin = 'anonymous';
         img.onload = () => {
-          themeColor(50, img, 10, SetColor);
+          themeColor(50, img, 20, SetColor);
         };
       },
     );
@@ -299,7 +299,7 @@ export default defineComponent({
         img.src = `${lostelkUrl}/files/${postData.value.file.id}/serve?size=thumbnail`;
         img.crossOrigin = 'anonymous';
         img.onload = () => {
-          themeColor(50, img, 10, SetColor);
+          themeColor(50, img, 20, SetColor);
         };
       }
     });
