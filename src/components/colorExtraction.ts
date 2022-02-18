@@ -148,7 +148,7 @@ const queueCut = (queue: any[], num: number) => {
 const colorFilter = (colorArr: number[][], difference: number) => {
     for (let i = 0; i < colorArr.length; i++) {
         for (let j = i + 1; j < colorArr.length; j++) {
-            if (Math.abs(colorArr[i][0] - colorArr[j][0]) < 20 && Math.abs(colorArr[i][1] - colorArr[j][1]) < 20 && Math.abs(colorArr[i][2] - colorArr[j][2]) < difference) {
+            if (Math.abs(colorArr[i][0] - colorArr[j][0]) < difference && Math.abs(colorArr[i][1] - colorArr[j][1]) < difference && Math.abs(colorArr[i][2] - colorArr[j][2]) < difference) {
                 colorArr.splice(j, 1)
                 j--
             }
