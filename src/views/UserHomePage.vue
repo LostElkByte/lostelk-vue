@@ -150,7 +150,7 @@ export default defineComponent({
     /**
      * 设置颜色
      */
-    const SetColor = (colorArr: any[]) => {
+    const SetColor = (colorArr: number[][]) => {
       const bgc = '(' + colorArr[0][0] + ',' + colorArr[0][1] + ',' + colorArr[0][2] + ')';
       const colorBlock = document.getElementById(`color-block-id${0}`) as HTMLElement;
       colorBlock.style.backgroundColor = `rgb${bgc}`;
