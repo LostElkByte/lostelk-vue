@@ -269,7 +269,7 @@ export default defineComponent({
     /**
      * 设置颜色方法
      */
-    const SetColor = (colorArr: any[]) => {
+    const SetColor = (colorArr: number[][]) => {
       // console.log(colorArr);
       for (let index = 0; index < colorArr.length; index++) {
         const bgc = '(' + colorArr[index][0] + ',' + colorArr[index][1] + ',' + colorArr[index][2] + ')';

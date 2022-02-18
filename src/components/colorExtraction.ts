@@ -44,15 +44,16 @@ const getCutSide = (colorRange: number[][]) => {   // r:0,g:1,b:2
 }
 
 // 切割颜色范围
-const cutRange = (colorRange: any[], colorSide: number, cutValue: any) => {
-    const arr1: any[] = [];
-    const arr2: any[] = [];
+const cutRange = (colorRange: number[][], colorSide: number, cutValue: any) => {
+    const arr1: number[][] = [];
+    const arr2: number[][] = [];
     colorRange.forEach(function (item) {
         arr1.push(item.slice());
         arr2.push(item.slice());
     })
     arr1[colorSide][1] = cutValue;
     arr2[colorSide][0] = cutValue;
+
     return [arr1, arr2];
 }
 
@@ -76,7 +77,8 @@ const __quickSort = (arr: any[]): any => {
     return __quickSort(left).concat([pivot], __quickSort(right));
 }
 
-const getMedianColor = (colorCountMap: { [x: string]: any }, total: any) => {
+const getMedianColor = (colorCountMap: Record<string, number>, total: number) => {
+
     const arr = [];
     for (const key in colorCountMap) {
         arr.push({
@@ -100,10 +102,11 @@ const getMedianColor = (colorCountMap: { [x: string]: any }, total: any) => {
 }
 
 // 切割颜色盒子
-const cutBox = (colorBox: { colorRange: any; total: any; data: any }) => {
+const cutBox = (colorBox: { colorRange: number[][]; total: number; data: Uint8ClampedArray }) => {
+
     const colorRange = colorBox.colorRange;
     const cutSide = getCutSide(colorRange);
-    const colorCountMap = {} as any;
+    const colorCountMap: Record<string, number> = {};
     const total = colorBox.total;
     const data = colorBox.data;
 
@@ -118,6 +121,7 @@ const cutBox = (colorBox: { colorRange: any; total: any; data: any }) => {
             colorCountMap[color] = 1;
         }
     }
+
     const medianColor = getMedianColor(colorCountMap, total);
     const cutValue = medianColor.color;
     const cutCount = medianColor.count;
@@ -141,7 +145,7 @@ const queueCut = (queue: any[], num: number) => {
 }
 
 // 颜色去重
-const colorFilter = (colorArr: any, difference: number) => {
+const colorFilter = (colorArr: number[][], difference: number) => {
     for (let i = 0; i < colorArr.length; i++) {
         for (let j = i + 1; j < colorArr.length; j++) {
             if (Math.abs(colorArr[i][0] - colorArr[j][0]) < 20 && Math.abs(colorArr[i][1] - colorArr[j][1]) < 20 && Math.abs(colorArr[i][2] - colorArr[j][2]) < difference) {
@@ -160,7 +164,7 @@ const colorFilter = (colorArr: any, difference: number) => {
  * @param difference 图片颜色筛选精准度
  * @param callback 回调函数
  */
-const themeColor = (colorNumber: number, img: CanvasImageSource, difference: number, callback: (arg0: any[]) => void) => {
+const themeColor = (colorNumber: number, img: CanvasImageSource, difference: number, callback: (arg0: number[][]) => void) => {
     const canvas = document.createElement('canvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
     let width = 0
