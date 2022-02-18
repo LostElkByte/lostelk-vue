@@ -35,7 +35,7 @@ class ColorBox {
 }
 
 // 获取切割边
-function getCutSide(colorRange: number[][]) {   // r:0,g:1,b:2
+const getCutSide = (colorRange: number[][]) => {   // r:0,g:1,b:2
     const arr = [];
     for (let i = 0; i < 3; i++) {
         arr.push(colorRange[i][1] - colorRange[i][0]);
@@ -44,7 +44,7 @@ function getCutSide(colorRange: number[][]) {   // r:0,g:1,b:2
 }
 
 // 切割颜色范围
-function cutRange(colorRange: any[], colorSide: number, cutValue: any) {
+const cutRange = (colorRange: any[], colorSide: number, cutValue: any) => {
     const arr1: any[] = [];
     const arr2: any[] = [];
     colorRange.forEach(function (item) {
@@ -57,7 +57,7 @@ function cutRange(colorRange: any[], colorSide: number, cutValue: any) {
 }
 
 // 找到出现次数为中位数的颜色
-function __quickSort(arr: any[]): any {
+const __quickSort = (arr: any[]): any => {
     if (arr.length <= 1) {
         return arr;
     }
@@ -76,7 +76,7 @@ function __quickSort(arr: any[]): any {
     return __quickSort(left).concat([pivot], __quickSort(right));
 }
 
-function getMedianColor(colorCountMap: { [x: string]: any }, total: any) {
+const getMedianColor = (colorCountMap: { [x: string]: any }, total: any) => {
     const arr = [];
     for (const key in colorCountMap) {
         arr.push({
@@ -100,7 +100,7 @@ function getMedianColor(colorCountMap: { [x: string]: any }, total: any) {
 }
 
 // 切割颜色盒子
-function cutBox(colorBox: { colorRange: any; total: any; data: any }) {
+const cutBox = (colorBox: { colorRange: any; total: any; data: any }) => {
     const colorRange = colorBox.colorRange;
     const cutSide = getCutSide(colorRange);
     const colorCountMap = {} as any;
@@ -128,20 +128,39 @@ function cutBox(colorBox: { colorRange: any; total: any; data: any }) {
 }
 
 // 队列切割
-function queueCut(queue: any[], num: number) {
+const queueCut = (queue: any[], num: number) => {
     while (queue.length < num) {
-        queue.sort(function (a: { rank: number }, b: { rank: number }) {
+        queue.sort((a: { rank: number }, b: { rank: number }) => {
             return a.rank - b.rank
         });
         const colorBox = queue.pop();
         const result = cutBox(colorBox);
         queue = queue.concat(result);
     }
-
     return queue.slice(0, num)
 }
 
-function themeColor(colorNumber: number, img: CanvasImageSource, callback: (arg0: any[]) => void) {
+// 颜色去重
+const colorFilter = (colorArr: any, difference: number) => {
+    for (let i = 0; i < colorArr.length; i++) {
+        for (let j = i + 1; j < colorArr.length; j++) {
+            if (Math.abs(colorArr[i][0] - colorArr[j][0]) < 20 && Math.abs(colorArr[i][1] - colorArr[j][1]) < 20 && Math.abs(colorArr[i][2] - colorArr[j][2]) < difference) {
+                colorArr.splice(j, 1)
+                j--
+            }
+        }
+    }
+    return colorArr
+}
+
+/**
+ * 提取颜色
+ * @param colorNumber 提取最大颜色数量
+ * @param img 需要提取的图片
+ * @param difference 图片颜色筛选精准度
+ * @param callback 回调函数
+ */
+const themeColor = (colorNumber: number, img: CanvasImageSource, difference: number, callback: (arg0: any[]) => void) => {
     const canvas = document.createElement('canvas') as HTMLCanvasElement;
     const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
     let width = 0
@@ -200,10 +219,13 @@ function themeColor(colorNumber: number, img: CanvasImageSource, callback: (arg0
     const colorRange = [[rMin, rMax], [gMin, gMax], [bMin, bMax]];
     const colorBox = new ColorBox(colorRange, total, imageData);
     const colorBoxArr = queueCut([colorBox], colorNumber);
-    const colorArr = [];
+    let colorArr = [];
+
     for (let j = 0; j < colorBoxArr.length; j++) {
         colorBoxArr[j].total && colorArr.push(colorBoxArr[j].getColor())
     }
+
+    colorArr = colorFilter(colorArr, difference)
 
     callback(colorArr);
 }

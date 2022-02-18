@@ -167,7 +167,7 @@ export default defineComponent({
           img.src = `${lostelkUrl}/files/${userPhotosCardlist.value[0].file.id}/serve?size=thumbnail`;
           img.crossOrigin = 'anonymous';
           img.onload = () => {
-            themeColor(8, img, SetColor);
+            themeColor(8, img, 20, SetColor);
           };
         }
       },

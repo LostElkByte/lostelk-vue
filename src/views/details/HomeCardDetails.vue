@@ -91,6 +91,17 @@
               :alt="postData.title"
               @click="zoomInAndOut"
             />
+
+            <div class="extract-color" style="display: flex;padding: 0 20px; justify-content: end;">
+              <canvas style="display: none" id="canvas"></canvas>
+
+              <div
+                style="height: 50px;width: 50px;margin-right: 10px;border-radius: 50%;"
+                v-for="(item, index) in 20"
+                :key="index"
+                :id="`color-block-id${index}`"
+              ></div>
+            </div>
           </div>
 
           <div class="content-message">
@@ -180,7 +191,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onUpdated, onMounted, onUnmounted } from 'vue';
+import { defineComponent, computed, ref, onUpdated, onMounted, onUnmounted, watch } from 'vue';
 import { lostelkUrl } from '../../global';
 import router from '../../router';
 import Likes from '../../components/cardFun/Likes.vue';
@@ -188,6 +199,7 @@ import DownloadFile from '../../components/cardFun/DownloadFile.vue';
 import Comments from '../../components/comment/Comments.vue';
 import DeleteCard from '../../components/cardFun/DeleteCard.vue';
 import store from '../../store';
+import themeColor from '../../components/colorExtraction';
 export default defineComponent({
   name: 'HomeCardDetails',
   components: {
@@ -253,6 +265,44 @@ export default defineComponent({
         }
       });
     }
+
+    /**
+     * 设置颜色方法
+     */
+    const SetColor = (colorArr: any[]) => {
+      // console.log(colorArr);
+      for (let index = 0; index < colorArr.length; index++) {
+        const bgc = '(' + colorArr[index][0] + ',' + colorArr[index][1] + ',' + colorArr[index][2] + ')';
+        const colorBlock = document.getElementById(`color-block-id${index}`) as HTMLElement;
+        colorBlock.style.backgroundColor = `rgb${bgc}`;
+      }
+    };
+
+    /**
+     * 提取图片颜色
+     */
+    watch(
+      () => postData.value,
+      () => {
+        const img = new Image();
+        img.src = `${lostelkUrl}/files/${postData.value.file.id}/serve?size=thumbnail`;
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          themeColor(50, img, 10, SetColor);
+        };
+      },
+    );
+
+    onMounted(() => {
+      if (postData.value) {
+        const img = new Image();
+        img.src = `${lostelkUrl}/files/${postData.value.file.id}/serve?size=thumbnail`;
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          themeColor(50, img, 10, SetColor);
+        };
+      }
+    });
 
     /**
      * 修改单个卡片点赞状态
