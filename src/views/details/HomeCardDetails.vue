@@ -195,6 +195,7 @@ import Comments from '../../components/comment/Comments.vue';
 import DeleteCard from '../../components/cardFun/DeleteCard.vue';
 import store from '../../store';
 import themeColor from '../../components/colorExtraction';
+import ColorThief from 'colorthief';
 export default defineComponent({
   name: 'HomeCardDetails',
   components: {
@@ -291,7 +292,13 @@ export default defineComponent({
         img.src = `${lostelkUrl}/files/${postData.value.file.id}/serve?size=thumbnail`;
         img.crossOrigin = 'anonymous';
         img.onload = () => {
-          themeColor(50, img, 20, SetColor);
+          if (img.complete) {
+            const colorthief = new ColorThief();
+            const bacolor = colorthief.getColor(img);
+
+            console.log(bacolor);
+            SetColor([bacolor]);
+          }
         };
       },
     );
@@ -302,7 +309,17 @@ export default defineComponent({
         img.src = `${lostelkUrl}/files/${postData.value.file.id}/serve?size=thumbnail`;
         img.crossOrigin = 'anonymous';
         img.onload = () => {
-          themeColor(50, img, 20, SetColor);
+          // themeColor(50, img, 20, SetColor);
+          if (img.complete) {
+            const colorthief = new ColorThief();
+            const bacolor = colorthief.getColor(img);
+
+            console.log(bacolor);
+            SetColor([bacolor]);
+          }
+          console.log(112);
+
+          // window.alert('111');
         };
       }
     });

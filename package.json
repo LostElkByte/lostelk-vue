@@ -10,6 +10,7 @@
   "dependencies": {
     "@types/less": "^3.0.2",
     "axios": "^0.21.1",
+    "colorthief": "^2.3.2",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.7",
     "less": "^2.7.3",
