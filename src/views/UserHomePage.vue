@@ -87,7 +87,6 @@ import Header from '../components/header/HeaderBox.vue';
 import Sidebar from '../components/sidebar/SidebarBox.vue';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
-import themeColor from '../components/colorExtraction';
 
 export default defineComponent({
   name: 'UserHomePage',
@@ -137,7 +136,35 @@ export default defineComponent({
      */
     const userPhotosCardlist = computed(() => store.state.userPhotosCardList);
     const userPhotosCardTotalCount = computed(() => store.state.userPhotosCardTotalCount);
-    store.dispatch('getUserPhotosCardList', UserIdProp.value);
+    const fileMetadata = ref();
+    store.dispatch('getUserPhotosCardList', UserIdProp.value).then(res => {
+      console.log(res.data[0]);
+      // 请求获取图像文件元信息
+      store.dispatch('getFileMetadata', res.data[0].file.id).then(data => {
+        if (data.mainColor) {
+          const colorBlock = document.getElementById('color-block-container') as HTMLElement;
+          const bgc = `(${data.mainColor[0]},${data.mainColor[1]},${data.mainColor[2]})`;
+          colorBlock.style.backgroundColor = `rgb${bgc}`;
+        }
+      });
+    });
+
+    /**
+     * 在内容列表发生改变时,请求获取图像文件元信息
+     */
+    watch(
+      () => userPhotosCardlist.value,
+      () => {
+        // 请求获取图像文件元信息
+        store.dispatch('getFileMetadata', userPhotosCardlist.value[0].file.id).then(data => {
+          if (data.mainColor) {
+            const colorBlock = document.getElementById('color-block-container') as HTMLElement;
+            const bgc = `(${data.mainColor[0]},${data.mainColor[1]},${data.mainColor[2]})`;
+            colorBlock.style.backgroundColor = `rgb${bgc}`;
+          }
+        });
+      },
+    );
 
     /**
      * 获取指定用户喜欢的内容列表
@@ -145,41 +172,6 @@ export default defineComponent({
     const userLikeCardlist = computed(() => store.state.userLikeCardList);
     const userLikeCardTotalCount = computed(() => store.state.userLikeCardTotalCount);
     store.dispatch('getUserLikeCardList', UserIdProp.value);
-
-    /**
-     * 设置颜色方法
-     */
-    const SetColor = (colorArr: number[][]) => {
-      // 初始化删除多余子节点
-      const extractColor = document.querySelector('#color-block-container') as HTMLElement;
-      while (extractColor.firstChild) {
-        extractColor.removeChild(extractColor.firstChild);
-      }
-      // 创建子节点
-      const bgc = '(' + colorArr[0][0] + ',' + colorArr[0][1] + ',' + colorArr[0][2] + ')';
-      const colorBlock = document.createElement('div') as HTMLElement;
-      colorBlock.id = `color-block-id${0}`;
-      colorBlock.classList.add('color-block');
-      colorBlock.style.backgroundColor = `rgb${bgc}`;
-      extractColor.appendChild(colorBlock);
-    };
-
-    /**
-     * 监听照片列表改变 提取首图背景色
-     */
-    watch(
-      () => userPhotosCardlist.value,
-      () => {
-        const img = new Image();
-        if (userPhotosCardlist.value.length != 0) {
-          img.src = `${lostelkUrl}/files/${userPhotosCardlist.value[0].file.id}/serve?size=thumbnail`;
-          img.crossOrigin = 'anonymous';
-          img.onload = () => {
-            themeColor(20, img, 10, SetColor);
-          };
-        }
-      },
-    );
 
     /**
      * 监听 路由上的UserId参数是否发生改变, 如果发生改变 则 重新加载新的数据
@@ -228,6 +220,7 @@ export default defineComponent({
       userId,
       userLikeCardTotalCount,
       userLikeCardlist,
+      fileMetadata,
     };
   },
 });
