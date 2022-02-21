@@ -239,19 +239,6 @@
   cursor: zoom-out;
 }
 
-.extract-color {
-  display: flex;
-  padding: 0 20px;
-  justify-content: flex-end;
-}
-
-.color-block {
-  height: 48px;
-  width: 48px;
-  margin-right: 10px;
-  border-radius: 50%;
-}
-
 .content-message {
   display: flex;
   flex-wrap: wrap;
@@ -302,11 +289,13 @@
   }
 }
 
+.content-message-metainformation-color,
 .content-message-metainformation-Make,
 .content-message-metainformation-in-detail {
   display: flex;
   align-items: center;
-  line-height: 1.5;
+  // line-height: 1.5;
+  margin-bottom: 3px;
   font-weight: 700;
   > span {
     display: flex;
@@ -326,6 +315,19 @@
 
 .content-message-jurisdiction-delete {
   font-size: 16px;
+}
+
+.extract-color {
+  display: flex;
+  // justify-content: flex-end;
+  align-items: center;
+}
+
+.color-block {
+  height: 14px;
+  width: 14px;
+  margin-right: 10px;
+  border-radius: 50%;
 }
 
 .content-description {
@@ -395,12 +397,12 @@
     max-width: 100%;
     max-height: 650px;
   }
-  .color-block {
-    height: 42px;
-    width: 42px;
-    margin-right: 10px;
-    border-radius: 50%;
-  }
+  // .color-block {
+  //   height: 42px;
+  //   width: 42px;
+  //   margin-right: 10px;
+  //   border-radius: 50%;
+  // }
 }
 
 @media (max-width: 767px) {
@@ -430,10 +432,10 @@
   .content-header-author-data span:nth-child(1) {
     font-weight: 700;
   }
-  .color-block {
-    height: 38px;
-    width: 38px;
-    margin-right: 10px;
-    border-radius: 50%;
-  }
+  // .color-block {
+  //   height: 38px;
+  //   width: 38px;
+  //   margin-right: 10px;
+  //   border-radius: 50%;
+  // }
 }

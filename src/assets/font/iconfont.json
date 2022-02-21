@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "775360",
+      "name": "调色板_palette3",
+      "font_class": "diaosebanpalette3",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "5441009",
+      "name": "油漆调色板",
+      "font_class": "youqitiaoseban",
+      "unicode": "e6f2",
+      "unicode_decimal": 59122
+    },
+    {
+      "icon_id": "11940460",
+      "name": "调色板",
+      "font_class": "tiaoseban",
+      "unicode": "e77e",
+      "unicode_decimal": 59262
+    },
+    {
+      "icon_id": "14930330",
+      "name": "Palette调色板",
+      "font_class": "Palettetiaoseban",
+      "unicode": "e707",
+      "unicode_decimal": 59143
+    },
+    {
       "icon_id": "6701305",
       "name": "头像 女孩",
       "font_class": "touxiangnvhai",

@@ -220,17 +220,6 @@
   width: 100%;
   cursor: zoom-out;
 }
-.extract-color {
-  display: flex;
-  padding: 0 20px;
-  justify-content: flex-end;
-}
-.color-block {
-  height: 48px;
-  width: 48px;
-  margin-right: 10px;
-  border-radius: 50%;
-}
 .content-message {
   display: flex;
   flex-wrap: wrap;
@@ -278,13 +267,15 @@
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   transition: all 0.1s ease-in-out;
 }
+.content-message-metainformation-color,
 .content-message-metainformation-Make,
 .content-message-metainformation-in-detail {
   display: flex;
   align-items: center;
-  line-height: 1.5;
+  margin-bottom: 3px;
   font-weight: 700;
 }
+.content-message-metainformation-color > span,
 .content-message-metainformation-Make > span,
 .content-message-metainformation-in-detail > span {
   display: flex;
@@ -292,11 +283,13 @@
   font-size: 12px;
   margin-right: 10px;
 }
+.content-message-metainformation-color .metainformation-svg,
 .content-message-metainformation-Make .metainformation-svg,
 .content-message-metainformation-in-detail .metainformation-svg {
   font-size: 16px;
   margin-right: 5px;
 }
+.content-message-metainformation-color .fileMetadata-content span,
 .content-message-metainformation-Make .fileMetadata-content span,
 .content-message-metainformation-in-detail .fileMetadata-content span {
   color: #0d0c22;
@@ -304,6 +297,16 @@
 }
 .content-message-jurisdiction-delete {
   font-size: 16px;
+}
+.extract-color {
+  display: flex;
+  align-items: center;
+}
+.color-block {
+  height: 14px;
+  width: 14px;
+  margin-right: 10px;
+  border-radius: 50%;
 }
 .content-description {
   font-weight: 400;
@@ -367,12 +370,6 @@
     max-width: 100%;
     max-height: 650px;
   }
-  .color-block {
-    height: 42px;
-    width: 42px;
-    margin-right: 10px;
-    border-radius: 50%;
-  }
 }
 @media (max-width: 767px) {
   .arrange {
@@ -400,11 +397,5 @@
   }
   .content-header-author-data span:nth-child(1) {
     font-weight: 700;
-  }
-  .color-block {
-    height: 38px;
-    width: 38px;
-    margin-right: 10px;
-    border-radius: 50%;
   }
 }
