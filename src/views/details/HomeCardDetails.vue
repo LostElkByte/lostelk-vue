@@ -91,12 +91,15 @@
               :alt="postData.title"
               @click="zoomInAndOut"
             />
-            <canvas style="display: none" id="canvas"></canvas>
-            <div
-              id="extract-color-id"
-              class="extract-color"
-              style="display: flex;padding: 0 20px; justify-content: end;"
-            ></div>
+
+            <div id="extract-color-id" class="extract-color" v-if="fileMetadata && fileMetadata.paletteColor">
+              <div
+                v-for="(item, index) in fileMetadata.paletteColor"
+                :key="index"
+                class="color-block"
+                :style="`background-color: rgb(${item[0]}, ${item[1]}, ${item[2]})`"
+              ></div>
+            </div>
           </div>
 
           <div class="content-message">
@@ -186,7 +189,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onUpdated, onMounted, onUnmounted, watch } from 'vue';
+import { defineComponent, computed, ref, onUpdated, onMounted, onUnmounted } from 'vue';
 import { lostelkUrl } from '../../global';
 import router from '../../router';
 import Likes from '../../components/cardFun/Likes.vue';
@@ -194,8 +197,6 @@ import DownloadFile from '../../components/cardFun/DownloadFile.vue';
 import Comments from '../../components/comment/Comments.vue';
 import DeleteCard from '../../components/cardFun/DeleteCard.vue';
 import store from '../../store';
-import themeColor from '../../components/colorExtraction';
-import ColorThief from 'colorthief';
 export default defineComponent({
   name: 'HomeCardDetails',
   components: {
@@ -261,68 +262,6 @@ export default defineComponent({
         }
       });
     }
-
-    /**
-     * 设置颜色方法
-     */
-    const SetColor = (colorArr: number[][]) => {
-      // 初始化删除多余子节点
-      const extractColor = document.querySelector('#extract-color-id') as HTMLElement;
-      while (extractColor.firstChild) {
-        extractColor.removeChild(extractColor.firstChild);
-      }
-      // 创建子节点
-      for (let index = 0; index < colorArr.length; index++) {
-        const bgc = '(' + colorArr[index][0] + ',' + colorArr[index][1] + ',' + colorArr[index][2] + ')';
-        const colorBlock = document.createElement('div') as HTMLElement;
-        colorBlock.id = `color-block-id${index}`;
-        colorBlock.style.cssText = 'height: 50px;width: 50px;margin-right: 10px;border-radius: 50%;';
-        colorBlock.style.backgroundColor = `rgb${bgc}`;
-        extractColor.appendChild(colorBlock);
-      }
-    };
-
-    /**
-     * 提取图片颜色
-     */
-    watch(
-      () => postData.value,
-      () => {
-        const img = new Image();
-        img.src = `${lostelkUrl}/files/${postData.value.file.id}/serve?size=thumbnail`;
-        img.crossOrigin = 'anonymous';
-        img.onload = () => {
-          if (img.complete) {
-            const colorthief = new ColorThief();
-            const bacolor = colorthief.getColor(img);
-
-            console.log(bacolor);
-            SetColor([bacolor]);
-          }
-        };
-      },
-    );
-
-    onMounted(() => {
-      if (postData.value) {
-        const img = new Image();
-        img.src = `${lostelkUrl}/files/${postData.value.file.id}/serve?size=thumbnail`;
-        img.crossOrigin = 'anonymous';
-        img.onload = () => {
-          // themeColor(50, img, 20, SetColor);
-          if (img.complete) {
-            const colorthief = new ColorThief();
-            const bacolor = colorthief.getColor(img);
-
-            console.log(bacolor);
-            SetColor([bacolor]);
-          }
-          console.log(112);
-
-          // window.alert('111');
-        };
-      }
-    });
 
     /**
      * 修改单个卡片点赞状态
@@ -509,5 +448,3 @@ export default defineComponent({
 </script>
 
 <style scoped src="../../style/less/viewsStyle/card-details.css"></style>
-
-<style></style>
