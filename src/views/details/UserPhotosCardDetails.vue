@@ -133,6 +133,20 @@
                   </span>
                 </span>
               </div>
+              <!-- 颜色 -->
+              <div class="content-message-metainformation-color">
+                <div id="extract-color-id" class="extract-color" v-if="fileMetadata.paletteColor">
+                  <svg class="icon metainformation-svg" aria-hidden="true">
+                    <use xlink:href="#icon-tiaoseban"></use>
+                  </svg>
+                  <div
+                    v-for="(item, index) in fileMetadata.paletteColor"
+                    :key="index"
+                    class="color-block"
+                    :style="`background-color: rgb(${item[0]}, ${item[1]}, ${item[2]})`"
+                  ></div>
+                </div>
+              </div>
             </div>
 
             <div
