@@ -14,14 +14,14 @@
         <ValidateForm @form-submit="onFormSubmit">
           <div class="form-group">
             <label for="user_username">
-              用户名
+              邮箱
             </label>
             <ValidateInput
-              :rules="userNameRule"
-              v-model="userNameVal"
+              :rules="userEmailRule"
+              v-model="userEmailVal"
               class="form-control"
               type="text"
-              placeholder="请输入用户名"
+              placeholder="请输入邮箱"
               id="user_username"
             >
             </ValidateInput>
@@ -84,12 +84,12 @@ export default defineComponent({
     const store = useStore();
     const router = useRouter();
     // 1.接收ValidateInput组件发送过来的值  2.发送默认值给ValidateInput组件
-    const userNameVal = ref('');
+    const userEmailVal = ref('');
     const passwordVal = ref('');
     // 定义表单验证规则 发送到 ValidateInput组件中
-    const userNameRule: RulesProp = [
-      { type: 'null', message: '用户名不能为空' },
-      { type: 'userName', message: '请输入正确的用户名' },
+    const userEmailRule: RulesProp = [
+      { type: 'null', message: '邮箱不能为空' },
+      { type: 'userEmail', message: '请输入正确的邮箱' },
     ];
     const passwordRule: RulesProp = [
       { type: 'null', message: '密码不能为空' },
@@ -103,7 +103,7 @@ export default defineComponent({
     const onFormSubmit = (result: boolean) => {
       if (result) {
         const userLoginData = {
-          name: userNameVal.value,
+          email: userEmailVal.value,
           password: passwordVal.value,
         };
         // 登陆并且获取用户信息
@@ -119,8 +119,8 @@ export default defineComponent({
     };
 
     return {
-      userNameRule,
-      userNameVal,
+      userEmailRule,
+      userEmailVal,
       passwordVal,
       passwordRule,
       onFormSubmit,
