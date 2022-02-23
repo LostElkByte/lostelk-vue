@@ -522,7 +522,7 @@ export default createStore<GloablDataProps>({
         context.commit('login', loginData.data)
         return loginData
       } catch (error) {
-        console.log(error)
+        throw `${error}`
       }
     },
 
@@ -535,7 +535,7 @@ export default createStore<GloablDataProps>({
         context.commit('getCurrentUser', currentUserData)
         return currentUserData
       } catch (error) {
-        console.log(error);
+        throw `${error}`
       }
     },
 
@@ -557,7 +557,7 @@ export default createStore<GloablDataProps>({
       try {
         await axios.patch('/users', newUserNameObject)
       } catch (error) {
-        console.log(error)
+        throw `${error}`
       }
     },
 
@@ -572,7 +572,7 @@ export default createStore<GloablDataProps>({
         context.commit('getHomePageCardTotalCount', CardListData.headers['x-total-count'])
         return CardListData
       } catch (error) {
-        console.log(error);
+        throw `${error}`
       }
     },
 
@@ -584,7 +584,7 @@ export default createStore<GloablDataProps>({
         const CardListData = await axios.get(`/posts?page=${page}`)
         context.commit('getPageCardList', CardListData.data)
       } catch (error) {
-        console.log(error);
+        throw `${error}`
       }
     },
 
@@ -598,7 +598,7 @@ export default createStore<GloablDataProps>({
         context.commit('getUserPhotosCardTotalCount', userPhotosCardListData.headers['x-total-count'])
         return userPhotosCardListData
       } catch (error) {
-        console.log(error);
+        throw `${error}`
       }
     },
 
@@ -612,7 +612,7 @@ export default createStore<GloablDataProps>({
         context.commit('getUserPhotosCardTotalCount', userPhotosCardListData.headers['x-total-count'])
         return userPhotosCardListData
       } catch (error) {
-        console.log(error);
+        throw `${error}`
       }
     },
 
@@ -627,7 +627,7 @@ export default createStore<GloablDataProps>({
         context.commit('getUserLikeCardTotalCount', userLikeCardList.headers['x-total-count'])
         return userLikeCardList
       } catch (error) {
-        console.log(error);
+        throw `${error}`
       }
     },
 
@@ -641,7 +641,7 @@ export default createStore<GloablDataProps>({
         context.commit('getUserLikeCardTotalCount', userLikeCardListData.headers['x-total-count'])
         return userLikeCardListData
       } catch (error) {
-        console.log(error);
+        throw `${error}`
       }
     },
 
@@ -654,7 +654,7 @@ export default createStore<GloablDataProps>({
         context.commit('cardData', cardData.data)
         return cardData.data
       } catch (error) {
-        console.log(error)
+        throw `${error}`
       }
     },
 
@@ -672,7 +672,7 @@ export default createStore<GloablDataProps>({
         })
         return TagCardListData
       } catch (error) {
-        console.log(error);
+        throw `${error}`
       }
     },
 
@@ -685,7 +685,7 @@ export default createStore<GloablDataProps>({
         context.commit('getPageTagCardList', TagCardListData.data);
         return TagCardListData
       } catch (error) {
-        console.log(error);
+        throw `${error}`
       }
     },
 
@@ -699,7 +699,7 @@ export default createStore<GloablDataProps>({
           context.commit('getUserLikes', userLikes.data);
         }
       } catch (error) {
-        console.log(error);
+        throw `${error}`
       }
     },
 
@@ -712,7 +712,7 @@ export default createStore<GloablDataProps>({
         context.commit('fileMetadata', fileMetadata.data)
         return fileMetadata.data
       } catch (error) {
-        console.log(error);
+        throw `${error}`
       }
     },
 
@@ -724,7 +724,7 @@ export default createStore<GloablDataProps>({
         const comments = await axios.get(`/comments?post=${postId}`)
         return comments
       } catch (error) {
-        console.log(error)
+        throw `${error}`
       }
     },
 
@@ -736,7 +736,7 @@ export default createStore<GloablDataProps>({
         const comments = await axios.get(`/comments/${commentId}/replies`)
         return comments.data
       } catch (error) {
-        console.log(error)
+        throw `${error}`
       }
     },
 
@@ -748,7 +748,7 @@ export default createStore<GloablDataProps>({
         const comments = await axios.post(`/comments`, publishCommentData)
         return comments.data
       } catch (error) {
-        console.log(error)
+        throw `${error}`
       }
     },
 
@@ -760,7 +760,7 @@ export default createStore<GloablDataProps>({
         const comments = await axios.post(`/comments/${commentId}/reply`, publishReplyCommentData)
         return comments.data
       } catch (error) {
-        console.log(error)
+        throw `${error}`
       }
     },
 
@@ -772,7 +772,7 @@ export default createStore<GloablDataProps>({
         const comments = await axios.patch(`/comments/${commentId}`, reviseCommentData)
         return comments.data
       } catch (error) {
-        console.log(error)
+        throw `${error}`
       }
     },
 
@@ -784,7 +784,7 @@ export default createStore<GloablDataProps>({
         const comments = await axios.patch(`/reply_comment/${commentId}`, reviseCommentData)
         return comments.data
       } catch (error) {
-        console.log(error)
+        throw `${error}`
       }
     },
 
@@ -797,7 +797,7 @@ export default createStore<GloablDataProps>({
         const comments = await axios.delete(`/comments/${commentId}`)
         return comments.data
       } catch (error) {
-        console.log(error)
+        throw `${error}`
       }
     },
 
@@ -809,7 +809,7 @@ export default createStore<GloablDataProps>({
         const comments = await axios.delete(`/reply_comment/${commentId}`)
         return comments.data
       } catch (error) {
-        console.log(error)
+        throw `${error}`
       }
     },
 
@@ -821,7 +821,7 @@ export default createStore<GloablDataProps>({
         const comments = await axios.delete(`/posts/${postId}`)
         return comments.data
       } catch (error) {
-        console.log(error)
+        throw `${error}`
       }
     },
 
@@ -832,7 +832,7 @@ export default createStore<GloablDataProps>({
       try {
         await axios.post(`/posts/${postId}/tag`, { name: `${tag}` });
       } catch (error) {
-        console.log(error);
+        throw `${error}`
       }
     },
 
@@ -843,7 +843,7 @@ export default createStore<GloablDataProps>({
       try {
         await axios.delete(`/posts/${postId}/tag`, { data: { tagId: `${tagId}` } });
       } catch (error) {
-        console.log(error);
+        throw `${error}`
       }
     },
 
@@ -853,11 +853,10 @@ export default createStore<GloablDataProps>({
     async getVeryGoodsTransverseList(context, tagName) {
       try {
         const veryGoodsTransverseData = await axios.get(`/posts?tag=${tagName}`);
-
         context.commit('getVeryGoodsTransverseList', veryGoodsTransverseData.data)
         return veryGoodsTransverseData
       } catch (error) {
-        console.log(error)
+        throw `${error}`
       }
     },
 
@@ -870,7 +869,7 @@ export default createStore<GloablDataProps>({
         context.commit('getVeryGoodsLongitudinalList', getVeryGoodsLongitudinalData.data)
         return getVeryGoodsLongitudinalData
       } catch (error) {
-        console.log(error)
+        throw `${error}`
       }
     },
 
@@ -882,7 +881,31 @@ export default createStore<GloablDataProps>({
         const res = await axios.get(`/activat_email?email=${email}&name=${name}&registration_verify_key=${registrationVerifyKey}`);
         return res.data
       } catch (error) {
-        return error
+        throw `${error}`
+      }
+    },
+
+    /**
+    * 找回密码 - 发送邮件
+    */
+    async sendRetrievePassword(context, email) {
+      try {
+        const res = await axios.post(`/send_retrieve_password_verify_key`, { email: email });
+        return res.data
+      } catch (error) {
+        throw `${error}`
+      }
+    },
+
+    /**
+    * 找回密码 - 修改密码
+    */
+    async retrievePassword(context, data) {
+      try {
+        const res = await axios.patch(`/retrieve_password`, data);
+        return res.data
+      } catch (error) {
+        throw `${error}`
       }
     }
   },

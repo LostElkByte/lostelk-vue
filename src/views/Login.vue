@@ -28,9 +28,15 @@
           </div>
 
           <div class="form-group">
-            <label for="user_password">
-              密码
-            </label>
+            <div style="display: flex;align-items: center;justify-content: space-between;">
+              <label for="user_password">
+                密码
+              </label>
+              <span class="text-secondary" style="font-size: 12px">
+                <router-link to="/StartRetrieve">忘记了您的密码?</router-link>
+              </span>
+            </div>
+
             <ValidateInput
               :rules="passwordRule"
               v-model="passwordVal"

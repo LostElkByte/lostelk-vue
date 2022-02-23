@@ -26,14 +26,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/Login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
-    meta: { requestNotLogin: true, title: "Sign Up | LostElk" }
+    meta: { redirectAlreadyLogin: true, title: "Sign Up | LostElk" }
 
   },
   {
     path: '/Register',
     name: 'Register',
     component: () => import('../views/Register.vue'),
-    meta: { requestNotLogin: true, title: "Sign In | LostElk" }
+    meta: { redirectAlreadyLogin: true, title: "Sign In | LostElk" }
   },
   {
     path: '/Clause',
@@ -124,6 +124,18 @@ const routes: Array<RouteRecordRaw> = [
       }
     ],
   },
+  {
+    path: '/StartRetrieve',
+    name: 'StartRetrieve',
+    component: () => import('../components/retrievePassword/StartRetrieve.vue'),
+    meta: { title: "Password reset | LostElk" }
+  },
+  {
+    path: '/RetrievePassword',
+    name: 'RetrievePassword',
+    component: () => import('../components/retrievePassword/RetrievePassword.vue'),
+    meta: { title: "Password reset | LostElk" }
+  }
 ]
 
 const router = createRouter({
@@ -134,7 +146,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const { user, token } = store.state
-  const { requiredLogin, requestNotLogin } = to.meta
+  const { requiredLogin, redirectAlreadyLogin } = to.meta
   /**
    * 1. 如果 user.isLogin为false 进入 1.1逻辑  如果 user.isLogin为true 进入 1.2逻辑
    * 1.1 user.isLogin为false 则判断token 是否存在 ,
@@ -150,7 +162,7 @@ router.beforeEach((to, from, next) => {
     if (token) {
       axios.defaults.headers.common.Authorization = `Bearer ${token}`;
       store.dispatch('getCurrentUser', user.id).then(() => {
-        if (requestNotLogin) {
+        if (redirectAlreadyLogin) {
           next('/')
         } else {
           next()
@@ -168,7 +180,7 @@ router.beforeEach((to, from, next) => {
       }
     }
   } else {
-    if (requestNotLogin) {
+    if (redirectAlreadyLogin) {
       next('/')
     } else {
       next()
