@@ -663,7 +663,7 @@ export default createStore<GloablDataProps>({
      */
     async getTagCardList(context, tag) {
       try {
-        const TagCardListData = await axios.get(`/posts?tag=${tag}`)
+        const TagCardListData = await axios.get(`/posts?fuzzyTag=${tag}`)
         context.commit('getTagCardList', TagCardListData.data);
         context.commit('getTagPageCardTotalCount', TagCardListData.headers['x-total-count'])
         context.commit('setSearchTag', {
@@ -681,7 +681,7 @@ export default createStore<GloablDataProps>({
      */
     async getPageTagCardList(context, { tag, page }) {
       try {
-        const TagCardListData = await axios.get(`/posts?tag=${tag}&page=${page}`)
+        const TagCardListData = await axios.get(`/posts?fuzzyTag=${tag}&page=${page}`)
         context.commit('getPageTagCardList', TagCardListData.data);
         return TagCardListData
       } catch (error) {
