@@ -538,7 +538,7 @@ export default defineComponent({
     /**
      * 获得搜索的标签
      */
-    const sarchTag = computed(() => (store.state.searchTag as GloabSearchTagProps) || {});
+    const sarchTag = computed(() => (store.state.searchVal as GloabSearchTagProps) || {});
 
     /**
      * 修改

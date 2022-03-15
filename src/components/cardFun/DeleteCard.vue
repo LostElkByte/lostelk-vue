@@ -67,8 +67,8 @@ export default defineComponent({
           store.dispatch('getCardList');
         } else if (fromWhichPageProps.value === 'tag') {
           store.commit('againRequest', true);
-          store.dispatch('getTagCardList', tag.value).then(() => {
-            if (store.state.tagCardList.length === 0) {
+          store.dispatch('getSearchValCardList', tag.value).then(() => {
+            if (store.state.searchCardList.length === 0) {
               //修改搜索结果为true
               store.commit('setSearchFailure', true);
               store.commit('noMore', false);

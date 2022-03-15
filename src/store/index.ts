@@ -53,7 +53,7 @@ export interface GloablDataProps {
   loading: boolean;
   error: GloablErrorProps;
   cardList: CardList[];
-  tagCardList: CardList[];
+  searchCardList: CardList[];
   userPhotosCardList: CardList[];
   userLikeCardList: CardList[];
   card: CardList | {};
@@ -62,12 +62,12 @@ export interface GloablDataProps {
   userLikes: CardList[];
   isShowLoading: boolean;
   searchFailure: boolean;
-  searchTag: GloabSearchTagProps | {};
+  searchVal: GloabSearchTagProps | {};
   mainSearchIsNone: boolean;
   fileMetadata: GloablfileMetadataProps | {};
   showCommentsCut: boolean;
   homePageCardTotalCount: number | 0;
-  tagPageCardTotalCount: number | 0;
+  searchPageCardTotalCount: number | 0;
   userPhotosCardTotalCount: number | 0;
   userLikeCardTotalCount: number | 0;
   uploadAfterToUrl: string | null;
@@ -87,7 +87,7 @@ export default createStore<GloablDataProps>({
     loading: false,
     error: { status: false },
     cardList: [],
-    tagCardList: [],
+    searchCardList: [],
     userPhotosCardList: [],
     userLikeCardList: [],
     card: {},
@@ -99,9 +99,9 @@ export default createStore<GloablDataProps>({
     mainSearchIsNone: true,
     fileMetadata: {},
     showCommentsCut: false,
-    searchTag: {},
+    searchVal: {},
     homePageCardTotalCount: 0,
-    tagPageCardTotalCount: 0,
+    searchPageCardTotalCount: 0,
     userPhotosCardTotalCount: 0,
     userLikeCardTotalCount: 0,
     uploadAfterToUrl: null,
@@ -212,31 +212,31 @@ export default createStore<GloablDataProps>({
     },
 
     /**
-     * 获得指定标签的卡片内容
+     * 获得指定搜索内容的卡片内容
      */
-    getTagCardList(state, rawdata) {
-      state.tagCardList = rawdata
+    getSearchValCardList(state, rawdata) {
+      state.searchCardList = rawdata
     },
 
     /**
-     * 添加指定标签的卡片内容
+     * 添加指定搜索内容的卡片内容
      */
-    getPageTagCardList(state, rawdata) {
-      state.tagCardList.push(...rawdata)
+    getPageSearchValCardList(state, rawdata) {
+      state.searchCardList.push(...rawdata)
     },
 
     /**
-      * 获得指定标签的卡片总数
+      * 获得指定搜索内容的卡片总数
       */
-    getTagPageCardTotalCount(state, rawdata) {
-      state.tagPageCardTotalCount = rawdata
+    getSearchValPageCardTotalCount(state, rawdata) {
+      state.searchPageCardTotalCount = rawdata
     },
 
     /**
-     * 删除指定标签中的某一项后的卡片总数
+     * 删除指定搜索内容中的某一项后的卡片总数
      */
-    deteleTagPageCardTotalCount(state, rawdata) {
-      state.tagPageCardTotalCount = rawdata - 1
+    deteleSearchValPageCardTotalCount(state, rawdata) {
+      state.searchPageCardTotalCount = rawdata - 1
     },
 
     /**
@@ -323,10 +323,10 @@ export default createStore<GloablDataProps>({
     },
 
     /**
-    * 传入搜索标签
+    * 传入搜索内容
     */
-    setSearchTag(state, rawdata) {
-      state.searchTag = rawdata
+    setSearchVal(state, rawdata) {
+      state.searchVal = rawdata
     },
 
     /**
@@ -340,10 +340,10 @@ export default createStore<GloablDataProps>({
           break;
         }
       }
-      for (let i = 0; i < state.tagCardList.length; i++) {
-        if (state.tagCardList[i].id === postId) {
-          state.tagCardList[i].liked = 1;
-          state.tagCardList[i].totalLikes++;
+      for (let i = 0; i < state.searchCardList.length; i++) {
+        if (state.searchCardList[i].id === postId) {
+          state.searchCardList[i].liked = 1;
+          state.searchCardList[i].totalLikes++;
           break;
         }
       }
@@ -374,10 +374,10 @@ export default createStore<GloablDataProps>({
           break;
         }
       }
-      for (let i = 0; i < state.tagCardList.length; i++) {
-        if (state.tagCardList[i].id === postId) {
-          state.tagCardList[i].liked = 0;
-          state.tagCardList[i].totalLikes--;
+      for (let i = 0; i < state.searchCardList.length; i++) {
+        if (state.searchCardList[i].id === postId) {
+          state.searchCardList[i].liked = 0;
+          state.searchCardList[i].totalLikes--;
           break;
         }
       }
@@ -408,9 +408,9 @@ export default createStore<GloablDataProps>({
           break;
         }
       }
-      for (let i = 0; i < state.tagCardList.length; i++) {
-        if (state.tagCardList[i].id === postId) {
-          state.tagCardList[i].totalLikes++;
+      for (let i = 0; i < state.searchCardList.length; i++) {
+        if (state.searchCardList[i].id === postId) {
+          state.searchCardList[i].totalLikes++;
           break;
         }
       }
@@ -440,10 +440,10 @@ export default createStore<GloablDataProps>({
           break;
         }
       }
-      for (let i = 0; i < state.tagCardList.length; i++) {
-        if (state.tagCardList[i].id === postId) {
+      for (let i = 0; i < state.searchCardList.length; i++) {
+        if (state.searchCardList[i].id === postId) {
 
-          state.tagCardList[i].totalLikes--;
+          state.searchCardList[i].totalLikes--;
           break;
         }
       }
@@ -661,12 +661,12 @@ export default createStore<GloablDataProps>({
     /**
      * 获得指定标签的卡片列表
      */
-    async getTagCardList(context, tag) {
+    async getSearchValCardList(context, tag) {
       try {
         const TagCardListData = await axios.get(`/posts?fuzzyTag=${tag}`)
-        context.commit('getTagCardList', TagCardListData.data);
-        context.commit('getTagPageCardTotalCount', TagCardListData.headers['x-total-count'])
-        context.commit('setSearchTag', {
+        context.commit('getSearchValCardList', TagCardListData.data);
+        context.commit('getSearchValPageCardTotalCount', TagCardListData.headers['x-total-count'])
+        context.commit('setSearchVal', {
           tagName: tag,
           totalCount: TagCardListData.headers['x-total-count']
         })
@@ -679,10 +679,10 @@ export default createStore<GloablDataProps>({
     /**
      * 获得指定标签的卡片列表分页
      */
-    async getPageTagCardList(context, { tag, page }) {
+    async getPageSearchValCardList(context, { tag, page }) {
       try {
         const TagCardListData = await axios.get(`/posts?fuzzyTag=${tag}&page=${page}`)
-        context.commit('getPageTagCardList', TagCardListData.data);
+        context.commit('getPageSearchValCardList', TagCardListData.data);
         return TagCardListData
       } catch (error) {
         throw `${error}`

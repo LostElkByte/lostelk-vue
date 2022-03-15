@@ -241,7 +241,7 @@ export default defineComponent({
      */
     const showCard = ref(false);
     const postData = ref();
-    const cardList = computed(() => store.state.tagCardList);
+    const cardList = computed(() => store.state.searchCardList);
     const cardIndex = computed(() => cardList.value.findIndex(item => item.id === postId.value));
 
     // 如果当前帖子存在于cardList数组中,进入if 否则 进入else

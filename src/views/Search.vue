@@ -56,8 +56,8 @@ export default defineComponent({
       // 将 没有更多 提示 初始化设置为false
       store.commit('noMore', false);
 
-      await store.dispatch('getTagCardList', tagVal.value).then(data => {
-        if (store.state.tagCardList.length === 0) {
+      await store.dispatch('getSearchValCardList', tagVal.value).then(data => {
+        if (store.state.searchCardList.length === 0) {
           //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
           store.commit('setSearchFailure', true);
           // 将 没有更多 提示 初始化设置为false
@@ -77,7 +77,7 @@ export default defineComponent({
 
     // 获取列表数据
     const list = computed(() => {
-      return store.state.tagCardList;
+      return store.state.searchCardList;
     });
 
     /**
@@ -85,9 +85,9 @@ export default defineComponent({
      */
 
     // 获取Tag页的卡片总数
-    const tagPageCardTotalCount = computed(() => store.state.tagPageCardTotalCount);
+    const searchPageCardTotalCount = computed(() => store.state.searchPageCardTotalCount);
     // 计算Tag页的总页数
-    const TagTotalPage = computed(() => Math.ceil(tagPageCardTotalCount.value / 10));
+    const TagTotalPage = computed(() => Math.ceil(searchPageCardTotalCount.value / 10));
     // 默认当前页数
     const currentPage = ref(1);
     // 是否加载默认设置为true
@@ -123,7 +123,7 @@ export default defineComponent({
           store.commit('isShowLoadingMore', true);
           // 加载下一页数据
           const tagParams = { tag: route.params.tag, page: currentPage.value + 1 };
-          await store.dispatch('getPageTagCardList', tagParams).then(() => {
+          await store.dispatch('getPageSearchValCardList', tagParams).then(() => {
             // 加载完毕 将当前页数+1
             currentPage.value = currentPage.value + 1;
           });
