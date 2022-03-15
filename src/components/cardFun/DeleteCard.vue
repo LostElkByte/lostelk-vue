@@ -33,7 +33,7 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    tagName: {
+    searchName: {
       type: String,
       required: false,
     },
@@ -46,7 +46,7 @@ export default defineComponent({
     const postIdProps = computed(() => props.postId);
     const routerUrlProps = computed(() => props.routerUrl);
     const fromWhichPageProps = computed(() => props.fromWhichPage);
-    const tag = computed(() => props.tagName);
+    const searchVal = computed(() => props.searchName);
     const userIdProps = computed(() => props.userId);
 
     const isDelete = ref(false);
@@ -65,9 +65,9 @@ export default defineComponent({
         if (fromWhichPageProps.value === 'home') {
           store.commit('againRequest', true);
           store.dispatch('getCardList');
-        } else if (fromWhichPageProps.value === 'tag') {
+        } else if (fromWhichPageProps.value === 'search') {
           store.commit('againRequest', true);
-          store.dispatch('getSearchValCardList', tag.value).then(() => {
+          store.dispatch('getSearchValCardList', searchVal.value).then(() => {
             if (store.state.searchCardList.length === 0) {
               //修改搜索结果为true
               store.commit('setSearchFailure', true);

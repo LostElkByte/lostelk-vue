@@ -163,9 +163,9 @@
             <DeleteCard
               v-if="userId === postData.user.id || userId === 1"
               :postId="postId"
-              :routerUrl="`/tag/${tag}`"
-              :fromWhichPage="`tag`"
-              :tagName="tag"
+              :routerUrl="`/search/${searchVal}`"
+              :fromWhichPage="`search`"
+              :searchName="searchVal"
             >
             </DeleteCard>
           </div>
@@ -205,7 +205,7 @@ import Comments from '../../components/comment/Comments.vue';
 import DeleteCard from '../../components/cardFun/DeleteCard.vue';
 import store from '../../store';
 export default defineComponent({
-  name: 'TagCardDetails',
+  name: 'SearchCardDetails',
   components: {
     Likes,
     DownloadFile,
@@ -218,7 +218,7 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    tagName: {
+    searchName: {
       type: String,
       required: false,
     },
@@ -226,8 +226,8 @@ export default defineComponent({
   setup(props) {
     // 是否为单个卡片
     const singleCard = ref(false);
-    // 标签名
-    const tag = computed(() => props.tagName);
+    // 搜索内容
+    const searchVal = computed(() => props.searchName);
     // 获取当前用户ID
     const userId = computed(() => store.state.user.id);
     // 获取当前帖子的ID
@@ -308,9 +308,9 @@ export default defineComponent({
       document.body.style.overflow = 'auto';
 
       // 存储当前的url
-      store.commit('uploadAfterToUrl', `/tag/${tag.value}/tagCard/${postId.value}`);
+      store.commit('uploadAfterToUrl', `/search/${searchVal.value}/searchCard/${postId.value}`);
       // 定义当前页面别名,并存储
-      store.commit('fromWhichPage', 'tag');
+      store.commit('fromWhichPage', 'search');
 
       router.push(`/EditCard/${postId.value}`);
     };
@@ -397,19 +397,19 @@ export default defineComponent({
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
 
-      router.push(`/search/${tag.value}`);
+      router.push(`/search/${searchVal.value}`);
     };
 
     /**
      * 获取相关标签数据,并跳转的相对页面(标签页暂时不需要此方法,因为暂时后端返回的 标签详情页的数据 只包含一个所查找的标签)
      */
-    const RelatedTagData = async (tagName: string) => {
+    const RelatedSearchData = async (searchName: string) => {
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
       document.body.scrollTop = document.documentElement.scrollTop = 0;
 
       close();
-      router.push(`/search/${tagName}`);
+      router.push(`/search/${searchName}`);
     };
 
     /**
@@ -443,11 +443,11 @@ export default defineComponent({
       zoom,
       zoomInAndOut,
       fileMetadata,
-      RelatedTagData,
+      RelatedSearchData,
       showComments,
       showCommentsCut,
       editCard,
-      tag,
+      searchVal,
       toUserPage,
       singleCardReviseLike,
       singleCard,

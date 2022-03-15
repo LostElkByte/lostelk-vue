@@ -69,8 +69,8 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '/search/:val/searchCard/:id',
-        name: 'TagCardDetails',
-        component: () => import('../views/details/TagCardDetails.vue'),
+        name: 'SearchCardDetails',
+        component: () => import('../views/details/SearchCardDetails.vue'),
         props: true,
         meta: { title: "Is this the photos you like? | LostElk" }
       }

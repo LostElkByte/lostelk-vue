@@ -400,7 +400,7 @@ export default defineComponent({
             const oldCard = store.state.cardList;
             const newCard = oldCard.map((item: { id: unknown }) => (item.id === card.id ? card : item));
             await store.commit('getCardList', newCard);
-          } else if (fromWhichPage.value === 'tag') {
+          } else if (fromWhichPage.value === 'search') {
             const card = await store.dispatch('getCard', postId.value);
             const oldCard = store.state.searchCardList;
             const newCard = oldCard.map((item: { id: unknown }) => (item.id === card.id ? card : item));
