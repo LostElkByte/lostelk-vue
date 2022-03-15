@@ -163,9 +163,10 @@
             <DeleteCard
               v-if="userId === postData.user.id || userId === 1"
               :postId="postId"
-              :routerUrl="`/search/${searchVal}`"
+              :routerUrl="`/search/${searchTypeProps}/${searchVal}`"
               :fromWhichPage="`search`"
               :searchName="searchVal"
+              :searchType="searchTypeProps"
             >
             </DeleteCard>
           </div>
@@ -222,12 +223,20 @@ export default defineComponent({
       type: String,
       required: false,
     },
+    searchType: {
+      type: String,
+      required: false,
+    },
   },
   setup(props) {
     // 是否为单个卡片
     const singleCard = ref(false);
     // 搜索内容
     const searchVal = computed(() => props.searchName);
+
+    // 搜索类型
+    const searchTypeProps = computed(() => props.searchType);
+
     // 获取当前用户ID
     const userId = computed(() => store.state.user.id);
     // 获取当前帖子的ID
@@ -308,7 +317,10 @@ export default defineComponent({
       document.body.style.overflow = 'auto';
 
       // 存储当前的url
-      store.commit('uploadAfterToUrl', `/search/${searchVal.value}/searchCard/${postId.value}`);
+      store.commit(
+        'uploadAfterToUrl',
+        `/search/${searchTypeProps.value}/${searchVal.value}/searchCard/${postId.value}`,
+      );
       // 定义当前页面别名,并存储
       store.commit('fromWhichPage', 'search');
 
@@ -397,19 +409,19 @@ export default defineComponent({
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
 
-      router.push(`/search/${searchVal.value}`);
+      router.push(`/search/${searchTypeProps.value}/${searchVal.value}`);
     };
 
     /**
      * 获取相关标签数据,并跳转的相对页面(标签页暂时不需要此方法,因为暂时后端返回的 标签详情页的数据 只包含一个所查找的标签)
      */
-    const RelatedSearchData = async (searchName: string) => {
+    const RelatedTagData = async (searchName: string) => {
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
       document.body.scrollTop = document.documentElement.scrollTop = 0;
 
       close();
-      router.push(`/search/${searchName}`);
+      router.push(`/search/tag/${searchName}`);
     };
 
     /**
@@ -443,7 +455,7 @@ export default defineComponent({
       zoom,
       zoomInAndOut,
       fileMetadata,
-      RelatedSearchData,
+      RelatedTagData,
       showComments,
       showCommentsCut,
       editCard,
@@ -451,6 +463,7 @@ export default defineComponent({
       toUserPage,
       singleCardReviseLike,
       singleCard,
+      searchTypeProps,
     };
   },
 });

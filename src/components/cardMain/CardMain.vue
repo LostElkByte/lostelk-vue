@@ -430,7 +430,7 @@
     </div>
   </div>
   <teleport to="#app">
-    <router-view :searchName="searchNameProps"></router-view>
+    <router-view :searchName="searchNameProps" :searchType="searchTypeProps"></router-view>
   </teleport>
 </template>
 
@@ -472,10 +472,16 @@ export default defineComponent({
       type: String,
       required: false,
     },
+    searchType: {
+      type: String,
+      required: false,
+    },
   },
 
   setup(props) {
     const searchNameProps = computed(() => props.searchName);
+
+    const searchTypeProps = computed(() => props.searchType);
 
     const isShowLoadingMore = computed(() => store.state.isShowLoadingMore);
 
@@ -633,6 +639,7 @@ export default defineComponent({
       toUserPage,
       cardColumn,
       cardColumnWidth,
+      searchTypeProps,
     };
   },
 });

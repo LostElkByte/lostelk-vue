@@ -61,7 +61,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiredLogin: true, title: "Edit Photos| LostElk" }
   },
   {
-    path: '/search/:type:val',
+    path: '/search/:type/:val',
     name: 'Search',
     component: () => import('../views/Search.vue'),
     props: true,

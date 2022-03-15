@@ -406,7 +406,7 @@ export default defineComponent({
 
       // close();
 
-      router.push(`/search/${tagName}`);
+      router.push(`/search/tag/${tagName}`);
     };
 
     /**

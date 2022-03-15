@@ -2,8 +2,9 @@
   <div class="home-page">
     <Header :user="loginJudge"></Header>
     <CardMain
-      :detailsUrlparameter="`search/${searchVal}/searchCard`"
+      :detailsUrlparameter="`search/${searchType}/${searchVal}/searchCard`"
       :searchName="searchVal"
+      :searchType="searchType"
       :cardColumnSize="cardColumnSize"
       :list="list"
     ></CardMain>
@@ -31,6 +32,10 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    type: {
+      type: String,
+      required: true,
+    },
   },
   setup(props) {
     const route = useRoute();
@@ -48,15 +53,18 @@ export default defineComponent({
     // 获取页面展示列的数量
     const cardColumnSize = computed(() => props.cardColumn);
 
-    // 获取当前url 的 val 值
+    // 获取当前搜索 的 val 值
     const searchVal = computed(() => route.params.val);
+
+    // 获取当前搜索 的 type 值
+    const searchType = computed(() => route.params.type);
 
     // 加载标签页内容数据函数
     const loading = async () => {
       // 将 没有更多 提示 初始化设置为false
       store.commit('noMore', false);
 
-      await store.dispatch('getSearchValCardList', searchVal.value).then(data => {
+      await store.dispatch('getSearchValCardList', { val: searchVal.value, type: searchType.value }).then(data => {
         if (store.state.searchCardList.length === 0) {
           //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
           store.commit('setSearchFailure', true);
@@ -122,7 +130,7 @@ export default defineComponent({
           // 设置 是否显示加载更多 为 true
           store.commit('isShowLoadingMore', true);
           // 加载下一页数据
-          const searchParams = { val: route.params.val, page: currentPage.value + 1 };
+          const searchParams = { val: route.params.val, type: searchType.value, page: currentPage.value + 1 };
           await store.dispatch('getPageSearchValCardList', searchParams).then(() => {
             // 加载完毕 将当前页数+1
             currentPage.value = currentPage.value + 1;
@@ -207,6 +215,7 @@ export default defineComponent({
       loginJudge,
       cardColumnSize,
       searchVal,
+      searchType,
     };
   },
 });

@@ -41,12 +41,17 @@ export default defineComponent({
       type: Number,
       required: false,
     },
+    searchType: {
+      type: String,
+      required: false,
+    },
   },
   setup(props) {
     const postIdProps = computed(() => props.postId);
     const routerUrlProps = computed(() => props.routerUrl);
     const fromWhichPageProps = computed(() => props.fromWhichPage);
     const searchVal = computed(() => props.searchName);
+    const searchTypeProps = computed(() => props.searchType);
     const userIdProps = computed(() => props.userId);
 
     const isDelete = ref(false);
@@ -67,7 +72,7 @@ export default defineComponent({
           store.dispatch('getCardList');
         } else if (fromWhichPageProps.value === 'search') {
           store.commit('againRequest', true);
-          store.dispatch('getSearchValCardList', searchVal.value).then(() => {
+          store.dispatch('getSearchValCardList', { val: searchVal.value, type: searchTypeProps.value }).then(() => {
             if (store.state.searchCardList.length === 0) {
               //修改搜索结果为true
               store.commit('setSearchFailure', true);

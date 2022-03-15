@@ -409,7 +409,7 @@ export default defineComponent({
       document.body.scrollTop = document.documentElement.scrollTop = 0;
 
       close();
-      router.push(`/search/${tagName}`);
+      router.push(`/search/tag/${tagName}`);
     };
 
     /**
