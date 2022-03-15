@@ -43,8 +43,8 @@ export interface GloablfileMetadataProps {
   metadata: {};
 }
 
-export interface GloabSearchTagProps {
-  tagName: string;
+export interface GloabSearchProps {
+  searchName: string;
   totalCount: number;
 }
 
@@ -62,7 +62,7 @@ export interface GloablDataProps {
   userLikes: CardList[];
   isShowLoading: boolean;
   searchFailure: boolean;
-  searchVal: GloabSearchTagProps | {};
+  searchVal: GloabSearchProps | {};
   mainSearchIsNone: boolean;
   fileMetadata: GloablfileMetadataProps | {};
   showCommentsCut: boolean;
@@ -667,7 +667,7 @@ export default createStore<GloablDataProps>({
         context.commit('getSearchValCardList', TagCardListData.data);
         context.commit('getSearchValPageCardTotalCount', TagCardListData.headers['x-total-count'])
         context.commit('setSearchVal', {
-          tagName: val,
+          searchName: val,
           totalCount: TagCardListData.headers['x-total-count']
         })
         return TagCardListData

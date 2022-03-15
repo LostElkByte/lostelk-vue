@@ -4,10 +4,10 @@
     <div class="main_center">
       <div class="search-results" v-if="!searchfailure" v-show="!mainSearchIsNone">
         <h1 class="search-results-heading">
-          {{ sarchTag.tagName }}
+          {{ sarchVal.searchName }}
         </h1>
         <p class="search-results-description">
-          Browse {{ sarchTag.totalCount }} {{ sarchTag.tagName }} work, designs, illustrations, and graphic elements
+          Browse {{ sarchVal.totalCount }} {{ sarchVal.searchName }} work, designs, illustrations, and graphic elements
         </p>
       </div>
 
@@ -209,10 +209,10 @@
     <div class="main_center">
       <div class="search-results" v-if="!searchfailure" v-show="!mainSearchIsNone">
         <h1 class="search-results-heading">
-          {{ sarchTag.tagName }}
+          {{ sarchVal.searchName }}
         </h1>
         <p class="search-results-description">
-          Browse {{ sarchTag.totalCount }} {{ sarchTag.tagName }} work, designs, illustrations, and graphic elements
+          Browse {{ sarchVal.totalCount }} {{ sarchVal.searchName }} work, designs, illustrations, and graphic elements
         </p>
       </div>
       <div class="home-page_main_cards" v-if="!searchfailure">
@@ -353,10 +353,10 @@
     <div class="main_center">
       <div class="search-results" v-if="!searchfailure" v-show="!mainSearchIsNone">
         <h1 class="search-results-heading">
-          {{ sarchTag.tagName }}
+          {{ sarchVal.searchName }}
         </h1>
         <p class="search-results-description">
-          Browse {{ sarchTag.totalCount }} {{ sarchTag.tagName }} work, designs, illustrations, and graphic elements
+          Browse {{ sarchVal.totalCount }} {{ sarchVal.searchName }} work, designs, illustrations, and graphic elements
         </p>
       </div>
       <div class="home-page_main_cards" v-if="!searchfailure">
@@ -430,14 +430,14 @@
     </div>
   </div>
   <teleport to="#app">
-    <router-view :tagName="tagNameProps"></router-view>
+    <router-view :searchName="searchNameProps"></router-view>
   </teleport>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, onUnmounted, PropType, ref } from 'vue';
 import { lostelkUrl } from '../../global';
-import store, { CardList, GloabSearchTagProps } from '../../store';
+import store, { CardList, GloabSearchProps } from '../../store';
 import Likes from '../cardFun/Likes.vue';
 import MainSearch from '../search/MainSearch.vue';
 import SearchFailure from '../globalFun/SearchFailure.vue';
@@ -468,14 +468,14 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    tagName: {
+    searchName: {
       type: String,
       required: false,
     },
   },
 
   setup(props) {
-    const tagNameProps = computed(() => props.tagName);
+    const searchNameProps = computed(() => props.searchName);
 
     const isShowLoadingMore = computed(() => store.state.isShowLoadingMore);
 
@@ -536,9 +536,9 @@ export default defineComponent({
     const searchfailure = computed(() => store.state.searchFailure);
 
     /**
-     * 获得搜索的标签
+     * 获得搜索的内容
      */
-    const sarchTag = computed(() => (store.state.searchVal as GloabSearchTagProps) || {});
+    const sarchVal = computed(() => (store.state.searchVal as GloabSearchProps) || {});
 
     /**
      * 修改
@@ -622,12 +622,12 @@ export default defineComponent({
       cardTwoColumnOne,
       cardTwoColumnTwo,
       searchfailure,
-      sarchTag,
+      sarchVal,
       cardDetails,
       ColumnSize,
       mainSearchIsNone,
       Urlparameter,
-      tagNameProps,
+      searchNameProps,
       isShowLoadingMore,
       noMore,
       toUserPage,

@@ -408,7 +408,7 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, onUnmounted, PropType, ref } from 'vue';
 import { lostelkUrl } from '../../global';
-import store, { CardList, GloabSearchTagProps } from '../../store';
+import store, { CardList, GloabSearchProps } from '../../store';
 import Likes from '../cardFun/Likes.vue';
 import SearchFailure from '../globalFun/SearchFailure.vue';
 import DownloadFile from '../cardFun/DownloadFile.vue';
@@ -501,7 +501,7 @@ export default defineComponent({
     /**
      * 获得搜索的标签
      */
-    const sarchTag = computed(() => (store.state.searchVal as GloabSearchTagProps) || {});
+    const sarchTag = computed(() => (store.state.searchVal as GloabSearchProps) || {});
 
     /**
      * 修改
