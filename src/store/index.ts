@@ -435,28 +435,24 @@ export default createStore<GloablDataProps>({
     realTimeCancelLike(state, postId) {
       for (let i = 0; i < state.cardList.length; i++) {
         if (state.cardList[i].id === postId) {
-
           state.cardList[i].totalLikes--;
           break;
         }
       }
       for (let i = 0; i < state.searchCardList.length; i++) {
         if (state.searchCardList[i].id === postId) {
-
           state.searchCardList[i].totalLikes--;
           break;
         }
       }
       for (let i = 0; i < state.userPhotosCardList.length; i++) {
         if (state.userPhotosCardList[i].id === postId) {
-
           state.userPhotosCardList[i].totalLikes--;
           break;
         }
       }
       for (let i = 0; i < state.userLikeCardList.length; i++) {
         if (state.userLikeCardList[i].id === postId) {
-
           state.userLikeCardList[i].totalLikes--;
           break;
         }
@@ -551,8 +547,8 @@ export default createStore<GloablDataProps>({
     },
 
     /**
-   * 修改当前登陆用户的用户名
-   */
+    * 修改当前登陆用户的用户名
+    */
     async patchUserName(context, newUserNameObject) {
       try {
         await axios.patch('/users', newUserNameObject)
@@ -560,7 +556,6 @@ export default createStore<GloablDataProps>({
         throw `${error}`
       }
     },
-
 
     /**
     * 获得卡片列表
@@ -616,7 +611,6 @@ export default createStore<GloablDataProps>({
       }
     },
 
-
     /**
     * 获取指定用户喜欢的内容列表
     */
@@ -659,31 +653,55 @@ export default createStore<GloablDataProps>({
     },
 
     /**
-     * 获得指定标签的卡片列表
+     * 获得指定搜索内容的卡片列表
      */
-    async getSearchValCardList(context, val) {
+    async getSearchValCardList(context, { val, type }) {
       try {
-        const TagCardListData = await axios.get(`/posts?fuzzyTag=${val}`)
-        context.commit('getSearchValCardList', TagCardListData.data);
-        context.commit('getSearchValPageCardTotalCount', TagCardListData.headers['x-total-count'])
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let searchCardListData: any
+        switch (type) {
+          case 'tag':
+            searchCardListData = await axios.get(`/posts?fuzzyTag=${val}`)
+            break;
+          case 'color':
+            searchCardListData = await axios.get(`/posts?color=${val}`)
+            break;
+          default:
+            break;
+        }
+
+        context.commit('getSearchValCardList', searchCardListData.data);
+        context.commit('getSearchValPageCardTotalCount', searchCardListData.headers['x-total-count'])
         context.commit('setSearchVal', {
           searchName: val,
-          totalCount: TagCardListData.headers['x-total-count']
+          totalCount: searchCardListData.headers['x-total-count']
         })
-        return TagCardListData
+        return searchCardListData
       } catch (error) {
         throw `${error}`
       }
     },
 
     /**
-     * 获得指定标签的卡片列表分页
+     * 获得指定搜索内容的卡片列表分页
      */
-    async getPageSearchValCardList(context, { val, page }) {
+    async getPageSearchValCardList(context, { val, type, page }) {
       try {
-        const TagCardListData = await axios.get(`/posts?fuzzyTag=${val}&page=${page}`)
-        context.commit('getPageSearchValCardList', TagCardListData.data);
-        return TagCardListData
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let searchCardListData: any
+        switch (type) {
+          case 'tag':
+            searchCardListData = await axios.get(`/posts?fuzzyTag=${val}&page=${page}`)
+            break;
+          case 'color':
+            searchCardListData = await axios.get(`/posts?color=${val}&page=${page}`)
+            break;
+          default:
+            break;
+        }
+
+        context.commit('getPageSearchValCardList', searchCardListData.data);
+        return searchCardListData
       } catch (error) {
         throw `${error}`
       }
@@ -777,8 +795,8 @@ export default createStore<GloablDataProps>({
     },
 
     /**
-   * 修改回复评论
-   */
+    * 修改回复评论
+    */
     async reviseReplyComment(context, { commentId, reviseCommentData }) {
       try {
         const comments = await axios.patch(`/reply_comment/${commentId}`, reviseCommentData)
@@ -787,7 +805,6 @@ export default createStore<GloablDataProps>({
         throw `${error}`
       }
     },
-
 
     /**
      * 删除评论
