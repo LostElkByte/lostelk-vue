@@ -397,7 +397,7 @@ export default defineComponent({
       // 将body恢复为可以滚动
       document.body.style.overflow = 'auto';
 
-      router.push(`/tag/${tag.value}`);
+      router.push(`/search/${tag.value}`);
     };
 
     /**
@@ -409,7 +409,7 @@ export default defineComponent({
       document.body.scrollTop = document.documentElement.scrollTop = 0;
 
       close();
-      router.push(`/tag/${tagName}`);
+      router.push(`/search/${tagName}`);
     };
 
     /**

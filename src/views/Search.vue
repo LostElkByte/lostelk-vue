@@ -19,7 +19,7 @@ import Sidebar from '../components/sidebar/SidebarBox.vue';
 import CardMain from '../components/cardMain/CardMain.vue';
 import { useRoute } from 'vue-router';
 export default defineComponent({
-  name: 'Tag',
+  name: 'Search',
   components: {
     Header,
     Sidebar,

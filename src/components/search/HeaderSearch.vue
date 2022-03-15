@@ -19,7 +19,7 @@ export default defineComponent({
     const tagVal = ref();
     const search = () => {
       if (tagVal.value) {
-        router.push(`/tag/${tagVal.value}`);
+        router.push(`/search/${tagVal.value}`);
       }
     };
     return {
