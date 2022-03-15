@@ -661,13 +661,13 @@ export default createStore<GloablDataProps>({
     /**
      * 获得指定标签的卡片列表
      */
-    async getSearchValCardList(context, tag) {
+    async getSearchValCardList(context, val) {
       try {
-        const TagCardListData = await axios.get(`/posts?fuzzyTag=${tag}`)
+        const TagCardListData = await axios.get(`/posts?fuzzyTag=${val}`)
         context.commit('getSearchValCardList', TagCardListData.data);
         context.commit('getSearchValPageCardTotalCount', TagCardListData.headers['x-total-count'])
         context.commit('setSearchVal', {
-          tagName: tag,
+          tagName: val,
           totalCount: TagCardListData.headers['x-total-count']
         })
         return TagCardListData
@@ -679,9 +679,9 @@ export default createStore<GloablDataProps>({
     /**
      * 获得指定标签的卡片列表分页
      */
-    async getPageSearchValCardList(context, { tag, page }) {
+    async getPageSearchValCardList(context, { val, page }) {
       try {
-        const TagCardListData = await axios.get(`/posts?fuzzyTag=${tag}&page=${page}`)
+        const TagCardListData = await axios.get(`/posts?fuzzyTag=${val}&page=${page}`)
         context.commit('getPageSearchValCardList', TagCardListData.data);
         return TagCardListData
       } catch (error) {

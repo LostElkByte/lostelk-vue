@@ -61,14 +61,14 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiredLogin: true, title: "Edit Photos| LostElk" }
   },
   {
-    path: '/search/:tag',
+    path: '/search/:val',
     name: 'Search',
     component: () => import('../views/Search.vue'),
     props: true,
     meta: { title: "LostElk-发现世界上免费的高清图片和创意-Discover the world’s free HD pictures & Creatives.-免费版权商用图片素材" },
     children: [
       {
-        path: '/tag/:tag/tagCard/:id',
+        path: '/search/:val/searchCard/:id',
         name: 'TagCardDetails',
         component: () => import('../views/details/TagCardDetails.vue'),
         props: true,

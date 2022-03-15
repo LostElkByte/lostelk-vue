@@ -2,8 +2,8 @@
   <div class="home-page">
     <Header :user="loginJudge"></Header>
     <CardMain
-      :detailsUrlparameter="`tag/${tagVal}/tagCard`"
-      :tagName="tagVal"
+      :detailsUrlparameter="`search/${searchVal}/searchCard`"
+      :searchName="searchVal"
       :cardColumnSize="cardColumnSize"
       :list="list"
     ></CardMain>
@@ -27,7 +27,7 @@ export default defineComponent({
   },
   props: {
     cardColumn: Number,
-    tag: {
+    val: {
       type: String,
       required: true,
     },
@@ -48,15 +48,15 @@ export default defineComponent({
     // 获取页面展示列的数量
     const cardColumnSize = computed(() => props.cardColumn);
 
-    // 获取当前url 的 tag 值
-    const tagVal = computed(() => route.params.tag);
+    // 获取当前url 的 val 值
+    const searchVal = computed(() => route.params.val);
 
     // 加载标签页内容数据函数
     const loading = async () => {
       // 将 没有更多 提示 初始化设置为false
       store.commit('noMore', false);
 
-      await store.dispatch('getSearchValCardList', tagVal.value).then(data => {
+      await store.dispatch('getSearchValCardList', searchVal.value).then(data => {
         if (store.state.searchCardList.length === 0) {
           //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
           store.commit('setSearchFailure', true);
@@ -81,24 +81,24 @@ export default defineComponent({
     });
 
     /**
-     * Tag页加载更多
+     * search页加载更多
      */
 
-    // 获取Tag页的卡片总数
+    // 获取search页的卡片总数
     const searchPageCardTotalCount = computed(() => store.state.searchPageCardTotalCount);
-    // 计算Tag页的总页数
-    const TagTotalPage = computed(() => Math.ceil(searchPageCardTotalCount.value / 10));
+    // 计算saerch页的总页数
+    const searchTotalPage = computed(() => Math.ceil(searchPageCardTotalCount.value / 10));
     // 默认当前页数
     const currentPage = ref(1);
     // 是否加载默认设置为true
-    const isTagScrollLoading = ref(true);
+    const isSearchScrollLoading = ref(true);
 
     // 滚动加载事件函数
     const windowScroll = async () => {
       const prevScrollTop = ref(0);
 
       // 判断 如果document 并且 isLoading 为true进入
-      if (document && isTagScrollLoading.value) {
+      if (document && isSearchScrollLoading.value) {
         // 解构 页面可滚动内容的高度 与 窗口可见高度
         const { scrollHeight, clientHeight } = document.documentElement;
         // 获得 滚动的高度 (兼容)
@@ -114,16 +114,16 @@ export default defineComponent({
         const scrollDown = scrollTop > prevScrollTop.value;
 
         // 条件全部成立,进入加载
-        if (touchDown && scrollDown && isTagScrollLoading.value && TagTotalPage.value > currentPage.value) {
+        if (touchDown && scrollDown && isSearchScrollLoading.value && searchTotalPage.value > currentPage.value) {
           // 是否加载设置为false,防止重复加载
-          isTagScrollLoading.value = false;
+          isSearchScrollLoading.value = false;
           // 禁止显示全局请求加载样式
           store.commit('setIsShowLoading', false);
           // 设置 是否显示加载更多 为 true
           store.commit('isShowLoadingMore', true);
           // 加载下一页数据
-          const tagParams = { tag: route.params.tag, page: currentPage.value + 1 };
-          await store.dispatch('getPageSearchValCardList', tagParams).then(() => {
+          const searchParams = { val: route.params.val, page: currentPage.value + 1 };
+          await store.dispatch('getPageSearchValCardList', searchParams).then(() => {
             // 加载完毕 将当前页数+1
             currentPage.value = currentPage.value + 1;
           });
@@ -132,11 +132,11 @@ export default defineComponent({
         }
 
         // 判断本次加载是否到最后一页 , 如果判断成立则将 isLoading.value设置为false,不成立恢复为true
-        if (TagTotalPage.value <= currentPage.value) {
-          isTagScrollLoading.value = false;
+        if (searchTotalPage.value <= currentPage.value) {
+          isSearchScrollLoading.value = false;
           store.commit('noMore', true);
         } else {
-          isTagScrollLoading.value = true;
+          isSearchScrollLoading.value = true;
           store.commit('noMore', false);
         }
 
@@ -164,12 +164,12 @@ export default defineComponent({
     });
 
     /**
-     * 监听 路由上的tag参数是否发生改变, 如果发生改变 则 重新加载新的标签数据
+     * 监听 路由上val参数是否发生改变, 如果发生改变 则 重新加载新的标签数据
      */
     watch(
-      () => route.params.tag,
+      () => route.params.val,
       () => {
-        if (route.params.tag) {
+        if (route.params.val) {
           loading();
           // 恢复到顶部
           document.documentElement.scrollTop = 0;
@@ -177,7 +177,7 @@ export default defineComponent({
           // 默认当前页数
           currentPage.value = 1;
           // 是否加载默认设置为true
-          isTagScrollLoading.value = true;
+          isSearchScrollLoading.value = true;
         }
       },
     );
@@ -192,7 +192,7 @@ export default defineComponent({
           // 默认当前页数
           currentPage.value = 1;
           // 是否加载默认设置为true
-          isTagScrollLoading.value = true;
+          isSearchScrollLoading.value = true;
           // 恢复到顶部
           document.documentElement.scrollTop = 0;
           document.body.scrollTop = 0;
@@ -206,7 +206,7 @@ export default defineComponent({
       list,
       loginJudge,
       cardColumnSize,
-      tagVal,
+      searchVal,
     };
   },
 });
