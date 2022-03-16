@@ -7,7 +7,7 @@
         </svg>
       </span>
     </label>
-    <input type="text" v-model.trim="tagVal" @keyup.enter="search" id="header-search" placeholder="search photos" />
+    <input type="text" v-model.trim="searchVal" @keyup.enter="search" id="header-search" placeholder="search photos" />
     <div class="vertical-moulding"></div>
     <div class="header-search-type" @click.stop="typeSwitch">
       <span class="header-search-name">{{ typeName }}</span>
@@ -50,15 +50,25 @@ export default defineComponent({
       typeName.value = val.name;
       typeOpen.value = !typeOpen.value;
     };
-    const tagVal = ref();
+
+    const searchVal = ref();
     const search = () => {
-      if (tagVal.value) {
-        router.push(`/search/tag/${tagVal.value}`);
+      if (searchVal.value) {
+        switch (type.value) {
+          case 'tag':
+            router.push(`/search/tag/${searchVal.value}`);
+            break;
+          case 'color':
+            router.push(`/search/color/${searchVal.value}`);
+            break;
+          default:
+            break;
+        }
       }
     };
     return {
       search,
-      tagVal,
+      searchVal,
       typeList,
       typeOpen,
       typeSwitch,
