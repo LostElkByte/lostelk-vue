@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2328194 */
-  src: url('iconfont.woff2?t=1645427604625') format('woff2'),
-       url('iconfont.woff?t=1645427604625') format('woff'),
-       url('iconfont.ttf?t=1645427604625') format('truetype');
+  src: url('iconfont.woff2?t=1647431976608') format('woff2'),
+       url('iconfont.woff?t=1647431976608') format('woff'),
+       url('iconfont.ttf?t=1647431976608') format('truetype');
 }
 
 .iconfont {
@@ -223,6 +223,14 @@
 
 .icon-zuoxitouxiang:before {
   content: "\e616";
+}
+
+.icon-shang-copy:before {
+  content: "\ed3c";
+}
+
+.icon-shang:before {
+  content: "\ed3b";
 }
 
 .icon-down:before {

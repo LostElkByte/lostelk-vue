@@ -11,9 +11,9 @@
     <div class="vertical-moulding"></div>
     <div class="header-search-type" @click.stop="typeSwitch">
       <span class="header-search-name">{{ typeName }}</span>
-      <div class="search-button-12 header-search-name">
+      <div :class="[typeOpen ? 'recover' : 'spin', 'search-button-12 ', 'header-search-name']">
         <svg class="icon icon-size-fill" aria-hidden="true">
-          <use xlink:href="#icon-iconfontdown"></use>
+          <use xlink:href="#icon-down"></use>
         </svg>
       </div>
       <div class="search-popup" v-show="typeOpen">

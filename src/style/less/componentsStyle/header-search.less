@@ -30,6 +30,7 @@
   }
 
   .header-search-type {
+    user-select: none;
     color: #0d0c22;
     position: relative;
     display: flex;
@@ -38,7 +39,7 @@
     padding: 0 10px 0 20px;
     min-width: 100px;
     font-size: 12px;
-    cursor:pointer;
+    cursor: pointer;
   }
   .header-search-name {
     font-weight: 700;
@@ -51,13 +52,13 @@
     width: 100%;
     padding: 8px 0;
     background-color: #fff;
-    border: 1px solid rgba(0,0,0,0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 8px;
     .search-popup-item {
       padding: 8px 15px;
       color: #767676;
       font-size: 13px;
-      cursor:pointer;
+      cursor: pointer;
       &:hover {
         background-color: #e2e2e2;
       }
@@ -65,6 +66,15 @@
     .search-popup-item-checked {
       color: #ea4c89;
     }
+  }
+
+  .recover {
+    transition: all 0.5s;
+  }
+
+  .spin {
+    transform: rotate(180deg);
+    transition: all 0.5s;
   }
 
   .search-button-12 {

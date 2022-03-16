@@ -377,6 +377,20 @@
       "unicode_decimal": 58902
     },
     {
+      "icon_id": "28283089",
+      "name": "下",
+      "font_class": "shang-copy",
+      "unicode": "ed3c",
+      "unicode_decimal": 60732
+    },
+    {
+      "icon_id": "28134501",
+      "name": "下",
+      "font_class": "shang",
+      "unicode": "ed3b",
+      "unicode_decimal": 60731
+    },
+    {
       "icon_id": "1042097",
       "name": "下",
       "font_class": "down",

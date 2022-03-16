@@ -28,6 +28,7 @@
   height: 20px;
 }
 .header-search-box .header-search-type {
+  user-select: none;
   color: #0d0c22;
   position: relative;
   display: flex;
@@ -63,6 +64,13 @@
 }
 .header-search-box .search-popup .search-popup-item-checked {
   color: #ea4c89;
+}
+.header-search-box .recover {
+  transition: all 0.5s;
+}
+.header-search-box .spin {
+  transform: rotate(180deg);
+  transition: all 0.5s;
 }
 .header-search-box .search-button-12 {
   width: 12px;
