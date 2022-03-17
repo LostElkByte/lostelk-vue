@@ -28,9 +28,9 @@
               @keyup.enter="search"
             />
             <div class="vertical-moulding"></div>
-            <div class="header-search-type" @click.stop="typeSwitch">
-              <span class="header-search-name">{{ typeName }}</span>
-              <div :class="[typeOpen ? 'spin' : 'recover', 'search-button-12 ', 'header-search-name']">
+            <div class="main-search-type" @click.stop="typeSwitch">
+              <span class="main-search-name">{{ typeName }}</span>
+              <div :class="[typeOpen ? 'spin' : 'recover', 'search-button-12 ', 'main-search-name']">
                 <svg class="icon icon-size-fill" aria-hidden="true">
                   <use xlink:href="#icon-down"></use>
                 </svg>

@@ -54,7 +54,7 @@
   background-color: #f5f5f5;
   color: #767676;
 }
-.main-search .main-search-superstratum .search-superstratum-center .search-superstratum-content .main-search-box .header-search-type {
+.main-search .main-search-superstratum .search-superstratum-center .search-superstratum-content .main-search-box .main-search-type {
   user-select: none;
   color: #0d0c22;
   position: relative;
@@ -66,19 +66,20 @@
   font-size: 12px;
   cursor: pointer;
 }
-.main-search .main-search-superstratum .search-superstratum-center .search-superstratum-content .main-search-box .header-search-name {
+.main-search .main-search-superstratum .search-superstratum-center .search-superstratum-content .main-search-box .main-search-name {
   font-weight: 700;
   font-size: 12px;
 }
 .main-search .main-search-superstratum .search-superstratum-center .search-superstratum-content .main-search-box .search-popup {
   position: absolute;
-  top: 45px;
+  top: 60px;
   left: 0;
   width: 100%;
   padding: 8px 0;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.05);
   border-radius: 8px;
+  z-index: 1;
 }
 .main-search .main-search-superstratum .search-superstratum-center .search-superstratum-content .main-search-box .search-popup .search-popup-item {
   padding: 8px 15px;
