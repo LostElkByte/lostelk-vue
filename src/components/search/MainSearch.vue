@@ -24,9 +24,28 @@
               type="text"
               id="main-search"
               placeholder="search photos"
-              v-model.trim="tagVal"
+              v-model.trim="searchVal"
               @keyup.enter="search"
             />
+            <div class="vertical-moulding"></div>
+            <div class="header-search-type" @click.stop="typeSwitch">
+              <span class="header-search-name">{{ typeName }}</span>
+              <div :class="[typeOpen ? 'spin' : 'recover', 'search-button-12 ', 'header-search-name']">
+                <svg class="icon icon-size-fill" aria-hidden="true">
+                  <use xlink:href="#icon-down"></use>
+                </svg>
+              </div>
+              <div class="search-popup" v-show="typeOpen">
+                <template v-for="(item, index) in typeList" :key="index">
+                  <div
+                    :class="[type === item.type ? 'search-popup-item-checked' : '', 'search-popup-item']"
+                    @click.stop="selectType(item)"
+                  >
+                    {{ item.name }}
+                  </div>
+                </template>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -61,7 +80,7 @@
               type="text"
               id="main-search"
               placeholder="search photos"
-              v-model.trim="tagVal"
+              v-model.trim="searchVal"
               @keyup.enter="search"
             />
           </div>
@@ -83,10 +102,35 @@ import router from '../../router';
 import store from '../../store';
 export default defineComponent({
   setup() {
-    const tagVal = ref();
+    const typeOpen = ref(false);
+    const type = ref('tag');
+    const typeName = ref('标签');
+    const typeList = [
+      { name: '标签', type: 'tag' },
+      { name: '颜色', type: 'color' },
+    ];
+    const typeSwitch = () => {
+      typeOpen.value = !typeOpen.value;
+    };
+    const selectType = (val: { type: string; name: string }) => {
+      type.value = val.type;
+      typeName.value = val.name;
+      typeOpen.value = !typeOpen.value;
+    };
+
+    const searchVal = ref();
     const search = () => {
-      if (tagVal.value) {
-        router.push(`/search/tag/${tagVal.value}`);
+      if (searchVal.value) {
+        switch (type.value) {
+          case 'tag':
+            router.push(`/search/tag/${searchVal.value}`);
+            break;
+          case 'color':
+            router.push(`/search/color/${searchVal.value}`);
+            break;
+          default:
+            break;
+        }
       }
     };
 
@@ -98,7 +142,13 @@ export default defineComponent({
     return {
       lostelkUrl,
       search,
-      tagVal,
+      type,
+      typeList,
+      typeSwitch,
+      selectType,
+      searchVal,
+      typeName,
+      typeOpen,
       transverse,
       random,
     };
