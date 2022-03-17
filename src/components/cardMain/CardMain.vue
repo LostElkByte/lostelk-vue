@@ -607,8 +607,13 @@ export default defineComponent({
     socket.on('userLikePostDelete', onUserLikePostDelete);
 
     onMounted(() => {
-      cardColumnWidth.value = cardColumn.value.clientWidth;
-      window.addEventListener('resize', cardColumnSize, false);
+      if (!cardColumnWidth.value) {
+        store.commit('setSearchFailure', false);
+        store.commit('mainSearchIsNone', true);
+      } else {
+        cardColumnWidth.value = cardColumn.value.clientWidth;
+        window.addEventListener('resize', cardColumnSize, false);
+      }
     });
 
     onUnmounted(() => {
