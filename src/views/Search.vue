@@ -177,8 +177,6 @@ export default defineComponent({
     watch(
       () => [route.params.val, route.params.type],
       () => {
-        console.log(1);
-
         if (route.params.val) {
           loading();
           // 恢复到顶部
