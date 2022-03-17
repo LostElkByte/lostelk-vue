@@ -175,8 +175,10 @@ export default defineComponent({
      * 监听 路由上val参数是否发生改变, 如果发生改变 则 重新加载新的标签数据
      */
     watch(
-      () => route.params.val,
+      () => [route.params.val, route.params.type],
       () => {
+        console.log(1);
+
         if (route.params.val) {
           loading();
           // 恢复到顶部
