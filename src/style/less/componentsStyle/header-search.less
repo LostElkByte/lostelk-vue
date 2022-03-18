@@ -106,7 +106,105 @@
     width: 1px;
   }
 
+  .search-pop-up {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    width: 300px;
+    max-height: calc(100vh - 96px);
+    overflow: auto;
+
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    padding: 8px 0;
+    .search-pop-up-item {
+      padding: 15px 5px 0 5px;
+      .search-pop-up-item-type {
+        padding: 0 10px;
+        font-size: 12px;
+        font-weight: 700;
+        color: rgb(39, 40, 42);
+      }
+      .search-pop-up-item-details {
+        padding: 0 10px;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        width: 100%;
+        min-height: 52px;
+        user-select: none;
+        cursor: pointer;
+        &:hover {
+          background-color: #eef2f5;
+          opacity: 0.8;
+        }
+
+        .search-pop-up-item-details-img {
+          position: relative;
+          height: 36px;
+          width: 36px;
+          margin-right: 15px;
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          justify-content: center;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .search-pop-up-item-details-describe {
+          display: flex;
+          flex-direction: column;
+          .title {
+            font-size: 14px;
+            font-weight: 400;
+            max-width: 170px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: rgb(39, 40, 42);
+          }
+          .user-name {
+            font-size: 10px;
+            font-weight: 600;
+            max-width: 110px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: rgb(145, 150, 152);
+            font-family: proxima-nova, 'Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+          }
+        }
+      }
+      .search-pop-up-item-all {
+        font-size: 12px;
+        font-weight: 600;
+        padding: 10px 10px 5px 10px;
+        cursor: pointer;
+        transition: color 0.2s linear 0s;
+        color: rgb(200, 207, 210);
+      }
+    }
+  }
+
   &:hover {
     box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 767px) {
+    .header-search-box {
+      position: static;
+    }
+    .search-pop-up {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      max-height: calc(100vh - 128px);
+      width: 100vw;
+      border-radius: 0px;
+    }
   }
 }

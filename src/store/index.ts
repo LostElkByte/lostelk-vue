@@ -924,7 +924,32 @@ export default createStore<GloablDataProps>({
       } catch (error) {
         throw `${error}`
       }
+    },
+
+    /**
+     * 搜索相关帖子总数
+     */
+    async searchPostTotal(context, { type, name }) {
+      try {
+        const res = await axios.get(`/search/Total?${type}=${name}`);
+        return res.data
+      } catch (error) {
+        throw `${error}`
+      }
+    },
+
+    /**
+    * 搜索相关用户总数
+    */
+    async searchUserTotal(context, name) {
+      try {
+        const res = await axios.get(`/search/user/Total?name=${name}`);
+        return res.data
+      } catch (error) {
+        throw `${error}`
+      }
     }
+
   },
 
   getters: {

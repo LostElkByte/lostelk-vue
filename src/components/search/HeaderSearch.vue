@@ -8,23 +8,72 @@
       </span>
     </label>
     <input type="text" v-model.trim="searchVal" @keyup.enter="search" id="header-search" placeholder="search photos" />
-    <div class="vertical-moulding"></div>
-    <div class="header-search-type" @click.stop="typeSwitch">
-      <span class="header-search-name">{{ typeName }}</span>
-      <div :class="[typeOpen ? 'spin' : 'recover', 'search-button-12 ', 'header-search-name']">
-        <svg class="icon icon-size-fill" aria-hidden="true">
-          <use xlink:href="#icon-down"></use>
-        </svg>
-      </div>
-      <div class="search-popup" v-show="typeOpen">
-        <template v-for="(item, index) in typeList" :key="index">
-          <div
-            :class="[type === item.type ? 'search-popup-item-checked' : '', 'search-popup-item']"
-            @click.stop="selectType(item)"
-          >
-            {{ item.name }}
+    <div class="search-pop-up">
+      <div class="search-pop-up-item">
+        <p class="search-pop-up-item-type">标签( 6 )</p>
+        <div class="search-pop-up-item-details">
+          <div class="search-pop-up-item-details-img">
+            <img
+              src="https://cdn.musicbed.com/image/upload/c_fill,dpr_auto,f_auto,g_auto,q_auto:best,h_60,w_60/v1/production/albums/2153"
+              alt=""
+            />
           </div>
-        </template>
+          <div class="search-pop-up-item-details-describe">
+            <div class="title">
+              春
+            </div>
+            <div class="user-name">
+              lostelk
+            </div>
+          </div>
+        </div>
+        <div class="search-pop-up-item-details">
+          <div class="search-pop-up-item-details-img">
+            <img
+              src="https://cdn.musicbed.com/image/upload/c_fill,dpr_auto,f_auto,g_auto,q_auto:best,h_60,w_60/v1/production/albums/2153"
+              alt=""
+            />
+          </div>
+          <div class="search-pop-up-item-details-describe">
+            <div class="title">
+              古道秋风瘦马,夕阳西下 断肠人在天涯
+            </div>
+            <div class="user-name">
+              lostelk
+            </div>
+          </div>
+        </div>
+        <div class="search-pop-up-item-details">
+          <div class="search-pop-up-item-details-img">
+            <img
+              src="https://cdn.musicbed.com/image/upload/c_fill,dpr_auto,f_auto,g_auto,q_auto:best,h_60,w_60/v1/production/albums/2153"
+              alt=""
+            />
+          </div>
+          <div class="search-pop-up-item-details-describe">
+            <div class="title">
+              春
+            </div>
+            <div class="user-name">
+              lostelk
+            </div>
+          </div>
+        </div>
+        <p class="search-pop-up-item-all">查看所有相关标签的图片</p>
+      </div>
+      <div class="search-pop-up-item">
+        <p class="search-pop-up-item-type">颜色( 2 )</p>
+        <div class="search-pop-up-item-details"></div>
+        <div class="search-pop-up-item-details"></div>
+        <div class="search-pop-up-item-details"></div>
+        <p class="search-pop-up-item-all">查看所有相关颜色的图片</p>
+      </div>
+      <div class="search-pop-up-item">
+        <p class="search-pop-up-item-type">用户( 1 )</p>
+        <div class="search-pop-up-item-details"></div>
+        <div class="search-pop-up-item-details"></div>
+        <div class="search-pop-up-item-details"></div>
+        <p class="search-pop-up-item-all">查看所有相关的用户</p>
       </div>
     </div>
   </div>
@@ -35,46 +84,15 @@ import { defineComponent, ref } from 'vue';
 import router from '../../router';
 export default defineComponent({
   setup() {
-    const typeOpen = ref(false);
-    const type = ref('tag');
-    const typeName = ref('标签');
-    const typeList = [
-      { name: '标签', type: 'tag' },
-      { name: '颜色', type: 'color' },
-    ];
-    const typeSwitch = () => {
-      typeOpen.value = !typeOpen.value;
-    };
-    const selectType = (val: { type: string; name: string }) => {
-      type.value = val.type;
-      typeName.value = val.name;
-      typeOpen.value = !typeOpen.value;
-    };
-
     const searchVal = ref();
     const search = () => {
       if (searchVal.value) {
-        switch (type.value) {
-          case 'tag':
-            router.push(`/search/tag/${searchVal.value}`);
-            break;
-          case 'color':
-            router.push(`/search/color/${searchVal.value}`);
-            break;
-          default:
-            break;
-        }
+        console.log(1);
       }
     };
     return {
       search,
       searchVal,
-      typeList,
-      typeOpen,
-      typeSwitch,
-      selectType,
-      type,
-      typeName,
     };
   },
 });
