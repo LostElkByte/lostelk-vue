@@ -8,7 +8,7 @@
       </span>
     </label>
     <input type="text" v-model.trim="searchVal" @keyup.enter="search" id="header-search" placeholder="search photos" />
-    <div class="search-pop-up">
+    <div class="search-pop-up" v-if="searchPopUpShow">
       <div class="search-pop-up-item">
         <p class="search-pop-up-item-type">标签( 6 )</p>
         <div class="search-pop-up-item-details">
@@ -80,10 +80,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import router from '../../router';
 export default defineComponent({
   setup() {
+    const searchPopUpShow = ref(false);
     const searchVal = ref();
     const search = () => {
       if (searchVal.value) {
@@ -93,6 +94,7 @@ export default defineComponent({
     return {
       search,
       searchVal,
+      searchPopUpShow,
     };
   },
 });
