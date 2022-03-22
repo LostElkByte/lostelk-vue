@@ -72,8 +72,26 @@
         <p class="search-pop-up-item-all">查看所有相关颜色的图片</p>
       </div>
       <div class="search-pop-up-item" v-show="userCardTotal > 0">
-        <p class="search-pop-up-item-type">用户( 1 )</p>
-        <div class="search-pop-up-item-details"></div>
+        <p class="search-pop-up-item-type">用户( {{ userCardTotal }} )</p>
+        <div class="search-pop-up-item-details" v-for="(item, index) in userCardList" :key="index">
+          <div class="search-pop-up-item-details-img">
+            <img
+              v-if="item.avatar"
+              class="content-header-author-photo-32"
+              :src="`${lostelkUrl}/users/${item.id}/avatar?size=small`"
+              :alt="item.name"
+            />
+            <svg v-else class="icon content-header-author-photo-32" aria-hidden="true">
+              <use xlink:href="#icon-touxiangnvhai"></use>
+            </svg>
+          </div>
+          <div class="search-pop-up-item-details-describe">
+            <div class="title">
+              {{ item.name }}
+            </div>
+            <!-- <div class="user-name"></div> -->
+          </div>
+        </div>
         <p class="search-pop-up-item-all">查看所有相关的用户</p>
       </div>
       <div
@@ -121,10 +139,14 @@ export default defineComponent({
         const tagRes = await store.dispatch('getSearchValCardBriefList', { val: searchVal.value, type: 'tag' });
         store.commit('setIsShowLoading', false);
         const colorRes = await store.dispatch('getSearchValCardBriefList', { val: searchVal.value, type: 'color' });
+        store.commit('setIsShowLoading', false);
+        const userRes = await store.dispatch('getSearchValCardBriefList', { val: searchVal.value, type: 'user' });
         tagCardList.value = tagRes.data.slice(0, 4);
         tagCardTotal.value = tagRes.headers['x-total-count'];
         colorCardList.value = colorRes.data.slice(0, 4);
         colorCardTotal.value = colorRes.headers['x-total-count'];
+        userCardList.value = userRes.data.slice(0, 4);
+        userCardTotal.value = userRes.headers['x-total-count'];
         noDataIsShow.value = true;
         setTimeout(() => {
           skeletonIsShow.value = false;

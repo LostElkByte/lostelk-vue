@@ -977,6 +977,13 @@ export default createStore<GloablDataProps>({
               }),
             })
             break;
+          case 'user':
+            searchCardListData = await axios.get(`/search/users?name=${val}`, {
+              cancelToken: new CancelToken(function executor(c) {
+                cancel = c;
+              }),
+            })
+            break;
           default:
             break;
         }
