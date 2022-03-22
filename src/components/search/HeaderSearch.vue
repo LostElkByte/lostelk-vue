@@ -52,7 +52,7 @@
             </div>
           </div>
         </div>
-        <p class="search-pop-up-item-all">查看所有相关标签的图片</p>
+        <p class="search-pop-up-item-all" @click.stop="allRelevant('tag')">查看所有相关标签的图片</p>
       </div>
       <div class="search-pop-up-item" v-show="colorCardTotal > 0">
         <p class="search-pop-up-item-type">颜色( {{ colorCardTotal }} )</p>
@@ -69,7 +69,7 @@
             </div>
           </div>
         </div>
-        <p class="search-pop-up-item-all">查看所有相关颜色的图片</p>
+        <p class="search-pop-up-item-all" @click.stop="allRelevant('color')">查看所有相关颜色的图片</p>
       </div>
       <div class="search-pop-up-item" v-show="userCardTotal > 0">
         <p class="search-pop-up-item-type">用户( {{ userCardTotal }} )</p>
@@ -109,6 +109,7 @@ import { defineComponent, ref } from 'vue';
 import store from '../../store';
 import _ from 'lodash';
 import { lostelkUrl } from '@/global';
+import router from '../../router';
 
 export default defineComponent({
   setup() {
@@ -159,6 +160,8 @@ export default defineComponent({
         tagCardTotal.value = 0;
         colorCardList.value = null;
         colorCardTotal.value = 0;
+        userCardList.value = null;
+        userCardTotal.value = 0;
       }
     };
 
@@ -166,6 +169,33 @@ export default defineComponent({
      * 实时搜索节流方法
      */
     const searchBriefFun = _.debounce(searchBrief, 500);
+
+    /**
+     * 查看所有相关
+     */
+    const allRelevant = (type: string) => {
+      switch (type) {
+        case 'tag':
+          router.push(`/search/${type}/${searchVal.value}`);
+          break;
+        case 'color':
+          router.push(`/search/${type}/${searchVal.value}`);
+          break;
+        default:
+          break;
+      }
+      // 重置
+      searchVal.value = null;
+      searchPopUpIsShow.value = false;
+      skeletonIsShow.value = false;
+      noDataIsShow.value = false;
+      tagCardList.value = null;
+      tagCardTotal.value = 0;
+      colorCardList.value = null;
+      colorCardTotal.value = 0;
+      userCardList.value = null;
+      userCardTotal.value = 0;
+    };
 
     const search = () => {
       if (searchVal.value) {
@@ -187,6 +217,7 @@ export default defineComponent({
       skeletonIsShow,
       noDataIsShow,
       searchPopUpIsShow,
+      allRelevant,
     };
   },
 });
