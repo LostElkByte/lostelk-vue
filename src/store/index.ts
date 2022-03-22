@@ -1,5 +1,7 @@
 import { axios } from '../service/service'
 import { createStore } from 'vuex'
+const CancelToken = axios.CancelToken;
+let cancel = null as unknown;
 
 export interface CardList {
   id: number;
@@ -948,8 +950,41 @@ export default createStore<GloablDataProps>({
       } catch (error) {
         throw `${error}`
       }
-    }
+    },
 
+    /**
+    * 展示出指定搜索内容的简要列表
+    */
+    async getSearchValCardBriefList(context, { val, type }) {
+      try {
+        if (typeof cancel === 'function') {
+          cancel();
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        let searchCardListData: any
+        switch (type) {
+          case 'tag':
+            searchCardListData = await axios.get(`/posts?fuzzyTag=${val}`, {
+              cancelToken: new CancelToken(function executor(c) {
+                cancel = c;
+              }),
+            })
+            break;
+          case 'color':
+            searchCardListData = await axios.get(`/posts?color=${val}`, {
+              cancelToken: new CancelToken(function executor(c) {
+                cancel = c;
+              }),
+            })
+            break;
+          default:
+            break;
+        }
+        return searchCardListData
+      } catch (error) {
+        throw `${error}`
+      }
+    },
   },
 
   getters: {
@@ -958,4 +993,5 @@ export default createStore<GloablDataProps>({
 
   modules: {
   }
+
 })

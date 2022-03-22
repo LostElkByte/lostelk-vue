@@ -7,11 +7,18 @@
         </svg>
       </span>
     </label>
-    <input type="text" v-model.trim="searchVal" @keyup.enter="search" id="header-search" placeholder="search photos" />
+    <input
+      type="text"
+      v-model.trim="searchVal"
+      @keyup.enter="search"
+      @input="searchBriefFun"
+      id="header-search"
+      placeholder="search photos"
+    />
     <div class="search-pop-up" v-if="searchPopUpShow">
       <div class="search-pop-up-item">
-        <p class="search-pop-up-item-type">标签( 6 )</p>
-        <div class="search-pop-up-item-details">
+        <p class="search-pop-up-item-type">标签( {{ tagCardTotal }} )</p>
+        <div class="search-pop-up-item-details" v-for="(item, index) in tagCardList" :key="index">
           <div class="search-pop-up-item-details-img">
             <img
               src="https://cdn.musicbed.com/image/upload/c_fill,dpr_auto,f_auto,g_auto,q_auto:best,h_60,w_60/v1/production/albums/2153"
@@ -20,42 +27,10 @@
           </div>
           <div class="search-pop-up-item-details-describe">
             <div class="title">
-              春
+              {{ item.title }}
             </div>
             <div class="user-name">
-              lostelk
-            </div>
-          </div>
-        </div>
-        <div class="search-pop-up-item-details">
-          <div class="search-pop-up-item-details-img">
-            <img
-              src="https://cdn.musicbed.com/image/upload/c_fill,dpr_auto,f_auto,g_auto,q_auto:best,h_60,w_60/v1/production/albums/2153"
-              alt=""
-            />
-          </div>
-          <div class="search-pop-up-item-details-describe">
-            <div class="title">
-              古道秋风瘦马,夕阳西下 断肠人在天涯
-            </div>
-            <div class="user-name">
-              lostelk
-            </div>
-          </div>
-        </div>
-        <div class="search-pop-up-item-details">
-          <div class="search-pop-up-item-details-img">
-            <img
-              src="https://cdn.musicbed.com/image/upload/c_fill,dpr_auto,f_auto,g_auto,q_auto:best,h_60,w_60/v1/production/albums/2153"
-              alt=""
-            />
-          </div>
-          <div class="search-pop-up-item-details-describe">
-            <div class="title">
-              春
-            </div>
-            <div class="user-name">
-              lostelk
+              {{ item.user.name }}
             </div>
           </div>
         </div>
@@ -80,12 +55,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
-import router from '../../router';
+import { defineComponent, ref } from 'vue';
+import store from '../../store';
+import _ from 'lodash';
+
 export default defineComponent({
   setup() {
     const searchPopUpShow = ref(false);
     const searchVal = ref();
+    const tagCardList = ref();
+    const tagCardTotal = ref();
+
+    const searchBrief = async () => {
+      if (searchVal.value) {
+        const res = await store.dispatch('getSearchValCardBriefList', { val: searchVal.value, type: 'tag' });
+        searchPopUpShow.value = true;
+        tagCardList.value = res.data.slice(0, 4);
+        tagCardTotal.value = res.headers['x-total-count'];
+      }
+    };
+
+    const searchBriefFun = _.debounce(searchBrief, 300);
+
     const search = () => {
       if (searchVal.value) {
         console.log(1);
@@ -95,6 +86,10 @@ export default defineComponent({
       search,
       searchVal,
       searchPopUpShow,
+      searchBrief,
+      searchBriefFun,
+      tagCardList,
+      tagCardTotal,
     };
   },
 });
