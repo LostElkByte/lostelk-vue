@@ -147,6 +147,7 @@
 .header-search-box .search-pop-up .search-pop-up-item .search-pop-up-item-details .search-pop-up-item-details-img img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 .header-search-box .search-pop-up .search-pop-up-item .search-pop-up-item-details .search-pop-up-item-details-describe {
   display: flex;
