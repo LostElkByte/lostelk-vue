@@ -15,8 +15,29 @@
       id="header-search"
       placeholder="search photos"
     />
-    <div class="search-pop-up" v-if="searchPopUpShow">
-      <!-- <div class="search-pop-up-item" v-show="tagCardTotal > 0">
+    <!-- 搜索内容 - 骨架屏 -->
+    <div class="search-pop-up" v-show="searchPopUpIsShow && skeletonIsShow">
+      <div class="search-pop-up-skeleton">
+        <div class="search-pop-up-skeleton-header">
+          <!-- <div class="search-pop-up-skeleton-header-item1"></div> -->
+          <div class="search-pop-up-skeleton-header-item2"></div>
+          <div class="search-pop-up-skeleton-header-item3">
+            <div class="left"></div>
+            <div class="right"></div>
+          </div>
+        </div>
+        <div class="search-pop-up-skeleton-item" v-for="index in 4" :key="index">
+          <div class="left"></div>
+          <div class="right">
+            <div class="top"></div>
+            <div class="bottom"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 搜索内容 -->
+    <div class="search-pop-up" v-show="searchPopUpIsShow && !skeletonIsShow">
+      <div class="search-pop-up-item" v-show="tagCardTotal > 0">
         <p class="search-pop-up-item-type">标签( {{ tagCardTotal }} )</p>
         <div class="search-pop-up-item-details" v-for="(item, index) in tagCardList" :key="index">
           <div class="search-pop-up-item-details-img">
@@ -55,26 +76,11 @@
         <div class="search-pop-up-item-details"></div>
         <p class="search-pop-up-item-all">查看所有相关的用户</p>
       </div>
-      <div class="search-no-data" v-show="searchVal && tagCardTotal <= 0 && colorCardTotal <= 0 && userCardTotal <= 0">
+      <div
+        class="search-no-data"
+        v-show="noDataIsShow && tagCardTotal <= 0 && colorCardTotal <= 0 && userCardTotal <= 0"
+      >
         没找到有关<span style="font-weight: 700;">“{{ searchVal }}”</span>的结果
-      </div> -->
-
-      <div class="search-pop-up-skeleton">
-        <div class="search-pop-up-skeleton-header">
-          <!-- <div class="search-pop-up-skeleton-header-item1"></div> -->
-          <div class="search-pop-up-skeleton-header-item2"></div>
-          <div class="search-pop-up-skeleton-header-item3">
-            <div class="left"></div>
-            <div class="right"></div>
-          </div>
-        </div>
-        <div class="search-pop-up-skeleton-item" v-for="index in 4" :key="index">
-          <div class="left"></div>
-          <div class="right">
-            <div class="top"></div>
-            <div class="bottom"></div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -88,7 +94,6 @@ import { lostelkUrl } from '@/global';
 
 export default defineComponent({
   setup() {
-    const searchPopUpShow = ref(false);
     const searchVal = ref();
     const tagCardList = ref();
     const tagCardTotal = ref(0);
@@ -97,10 +102,21 @@ export default defineComponent({
     const userCardList = ref();
     const userCardTotal = ref(0);
 
-    // 实时搜索
+    // 骨架屏显示控制变量
+    const skeletonIsShow = ref(false);
+    // 没有找到相关内容显示控制变量
+    const noDataIsShow = ref(false);
+    // 搜索弹窗显示控制变量
+    const searchPopUpIsShow = ref(false);
+
+    /**
+     * 实时搜索
+     */
     const searchBrief = async () => {
       if (searchVal.value) {
-        searchPopUpShow.value = true;
+        skeletonIsShow.value = true;
+        searchPopUpIsShow.value = true;
+        noDataIsShow.value = false;
         store.commit('setIsShowLoading', false);
         const tagRes = await store.dispatch('getSearchValCardBriefList', { val: searchVal.value, type: 'tag' });
         store.commit('setIsShowLoading', false);
@@ -109,13 +125,25 @@ export default defineComponent({
         tagCardTotal.value = tagRes.headers['x-total-count'];
         colorCardList.value = colorRes.data.slice(0, 4);
         colorCardTotal.value = colorRes.headers['x-total-count'];
+        noDataIsShow.value = true;
+        setTimeout(() => {
+          skeletonIsShow.value = false;
+        }, 300);
       } else {
-        searchPopUpShow.value = false;
+        searchPopUpIsShow.value = false;
+        skeletonIsShow.value = false;
+        noDataIsShow.value = false;
+        tagCardList.value = null;
+        tagCardTotal.value = 0;
+        colorCardList.value = null;
+        colorCardTotal.value = 0;
       }
     };
 
-    // 实时搜索节流方法
-    const searchBriefFun = _.debounce(searchBrief, 300);
+    /**
+     * 实时搜索节流方法
+     */
+    const searchBriefFun = _.debounce(searchBrief, 500);
 
     const search = () => {
       if (searchVal.value) {
@@ -125,7 +153,6 @@ export default defineComponent({
     return {
       search,
       searchVal,
-      searchPopUpShow,
       searchBrief,
       searchBriefFun,
       tagCardList,
@@ -135,6 +162,9 @@ export default defineComponent({
       userCardList,
       userCardTotal,
       lostelkUrl,
+      skeletonIsShow,
+      noDataIsShow,
+      searchPopUpIsShow,
     };
   },
 });

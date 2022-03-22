@@ -184,7 +184,7 @@
   color: #27282a;
   font-weight: 400;
   font-size: 14px;
-  line-height: 66px;
+  line-height: 22px;
   text-align: inherit;
   font-family: proxima-nova, 'Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   white-space: inherit;
@@ -194,7 +194,7 @@
   font-style: inherit;
   text-decoration: inherit;
   letter-spacing: inherit;
-  margin: 0px 25px;
+  margin: 25px 25px;
 }
 .header-search-box .search-pop-up .search-pop-up-skeleton {
   width: 100%;
