@@ -39,7 +39,12 @@
     <div class="search-pop-up" v-show="searchPopUpIsShow && !skeletonIsShow">
       <div class="search-pop-up-item" v-show="tagCardTotal > 0">
         <p class="search-pop-up-item-type">标签( {{ tagCardTotal }} )</p>
-        <div class="search-pop-up-item-details" v-for="(item, index) in tagCardList" :key="index">
+        <div
+          class="search-pop-up-item-details"
+          v-for="(item, index) in tagCardList"
+          :key="index"
+          @click.stop="aSinglePicture('tag', item.id)"
+        >
           <div class="search-pop-up-item-details-img">
             <img :src="`${lostelkUrl}/files/${item.file.id}/serve?size=large`" :alt="item.title" />
           </div>
@@ -56,7 +61,12 @@
       </div>
       <div class="search-pop-up-item" v-show="colorCardTotal > 0">
         <p class="search-pop-up-item-type">颜色( {{ colorCardTotal }} )</p>
-        <div class="search-pop-up-item-details" v-for="(item, index) in colorCardList" :key="index">
+        <div
+          class="search-pop-up-item-details"
+          v-for="(item, index) in colorCardList"
+          :key="index"
+          @click.stop="aSinglePicture('color', item.id)"
+        >
           <div class="search-pop-up-item-details-img">
             <img :src="`${lostelkUrl}/files/${item.file.id}/serve?size=large`" :alt="item.title" />
           </div>
@@ -129,6 +139,21 @@ export default defineComponent({
     const searchPopUpIsShow = ref(false);
 
     /**
+     * 重置搜索状态
+     */
+    const reset = () => {
+      searchPopUpIsShow.value = false;
+      skeletonIsShow.value = false;
+      noDataIsShow.value = false;
+      tagCardList.value = null;
+      tagCardTotal.value = 0;
+      colorCardList.value = null;
+      colorCardTotal.value = 0;
+      userCardList.value = null;
+      userCardTotal.value = 0;
+    };
+
+    /**
      * 实时搜索
      */
     const searchBrief = async () => {
@@ -153,15 +178,8 @@ export default defineComponent({
           skeletonIsShow.value = false;
         }, 300);
       } else {
-        searchPopUpIsShow.value = false;
-        skeletonIsShow.value = false;
-        noDataIsShow.value = false;
-        tagCardList.value = null;
-        tagCardTotal.value = 0;
-        colorCardList.value = null;
-        colorCardTotal.value = 0;
-        userCardList.value = null;
-        userCardTotal.value = 0;
+        // 重置
+        reset();
       }
     };
 
@@ -186,15 +204,26 @@ export default defineComponent({
       }
       // 重置
       searchVal.value = null;
-      searchPopUpIsShow.value = false;
-      skeletonIsShow.value = false;
-      noDataIsShow.value = false;
-      tagCardList.value = null;
-      tagCardTotal.value = 0;
-      colorCardList.value = null;
-      colorCardTotal.value = 0;
-      userCardList.value = null;
-      userCardTotal.value = 0;
+      reset();
+    };
+
+    /**
+     * 查看单个内容
+     */
+    const aSinglePicture = (type: string, id: string) => {
+      switch (type) {
+        case 'tag':
+          router.push(`/search/${type}/${searchVal.value}/searchCard/${id}`);
+          break;
+        case 'color':
+          router.push(`/search/${type}/${searchVal.value}/searchCard/${id}`);
+          break;
+        default:
+          break;
+      }
+      // 重置
+      searchVal.value = null;
+      reset();
     };
 
     const search = () => {
@@ -218,6 +247,7 @@ export default defineComponent({
       noDataIsShow,
       searchPopUpIsShow,
       allRelevant,
+      aSinglePicture,
     };
   },
 });
