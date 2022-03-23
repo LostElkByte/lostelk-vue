@@ -74,6 +74,7 @@
   border-radius: 6px;
   cursor: pointer;
 }
+textarea,
 input {
   display: inline-block;
   margin-right: 15px;
@@ -98,6 +99,10 @@ input {
   appearance: none;
   color: #0d0c22;
   background-color: #f3f3f4;
+}
+textarea {
+  resize: none;
+  min-height: 108px;
 }
 .EditUserInput:focus,
 .EditUserInput:hover {

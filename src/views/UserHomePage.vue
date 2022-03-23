@@ -35,7 +35,8 @@
               <h1>{{ userData.name }}</h1>
             </div>
             <div class="user-data-content-intro">
-              <h2>Hello, my name is {{ userData.name }}. Nice to meet you!</h2>
+              <h2 v-if="userData.synopsis">'{{ userData.synopsis }}'</h2>
+              <h2 v-else>'Hello, my name is {{ userData.name }}. Nice to meet you!'</h2>
             </div>
           </div>
         </div>

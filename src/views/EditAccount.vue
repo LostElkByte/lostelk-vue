@@ -1,6 +1,7 @@
 <template>
   <div class="account">
     <EditAvatar></EditAvatar>
+    <EditSynopsis></EditSynopsis>
     <EditUserName></EditUserName>
     <EditUserPassword></EditUserPassword>
   </div>
@@ -12,6 +13,7 @@ import { defineComponent } from 'vue';
 import EditUserName from '../components/editAccount/EditUserName.vue';
 import EditUserPassword from '../components/editAccount/EditUserPassword.vue';
 import EditAvatar from '../components/editAccount/EditAvatar.vue';
+import EditSynopsis from '../components/editAccount/EditSynopsis.vue';
 
 export default defineComponent({
   name: 'EditAccount',
@@ -19,6 +21,7 @@ export default defineComponent({
     EditUserName,
     EditUserPassword,
     EditAvatar,
+    EditSynopsis,
   },
   setup() {
     return {};
