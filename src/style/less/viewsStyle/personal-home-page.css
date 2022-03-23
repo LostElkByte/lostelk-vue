@@ -210,4 +210,8 @@
     right: 8px;
     transform: rotate(-20deg);
   }
+  .personal-home-navigation {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
