@@ -91,7 +91,7 @@
               :src="`${lostelkUrl}/users/${item.id}/avatar?size=small`"
               :alt="item.name"
             />
-            <svg v-else class="icon content-header-author-photo-32" aria-hidden="true">
+            <svg v-else style="width: 100%;height: 100%;" class="icon" aria-hidden="true">
               <use xlink:href="#icon-touxiangnvhai"></use>
             </svg>
           </div>
