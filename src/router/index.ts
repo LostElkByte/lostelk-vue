@@ -135,7 +135,13 @@ const routes: Array<RouteRecordRaw> = [
     name: 'RetrievePassword',
     component: () => import('../components/retrievePassword/RetrievePassword.vue'),
     meta: { title: "Password reset | LostElk" }
-  }
+  },
+  {
+    path: '/search/userName/:val',
+    name: 'UsersPage',
+    component: () => import('../views/UsersPage.vue'),
+    meta: { title: "Is this the user you like? | LostElk" }
+  },
 ]
 
 const router = createRouter({

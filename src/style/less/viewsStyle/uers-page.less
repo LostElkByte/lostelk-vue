@@ -1,0 +1,169 @@
+.users-page-main {
+  width: 100%;
+  padding: 32px;
+  margin: 0 auto;
+  .search-results {
+    padding: 0 16px 30px;
+    width: 100%;
+
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+    .search-results-heading {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 38px;
+    }
+    .search-results-description {
+      max-width: 700px;
+      text-align: center;
+      color: #6e6d7a;
+      margin-bottom: 12px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+  .users-page-cards {
+    display: grid;
+    grid-auto-rows: auto;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    grid-column-gap: 24px;
+    grid-row-gap: 24px;
+    align-items: start;
+    justify-content: center;
+    .users-card {
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      height: 100%;
+      padding: 24px;
+      border: 1px solid #e7e7e9;
+      border-radius: 12px;
+      -webkit-box-shadow: 0px 2px 3px rgb(0 0 0 / 1%);
+      box-shadow: 0px 2px 3px rgb(0 0 0 / 1%);
+      .users-card-header {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        .card-user {
+          display: flex;
+          -ms-flex-align: center;
+          align-items: center;
+          min-width: 0;
+          cursor: pointer;
+          .card-user-avatar {
+            min-width: 64px;
+            min-height: 64px;
+            width: 64px;
+            height: 64px;
+
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+          .card-user-details {
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            line-height: 30px;
+
+            min-width: 0;
+            margin-right: 16px;
+            margin-left: 16px;
+            .card-user-details-name {
+              color: #6e6d7a;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              font-family: 'Haas Grot Text R Web', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+              font-size: 16px;
+              font-weight: 500;
+              line-height: 22px;
+              color: #0d0c22;
+              word-break: break-word;
+            }
+            .card-user-details-synopsis {
+              color: #6e6d7a;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+        }
+        .card-actions {
+          display: inline-block;
+          position: relative;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          height: 40px;
+          padding: 10px 16px;
+          -webkit-transition: background 200ms ease;
+          transition: background 200ms ease;
+          border: none;
+          border-radius: 8px;
+          outline: none;
+          background: #f3f3f4;
+          color: #0d0c22;
+          text-align: center;
+          text-decoration: none;
+          cursor: pointer;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          font-family: 'Haas Grot Text R Web', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 20px;
+          &:hover {
+            background: #e7e7e7;
+          }
+        }
+      }
+      .users-page-posts {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        margin-top: 24px;
+        gap: 8px;
+        .users-page-posts-item {
+          width: 100%;
+          border-radius: 8px;
+
+          height: auto;
+
+          max-height: 130px;
+          overflow: hidden;
+          img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+          }
+        }
+      }
+      .users-page-posts-null {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        height: 70%;
+        min-height: 80px;
+        margin-top: 24px;
+        border-radius: 6px;
+        background: #f8f8f8;
+      }
+    }
+  }
+}
