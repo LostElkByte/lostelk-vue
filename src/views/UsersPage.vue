@@ -8,7 +8,7 @@
         </h1>
         <p class="search-results-description">Browse {{ totalCount }} users about {{ userName }}</p>
       </div>
-      <div class="users-page-cards">
+      <div v-if="!isNull" class="users-page-cards">
         <div class="users-card" v-for="(item, index) in userList" :key="index">
           <div class="users-card-header">
             <div class="card-user">
@@ -42,7 +42,16 @@
           </div>
         </div>
       </div>
+      <SearchFailure v-else></SearchFailure>
+      <div class="loading-more" v-show="isShowLoadingMore">
+        <span>Loading more…</span>
+      </div>
+      <div class="no-more" v-if="noMore">
+        <span></span>
+        <span>没有更多了内容了</span>
+      </div>
     </div>
+
     <Sidebar></Sidebar>
   </div>
 </template>
@@ -52,6 +61,7 @@ import { computed, defineComponent, onMounted, onUnmounted, ref, watch } from 'v
 import { lostelkUrl } from '../global';
 import Header from '../components/header/HeaderBox.vue';
 import Sidebar from '../components/sidebar/SidebarBox.vue';
+import SearchFailure from '../components/globalFun/SearchFailure.vue';
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
 export default defineComponent({
@@ -59,6 +69,7 @@ export default defineComponent({
   components: {
     Header,
     Sidebar,
+    SearchFailure,
   },
 
   setup() {
@@ -68,6 +79,17 @@ export default defineComponent({
     const loginJudge = computed(() => {
       return store.state.user;
     });
+
+    /**
+     * 搜索结果是否为空
+     */
+    const isNull = ref(false);
+
+    /**
+     * 是否显示加载状态
+     */
+    const isShowLoadingMore = ref(false);
+    const noMore = ref(false);
 
     // 搜索内容
     const userName = computed(() => route.params.val);
@@ -79,23 +101,24 @@ export default defineComponent({
     // 加载用户页内容数据函数
     const loading = async () => {
       // 将 没有更多 提示 初始化设置为false
-      store.commit('noMore', false);
+      noMore.value = false;
       await store.dispatch('getSearchValCardBriefList', { val: userName.value, type: 'user' }).then(res => {
-        if (res.headers['x-total-count'] === 0) {
+        if (res.headers['x-total-count'] == 0) {
           //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
-          store.commit('setSearchFailure', true);
+          isNull.value = true;
           // 将 没有更多 提示 初始化设置为false
-          store.commit('noMore', false);
+          noMore.value = false;
         } else {
           // 搜索到内容将未没有内容提示隐藏,  并且将主页搜索框隐藏
           store.commit('setSearchFailure', false);
-          store.commit('mainSearchIsNone', false);
+          // store.commit('mainSearchIsNone', false);
+          isNull.value = false;
           totalCount.value = res.headers['x-total-count'];
           userList.value = res.data;
           // 如果总页数等于1
           if (Math.ceil(res.headers['x-total-count'] / 10) === 1) {
             // 将 没有更多 提示 设置为true
-            store.commit('noMore', true);
+            noMore.value = true;
           }
         }
       });
@@ -138,7 +161,7 @@ export default defineComponent({
           // 禁止显示全局请求加载样式
           store.commit('setIsShowLoading', false);
           // 设置 是否显示加载更多 为 true
-          store.commit('isShowLoadingMore', true);
+          isShowLoadingMore.value = true;
           // 加载下一页数据
           const searchParams = { val: userName.value, page: currentPage.value + 1 };
           await store.dispatch('getPageSearchValUsersList', searchParams).then(res => {
@@ -147,16 +170,16 @@ export default defineComponent({
             currentPage.value = currentPage.value + 1;
           });
           // 加载完毕后 设置 是否显示加载更多 为 false
-          store.commit('isShowLoadingMore', false);
+          isShowLoadingMore.value = false;
         }
 
         // 判断本次加载是否到最后一页 , 如果判断成立则将 isLoading.value设置为false,不成立恢复为true
         if (totalPage.value <= currentPage.value) {
           isScrollLoading.value = false;
-          store.commit('noMore', true);
+          noMore.value = true;
         } else {
           isScrollLoading.value = true;
-          store.commit('noMore', false);
+          noMore.value = false;
         }
 
         // 将当前的scrollTop 赋值给prevScrollTop,用于下次进入滚动加载事件,判断是否是向下滚动
@@ -177,7 +200,6 @@ export default defineComponent({
     onUnmounted(() => {
       // 组件卸载时卸载scroll事件
       window.removeEventListener('scroll', windowScroll);
-      store.commit('mainSearchIsNone', true);
     });
 
     /**
@@ -205,6 +227,9 @@ export default defineComponent({
       userName,
       totalCount,
       userList,
+      isShowLoadingMore,
+      isNull,
+      noMore,
     };
   },
 });
