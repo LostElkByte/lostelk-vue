@@ -992,6 +992,18 @@ export default createStore<GloablDataProps>({
         throw `${error}`
       }
     },
+
+    /**
+    * 搜索用户分页列表
+    */
+    async getPageSearchValUsersList(context, { val, page }) {
+      try {
+        const searchUserListData = await axios.get(`/search/users?name=${val}&page=${page}`)
+        return searchUserListData
+      } catch (error) {
+        throw `${error}`
+      }
+    },
   },
 
   getters: {
