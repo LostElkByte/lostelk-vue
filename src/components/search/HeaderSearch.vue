@@ -38,7 +38,7 @@
     <!-- 搜索内容 -->
     <div class="search-pop-up" v-show="searchPopUpIsShow && !skeletonIsShow">
       <div class="search-pop-up-item" v-show="tagCardTotal > 0">
-        <p class="search-pop-up-item-type">标签( {{ tagCardTotal }} )</p>
+        <p class="search-pop-up-item-type">Tag ( {{ tagCardTotal }} )</p>
         <div
           class="search-pop-up-item-details"
           v-for="(item, index) in tagCardList"
@@ -57,10 +57,10 @@
             </div>
           </div>
         </div>
-        <p class="search-pop-up-item-all" @click.stop="allRelevant('tag')">查看所有相关标签的图片</p>
+        <p class="search-pop-up-item-all" @click.stop="allRelevant('tag')">View photos in all related tags</p>
       </div>
       <div class="search-pop-up-item" v-show="colorCardTotal > 0">
-        <p class="search-pop-up-item-type">颜色( {{ colorCardTotal }} )</p>
+        <p class="search-pop-up-item-type">Color ( {{ colorCardTotal }} )</p>
         <div
           class="search-pop-up-item-details"
           v-for="(item, index) in colorCardList"
@@ -79,10 +79,10 @@
             </div>
           </div>
         </div>
-        <p class="search-pop-up-item-all" @click.stop="allRelevant('color')">查看所有相关颜色的图片</p>
+        <p class="search-pop-up-item-all" @click.stop="allRelevant('color')">View photos in all relevant colors</p>
       </div>
       <div class="search-pop-up-item" v-show="userCardTotal > 0">
-        <p class="search-pop-up-item-type">用户( {{ userCardTotal }} )</p>
+        <p class="search-pop-up-item-type">User ( {{ userCardTotal }} )</p>
         <div
           class="search-pop-up-item-details"
           v-for="(item, index) in userCardList"
@@ -107,7 +107,7 @@
             <!-- <div class="user-name"></div> -->
           </div>
         </div>
-        <p class="search-pop-up-item-all" @click.stop="allRelevant('user')">查看所有相关的用户</p>
+        <p class="search-pop-up-item-all" @click.stop="allRelevant('user')">View all relevant users</p>
       </div>
       <div
         class="search-no-data"

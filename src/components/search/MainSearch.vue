@@ -29,7 +29,7 @@
             />
             <div class="vertical-moulding"></div>
             <div class="main-search-type" @click.stop="typeSwitch">
-              <span class="main-search-name">{{ typeName }}</span>
+              <span class="main-search-name">By {{ typeName }}</span>
               <div :class="[typeOpen ? 'spin' : 'recover', 'search-button-12 ', 'main-search-name']">
                 <svg class="icon icon-size-fill" aria-hidden="true">
                   <use xlink:href="#icon-down"></use>
@@ -85,7 +85,7 @@
             />
             <div class="vertical-moulding"></div>
             <div class="main-search-type" @click.stop="typeSwitch">
-              <span class="main-search-name">{{ typeName }}</span>
+              <span class="main-search-name">By {{ typeName }}</span>
               <div :class="[typeOpen ? 'spin' : 'recover', 'search-button-12 ', 'main-search-name']">
                 <svg class="icon icon-size-fill" aria-hidden="true">
                   <use xlink:href="#icon-down"></use>
@@ -123,11 +123,11 @@ export default defineComponent({
   setup() {
     const typeOpen = ref(false);
     const type = ref('tag');
-    const typeName = ref('标签');
+    const typeName = ref('Tag');
     const typeList = [
-      { name: '标签', type: 'tag' },
-      { name: '颜色', type: 'color' },
-      { name: '用户', type: 'user' },
+      { name: 'Tag', type: 'tag' },
+      { name: 'Color', type: 'color' },
+      { name: 'User', type: 'user' },
     ];
     const typeSwitch = () => {
       typeOpen.value = !typeOpen.value;
