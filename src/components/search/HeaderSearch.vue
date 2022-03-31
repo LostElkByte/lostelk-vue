@@ -83,7 +83,12 @@
       </div>
       <div class="search-pop-up-item" v-show="userCardTotal > 0">
         <p class="search-pop-up-item-type">用户( {{ userCardTotal }} )</p>
-        <div class="search-pop-up-item-details" v-for="(item, index) in userCardList" :key="index">
+        <div
+          class="search-pop-up-item-details"
+          v-for="(item, index) in userCardList"
+          :key="index"
+          @click="aSinglePicture('user', item.id)"
+        >
           <div class="search-pop-up-item-details-img">
             <img
               v-if="item.avatar"
@@ -102,7 +107,7 @@
             <!-- <div class="user-name"></div> -->
           </div>
         </div>
-        <p class="search-pop-up-item-all">查看所有相关的用户</p>
+        <p class="search-pop-up-item-all" @click.stop="allRelevant('user')">查看所有相关的用户</p>
       </div>
       <div
         class="search-no-data"
@@ -192,16 +197,7 @@ export default defineComponent({
      * 查看所有相关
      */
     const allRelevant = (type: string) => {
-      switch (type) {
-        case 'tag':
-          router.push(`/search/${type}/${searchVal.value}`);
-          break;
-        case 'color':
-          router.push(`/search/${type}/${searchVal.value}`);
-          break;
-        default:
-          break;
-      }
+      router.push(`/search/${type}/${searchVal.value}`);
       // 重置
       searchVal.value = null;
       reset();
@@ -217,6 +213,9 @@ export default defineComponent({
           break;
         case 'color':
           router.push(`/search/${type}/${searchVal.value}/searchCard/${id}`);
+          break;
+        case 'user':
+          router.push(`/@${id}`);
           break;
         default:
           break;

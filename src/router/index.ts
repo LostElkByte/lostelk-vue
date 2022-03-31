@@ -137,13 +137,13 @@ const routes: Array<RouteRecordRaw> = [
     meta: { title: "Password reset | LostElk" }
   },
   {
-    path: '/search/userName/:val',
+    path: '/search/user/:val',
     name: 'UsersPage',
     component: () => import('../views/UsersPage.vue'),
     meta: { title: "Is this the user you like? | LostElk" },
     children: [
       {
-        path: '/search/userName/:val/searchCard/:id',
+        path: '/search/user/:val/searchCard/:id',
         name: 'SearchUserCardDetails',
         component: () => import('../views/details/SearchCardDetails.vue'),
         props: true,

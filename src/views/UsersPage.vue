@@ -58,7 +58,7 @@
     </div>
     <Sidebar></Sidebar>
     <teleport to="#app">
-      <router-view :searchName="userName" searchType="userName" :isShowDelete="false"></router-view>
+      <router-view :searchName="userName" searchType="user" :isShowDelete="false"></router-view>
     </teleport>
   </div>
 </template>
@@ -210,7 +210,7 @@ export default defineComponent({
       document.body.style.overflow = 'hidden';
 
       await store.commit('showCommentsCut', false);
-      await router.push(`/search/userName/${userName.value}/searchCard/${postId}`);
+      await router.push(`/search/user/${userName.value}/searchCard/${postId}`);
     };
 
     onMounted(async () => {
