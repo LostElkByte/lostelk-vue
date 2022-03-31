@@ -12,7 +12,7 @@
         <div class="users-card" v-for="(item, index) in userList" :key="index">
           <div class="users-card-header">
             <div class="card-user">
-              <div class="card-user-avatar">
+              <div class="card-user-avatar" @click.stop="goPage(item.id)">
                 <img
                   v-if="item.avatar"
                   class="content-header-author-photo-32"
@@ -23,13 +23,13 @@
                   <use xlink:href="#icon-touxiangnvhai"></use>
                 </svg>
               </div>
-              <div class="card-user-details">
+              <div class="card-user-details" @click.stop="goPage(item.id)">
                 <span class="card-user-details-name">{{ item.name }}</span>
                 <span class="card-user-details-synopsis">{{ item.synopsis || '' }}</span>
               </div>
             </div>
             <div class="card-actions" @click.stop="goPage(item.id)">
-              <span>进入</span>
+              <span>Follow</span>
             </div>
           </div>
           <div class="users-page-posts" v-if="item.files">
