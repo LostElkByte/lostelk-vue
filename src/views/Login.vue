@@ -52,7 +52,7 @@
           <template v-slot:submit>
             <div class="form-groug">
               <a href="#" class="form-btn">
-                登录
+                Login
               </a>
             </div>
           </template>
