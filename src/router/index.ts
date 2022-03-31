@@ -77,6 +77,21 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   {
+    path: '/search/user/:val',
+    name: 'UsersPage',
+    component: () => import('../views/UsersPage.vue'),
+    meta: { title: "Is this the user you like? | LostElk" },
+    children: [
+      {
+        path: '/search/user/:val/searchCard/:id',
+        name: 'SearchUserCardDetails',
+        component: () => import('../views/details/SearchCardDetails.vue'),
+        props: true,
+        meta: { title: "Is this the User you Search? | LostElk" }
+      }
+    ]
+  },
+  {
     path: '/@:UserId',
     name: 'UserHomePage',
     component: () => import('../views/UserHomePage.vue'),
@@ -135,21 +150,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'RetrievePassword',
     component: () => import('../components/retrievePassword/RetrievePassword.vue'),
     meta: { title: "Password reset | LostElk" }
-  },
-  {
-    path: '/search/user/:val',
-    name: 'UsersPage',
-    component: () => import('../views/UsersPage.vue'),
-    meta: { title: "Is this the user you like? | LostElk" },
-    children: [
-      {
-        path: '/search/user/:val/searchCard/:id',
-        name: 'SearchUserCardDetails',
-        component: () => import('../views/details/SearchCardDetails.vue'),
-        props: true,
-        meta: { title: "Is this the User you Search? | LostElk" }
-      }
-    ]
   },
 ]
 
