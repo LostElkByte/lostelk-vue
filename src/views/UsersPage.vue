@@ -33,8 +33,13 @@
             </div>
           </div>
           <div class="users-page-posts" v-if="item.files">
-            <div class="users-page-posts-item" v-for="item in item.files" :key="item">
-              <img :src="`${lostelkUrl}/files/${item}/serve?size=large`" />
+            <div
+              class="users-page-posts-item"
+              v-for="item in item.files"
+              :key="item"
+              @click="openCardDetail(item.postId)"
+            >
+              <img :src="`${lostelkUrl}/files/${item.id}/serve?size=large`" />
             </div>
           </div>
           <div class="users-page-posts-null" v-else>
@@ -51,9 +56,11 @@
         <span>No more users</span>
       </div>
     </div>
-
     <Sidebar></Sidebar>
   </div>
+  <teleport to="#app">
+    <router-view :searchName="userName" searchType="userName" isShowDelete="false"></router-view>
+  </teleport>
 </template>
 
 <script lang="ts">
@@ -195,6 +202,17 @@ export default defineComponent({
       router.push(`/@${userId}`);
     };
 
+    /**
+     * 打开展示图片
+     */
+    const openCardDetail = async (postId: number) => {
+      // 将body设置为不可滚动
+      document.body.style.overflow = 'hidden';
+
+      await store.commit('showCommentsCut', false);
+      await router.push(`/search/userName/${userName.value}/searchCard/${postId}`);
+    };
+
     onMounted(async () => {
       // 组件装载时进行加载数据
       await loading();
@@ -239,6 +257,7 @@ export default defineComponent({
       isNull,
       noMore,
       goPage,
+      openCardDetail,
     };
   },
 });

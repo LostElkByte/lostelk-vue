@@ -161,7 +161,7 @@
             </div>
 
             <DeleteCard
-              v-if="userId === postData.user.id || userId === 1"
+              v-if="isShowDeleteProps && (userId === postData.user.id || userId === 1)"
               :postId="postId"
               :routerUrl="`/search/${searchTypeProps}/${searchVal}`"
               :fromWhichPage="`search`"
@@ -227,10 +227,18 @@ export default defineComponent({
       type: String,
       required: false,
     },
+    isShowDelete: {
+      type: Boolean,
+      default: true,
+    },
   },
   setup(props) {
     // 是否为单个卡片
     const singleCard = ref(false);
+
+    // 是否展示删除按钮
+    const isShowDeleteProps = computed(() => props.isShowDelete);
+
     // 搜索内容
     const searchVal = computed(() => props.searchName);
 
@@ -464,6 +472,7 @@ export default defineComponent({
       singleCardReviseLike,
       singleCard,
       searchTypeProps,
+      isShowDeleteProps,
     };
   },
 });

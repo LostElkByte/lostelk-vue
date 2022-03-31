@@ -140,7 +140,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/search/userName/:val',
     name: 'UsersPage',
     component: () => import('../views/UsersPage.vue'),
-    meta: { title: "Is this the user you like? | LostElk" }
+    meta: { title: "Is this the user you like? | LostElk" },
+    children: [
+      {
+        path: '/search/userName/:val/searchCard/:id',
+        name: 'SearchUserCardDetails',
+        component: () => import('../views/details/SearchCardDetails.vue'),
+        props: true,
+        meta: { title: "Is this the User you Search? | LostElk" }
+      }
+    ]
   },
 ]
 
