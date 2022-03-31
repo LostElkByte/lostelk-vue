@@ -139,8 +139,8 @@ export default defineComponent({
     const userPhotosCardTotalCount = computed(() => store.state.userPhotosCardTotalCount);
     const fileMetadata = ref();
     store.dispatch('getUserPhotosCardList', UserIdProp.value).then(res => {
-      console.log(res.data[0]);
       // 请求获取图像文件元信息
+      if (!res.data[0]) return;
       store.dispatch('getFileMetadata', res.data[0].file.id).then(data => {
         if (data.mainColor) {
           const colorBlock = document.getElementById('color-block-container') as HTMLElement;
@@ -157,6 +157,7 @@ export default defineComponent({
       () => userPhotosCardlist.value,
       () => {
         // 请求获取图像文件元信息
+        if (!userPhotosCardlist.value[0]) return;
         store.dispatch('getFileMetadata', userPhotosCardlist.value[0].file.id).then(data => {
           if (data.mainColor) {
             const colorBlock = document.getElementById('color-block-container') as HTMLElement;

@@ -1,11 +1,11 @@
 <template>
-  <div class="user-name margin-bottom-36">
+  <div class="user-synopsis margin-bottom-36">
     <form @submit.prevent="submitFrom">
       <div class="input-box">
-        <label for="user-name" class="Edit-account-header">修改个人简介</label>
+        <label for="user-synopsis" class="Edit-account-header">修改个人简介</label>
         <textarea
           class="EditUserInput"
-          id="user-name"
+          id="user-synopsis"
           placeholder="输入新的个人简介"
           v-model="newUserSynopsis"
           @blur="newUserSynopsisValidation"

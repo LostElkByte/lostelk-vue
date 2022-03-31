@@ -28,7 +28,7 @@
                 <span class="card-user-details-synopsis">{{ item.synopsis || '' }}</span>
               </div>
             </div>
-            <div class="card-actions">
+            <div class="card-actions" @click.stop="goPage(item.id)">
               <span>进入</span>
             </div>
           </div>
@@ -64,6 +64,7 @@ import Sidebar from '../components/sidebar/SidebarBox.vue';
 import SearchFailure from '../components/globalFun/SearchFailure.vue';
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
+import router from '../router';
 export default defineComponent({
   name: 'UserPage',
   components: {
@@ -80,14 +81,10 @@ export default defineComponent({
       return store.state.user;
     });
 
-    /**
-     * 搜索结果是否为空
-     */
+    // 搜索结果是否为空
     const isNull = ref(false);
 
-    /**
-     * 是否显示加载状态
-     */
+    // 是否显示加载状态
     const isShowLoadingMore = ref(false);
     const noMore = ref(false);
 
@@ -98,7 +95,9 @@ export default defineComponent({
     // 用户列表
     const userList = ref();
 
-    // 加载用户页内容数据函数
+    /**
+     * 加载用户页内容数据函数
+     */
     const loading = async () => {
       // 将 没有更多 提示 初始化设置为false
       noMore.value = false;
@@ -134,7 +133,9 @@ export default defineComponent({
     // 是否加载默认设置为true
     const isScrollLoading = ref(true);
 
-    // 滚动加载事件函数
+    /**
+     * 滚动加载事件函数
+     */
     const windowScroll = async () => {
       const prevScrollTop = ref(0);
 
@@ -187,6 +188,13 @@ export default defineComponent({
       }
     };
 
+    /**
+     * 进入用户页
+     */
+    const goPage = (userId: number) => {
+      router.push(`/@${userId}`);
+    };
+
     onMounted(async () => {
       // 组件装载时进行加载数据
       await loading();
@@ -230,6 +238,7 @@ export default defineComponent({
       isShowLoadingMore,
       isNull,
       noMore,
+      goPage,
     };
   },
 });
