@@ -4,7 +4,7 @@
       <div class="login-center">
         <div class="login-logo">
           <router-link to="/">
-            <img src="../assets/icons/logoTouMing.png" alt="迷鹿" />
+            <img src="../assets/icons/logoTouMing.png" alt="LostElk" />
           </router-link>
         </div>
         <h1 class="login-title">Sign in to LostElk</h1>
@@ -14,14 +14,14 @@
         <ValidateForm @form-submit="onFormSubmit">
           <div class="form-group">
             <label for="user_username">
-              邮箱
+              Email
             </label>
             <ValidateInput
               :rules="userEmailRule"
               v-model="userEmailVal"
               class="form-control"
               type="text"
-              placeholder="请输入邮箱"
+              placeholder=""
               id="user_username"
             >
             </ValidateInput>
@@ -30,10 +30,10 @@
           <div class="form-group">
             <div style="display: flex;align-items: center;justify-content: space-between;">
               <label for="user_password">
-                密码
+                Password
               </label>
               <span class="text-secondary" style="font-size: 12px">
-                <router-link to="/StartRetrieve">忘记了您的密码?</router-link>
+                <router-link to="/StartRetrieve">Forgot your password?</router-link>
               </span>
             </div>
 
@@ -42,7 +42,7 @@
               v-model="passwordVal"
               class="form-control"
               type="password"
-              placeholder="请输入密码"
+              placeholder=""
               autocomplete="off"
               id="user_password"
             >
@@ -58,9 +58,9 @@
           </template>
         </ValidateForm>
         <p class="register">
-          还没有帐号？
+          Don't have an account?
           <span class="text-secondary">
-            <router-link to="/Register">注册</router-link>
+            <router-link to="/Register">Join</router-link>
           </span>
         </p>
       </div>
@@ -88,12 +88,12 @@ export default defineComponent({
     const passwordVal = ref('');
     // 定义表单验证规则 发送到 ValidateInput组件中
     const userEmailRule: RulesProp = [
-      { type: 'null', message: '邮箱不能为空' },
-      { type: 'userEmail', message: '请输入正确的邮箱' },
+      { type: 'null', message: 'The email address cannot be empty' },
+      { type: 'userEmail', message: 'Please enter the correct email address' },
     ];
     const passwordRule: RulesProp = [
-      { type: 'null', message: '密码不能为空' },
-      { type: 'password', message: '密码长度在6-16位之间' },
+      { type: 'null', message: 'The password cannot be empty' },
+      { type: 'password', message: 'The password must be between 6 and 16 characters long' },
     ];
 
     /**
