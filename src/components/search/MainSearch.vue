@@ -83,6 +83,25 @@
               v-model.trim="searchVal"
               @keyup.enter="search"
             />
+            <div class="vertical-moulding"></div>
+            <div class="main-search-type" @click.stop="typeSwitch">
+              <span class="main-search-name">{{ typeName }}</span>
+              <div :class="[typeOpen ? 'spin' : 'recover', 'search-button-12 ', 'main-search-name']">
+                <svg class="icon icon-size-fill" aria-hidden="true">
+                  <use xlink:href="#icon-down"></use>
+                </svg>
+              </div>
+              <div class="search-popup" v-show="typeOpen">
+                <template v-for="(item, index) in typeList" :key="index">
+                  <div
+                    :class="[type === item.type ? 'search-popup-item-checked' : '', 'search-popup-item']"
+                    @click.stop="selectType(item)"
+                  >
+                    {{ item.name }}
+                  </div>
+                </template>
+              </div>
+            </div>
           </div>
         </div>
       </div>
