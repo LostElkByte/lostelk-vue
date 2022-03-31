@@ -57,10 +57,10 @@
       </div>
     </div>
     <Sidebar></Sidebar>
+    <teleport to="#app">
+      <router-view :searchName="userName" searchType="userName" :isShowDelete="false"></router-view>
+    </teleport>
   </div>
-  <teleport to="#app">
-    <router-view :searchName="userName" searchType="userName" isShowDelete="false"></router-view>
-  </teleport>
 </template>
 
 <script lang="ts">
