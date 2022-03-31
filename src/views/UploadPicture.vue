@@ -6,31 +6,31 @@
       <ValidateForm @form-submit="onFormSubmit">
         <div class="content">
           <table>
-            标题
+            title of works
           </table>
           <ValidateInput
             type="text"
-            placeholder="标题(必选)"
+            placeholder="the title of works (required)"
             v-model="headlineVal"
             :value="headlineVal"
             :rules="headlineRule"
           />
           <table>
-            描述
+            describe
           </table>
           <ValidateInput
             :tag="`textarea`"
-            placeholder="可以描述一下您的拍摄灵感、构图、想法..."
+            placeholder="Describe your inspiration, composition, ideas..."
             v-model="describeVal"
             :value="describeVal"
             :rules="describeRule"
           />
           <table>
-            标签
+            tag
           </table>
           <ValidateInput
             type="text"
-            placeholder="标签"
+            placeholder=""
             v-model="tagVal"
             :value="tagVal"
             :rules="tagRule"
@@ -70,7 +70,7 @@
               >
                 <span v-if="imageUploadProgress < 100"> {{ imageUploadProgress + '%' }}</span>
                 <div v-else class="image-upload-await">
-                  <span>正在处理图像,请稍后</span>
+                  <span>Image processing, please wait</span>
                   <span class="throbber-loader">Loading&#8230;</span>
                 </div>
               </div>
@@ -91,7 +91,7 @@
 
         <template v-slot:submit>
           <div class="publish">
-            <input ref="isDisabled" type="submit" name="commit" value="发布" class="form-btn" />
+            <input ref="isDisabled" type="submit" name="commit" value="publish" class="form-btn" />
           </div>
         </template>
       </ValidateForm>
@@ -138,12 +138,14 @@ export default defineComponent({
     const pictureVal = ref('');
     const tagVal = ref('');
     const headlineRule: RulesProp = [
-      { type: 'null', message: '需要给您的图像起一个名字' },
-      { type: 'headlineMaximum', message: '标题最多15个字符' },
+      { type: 'null', message: 'need to give your photo a name' },
+      { type: 'headlineMaximum', message: 'Headings can contain up to 15 characters' },
     ];
-    const describeRule: RulesProp = [{ type: 'describeMaximum', message: '描述最多个100字符' }];
-    const tagRule: RulesProp = [{ type: 'tagMaximum', message: '标签最多20个字符' }];
-    const pictureRule: RulesProp = [{ type: 'fileNull', message: '需要上传一张图像' }];
+    const describeRule: RulesProp = [
+      { type: 'describeMaximum', message: 'The description contains a maximum of 100 characters' },
+    ];
+    const tagRule: RulesProp = [{ type: 'tagMaximum', message: 'The tag contains a maximum of 20 characters' }];
+    const pictureRule: RulesProp = [{ type: 'fileNull', message: 'You need to upload an photo' }];
 
     /**
      * 监听添加标签的键盘事件
@@ -154,7 +156,7 @@ export default defineComponent({
         if (tagVal.value === '精选横图' || tagVal.value === '精选纵图') {
           if (userId.value !== 1) {
             tagVal.value = '';
-            createTooltip('您没有权限使用这个标签', 'error', 3000);
+            createTooltip('You do not have permission to use this tag', 'error', 3000);
             return;
           }
         }
@@ -261,7 +263,7 @@ export default defineComponent({
         uploaderror.value = error;
         console.log(error);
 
-        await createTooltip('上传失败,可能是您的照片不符合要求', 'error', 3000);
+        await createTooltip('Upload failed, your photo may not meet the requirements', 'error', 3000);
       }
     };
 
@@ -318,14 +320,14 @@ export default defineComponent({
         tagVal.value = '';
         tags.value = [];
         isDisabled.value.removeAttribute('disabled');
-        isDisabled.value.value = '发表';
+        isDisabled.value.value = 'publish';
 
         // 如果有错误
         if (uploaderror.value) {
           uploaderror.value = '';
         } else {
           // 如果有上传成功,执行成功提示;
-          await createTooltip('感谢您为LostElk社区,贡献了一张照片!', 'success', 3000);
+          await createTooltip('Thank you for contributing a photo to the LostElk community!', 'success', 3000);
           // await setTimeout(() => {
           //   store.commit('mainSearchIsNone', true);
           //   store.commit('setSearchFailure', false);
