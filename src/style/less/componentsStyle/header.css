@@ -63,7 +63,7 @@
   border: 0;
 }
 .header .header_toolbar div .dropdown-sign-up {
-  background-color: #111;
+  background-color: #ff7675;
   color: #fff;
   border: 0;
   font-weight: 700;
@@ -72,13 +72,13 @@
   align-items: center;
 }
 .header .header_toolbar div .dropdown-sign-up:hover {
-  background-color: #111;
+  background-color: #ff7675;
   color: #fff;
   border: 0;
 }
 .header .header_toolbar div .dropdown-sign-in {
   background-color: #fff;
-  color: #222;
+  color: #ff7675;
   border: 0;
   font-weight: 700;
   height: 48px;
@@ -87,7 +87,7 @@
 }
 .header .header_toolbar div .dropdown-sign-in:hover {
   background-color: #fff;
-  color: #222;
+  color: #ff7675;
   border: 0;
 }
 .header .header_toolbar div .w1024 {
@@ -97,6 +97,7 @@
   display: block;
   height: 100%;
   width: 100%;
+  cursor: pointer;
 }
 @media (max-width: 1060px) {
   .header_loginRegister_item {
