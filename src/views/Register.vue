@@ -15,9 +15,9 @@
             </router-link>
           </div>
           <div>
-            <h1 class="registrations__title">创作从这里开始</h1>
+            <h1 class="registrations__title">Creation starts here</h1>
             <h2 class="registrations__sub-title">
-              访问免费的高分辨率照片，这些都是其它地方所找不到的
+              Access free high-resolution photos you can't find anywhere else
             </h2>
           </div>
           <div>
@@ -39,9 +39,9 @@
             </router-link>
           </div>
           <div>
-            <h1 class="registrations__title">创作从这里开始</h1>
+            <h1 class="registrations__title">Creation starts here</h1>
             <h2 class="registrations__sub-title">
-              访问免费的高分辨率照片，这些都是其它地方所找不到的
+              Access free high-resolution photos you can't find anywhere else
             </h2>
           </div>
           <div>
@@ -59,9 +59,9 @@
             </router-link>
           </div>
           <div>
-            <h1 class="registrations__title">创作从这里开始</h1>
+            <h1 class="registrations__title">Creation starts here</h1>
             <h2 class="registrations__sub-title">
-              访问免费的高分辨率照片，这些都是其它地方所找不到的
+              Access free high-resolution photos you can't find anywhere else
             </h2>
           </div>
           <div>
@@ -79,9 +79,9 @@
             </router-link>
           </div>
           <div>
-            <h1 class="registrations__title">创作从这里开始</h1>
+            <h1 class="registrations__title">Creation starts here</h1>
             <h2 class="registrations__sub-title">
-              访问免费的高分辨率照片，这些都是其它地方所找不到的
+              Access free high-resolution photos you can't find anywhere else
             </h2>
           </div>
           <div>
@@ -101,10 +101,10 @@
                   Sign up to LostElk
                 </div>
                 <p>
-                  已经有帐号了？
+                  Already have an account?
                   <router-link to="/Login">
                     <span class="text-secondary">
-                      登录
+                      Login
                     </span>
                   </router-link>
                 </p>
@@ -115,14 +115,14 @@
                   <div class="col-xs-6">
                     <div class="form-group">
                       <label for="user_first_name">
-                        名字
+                        First name
                       </label>
                       <ValidateInput
                         :rules="userLastNameRule"
                         v-model="userLastNameVal"
                         class="form-control"
                         type="text"
-                        placeholder="可选"
+                        placeholder="Not required"
                         id="user_first_name"
                       >
                       </ValidateInput>
@@ -131,14 +131,14 @@
                   <div class="col-xs-6">
                     <div class="form-group">
                       <label for="user_last_name">
-                        姓
+                        Last name
                       </label>
                       <ValidateInput
                         :rules="userFirstNameRule"
                         v-model="userFirstNameVal"
                         class="form-control"
                         type="text"
-                        placeholder="可选"
+                        placeholder="Not required"
                         id="user_last_name"
                       >
                       </ValidateInput>
@@ -148,14 +148,14 @@
 
                 <div class="form-group">
                   <label for="user_email">
-                    电子邮件
+                    Email
                   </label>
                   <ValidateInput
                     :rules="userEmailRule"
                     v-model="userEmailVal"
                     class="form-control"
                     type="email"
-                    placeholder="请输入电子邮箱"
+                    placeholder="Please enter your email address"
                     id="user_email"
                   >
                   </ValidateInput>
@@ -163,7 +163,7 @@
 
                 <div class="form-group">
                   <label for="user_username">
-                    用户名
+                    Username
                   </label>
 
                   <ValidateInput
@@ -171,7 +171,7 @@
                     v-model="userNameVal"
                     class="form-control"
                     type="text"
-                    placeholder="请输入用户名"
+                    placeholder="Please enter a user name"
                     id="user_username"
                   >
                   </ValidateInput>
@@ -179,14 +179,14 @@
 
                 <div class="form-group">
                   <label for="user_password">
-                    密码
+                    Password
                   </label>
                   <ValidateInput
                     :rules="passwordRule"
                     v-model="passwordVal"
                     class="form-control"
                     type="password"
-                    placeholder="密码长度在6-16位之间"
+                    placeholder="The length is between 6 and 16 bits"
                     autocomplete="off"
                     id="user_password"
                   >
@@ -195,14 +195,14 @@
 
                 <div class="form-group">
                   <label for="user_affirmPassword">
-                    确认密码
+                    Confirm password
                   </label>
                   <ValidateInput
                     :rules="affirmPasswordRule"
                     v-model="affirmPasswordVal"
                     class="form-control"
                     type="password"
-                    placeholder="请再次输入密码"
+                    placeholder="Please enter your password again"
                     autocomplete="off"
                     id="user_affirmPassword"
                   >
@@ -211,14 +211,14 @@
                 <template v-slot:submit>
                   <div class="form-groug">
                     <a href="#" class="form-btn">
-                      注册
+                      Join
                     </a>
                   </div>
                 </template>
               </ValidateForm>
               <span class="text-secondary zeta">
-                注册即表示您同意 <router-link to="/Clause">条款</router-link> 和
-                <router-link to="/Privacy">隐私政策</router-link>。
+                By joining, you agree to the <router-link to="/Clause">Terms</router-link> and
+                <router-link to="/Privacy">Privacy Policy</router-link>.
               </span>
             </div>
           </div>
@@ -235,7 +235,6 @@ import ValidateInput, { RulesProp } from '../components/form/ValidateInput.vue';
 import ValidateForm from '../components/form/ValidateForm.vue';
 import createTooltip from '../components/globalFun/createTooltip';
 import axios from 'axios';
-import router from '../router';
 import store from '../store';
 
 export default defineComponent({
@@ -258,27 +257,27 @@ export default defineComponent({
     const userEmailVal = ref('');
     const affirmPasswordVal = ref('');
     const userNameRule: RulesProp = [
-      { type: 'null', message: '用户名不能为空' },
-      { type: 'userName', message: '仅限于字母、数字、下划线,最多20个字符' },
+      { type: 'null', message: 'The user name cannot be empty' },
+      { type: 'userName', message: 'limited to letters, digits, underscores and up to 20 characters' },
     ];
     const passwordRule: RulesProp = [
-      { type: 'null', message: '密码不能为空' },
-      { type: 'password', message: '密码长度在6-16位之间' },
+      { type: 'null', message: 'The password cannot be empty' },
+      { type: 'password', message: 'The password must be between 6 and 16 characters long' },
     ];
-    const userLastNameRule: RulesProp = [{ type: 'userLastName', message: '名字格式错误' }];
-    const userFirstNameRule: RulesProp = [{ type: 'userfirstName', message: '名字格式错误' }];
+    const userLastNameRule: RulesProp = [{ type: 'userLastName', message: 'Incorrect name format' }];
+    const userFirstNameRule: RulesProp = [{ type: 'userfirstName', message: 'Incorrect name format' }];
     const userEmailRule: RulesProp = [
-      { type: 'null', message: '邮箱不能为空' },
-      { type: 'userEmail', message: '邮箱格式错误' },
+      { type: 'null', message: 'The email address cannot be empty' },
+      { type: 'userEmail', message: 'Email format error' },
     ];
     const affirmPasswordRule: RulesProp = [
-      { type: 'null', message: '确认密码不能为空' },
+      { type: 'null', message: 'Confirm password cannot be empty' },
       {
         type: 'custom',
         validator: () => {
           return passwordVal.value === affirmPasswordVal.value;
         },
-        message: '密码不相同',
+        message: 'Different passwords',
       },
     ];
 
@@ -290,7 +289,11 @@ export default defineComponent({
           password: passwordVal.value,
         };
         axios.post('/users', userRegisterData).then(() => {
-          createTooltip('注册成功, 激活链接已发送到您的邮箱。请在30分钟内激活账号~', 'default', null);
+          createTooltip(
+            'Registration is successful, the activation link has been sent to your email. Please activate your account within 30 minutes ~',
+            'default',
+            null,
+          );
           // setTimeout(() => {
           //   router.push('/login');
           // }, 1000);
