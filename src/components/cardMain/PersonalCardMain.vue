@@ -190,7 +190,7 @@
       </div>
       <div class="no-more" v-if="noMore">
         <span></span>
-        <span>没有更多了内容了</span>
+        <span>No more users</span>
       </div>
     </div>
   </div>
