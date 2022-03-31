@@ -263,7 +263,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 @import '../style/less/globalStyle/layout.css';
 @import '../style/less/viewsStyle/uers-page.css';
 </style>
