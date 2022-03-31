@@ -27,8 +27,8 @@
               </span>
             </template>
             <template v-slot:dropdown-content>
-              <router-link to="/Login" class="dropdown-sign-in">登陆</router-link>
-              <router-link to="/Register" class="dropdown-sign-up">加入LostElk</router-link>
+              <router-link to="/Login" class="dropdown-sign-in">Login</router-link>
+              <router-link to="/Register" class="dropdown-sign-up">Join LostElk</router-link>
             </template>
           </DropDownList>
         </div>
@@ -44,9 +44,9 @@
             </span>
           </template>
           <template v-slot:dropdown-content>
-            <router-link :to="`/@${userId}`">个人主页</router-link>
-            <router-link to="/UploadPicture">发表作品</router-link>
-            <a href="#" @click="logout">退出登录</a>
+            <router-link :to="`/@${userId}`">My home page</router-link>
+            <router-link to="/UploadPicture">Published works</router-link>
+            <a href="#" @click="logout">Log out</a>
           </template>
         </DropDownList>
       </div>

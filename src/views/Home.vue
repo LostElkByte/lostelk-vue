@@ -40,7 +40,7 @@ export default defineComponent({
         store.dispatch('registerActivation', { email, name, registrationVerifyKey }).then(async data => {
           if (data.isSucceed) {
             router.push('/');
-            await createTooltip(`${data.message}, 可以登录啦😊`, 'success', 10000);
+            await createTooltip(`${data.message}, You can log in now😊`, 'success', 10000);
             setTimeout(() => {
               router.push('/login');
             }, 3000);
