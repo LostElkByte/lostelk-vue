@@ -22,6 +22,7 @@
   max-width: 500px;
 }
 .user-data-content-avatar {
+  user-select: none;
   position: relative;
   width: 84px;
   height: 84px;
@@ -87,6 +88,7 @@
   padding-top: 75%;
 }
 .yin-zhang {
+  user-select: none;
   position: absolute;
   width: 135px;
   height: 135px;
@@ -105,6 +107,7 @@
   align-items: center;
 }
 .scrolling-subnav-list {
+  user-select: none;
   width: 100%;
   display: -ms-flexbox;
   display: flex;

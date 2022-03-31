@@ -98,6 +98,7 @@
   width: 1px;
 }
 .header-search-box .search-pop-up {
+  user-select: none;
   position: absolute;
   top: 45px;
   left: 0;

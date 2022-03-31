@@ -11,6 +11,7 @@
 }
 .sidebar .sidebar_toolbar {
   position: relative;
+  user-select: none;
 }
 .sidebar .sidebar_toolbar .sidebar_toolbar_item {
   margin-bottom: 64px;
