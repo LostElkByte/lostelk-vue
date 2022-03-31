@@ -200,7 +200,7 @@
       </div>
       <div class="no-more" v-if="noMore">
         <span></span>
-        <span>没有更多内容了</span>
+        <span>No more users</span>
       </div>
     </div>
   </div>
@@ -344,7 +344,7 @@
       </div>
       <div class="no-more" v-if="noMore">
         <span></span>
-        <span>没有更多内容了</span>
+        <span>No more users</span>
       </div>
     </div>
   </div>
