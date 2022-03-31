@@ -127,6 +127,7 @@ export default defineComponent({
     const typeList = [
       { name: '标签', type: 'tag' },
       { name: '颜色', type: 'color' },
+      { name: '用户', type: 'user' },
     ];
     const typeSwitch = () => {
       typeOpen.value = !typeOpen.value;
@@ -146,6 +147,9 @@ export default defineComponent({
             break;
           case 'color':
             router.push(`/search/color/${searchVal.value}`);
+            break;
+          case 'user':
+            router.push(`/search/user/${searchVal.value}`);
             break;
           default:
             break;
