@@ -2,11 +2,11 @@
   <div class="page">
     <Header :user="loginJudge"></Header>
     <div class="main users-page-main">
-      <div class="search-results">
+      <div class="search-results" v-if="!isNull">
         <h1 class="search-results-heading">
           {{ userName }}
         </h1>
-        <p class="search-results-description">Browse {{ totalCount }} users about {{ userName }}</p>
+        <p class="search-results-description">Browse {{ totalCount }} users about “{{ userName }}”</p>
       </div>
       <div v-if="!isNull" class="users-page-cards">
         <div class="users-card" v-for="(item, index) in userList" :key="index">
@@ -42,13 +42,13 @@
           </div>
         </div>
       </div>
-      <SearchFailure v-else></SearchFailure>
+      <SearchFailure v-else :prompt="`No results found for user ${userName}`"></SearchFailure>
       <div class="loading-more" v-show="isShowLoadingMore">
         <span>Loading more…</span>
       </div>
       <div class="no-more" v-if="noMore">
         <span></span>
-        <span>没有更多了内容了</span>
+        <span>No more users</span>
       </div>
     </div>
 

@@ -1,20 +1,28 @@
 <template>
   <div class="search-failure">
     <div class="search-failure-icon">
-      <svg class="icon icon-size-fill" aria-hidden="true">
-        <use xlink:href="#icon-ku"></use>
-      </svg>
+      <img src="../../assets/images/noData.png" alt="" />
     </div>
-    <p>没有找到想要的图片？点击切换至“全部图片”</p>
-    <button @click="goBack">全部图片</button>
+    <h3>{{ promptProps }}</h3>
+    <p>It seems we can’t find any results based on your search.</p>
+    <button @click="goBack">
+      Load more Shots
+    </button>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { computed, defineComponent } from 'vue';
 import router from '../../router';
 import store from '../../store';
 export default defineComponent({
-  setup() {
+  props: {
+    prompt: {
+      type: String,
+      default: 'No results found',
+    },
+  },
+  setup(props) {
+    const promptProps = computed(() => props.prompt);
     /**
      * 重新加载全部照片
      */
@@ -26,6 +34,7 @@ export default defineComponent({
 
     return {
       goBack,
+      promptProps,
     };
   },
 });
