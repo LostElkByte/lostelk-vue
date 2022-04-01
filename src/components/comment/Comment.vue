@@ -16,14 +16,14 @@
               </svg>
             </div>
             <span class="user-name" v-if="singleComment.user.id === PostUserId">
-              {{ singleComment.user.name }}(作者)
+              {{ singleComment.user.name }}(Author)
             </span>
             <span class="user-name" v-else>
               {{ singleComment.user.name }}
             </span>
           </div>
           <div style="float: right;font-size: 12px;color: #8590a6;">
-            {{ singleComment.create_time ? dayjs.unix(singleComment.create_time).format('YYYY-MM-DD') : '刚刚' }}
+            {{ singleComment.create_time ? dayjs.unix(singleComment.create_time).format('YYYY-MM-DD') : 'recently' }}
           </div>
         </div>
         <div class="commentItem-metaSibling">
@@ -31,7 +31,7 @@
             {{ singleComment.content }}
           </div>
           <div class="comment-text delete-succeed" v-else>
-            该评论已删除
+            The comment was deleted
           </div>
           <div class="comment-toolbar" v-if="!isdeleteSucceed">
             <button
@@ -41,7 +41,7 @@
               <svg class="icon comment-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-icon_huifu-mian"></use>
               </svg>
-              {{ unfoldReplyShow ? '收起回复' : '查看回复' }}
+              {{ unfoldReplyShow ? 'hide reply' : 'show reply' }}
             </button>
             <button
               v-if="isLogin"
@@ -51,13 +51,13 @@
               <svg class="icon comment-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-huifu2"></use>
               </svg>
-              {{ replyShow ? '回复' : '取消回复' }}
+              {{ replyShow ? 'reply' : 'cancel' }}
             </button>
             <button v-else class="comment-buttom comment-buttom-show" @click="goLogin">
               <svg class="icon comment-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-huifu2"></use>
               </svg>
-              回复(点击登录)
+              Reply (click login)
             </button>
             <button
               v-if="singleComment.user.id === singleuserId || singleuserId === 1"
@@ -67,7 +67,7 @@
               <svg class="icon comment-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-bianji"></use>
               </svg>
-              {{ reviseShow ? '修改' : '取消修改' }}
+              {{ reviseShow ? 'modify' : 'cancel' }}
             </button>
             <button
               v-if="singleComment.user.id === singleuserId || singleuserId === 1"
@@ -77,7 +77,7 @@
               <svg class="icon comment-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-icon"></use>
               </svg>
-              删除
+              delete
             </button>
           </div>
           <ValidateForm v-if="!replyShow" :class="['comment-publish-reply-form']">
@@ -85,7 +85,7 @@
               :id="`comment-publish-reply-input-id-${singleComment.id}`"
               class="comment-publish-reply-input"
               type="text"
-              :placeholder="`回复 ${singleComment.user.name}`"
+              :placeholder="`reply ${singleComment.user.name}`"
               v-model="replyCommentVal"
               :value="replyCommentVal"
             >
@@ -93,33 +93,33 @@
             <template v-slot:submit>
               <div :class="['comment-reply-publish', { hidden: !replyCommentButton }]" @click="replyCommentClick">
                 <a href="#" class="comment-publish-reply-form-btn">
-                  回复
+                  reply
                 </a>
               </div>
             </template>
           </ValidateForm>
           <span class="form-error" v-if="isReplyCommentMax">
-            最大可输入长度为60个字符
+            A maximum of 60 characters can be entered
           </span>
           <ValidateForm v-if="!reviseShow" :class="['comment-publish-revise-form']">
             <ValidateInput
               :id="`comment-publish-revise-input-id-${singleComment.id}`"
               class="comment-publish-revise-input"
               type="text"
-              :placeholder="`修改 ${singleComment.content}`"
+              :placeholder="`modify ${singleComment.content}`"
               v-model="reviseCommentVal"
             >
             </ValidateInput>
             <template v-slot:submit>
               <div :class="['comment-revise-publish', { hidden: !reviseCommentButton }]" @click="reviseCommentClick">
                 <a href="#" class="comment-publish-reply-form-btn">
-                  修改
+                  modify
                 </a>
               </div>
             </template>
           </ValidateForm>
           <span class="form-error" v-if="isReviseCommentMax">
-            最大可输入长度为60个字符
+            A maximum of 60 characters can be entered
           </span>
         </div>
       </div>
@@ -141,7 +141,7 @@
     </div>
   </ul>
   <ConfirmationBox v-if="isDelete" @cancelDelete="cancelDelete" @confirmDelete="confirmDelete">
-    你确定要删除这条评论吗?
+    Are you sure you want to delete this comment?
   </ConfirmationBox>
 </template>
 
@@ -340,7 +340,7 @@ export default defineComponent({
           unfoldReplyShow.value = true;
         }
         replyCommentPositioning();
-        createTooltip('评论回复成功', 'success', 3000);
+        createTooltip('Comment reply successful', 'success', 3000);
       });
     };
 
@@ -358,7 +358,7 @@ export default defineComponent({
         reviseShow.value = true;
         // context.emit('reloadComments');
         singleComment.value.content = reviseCommentVal.value;
-        createTooltip('评论修改成功', 'success', 3000);
+        createTooltip('Comments modified successfully', 'success', 3000);
       });
     };
 
@@ -383,7 +383,7 @@ export default defineComponent({
         // context.emit('minusOneCommentsNumber');
         // isdeleteSucceed.value = true;
 
-        createTooltip('评论删除成功', 'success', 3000);
+        createTooltip('Comment deleted successfully', 'success', 3000);
       } catch (error) {
         createTooltip(error as string, 'success', 3000);
       }
