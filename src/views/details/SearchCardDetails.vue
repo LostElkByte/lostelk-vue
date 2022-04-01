@@ -478,6 +478,6 @@ export default defineComponent({
 });
 </script>
 
-<style scoped src="../../style/less/viewsStyle/card-details.css"></style>
-
-<style></style>
+<style scoped>
+@import '../../style/less/viewsStyle/card-details.css';
+</style>

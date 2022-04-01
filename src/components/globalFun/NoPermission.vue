@@ -6,7 +6,7 @@
       </svg>
     </div>
     <slot>
-      <p>没有权限</p>
+      <p>You do not have this permission</p>
     </slot>
   </div>
 </template>
@@ -15,6 +15,6 @@ import { defineComponent } from 'vue';
 export default defineComponent({});
 </script>
 
-<style>
+<style scoped>
 @import '../../style/less/componentsStyle/no-jurisdiction.css';
 </style>

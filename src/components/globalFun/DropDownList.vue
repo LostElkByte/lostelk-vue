@@ -66,7 +66,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 /* @import '../style/componentsStyle/drop-down-list.css'; */
 @import '../../style/less/componentsStyle/drop-down-list.css';
 </style>

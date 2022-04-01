@@ -90,8 +90,8 @@ export default defineComponent({
   },
 });
 </script>
-<style src="../../style/less/viewsStyle/login.css"></style>
 <style scoped>
+@import '../../style/less/viewsStyle/login.css';
 label {
   cursor: pointer;
 }

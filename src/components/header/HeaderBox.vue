@@ -109,6 +109,6 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 @import '../../style/less/componentsStyle/header.css';
 </style>

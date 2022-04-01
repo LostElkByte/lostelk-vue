@@ -252,6 +252,6 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 @import '../../style/less/componentsStyle/header-search.css';
 </style>
