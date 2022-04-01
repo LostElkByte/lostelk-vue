@@ -2,7 +2,7 @@
   <div class="comment" id="commentAnchor">
     <div class="comment-header">
       <div class="comment-sum">
-        {{ commentsNumber != 0 ? commentsNumber + '条评论' : '还没有评论,发表第一个评论吧' }}
+        {{ commentsNumber != 0 ? commentsNumber + 'comments in total' : "No comments yet, let's post the first one" }}
       </div>
     </div>
     <div class="comment-list">
@@ -22,7 +22,7 @@
         <ValidateInput
           class="comment-input"
           type="text"
-          placeholder="写下你的评论"
+          placeholder="Write your comments"
           v-model="publishCommentVal"
           :value="publishCommentVal"
         >
@@ -30,13 +30,13 @@
         <template v-slot:submit>
           <div :class="['comment-groug', { hidden: !publishCommentButton }]" @click="onFormSubmit">
             <a href="#" class="comment-publish-reply-form-btn">
-              发表
+              publish
             </a>
           </div>
         </template>
       </ValidateForm>
       <span class="form-error" v-if="publishCommentMax">
-        最大可输入长度为60个字符
+        A maximum of 60 characters can be entered
       </span>
     </div>
   </div>
@@ -133,7 +133,7 @@ export default defineComponent({
 
     const onFormSubmit = (result: boolean) => {
       if (userId.value === -1) {
-        createTooltip('请先登录', 'error', 3000);
+        createTooltip('Please login first', 'error', 3000);
         return;
       }
       if (result) {
@@ -144,7 +144,7 @@ export default defineComponent({
 
         store.dispatch('publishComments', publishCommentData).then(() => {
           publishCommentVal.value = '';
-          createTooltip('评论成功', 'success', 3000);
+          createTooltip('Comment on success', 'success', 3000);
           // getComment();
           setTimeout(() => {
             const comment = document.getElementById('commentAnchor') as HTMLElement;

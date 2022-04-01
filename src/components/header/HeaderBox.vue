@@ -45,7 +45,7 @@
           </template>
           <template v-slot:dropdown-content>
             <router-link :to="`/@${userId}`">My home page</router-link>
-            <router-link to="/UploadPicture">Published works</router-link>
+            <router-link to="/UploadPicture">publish works</router-link>
             <a href="#" @click="logout">Log out</a>
           </template>
         </DropDownList>
