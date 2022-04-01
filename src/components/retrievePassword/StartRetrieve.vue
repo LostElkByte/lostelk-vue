@@ -16,14 +16,15 @@
         <ValidateForm @form-submit="onFormSubmit">
           <div class="form-group">
             <label for="user_username">
-              邮箱
+              Email
             </label>
             <ValidateInput
+              style=" margin-bottom: 0px;"
               :rules="userEmailRule"
               v-model="userEmailVal"
               class="form-control"
               type="text"
-              placeholder="请输入邮箱"
+              placeholder="Please enter email address"
               id="user_username"
             >
             </ValidateInput>
@@ -32,7 +33,7 @@
           <template v-slot:submit>
             <div class="form-groug">
               <a href="#" class="form-btn">
-                发送密码重置邮件
+                Send a password reset email
               </a>
             </div>
           </template>
@@ -60,8 +61,8 @@ export default defineComponent({
     const userEmailVal = ref('');
     // 定义表单验证规则 发送到 ValidateInput组件中
     const userEmailRule: RulesProp = [
-      { type: 'null', message: '邮箱不能为空' },
-      { type: 'userEmail', message: '请输入正确的邮箱' },
+      { type: 'null', message: 'The email address cannot be empty' },
+      { type: 'userEmail', message: 'Please enter the correct email address' },
     ];
 
     /**

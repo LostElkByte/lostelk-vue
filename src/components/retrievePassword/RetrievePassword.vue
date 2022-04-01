@@ -4,26 +4,26 @@
       <div class="login-center">
         <div class="login-logo">
           <router-link to="/">
-            <img src="../../assets/icons/logoTouMing.png" alt="迷鹿" />
+            <img src="../../assets/icons/logoTouMing.png" alt="LostElk" />
           </router-link>
         </div>
-        <h1 class="login-title">Chang your password</h1>
+        <h1 class="login-title">Modify your password</h1>
         <p class="login-subtitle" style="font-weight: 400;font-size: 14px;">
-          修改您的密码~
+          Modify your password~
         </p>
       </div>
       <div class="from">
         <ValidateForm @form-submit="onFormSubmit">
           <div class="form-group">
             <label for="user_username">
-              新密码
+              new password
             </label>
             <ValidateInput
               :rules="passwordRule"
               v-model="passwordVal"
               class="form-control"
               type="password"
-              placeholder="请输入密码"
+              placeholder="Please enter your password"
               autocomplete="off"
               id="user_password"
             >
@@ -33,7 +33,7 @@
           <template v-slot:submit>
             <div class="form-groug">
               <a href="#" class="form-btn">
-                修改密码
+                Modify the password
               </a>
             </div>
           </template>
@@ -67,8 +67,8 @@ export default defineComponent({
     const passwordVal = ref('');
     // 定义表单验证规则 发送到 ValidateInput组件中
     const passwordRule: RulesProp = [
-      { type: 'null', message: '密码不能为空' },
-      { type: 'password', message: '密码长度在6-16位之间' },
+      { type: 'null', message: 'The password cannot be empty' },
+      { type: 'password', message: 'The password is any 6-16 characters' },
     ];
 
     /**
