@@ -5,19 +5,18 @@
     <div class="main upload-picture_main">
       <ValidateForm @form-submit="onFormSubmit">
         <div class="content">
-          <div>
-            <label for="title">
-              title of works
-            </label>
-            <ValidateInput
-              id="title"
-              type="text"
-              placeholder="the title of works (required)"
-              v-model="headlineVal"
-              :value="headlineVal"
-              :rules="headlineRule"
-            />
-          </div>
+          <label for="title">
+            title of works
+          </label>
+          <ValidateInput
+            id="title"
+            type="text"
+            placeholder="the title of works (required)"
+            v-model="headlineVal"
+            :value="headlineVal"
+            :rules="headlineRule"
+          />
+
           <label for="describe">
             describe
           </label>
@@ -29,6 +28,7 @@
             :value="describeVal"
             :rules="describeRule"
           />
+
           <label for="tag" style="margin-top: 0px;">
             tag
           </label>
@@ -159,7 +159,7 @@ export default defineComponent({
       () => tagVal.value,
       () => {
         if (tagVal.value.length >= 30) {
-          tagRule.value = 'A tag contains a maximum of 20 characters';
+          tagRule.value = 'A tag contains a maximum of 30 characters';
         } else {
           tagRule.value = '';
         }

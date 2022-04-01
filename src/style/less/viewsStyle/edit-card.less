@@ -16,14 +16,15 @@
       width: 570px;
       grid-area: content;
 
-      table {
+      label {
         font-size: 16px;
-        font-weight: 500;
+        font-weight: 700;
         line-height: 22px;
-        color: #0d0c22;
+        color: #111111;
         display: block;
         margin-bottom: 10px;
         margin-top: 30px;
+        cursor: pointer;
       }
 
       input {
@@ -49,6 +50,11 @@
         appearance: none;
         color: #0d0c22;
         background-color: #f3f3f4;
+        &:focus,
+        &:hover {
+          border: 1px solid #f8c8c8;
+          box-shadow: 0px 0px 10px rgb(248, 209, 209);
+        }
       }
 
       textarea {
@@ -76,6 +82,11 @@
         border: 1px solid transparent;
         resize: none;
         min-height: 108px;
+        &:focus,
+        &:hover {
+          border: 1px solid #f8c8c8;
+          box-shadow: 0px 0px 10px rgb(248, 209, 209);
+        }
       }
 
       .choose-tag {
@@ -86,11 +97,25 @@
         cursor: pointer;
         display: inline-block;
         border-radius: 5px;
+        span {
+          word-break: break-all;
+        }
+      }
+
+      .edit-card-form-error {
+        display: block;
+        color: #f1403c;
+        line-height: 16px;
+        font-size: 12px;
+        cursor: text;
+        transition: opacity 0.25s ease;
+        z-index: 1;
       }
 
       .content-tags {
         padding: 20px 0px 10px;
         border-radius: 5px;
+        word-break: break-all;
       }
 
       .content-tags span {

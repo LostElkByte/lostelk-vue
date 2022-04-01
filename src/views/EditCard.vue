@@ -5,35 +5,40 @@
     <div class="main upload-picture_main" v-if="postData && (userId === postData.user.id || userId === 1)">
       <ValidateForm @form-submit="onFormSubmit">
         <div class="content">
-          <table>
-            标题
-          </table>
+          <label for="title">
+            title of works
+          </label>
           <ValidateInput
+            id="title"
             type="text"
-            placeholder="标题"
+            placeholder="the title of works (required)"
             v-model="headlineVal"
             :value="headlineVal"
             :rules="headlineRule"
           />
-          <table>
-            描述
-          </table>
+
+          <label for="describe">
+            describe
+          </label>
           <ValidateInput
+            id="describe"
             :tag="`textarea`"
-            placeholder="可以描述一下您的拍摄灵感、构图、想法..."
+            placeholder="Describe your inspiration, composition, ideas..."
             v-model="describeVal"
             :value="describeVal"
             :rules="describeRule"
           />
-          <table>
-            标签
-          </table>
+
+          <label for="tag" style="margin-top: 0px;">
+            tag
+          </label>
           <ValidateInput
+            id="tag"
             type="text"
-            placeholder="标签"
+            maxlength="30"
+            placeholder=""
             v-model="tagVal"
             :value="tagVal"
-            :rules="tagRule"
             @keyup.enter="addTag"
           />
           <div class="choose-tag" v-if="tagVal != ''" @click="addTag">
@@ -44,6 +49,9 @@
               </svg>
             </span>
           </div>
+          <span class="edit-card-form-error" v-if="tagRule !== ''">
+            {{ tagRule }}
+          </span>
           <div class="content-tags" v-if="tags.length != 0">
             <span v-for="tag in tags" :key="tag.id">
               {{ tag.name }}
@@ -76,7 +84,7 @@
               >
                 <span v-if="imageUploadProgress < 100"> {{ imageUploadProgress + '%' }}</span>
                 <div v-else class="image-upload-await">
-                  <span>正在处理图像,请稍后</span>
+                  <span>Please wait while images are being processed</span>
                   <span class="throbber-loader">Loading&#8230;</span>
                 </div>
               </div>
@@ -97,13 +105,13 @@
 
         <template v-slot:submit>
           <div class="publish">
-            <input ref="isDisabled" type="submit" name="commit" value="保存" class="form-btn" />
+            <input ref="isDisabled" type="submit" name="commit" value="save" class="form-btn" />
           </div>
         </template>
       </ValidateForm>
     </div>
     <NoPermission class="main" v-else-if="postData && (userId !== postData.user.id || !(userId != 1))">
-      <p>您没有编辑这个内容的权限</p>
+      <p>You do not have permission to edit this content</p>
     </NoPermission>
   </div>
 </template>
@@ -111,7 +119,7 @@
 <script lang="ts">
 import axios from 'axios';
 import { lostelkUrl } from '../global';
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import createTooltip from '../components/globalFun/createTooltip';
@@ -153,12 +161,25 @@ export default defineComponent({
     const pictureVal = ref('');
     const tagVal = ref('');
     const headlineRule: RulesProp = [
-      { type: 'null', message: '需要给您的图像起一个名字' },
-      { type: 'headlineMaximum', message: '标题最多15个字符' },
+      { type: 'null', message: 'need to give your photo a name' },
+      { type: 'headlineMaximum', message: 'Headings can contain up to 15 characters' },
     ];
-    const describeRule: RulesProp = [{ type: 'describeMaximum', message: '描述最多个100字符' }];
-    const tagRule: RulesProp = [{ type: 'tagMaximum', message: '单个标签最多20个字符' }];
+    const describeRule: RulesProp = [
+      { type: 'describeMaximum', message: 'The description contains a maximum of 100 characters' },
+    ];
+    const tagRule = ref();
     const pictureRule: RulesProp = [];
+
+    watch(
+      () => tagVal.value,
+      () => {
+        if (tagVal.value.length >= 30) {
+          tagRule.value = 'A tag contains a maximum of 30 characters';
+        } else {
+          tagRule.value = '';
+        }
+      },
+    );
 
     /**
      * 获取当前登陆用户的id

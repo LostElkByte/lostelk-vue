@@ -14,14 +14,15 @@
   width: 570px;
   grid-area: content;
 }
-.upload-picture_main form .content table {
+.upload-picture_main form .content label {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 22px;
-  color: #0d0c22;
+  color: #111111;
   display: block;
   margin-bottom: 10px;
   margin-top: 30px;
+  cursor: pointer;
 }
 .upload-picture_main form .content input {
   border: none;
@@ -44,6 +45,11 @@
   appearance: none;
   color: #0d0c22;
   background-color: #f3f3f4;
+}
+.upload-picture_main form .content input:focus,
+.upload-picture_main form .content input:hover {
+  border: 1px solid #f8c8c8;
+  box-shadow: 0px 0px 10px #f8d1d1;
 }
 .upload-picture_main form .content textarea {
   font-size: 16px;
@@ -69,6 +75,11 @@
   resize: none;
   min-height: 108px;
 }
+.upload-picture_main form .content textarea:focus,
+.upload-picture_main form .content textarea:hover {
+  border: 1px solid #f8c8c8;
+  box-shadow: 0px 0px 10px #f8d1d1;
+}
 .upload-picture_main form .content .choose-tag {
   color: #fff;
   background-color: #93d5dc;
@@ -78,9 +89,22 @@
   display: inline-block;
   border-radius: 5px;
 }
+.upload-picture_main form .content .choose-tag span {
+  word-break: break-all;
+}
+.upload-picture_main form .content .edit-card-form-error {
+  display: block;
+  color: #f1403c;
+  line-height: 16px;
+  font-size: 12px;
+  cursor: text;
+  transition: opacity 0.25s ease;
+  z-index: 1;
+}
 .upload-picture_main form .content .content-tags {
   padding: 20px 0px 10px;
   border-radius: 5px;
+  word-break: break-all;
 }
 .upload-picture_main form .content .content-tags span {
   margin-right: 8px;
