@@ -29,16 +29,16 @@
             :value="describeVal"
             :rules="describeRule"
           />
-          <label for="tag">
+          <label for="tag" style="margin-top: 0px;">
             tag
           </label>
           <ValidateInput
             id="tag"
             type="text"
+            maxlength="30"
             placeholder=""
             v-model="tagVal"
             :value="tagVal"
-            :rules="tagRule"
             @keyup.enter="addTag"
           />
           <div class="choose-tag" v-if="tagVal != ''" @click="addTag">
@@ -49,6 +49,9 @@
               </svg>
             </span>
           </div>
+          <span class="upload-picture-form-error" v-if="tagRule !== ''">
+            {{ tagRule }}
+          </span>
           <div class="content-tags">
             <span v-for="tag in tags" :key="tag">
               {{ tag }}
@@ -106,7 +109,7 @@
 
 <script lang="ts">
 import axios from 'axios';
-import { computed, defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 // import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 import createTooltip from '../components/globalFun/createTooltip';
@@ -149,8 +152,19 @@ export default defineComponent({
     const describeRule: RulesProp = [
       { type: 'describeMaximum', message: 'The description contains a maximum of 100 characters' },
     ];
-    const tagRule: RulesProp = [{ type: 'tagMaximum', message: 'A tag contains a maximum of 20 characters' }];
+    const tagRule = ref();
     const pictureRule: RulesProp = [{ type: 'fileNull', message: 'You need to upload an photo' }];
+
+    watch(
+      () => tagVal.value,
+      () => {
+        if (tagVal.value.length >= 30) {
+          tagRule.value = 'A tag contains a maximum of 20 characters';
+        } else {
+          tagRule.value = '';
+        }
+      },
+    );
 
     /**
      * 监听添加标签的键盘事件
