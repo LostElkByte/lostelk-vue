@@ -1,11 +1,11 @@
 <template>
   <div class="affirm">
     <div class="affirm-tooltip">
-      <h3 class="affirm-title"><slot>你确定要删除吗？</slot></h3>
+      <h3 class="affirm-title"><slot>Are you sure you want to delete it?</slot></h3>
       <div class="affirm-content">
         <div class="affirm-button">
-          <button type="button" class="Button" @click="cancel">取消</button>
-          <button type="button" class="Button Button-black" @click="confirm">确定</button>
+          <button type="button" class="Button" @click="cancel">cancel</button>
+          <button type="button" class="Button Button-black" @click="confirm">confirm</button>
         </div>
       </div>
     </div>
@@ -29,6 +29,6 @@ export default defineComponent({
   },
 });
 </script>
-<style>
+<style scoped>
 @import '../../style/less/componentsStyle/Affirm.css';
 </style>

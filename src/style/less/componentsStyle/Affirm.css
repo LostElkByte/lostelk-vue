@@ -22,9 +22,10 @@
 }
 .affirm-tooltip {
   width: 400px;
-  height: 178px;
+  min-height: 178px;
   background: #fff;
   border-radius: 2px;
+  padding: 0 10px;
 }
 .affirm-title {
   margin-top: 40px;

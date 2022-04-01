@@ -5,7 +5,7 @@
     </svg>
   </div>
   <ConfirmationBox v-if="isDelete" @cancelDelete="cancelDelete" @confirmDelete="confirmDelete">
-    你确定要删除此图像吗?
+    Are you sure you want to delete this photo?
   </ConfirmationBox>
 </template>
 
@@ -94,7 +94,7 @@ export default defineComponent({
 
         // 将body恢复为可以滚动
         document.body.style.overflow = 'auto';
-        createTooltip('图像删除成功', 'success', 3000);
+        createTooltip('Photo deleted successfully', 'success', 3000);
         router.push(routerUrlProps.value);
       });
     };
@@ -109,4 +109,6 @@ export default defineComponent({
 });
 </script>
 
-<style scoped src="../../style/less/componentsStyle/delete-card.css"></style>
+<style scoped>
+@import '../../style/less/componentsStyle/delete-card.css';
+</style>
