@@ -2,11 +2,11 @@
   <div class="user-synopsis margin-bottom-36">
     <form @submit.prevent="submitFrom">
       <div class="input-box">
-        <label for="user-synopsis" class="Edit-account-header">修改个人简介</label>
+        <label for="user-synopsis" class="Edit-account-header">Modify your synopsis</label>
         <textarea
           class="EditUserInput"
           id="user-synopsis"
-          placeholder="输入新的个人简介"
+          placeholder="Enter a new synopsis"
           v-model="newUserSynopsis"
           @blur="newUserSynopsisValidation"
         />
@@ -15,7 +15,7 @@
         </span>
       </div>
       <button class="edit-account-form-submit" type="submit">
-        提交
+        submit
       </button>
     </form>
   </div>
@@ -37,7 +37,7 @@ export default defineComponent({
 
     const newUserSynopsisValidation = () => {
       if (!userSynopsisReg.test(newUserSynopsis.value)) {
-        newUserSynopsisMessage.value = '最多40个字符';
+        newUserSynopsisMessage.value = 'A maximum of 40 characters';
       } else {
         newUserSynopsisMessage.value = '';
       }
@@ -46,11 +46,11 @@ export default defineComponent({
     const submitFrom = async () => {
       let passed = true;
       if (newUserSynopsis.value.trim() == '') {
-        newUserSynopsisMessage.value = '个人简介不能为空';
+        newUserSynopsisMessage.value = 'The synopsis cannot be empty';
         passed = false;
       }
       if (!userSynopsisReg.test(newUserSynopsis.value)) {
-        newUserSynopsisMessage.value = '最多40个字符';
+        newUserSynopsisMessage.value = 'A maximum of 40 characters';
         passed = false;
       }
 
@@ -64,7 +64,7 @@ export default defineComponent({
         try {
           await axios.patch('/users', newUserSynopsisObject).then(() => {
             newUserSynopsisMessage.value = '';
-            createTooltip('修改个人简介成功', 'success', 1000);
+            createTooltip('Modify your synopsis success', 'success', 1000);
             setTimeout(() => {
               router.go(0);
             }, 1000);

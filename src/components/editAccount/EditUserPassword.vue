@@ -2,12 +2,12 @@
   <div class="user-name margin-bottom-36">
     <form @submit.prevent="submitFrom">
       <div class="input-box">
-        <label for="user-password" class="Edit-account-header">修改密码</label>
+        <label for="user-password" class="Edit-account-header">Modify password</label>
         <input
           class="EditUserInput"
           type="password"
           autocomplete="off"
-          placeholder="输入原密码"
+          placeholder="Enter the old password"
           v-model="oldUserPassword"
           @blur="oldUserPasswordValidation"
         />
@@ -20,7 +20,7 @@
           class="EditUserInput"
           type="password"
           autocomplete="off"
-          placeholder="输入新的密码"
+          placeholder="Enter a new password"
           v-model="newUserPassword"
           @blur="newUserPasswordValidation"
         />
@@ -33,7 +33,7 @@
           class="EditUserInput"
           type="password"
           autocomplete="off"
-          placeholder="确认一下新的密码"
+          placeholder="Confirm the new password"
           v-model="affirmUserPassword"
           @blur="affirmUserPasswordValidation"
         />
@@ -42,7 +42,7 @@
         </span>
       </div>
       <button class="edit-account-form-submit" type="submit">
-        提交
+        submit
       </button>
     </form>
   </div>
@@ -74,7 +74,7 @@ export default defineComponent({
 
     const newUserPasswordValidation = () => {
       if (!passwordReg.test(newUserPassword.value)) {
-        newUserPasswordMessage.value = '密码为6-16位的任意组合';
+        newUserPasswordMessage.value = 'The password is any 6-16 characters';
       } else {
         newUserPasswordMessage.value = '';
       }
@@ -82,7 +82,7 @@ export default defineComponent({
 
     const affirmUserPasswordValidation = () => {
       if (affirmUserPassword.value !== newUserPassword.value) {
-        affirmUserPassworMessage.value = '两次输入的密码不一致';
+        affirmUserPassworMessage.value = 'The entered passwords are inconsistent';
       } else {
         affirmUserPassworMessage.value = '';
       }
@@ -91,23 +91,23 @@ export default defineComponent({
     const submitFrom = async () => {
       let passed = true;
       if (oldUserPassword.value.trim() == '') {
-        oldUserPasswordMessage.value = '原密码不能为空';
+        oldUserPasswordMessage.value = 'The old password cannot be empty';
         passed = false;
       }
       if (newUserPassword.value.trim() == '') {
-        newUserPasswordMessage.value = '新密码不能为空';
+        newUserPasswordMessage.value = 'The new password cannot be empty';
         passed = false;
       }
       if (affirmUserPassword.value.trim() == '') {
-        affirmUserPassworMessage.value = '确认密码不能为空';
+        affirmUserPassworMessage.value = 'Confirm password cannot be empty';
         passed = false;
       }
       if (!passwordReg.test(newUserPassword.value)) {
-        newUserPasswordMessage.value = '密码为6-16位的任意组合';
+        newUserPasswordMessage.value = 'The password is any 6-16 characters';
         passed = false;
       }
       if (affirmUserPassword.value !== newUserPassword.value) {
-        affirmUserPassworMessage.value = '两次输入的密码不一致';
+        affirmUserPassworMessage.value = 'The entered passwords are inconsistent';
         passed = false;
       }
 
@@ -126,7 +126,7 @@ export default defineComponent({
             oldUserPassword.value = '';
             newUserPassword.value = '';
             affirmUserPassword.value = '';
-            createTooltip('修改密码成功', 'success', 2000);
+            createTooltip('Modify password success', 'success', 2000);
           });
         } catch (error) {
           oldUserPassword.value = '';

@@ -2,12 +2,12 @@
   <div class="user-name margin-bottom-36">
     <form @submit.prevent="submitFrom">
       <div class="input-box">
-        <label for="user-name" class="Edit-account-header">修改用户名</label>
+        <label for="user-name" class="Edit-account-header">Modify user ame</label>
         <input
           class="EditUserInput"
           type="text"
           id="user-name"
-          placeholder="输入新的用户名"
+          placeholder="Enter a new user name"
           v-model="newUserName"
           @blur="newUserNameValidation"
         />
@@ -20,7 +20,7 @@
           class="EditUserInput"
           type="password"
           autocomplete="off"
-          placeholder="输入密码"
+          placeholder="Enter the password"
           v-model="userPassword"
           @blur="userPasswordValidation"
         />
@@ -29,7 +29,7 @@
         </span>
       </div>
       <button class="edit-account-form-submit" type="submit">
-        提交
+        submit
       </button>
     </form>
   </div>
@@ -53,7 +53,7 @@ export default defineComponent({
 
     const newUserNameValidation = () => {
       if (!userNameReg.test(newUserName.value)) {
-        newUserNameMessage.value = '仅限于字母、数字、下划线,最多20个字符';
+        newUserNameMessage.value = 'Limited to letters, digits, and underscores (_)';
       } else {
         newUserNameMessage.value = '';
       }
@@ -66,15 +66,15 @@ export default defineComponent({
     const submitFrom = async () => {
       let passed = true;
       if (newUserName.value.trim() == '') {
-        newUserNameMessage.value = '用户名不能为空';
+        newUserNameMessage.value = 'The user name cannot be empty';
         passed = false;
       }
       if (!userNameReg.test(newUserName.value)) {
-        newUserNameMessage.value = '仅限于字母、数字、下划线,最多20个字符';
+        newUserNameMessage.value = 'Limited to letters, digits, and underscores (_)';
         passed = false;
       }
       if (userPassword.value.trim() == '') {
-        newPasswordMessage.value = '密码不能为空';
+        newPasswordMessage.value = 'The password cannot be empty';
         passed = false;
       }
 
@@ -92,7 +92,7 @@ export default defineComponent({
           await axios.patch('/users', newUserNameObject).then(() => {
             newUserNameMessage.value = '';
             newPasswordMessage.value = '';
-            createTooltip('修改用户名成功', 'success', 1000);
+            createTooltip('Modify user name success', 'success', 1000);
             setTimeout(() => {
               router.go(0);
             }, 1000);

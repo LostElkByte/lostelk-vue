@@ -1,7 +1,7 @@
 <template>
   <div class="edit-avatar margin-bottom-36">
     <div class="avatar">
-      <h2 class="Edit-account-header">设置头像</h2>
+      <h2 class="Edit-account-header">Setting user avatar</h2>
       <form class="avatar-form" @submit.prevent="submitFrom">
         <div class="choose-before">
           <div class="avatar-img">
@@ -26,18 +26,18 @@
             accept="image/png, image/jpeg, image/jpg"
           />
           <label for="avatar" class="avatar-form-choose" v-if="!imagePreviewUrl">
-            选择头像
+            choose user avatar
           </label>
         </div>
         <div class="choose-then" v-if="imagePreviewUrl">
           <label for="avatar" class="avatar-form-choose">
-            重新选择
+            reselect
           </label>
           <div class="avatar-form-choose" @click="cancel">
-            取消
+            cancel
           </div>
           <button class="avatar-form-choose" type="submit">
-            提交
+            submit
           </button>
         </div>
       </form>
@@ -109,14 +109,18 @@ export default defineComponent({
         fileRef.value.value = '';
         fileData.value = null;
 
-        await createTooltip('修改头像成功', 'success', 1000);
+        await createTooltip('Modify user avatar success', 'success', 1000);
 
         setTimeout(() => {
           router.go(0);
         }, 1000);
       } catch (error) {
         console.log(error);
-        await createTooltip('上传失败,可能是您的照片不符合要求或网络波动', 'error', 3000);
+        await createTooltip(
+          'Upload failed, your photos may not meet the requirements or network fluctuations',
+          'error',
+          3000,
+        );
       }
     };
 
