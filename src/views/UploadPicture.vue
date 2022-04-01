@@ -70,7 +70,7 @@
               >
                 <span v-if="imageUploadProgress < 100"> {{ imageUploadProgress + '%' }}</span>
                 <div v-else class="image-upload-await">
-                  <span>Image processing, please wait</span>
+                  <span>Please wait while images are being processed</span>
                   <span class="throbber-loader">Loading&#8230;</span>
                 </div>
               </div>
@@ -144,7 +144,7 @@ export default defineComponent({
     const describeRule: RulesProp = [
       { type: 'describeMaximum', message: 'The description contains a maximum of 100 characters' },
     ];
-    const tagRule: RulesProp = [{ type: 'tagMaximum', message: 'The tag contains a maximum of 20 characters' }];
+    const tagRule: RulesProp = [{ type: 'tagMaximum', message: 'A tag contains a maximum of 20 characters' }];
     const pictureRule: RulesProp = [{ type: 'fileNull', message: 'You need to upload an photo' }];
 
     /**
