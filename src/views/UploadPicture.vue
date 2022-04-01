@@ -5,30 +5,35 @@
     <div class="main upload-picture_main">
       <ValidateForm @form-submit="onFormSubmit">
         <div class="content">
-          <table>
-            title of works
-          </table>
-          <ValidateInput
-            type="text"
-            placeholder="the title of works (required)"
-            v-model="headlineVal"
-            :value="headlineVal"
-            :rules="headlineRule"
-          />
-          <table>
+          <div>
+            <label for="title">
+              title of works
+            </label>
+            <ValidateInput
+              id="title"
+              type="text"
+              placeholder="the title of works (required)"
+              v-model="headlineVal"
+              :value="headlineVal"
+              :rules="headlineRule"
+            />
+          </div>
+          <label for="describe">
             describe
-          </table>
+          </label>
           <ValidateInput
+            id="describe"
             :tag="`textarea`"
             placeholder="Describe your inspiration, composition, ideas..."
             v-model="describeVal"
             :value="describeVal"
             :rules="describeRule"
           />
-          <table>
+          <label for="tag">
             tag
-          </table>
+          </label>
           <ValidateInput
+            id="tag"
             type="text"
             placeholder=""
             v-model="tagVal"

@@ -16,7 +16,7 @@
       width: 570px;
       grid-area: content;
 
-      table {
+      label {
         font-size: 16px;
         font-weight: 700;
         line-height: 22px;
@@ -24,6 +24,7 @@
         display: block;
         margin-bottom: 10px;
         margin-top: 30px;
+        cursor: pointer;
       }
 
       input {
@@ -98,11 +99,15 @@
         cursor: pointer;
         display: inline-block;
         border-radius: 5px;
+        span {
+          word-break: break-all;
+        }
       }
 
       .content-tags {
         padding: 20px 0px 10px;
         border-radius: 5px;
+        word-break: break-all;
       }
 
       .content-tags span {

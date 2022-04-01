@@ -14,7 +14,7 @@
   width: 570px;
   grid-area: content;
 }
-.upload-picture_main form .content table {
+.upload-picture_main form .content label {
   font-size: 16px;
   font-weight: 700;
   line-height: 22px;
@@ -22,6 +22,7 @@
   display: block;
   margin-bottom: 10px;
   margin-top: 30px;
+  cursor: pointer;
 }
 .upload-picture_main form .content input {
   display: block;
@@ -89,9 +90,13 @@
   display: inline-block;
   border-radius: 5px;
 }
+.upload-picture_main form .content .choose-tag span {
+  word-break: break-all;
+}
 .upload-picture_main form .content .content-tags {
   padding: 20px 0px 10px;
   border-radius: 5px;
+  word-break: break-all;
 }
 .upload-picture_main form .content .content-tags span {
   margin-right: 8px;
