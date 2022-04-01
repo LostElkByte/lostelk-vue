@@ -19,7 +19,7 @@
             </div>
             <span>
               <span class="user-name" v-if="PostUserId === replyComment.user.id">
-                {{ replyComment.user.name }}(作者)
+                {{ replyComment.user.name }}(Author)
               </span>
               <span class="user-name" v-else>
                 {{ replyComment.user.name }}
@@ -27,7 +27,7 @@
             </span>
           </span>
           <span class="commentText-reply">
-            回复
+            reply
           </span>
           <!-- 被回复用户 -->
           <span @click="toUserPage(replyComment.replyUser.id)">
@@ -43,7 +43,7 @@
               </svg>
             </div>
             <span class="user-link" v-if="PostUserId === replyComment.replyUser.id">
-              {{ replyComment ? replyComment.replyUser.name : '' }}(作者)
+              {{ replyComment ? replyComment.replyUser.name : '' }}(Author)
             </span>
             <span class="user-link" v-else>
               {{ replyComment ? replyComment.replyUser.name : '' }}
@@ -51,7 +51,7 @@
           </span>
         </div>
         <div style="float: right;font-size: 12px;color: #8590a6;">
-          {{ singleComment.create_time ? dayjs.unix(singleComment.create_time).format('YYYY-MM-DD') : '刚刚' }}
+          {{ singleComment.create_time ? dayjs.unix(singleComment.create_time).format('YYYY-MM-DD') : 'recently' }}
         </div>
       </div>
       <!-- 回复内容 -->
@@ -60,20 +60,20 @@
           {{ replyComment.content }}
         </div>
         <div class="comment-text delete-succeed" v-else>
-          该评论已删除
+          The comment was deleted
         </div>
         <div class="comment-toolbar" v-if="!isdeleteSucceed">
           <button v-if="isLogin" :class="['comment-buttom', 'comment-buttom-show']" @click="showReplyInput">
             <svg class="icon comment-buttom-icon" aria-hidden="true">
               <use xlink:href="#icon-huifu2"></use>
             </svg>
-            {{ replyShow ? '回复' : '取消回复' }}
+            {{ replyShow ? 'reply' : 'cancel' }}
           </button>
           <button v-else class="comment-buttom comment-buttom-show" @click="goLogin">
             <svg class="icon comment-buttom-icon" aria-hidden="true">
               <use xlink:href="#icon-huifu2"></use>
             </svg>
-            回复(点击登录)
+            Reply (click login)
           </button>
           <button
             v-if="replyComment.user.id === singleuserId || singleuserId === 1"
@@ -83,7 +83,7 @@
             <svg class="icon comment-buttom-icon" aria-hidden="true">
               <use xlink:href="#icon-bianji"></use>
             </svg>
-            {{ reviseShow ? '修改' : '取消修改' }}
+            {{ reviseShow ? 'modify' : 'cancel' }}
           </button>
           <button
             v-if="replyComment.user.id === singleuserId || singleuserId === 1"
@@ -93,7 +93,7 @@
             <svg class="icon comment-buttom-icon" aria-hidden="true">
               <use xlink:href="#icon-icon"></use>
             </svg>
-            删除
+            delete
           </button>
         </div>
         <ValidateForm v-if="!replyShow" :class="['comment-publish-reply-form']">
@@ -101,7 +101,7 @@
             :id="`reply-comment-publish-reply-input-id-${replyComment.id}`"
             class="comment-publish-reply-input"
             type="text"
-            :placeholder="`回复 ${replyComment.user.name}`"
+            :placeholder="`reply ${replyComment.user.name}`"
             v-model="replyCommentVal"
             :value="replyCommentVal"
           >
@@ -109,39 +109,39 @@
           <template v-slot:submit>
             <div :class="['comment-reply-publish', { hidden: !replyCommentButton }]" @click="replyCommentClick">
               <a href="#" class="comment-publish-reply-form-btn">
-                回复
+                reply
               </a>
             </div>
           </template>
         </ValidateForm>
         <span class="form-error" v-if="isReplyCommentMax">
-          最大可输入长度为60个字符
+          A maximum of 60 characters can be entered
         </span>
         <ValidateForm v-if="!reviseShow" :class="['comment-publish-revise-form']">
           <ValidateInput
             :id="`reply-comment-publish-revise-input-id-${replyComment.id}`"
             class="comment-publish-revise-input"
             type="text"
-            :placeholder="`修改 ${replyComment.content}`"
+            :placeholder="`modify ${replyComment.content}`"
             v-model="reviseReplyCommentVal"
           >
           </ValidateInput>
           <template v-slot:submit>
             <div :class="['comment-revise-publish', { hidden: !reviseCommentButton }]" @click="reviseCommentClick">
               <a href="#" class="comment-publish-reply-form-btn">
-                修改
+                modify
               </a>
             </div>
           </template>
         </ValidateForm>
         <span class="form-error" v-if="isReviseReplyCommentMax">
-          最大可输入长度为60个字符
+          A maximum of 60 characters can be entered
         </span>
       </div>
     </div>
   </li>
   <ConfirmationBox v-if="isDelete" @cancelDelete="cancelDelete" @confirmDelete="confirmDelete">
-    你确定要删除这条回复评论吗?
+    Are you sure you want to delete this comment?
   </ConfirmationBox>
 </template>
 
@@ -309,7 +309,7 @@ export default defineComponent({
         // context.emit('reloadReplyComments');
         replyCommentVal.value = '';
         context.emit('replyCommentPositioning');
-        createTooltip('评论回复成功', 'success', 3000);
+        createTooltip('Comment reply successful', 'success', 3000);
       });
     };
 
@@ -327,7 +327,7 @@ export default defineComponent({
         replyShow.value = true;
         reviseShow.value = true;
         replyComment.value.content = reviseReplyCommentVal.value;
-        createTooltip('评论修改成功', 'success', 3000);
+        createTooltip('Comments modified successfully', 'success', 3000);
       });
     };
 
@@ -349,7 +349,7 @@ export default defineComponent({
       try {
         await store.dispatch('deleteReplyComment', replyComment.value ? replyComment.value.id : '');
         isdeleteSucceed.value = true;
-        createTooltip('评论删除成功', 'success', 3000);
+        createTooltip('Comment deleted successfully', 'success', 3000);
       } catch (error) {
         // createTooltip(message, 'success', 3000);
       }
