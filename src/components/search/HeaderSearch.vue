@@ -113,7 +113,7 @@
         class="search-no-data"
         v-show="noDataIsShow && tagCardTotal <= 0 && colorCardTotal <= 0 && userCardTotal <= 0"
       >
-        没找到有关<span style="font-weight: 700;">“{{ searchVal }}”</span>的结果
+        No results were found for <span style="font-weight: 700;">“{{ searchVal }}”</span>
       </div>
     </div>
   </div>
