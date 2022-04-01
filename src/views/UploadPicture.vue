@@ -29,7 +29,7 @@
             :rules="describeRule"
           />
 
-          <label for="tag" style="margin-top: 0px;">
+          <label for="tag">
             tag
           </label>
           <ValidateInput
