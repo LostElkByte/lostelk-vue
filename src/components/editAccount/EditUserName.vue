@@ -2,7 +2,7 @@
   <div class="user-name margin-bottom-36">
     <form @submit.prevent="submitFrom">
       <div class="input-box">
-        <label for="user-name" class="Edit-account-header">Modify user ame</label>
+        <label for="user-name" class="Edit-account-header">Change user ame</label>
         <input
           class="EditUserInput"
           type="text"
@@ -92,7 +92,7 @@ export default defineComponent({
           await axios.patch('/users', newUserNameObject).then(() => {
             newUserNameMessage.value = '';
             newPasswordMessage.value = '';
-            createTooltip('Modify user name success', 'success', 1000);
+            createTooltip('Change user name success', 'success', 1000);
             setTimeout(() => {
               router.go(0);
             }, 1000);

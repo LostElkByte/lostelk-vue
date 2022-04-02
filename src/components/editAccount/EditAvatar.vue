@@ -109,7 +109,7 @@ export default defineComponent({
         fileRef.value.value = '';
         fileData.value = null;
 
-        await createTooltip('Modify user avatar success', 'success', 1000);
+        await createTooltip('Change user avatar success', 'success', 1000);
 
         setTimeout(() => {
           router.go(0);

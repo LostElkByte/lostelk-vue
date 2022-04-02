@@ -67,7 +67,7 @@
               <svg class="icon comment-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-bianji"></use>
               </svg>
-              {{ reviseShow ? 'modify' : 'cancel' }}
+              {{ reviseShow ? 'change' : 'cancel' }}
             </button>
             <button
               v-if="singleComment.user.id === singleuserId || singleuserId === 1"
@@ -106,14 +106,14 @@
               :id="`comment-publish-revise-input-id-${singleComment.id}`"
               class="comment-publish-revise-input"
               type="text"
-              :placeholder="`modify ${singleComment.content}`"
+              :placeholder="`change ${singleComment.content}`"
               v-model="reviseCommentVal"
             >
             </ValidateInput>
             <template v-slot:submit>
               <div :class="['comment-revise-publish', { hidden: !reviseCommentButton }]" @click="reviseCommentClick">
                 <a href="#" class="comment-publish-reply-form-btn">
-                  modify
+                  change
                 </a>
               </div>
             </template>

@@ -2,7 +2,7 @@
   <div class="user-name margin-bottom-36">
     <form @submit.prevent="submitFrom">
       <div class="input-box">
-        <label for="user-password" class="Edit-account-header">Modify password</label>
+        <label for="user-password" class="Edit-account-header">Change password</label>
         <input
           class="EditUserInput"
           type="password"
@@ -126,7 +126,7 @@ export default defineComponent({
             oldUserPassword.value = '';
             newUserPassword.value = '';
             affirmUserPassword.value = '';
-            createTooltip('Modify password success', 'success', 2000);
+            createTooltip('Change password success', 'success', 2000);
           });
         } catch (error) {
           oldUserPassword.value = '';

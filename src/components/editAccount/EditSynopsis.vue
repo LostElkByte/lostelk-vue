@@ -2,7 +2,7 @@
   <div class="user-synopsis margin-bottom-36">
     <form @submit.prevent="submitFrom">
       <div class="input-box">
-        <label for="user-synopsis" class="Edit-account-header">Modify your synopsis</label>
+        <label for="user-synopsis" class="Edit-account-header">Change your synopsis</label>
         <textarea
           class="EditUserInput"
           id="user-synopsis"
@@ -64,7 +64,7 @@ export default defineComponent({
         try {
           await axios.patch('/users', newUserSynopsisObject).then(() => {
             newUserSynopsisMessage.value = '';
-            createTooltip('Modify your synopsis success', 'success', 1000);
+            createTooltip('Change your synopsis success', 'success', 1000);
             setTimeout(() => {
               router.go(0);
             }, 1000);

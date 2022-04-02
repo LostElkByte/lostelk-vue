@@ -7,9 +7,9 @@
             <img src="../../assets/icons/logoTouMing.png" alt="LostElk" />
           </router-link>
         </div>
-        <h1 class="login-title">Modify your password</h1>
+        <h1 class="login-title">Change your password</h1>
         <p class="login-subtitle" style="font-weight: 400;font-size: 14px;">
-          Modify your password~
+          Change your password~
         </p>
       </div>
       <div class="from">
@@ -33,7 +33,7 @@
           <template v-slot:submit>
             <div class="form-groug">
               <a href="#" class="form-btn">
-                Modify the password
+                Change the password
               </a>
             </div>
           </template>
