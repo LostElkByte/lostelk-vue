@@ -26,11 +26,11 @@
               </span>
             </span>
           </span>
-          <span class="commentText-reply">
+          <!-- <span class="commentText-reply">
             reply
-          </span>
+          </span> -->
           <!-- 被回复用户 -->
-          <span @click="toUserPage(replyComment.replyUser.id)">
+          <!-- <span @click="toUserPage(replyComment.replyUser.id)">
             <div class="commentItem-avatar">
               <img
                 v-if="replyComment.replyUser.avatar"
@@ -48,7 +48,7 @@
             <span class="user-link" v-else>
               {{ replyComment ? replyComment.replyUser.name : '' }}
             </span>
-          </span>
+          </span> -->
         </div>
         <div style="float: right;font-size: 12px;color: #8590a6;">
           {{ singleComment.create_time ? dayjs.unix(singleComment.create_time).format('YYYY-MM-DD') : 'recently' }}
@@ -56,8 +56,19 @@
       </div>
       <!-- 回复内容 -->
       <div class="commentItem-metaSibling">
-        <div class="comment-text" v-if="!isdeleteSucceed">
-          {{ replyComment.content }}
+        <div style="word-break:break-all" class="comment-text" v-if="!isdeleteSucceed">
+          <span style="">reply</span>
+          <span
+            v-if="PostUserId === replyComment.replyUser.id"
+            style="color:#6390df; cursor: pointer;"
+            @click="toUserPage(replyComment.replyUser.id)"
+          >
+            @{{ replyComment.replyUser.name }} (Author)
+          </span>
+          <span v-else style="color:#6390df; cursor: pointer;" @click="toUserPage(replyComment.replyUser.id)">
+            @{{ replyComment.replyUser.name }}
+          </span>
+          :{{ replyComment.content }}
         </div>
         <div class="comment-text delete-succeed" v-else>
           The comment was deleted

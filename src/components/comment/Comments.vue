@@ -2,7 +2,7 @@
   <div class="comment" id="commentAnchor">
     <div class="comment-header">
       <div class="comment-sum">
-        {{ commentsNumber != 0 ? commentsNumber + 'comments in total' : "No comments yet, let's post the first one" }}
+        {{ commentsNumber != 0 ? commentsNumber + '  comments in total' : "No comments yet, let's post the first one" }}
       </div>
     </div>
     <div class="comment-list">
