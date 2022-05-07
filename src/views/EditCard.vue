@@ -409,7 +409,7 @@ export default defineComponent({
 
         //修改完毕 恢复提交按钮功能与样式
         isDisabled.value.removeAttribute('disabled');
-        isDisabled.value.value = '保存';
+        isDisabled.value.value = 'save';
 
         // 如果错误信息存在 则清空
         if (uploaderror.value) {
@@ -439,7 +439,7 @@ export default defineComponent({
           }
 
           // 如果上传成功,执行成功提示;
-          await createTooltip('修改成功', 'success', 3000);
+          await createTooltip('Modify the success', 'success', 3000);
 
           await setTimeout(() => {
             router.push(`${uploadAfterToUrl.value}`);
