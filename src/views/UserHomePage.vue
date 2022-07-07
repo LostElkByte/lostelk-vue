@@ -8,7 +8,10 @@
         <div class="container-large">
           <div class="user-data-images">
             <div class="user-data-image">
-              <div id="color-block-container" class="user-data-color-block-container"></div>
+              <div
+                id="color-block-container"
+                class="user-data-color-block-container"
+              ></div>
               <div
                 v-if="userPhotosCardlist[0]"
                 class="masthead-banner-image"
@@ -18,16 +21,29 @@
                     : ''
                 "
               >
-                <img class="yin-zhang" src="../assets/images/yinZhang.png" alt="" />
+                <img
+                  class="yin-zhang"
+                  src="../assets/images/yinZhang.png"
+                  alt=""
+                />
               </div>
             </div>
           </div>
           <canvas style="display: none" id="canvas"></canvas>
           <div class="user-data-content" v-if="userData">
             <div class="user-data-content-avatar">
-              <img v-if="userData.avatar" :src="`${lostelkUrl}/users/${userData.id}/avatar`" :alt="userData.name" />
+              <img
+                v-if="userData.avatar"
+                :src="`${lostelkUrl}/users/${userData.id}/avatar`"
+                :alt="userData.name"
+              />
 
-              <svg v-else class="icon" aria-hidden="true" style="width: 100%;height: 100%">
+              <svg
+                v-else
+                class="icon"
+                aria-hidden="true"
+                style="width: 100%;height: 100%"
+              >
                 <use xlink:href="#icon-touxiangnvhai"></use>
               </svg>
             </div>
@@ -36,7 +52,9 @@
             </div>
             <div class="user-data-content-intro">
               <h2 v-if="userData.synopsis">'{{ userData.synopsis }}'</h2>
-              <h2 v-else>'Hello, my name is {{ userData.name }}. Nice to meet you!'</h2>
+              <h2 v-else>
+                'Hello, my name is {{ userData.name }}. Nice to meet you!'
+              </h2>
             </div>
           </div>
         </div>
@@ -49,7 +67,8 @@
                 <svg class="icon scrolling-subnav-icon" aria-hidden="true">
                   <use xlink:href="#icon-zhaopian"></use>
                 </svg>
-                <span>Photos</span> <span>{{ userPhotosCardTotalCount }}</span>
+                <span>Photos</span>
+                <span>{{ userPhotosCardTotalCount }}</span>
               </li>
             </router-link>
 
@@ -81,7 +100,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted, watch, onUnmounted } from 'vue';
+import {
+  defineComponent,
+  computed,
+  ref,
+  onMounted,
+  watch,
+  onUnmounted
+} from 'vue';
 import { useStore } from 'vuex';
 import { lostelkUrl } from '../global';
 import Header from '../components/header/HeaderBox.vue';
@@ -93,14 +119,14 @@ export default defineComponent({
   name: 'UserHomePage',
   components: {
     Header,
-    Sidebar,
+    Sidebar
   },
   props: {
     cardColumn: Number,
     UserId: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
 
   setup(props) {
@@ -136,16 +162,19 @@ export default defineComponent({
      * 获取指定用户发表的内容列表
      */
     const userPhotosCardlist = computed(() => store.state.userPhotosCardList);
-    const userPhotosCardTotalCount = computed(() => store.state.userPhotosCardTotalCount);
+    const userPhotosCardTotalCount = computed(
+      () => store.state.userPhotosCardTotalCount
+    );
     const fileMetadata = ref();
     store.dispatch('getUserPhotosCardList', UserIdProp.value).then(res => {
       // 请求获取图像文件元信息
       if (!res.data[0]) return;
       store.dispatch('getFileMetadata', res.data[0].file.id).then(data => {
         if (data.mainColor) {
-          const colorBlock = document.getElementById('color-block-container') as HTMLElement;
-          const bgc = `(${data.mainColor[0]},${data.mainColor[1]},${data.mainColor[2]})`;
-          colorBlock.style.backgroundColor = `rgb${bgc}`;
+          const colorBlock = document.getElementById(
+            'color-block-container'
+          ) as HTMLElement;
+          colorBlock.style.backgroundColor = data.mainColor;
         }
       });
     });
@@ -158,21 +187,26 @@ export default defineComponent({
       () => {
         // 请求获取图像文件元信息
         if (!userPhotosCardlist.value[0]) return;
-        store.dispatch('getFileMetadata', userPhotosCardlist.value[0].file.id).then(data => {
-          if (data.mainColor) {
-            const colorBlock = document.getElementById('color-block-container') as HTMLElement;
-            const bgc = `(${data.mainColor[0]},${data.mainColor[1]},${data.mainColor[2]})`;
-            colorBlock.style.backgroundColor = `rgb${bgc}`;
-          }
-        });
-      },
+        store
+          .dispatch('getFileMetadata', userPhotosCardlist.value[0].file.id)
+          .then(data => {
+            if (data.mainColor) {
+              const colorBlock = document.getElementById(
+                'color-block-container'
+              ) as HTMLElement;
+              colorBlock.style.backgroundColor = data.mainColor;
+            }
+          });
+      }
     );
 
     /**
      * 获取指定用户喜欢的内容列表
      */
     const userLikeCardlist = computed(() => store.state.userLikeCardList);
-    const userLikeCardTotalCount = computed(() => store.state.userLikeCardTotalCount);
+    const userLikeCardTotalCount = computed(
+      () => store.state.userLikeCardTotalCount
+    );
     store.dispatch('getUserLikeCardList', UserIdProp.value);
 
     /**
@@ -183,11 +217,16 @@ export default defineComponent({
       () => {
         if (route.params.UserId) {
           try {
-            store.dispatch('getUserPhotosCardList', Number(route.params.UserId));
+            store.dispatch(
+              'getUserPhotosCardList',
+              Number(route.params.UserId)
+            );
             store.dispatch('getUserLikeCardList', Number(route.params.UserId));
-            axios.get(`${lostelkUrl}/users/${Number(route.params.UserId)}`).then(data => {
-              userData.value = data.data;
-            });
+            axios
+              .get(`${lostelkUrl}/users/${Number(route.params.UserId)}`)
+              .then(data => {
+                userData.value = data.data;
+              });
           } catch (error) {
             console.log(error);
           }
@@ -195,7 +234,7 @@ export default defineComponent({
           document.documentElement.scrollTop = 0;
           document.body.scrollTop = 0;
         }
-      },
+      }
     );
 
     onMounted(() => {
@@ -222,9 +261,9 @@ export default defineComponent({
       userId,
       userLikeCardTotalCount,
       userLikeCardlist,
-      fileMetadata,
+      fileMetadata
     };
-  },
+  }
 });
 </script>
 
