@@ -26,7 +26,11 @@
             <div class="right"></div>
           </div>
         </div>
-        <div class="search-pop-up-skeleton-item" v-for="index in 4" :key="index">
+        <div
+          class="search-pop-up-skeleton-item"
+          v-for="index in 4"
+          :key="index"
+        >
           <div class="left"></div>
           <div class="right">
             <div class="top"></div>
@@ -46,7 +50,10 @@
           @click.stop="aSinglePicture('tag', item.id)"
         >
           <div class="search-pop-up-item-details-img">
-            <img :src="`${lostelkUrl}/files/${item.file.id}/serve?size=large`" :alt="item.title" />
+            <img
+              :src="`${lostelkUrl}/files/${item.file.id}/serve?size=large`"
+              :alt="item.title"
+            />
           </div>
           <div class="search-pop-up-item-details-describe">
             <div class="title">
@@ -57,7 +64,9 @@
             </div>
           </div>
         </div>
-        <p class="search-pop-up-item-all" @click.stop="allRelevant('tag')">View photos in all related tags</p>
+        <p class="search-pop-up-item-all" @click.stop="allRelevant('tag')">
+          View photos in all related tags
+        </p>
       </div>
       <div class="search-pop-up-item" v-show="colorCardTotal > 0">
         <p class="search-pop-up-item-type">Color ( {{ colorCardTotal }} )</p>
@@ -68,7 +77,10 @@
           @click.stop="aSinglePicture('color', item.id)"
         >
           <div class="search-pop-up-item-details-img">
-            <img :src="`${lostelkUrl}/files/${item.file.id}/serve?size=large`" :alt="item.title" />
+            <img
+              :src="`${lostelkUrl}/files/${item.file.id}/serve?size=large`"
+              :alt="item.title"
+            />
           </div>
           <div class="search-pop-up-item-details-describe">
             <div class="title">
@@ -79,7 +91,9 @@
             </div>
           </div>
         </div>
-        <p class="search-pop-up-item-all" @click.stop="allRelevant('color')">View photos in all relevant colors</p>
+        <p class="search-pop-up-item-all" @click.stop="allRelevant('color')">
+          View photos in all relevant colors
+        </p>
       </div>
       <div class="search-pop-up-item" v-show="userCardTotal > 0">
         <p class="search-pop-up-item-type">User ( {{ userCardTotal }} )</p>
@@ -96,7 +110,12 @@
               :src="`${lostelkUrl}/users/${item.id}/avatar?size=small`"
               :alt="item.name"
             />
-            <svg v-else style="width: 100%;height: 100%;" class="icon" aria-hidden="true">
+            <svg
+              v-else
+              style="width: 100%;height: 100%;"
+              class="icon"
+              aria-hidden="true"
+            >
               <use xlink:href="#icon-touxiangnvhai"></use>
             </svg>
           </div>
@@ -107,13 +126,21 @@
             <!-- <div class="user-name"></div> -->
           </div>
         </div>
-        <p class="search-pop-up-item-all" @click.stop="allRelevant('user')">View all relevant users</p>
+        <p class="search-pop-up-item-all" @click.stop="allRelevant('user')">
+          View all relevant users
+        </p>
       </div>
       <div
         class="search-no-data"
-        v-show="noDataIsShow && tagCardTotal <= 0 && colorCardTotal <= 0 && userCardTotal <= 0"
+        v-show="
+          noDataIsShow &&
+            tagCardTotal <= 0 &&
+            colorCardTotal <= 0 &&
+            userCardTotal <= 0
+        "
       >
-        No results were found for <span style="font-weight: 700;">“{{ searchVal }}”</span>
+        No results were found for
+        <span style="font-weight: 700;">“{{ searchVal }}”</span>
       </div>
     </div>
   </div>
@@ -167,11 +194,20 @@ export default defineComponent({
         searchPopUpIsShow.value = true;
         noDataIsShow.value = false;
         store.commit('setIsShowLoading', false);
-        const tagRes = await store.dispatch('getSearchValCardBriefList', { val: searchVal.value, type: 'tag' });
+        const tagRes = await store.dispatch('getSearchValCardBriefList', {
+          val: searchVal.value,
+          type: 'tag'
+        });
         store.commit('setIsShowLoading', false);
-        const colorRes = await store.dispatch('getSearchValCardBriefList', { val: searchVal.value, type: 'color' });
+        const colorRes = await store.dispatch('getSearchValCardBriefList', {
+          val: searchVal.value,
+          type: 'color'
+        });
         store.commit('setIsShowLoading', false);
-        const userRes = await store.dispatch('getSearchValCardBriefList', { val: searchVal.value, type: 'user' });
+        const userRes = await store.dispatch('getSearchValCardBriefList', {
+          val: searchVal.value,
+          type: 'user'
+        });
         tagCardList.value = tagRes.data.slice(0, 4);
         tagCardTotal.value = tagRes.headers['x-total-count'];
         colorCardList.value = colorRes.data.slice(0, 4);
@@ -227,7 +263,7 @@ export default defineComponent({
 
     const search = () => {
       if (searchVal.value) {
-        console.log(1);
+        // console.log(1);
       }
     };
     return {
@@ -246,9 +282,9 @@ export default defineComponent({
       noDataIsShow,
       searchPopUpIsShow,
       allRelevant,
-      aSinglePicture,
+      aSinglePicture
     };
-  },
+  }
 });
 </script>
 

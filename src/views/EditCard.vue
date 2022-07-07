@@ -2,7 +2,10 @@
   <div class="page upload-picture-page">
     <Header :user="loginJudge"></Header>
     <Sidebar></Sidebar>
-    <div class="main upload-picture_main" v-if="postData && (userId === postData.user.id || userId === 1)">
+    <div
+      class="main upload-picture_main"
+      v-if="postData && (userId === postData.user.id || userId === 1)"
+    >
       <ValidateForm @form-submit="onFormSubmit">
         <div class="content">
           <label for="title">
@@ -55,7 +58,11 @@
           <div class="content-tags" v-if="tags.length != 0">
             <span v-for="tag in tags" :key="tag.id">
               {{ tag.name }}
-              <svg class="icon delete-tages-icon" aria-hidden="true" @click="deleteTag(tag)">
+              <svg
+                class="icon delete-tages-icon"
+                aria-hidden="true"
+                @click="deleteTag(tag)"
+              >
                 <use xlink:href="#icon-ziyuan1-copy"></use>
               </svg>
             </span>
@@ -65,15 +72,25 @@
         <div class="picture">
           <div class="picture-style">
             <label for="file">
-              <img v-if="imagePreviewUrl" class="image-preview" :src="imagePreviewUrl" alt="" />
+              <img
+                v-if="imagePreviewUrl"
+                class="image-preview"
+                :src="imagePreviewUrl"
+                alt=""
+              />
               <img
                 v-else
-                :src="`${lostelkUrl}/files/${postData.file.id}/serve?size=large`"
+                :src="
+                  `${lostelkUrl}/files/${postData.file.id}/serve?size=large`
+                "
                 :alt="postData.title"
                 class="image-preview"
               />
               <div class="image-icon">
-                <svg class="icon icon-size-32 icon-size-fill" aria-hidden="true">
+                <svg
+                  class="icon icon-size-32 icon-size-fill"
+                  aria-hidden="true"
+                >
                   <use xlink:href="#icon-tubiaolunkuo-"></use>
                 </svg>
               </div>
@@ -82,7 +99,9 @@
                 class="image-upload-progress"
                 :style="'width:' + imageUploadProgress + '%'"
               >
-                <span v-if="imageUploadProgress < 100"> {{ imageUploadProgress + '%' }}</span>
+                <span v-if="imageUploadProgress < 100">
+                  {{ imageUploadProgress + '%' }}
+                </span>
                 <div v-else class="image-upload-await">
                   <span>Please wait while images are being processed</span>
                   <span class="throbber-loader">Loading&#8230;</span>
@@ -105,12 +124,21 @@
 
         <template v-slot:submit>
           <div class="publish">
-            <input ref="isDisabled" type="submit" name="commit" value="save" class="form-btn" />
+            <input
+              ref="isDisabled"
+              type="submit"
+              name="commit"
+              value="save"
+              class="form-btn"
+            />
           </div>
         </template>
       </ValidateForm>
     </div>
-    <NoPermission class="main" v-else-if="postData && (userId !== postData.user.id || !(userId != 1))">
+    <NoPermission
+      class="main"
+      v-else-if="postData && (userId !== postData.user.id || !(userId != 1))"
+    >
       <p>You do not have permission to edit this content</p>
     </NoPermission>
   </div>
@@ -136,13 +164,13 @@ export default defineComponent({
     Sidebar,
     ValidateForm,
     ValidateInput,
-    NoPermission,
+    NoPermission
   },
   props: {
     id: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   setup(props) {
     const store = useStore();
@@ -162,10 +190,16 @@ export default defineComponent({
     const tagVal = ref('');
     const headlineRule: RulesProp = [
       { type: 'null', message: 'need to give your photo a name' },
-      { type: 'headlineMaximum', message: 'Headings can contain up to 15 characters' },
+      {
+        type: 'headlineMaximum',
+        message: 'Headings can contain up to 15 characters'
+      }
     ];
     const describeRule: RulesProp = [
-      { type: 'describeMaximum', message: 'The description contains a maximum of 100 characters' },
+      {
+        type: 'describeMaximum',
+        message: 'The description contains a maximum of 100 characters'
+      }
     ];
     const tagRule = ref();
     const pictureRule: RulesProp = [];
@@ -178,7 +212,7 @@ export default defineComponent({
         } else {
           tagRule.value = '';
         }
-      },
+      }
     );
 
     /**
@@ -211,7 +245,10 @@ export default defineComponent({
      */
     const newAddTagData = ref([] as { name: string }[]);
     const addTag = () => {
-      if (tagVal.value.trim() !== '' && !tags.value.some((item: { name: string }) => item.name === tagVal.value)) {
+      if (
+        tagVal.value.trim() !== '' &&
+        !tags.value.some((item: { name: string }) => item.name === tagVal.value)
+      ) {
         if (tagVal.value === '精选横图' || tagVal.value === '精选纵图') {
           if (userId.value !== 1) {
             tagVal.value = '';
@@ -236,12 +273,20 @@ export default defineComponent({
      */
     const deleteTagData = ref([] as { id: number; name: string }[]);
     const deleteTag = (tag: { id: number; name: string }) => {
-      if (newAddTagData.value.some((item: { name: string }) => item.name === tag.name)) {
-        newAddTagData.value = newAddTagData.value.filter((item: { name: string }) => item.name !== tag.name);
+      if (
+        newAddTagData.value.some(
+          (item: { name: string }) => item.name === tag.name
+        )
+      ) {
+        newAddTagData.value = newAddTagData.value.filter(
+          (item: { name: string }) => item.name !== tag.name
+        );
       } else {
         deleteTagData.value.push(tag);
       }
-      tags.value = tags.value.filter((item: { name: string }) => item.name !== tag.name);
+      tags.value = tags.value.filter(
+        (item: { name: string }) => item.name !== tag.name
+      );
     };
 
     /**
@@ -308,14 +353,14 @@ export default defineComponent({
         // 上传文件
         await axios.post(`/files?post=${postId}`, formData, {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'multipart/form-data'
           },
           // 上传进度值
           onUploadProgress: event => {
             const { loaded, total } = event;
             // 将上传进度传递给imageUploadProgress
             imageUploadProgress.value = Math.round((loaded * 100) / total);
-          },
+          }
         });
 
         // 清理
@@ -335,7 +380,7 @@ export default defineComponent({
         lastPrev.value = '';
 
         uploaderror.value = error;
-        console.log(error);
+        // console.log(error);
         await createTooltip('上传失败,可能是您的照片不符合要求', 'error', 3000);
       }
     };
@@ -344,18 +389,21 @@ export default defineComponent({
      * 请求修改标题与描述
      */
     const EditPost = async () => {
-      if (headlineVal.value !== postData.value.title && describeVal.value !== postData.value.content) {
+      if (
+        headlineVal.value !== postData.value.title &&
+        describeVal.value !== postData.value.content
+      ) {
         await axios.patch(`/posts/${postId.value}`, {
           title: headlineVal.value,
-          content: describeVal.value,
+          content: describeVal.value
         });
       } else if (headlineVal.value !== postData.value.title) {
         await axios.patch(`/posts/${postId.value}`, {
-          title: headlineVal.value,
+          title: headlineVal.value
         });
       } else if (describeVal.value !== postData.value.content) {
         await axios.patch(`/posts/${postId.value}`, {
-          content: describeVal.value,
+          content: describeVal.value
         });
       }
     };
@@ -381,7 +429,7 @@ export default defineComponent({
           for (let i = 0; i < deleteTagData.value.length; i++) {
             const tagParameter = {
               postId: postId.value,
-              tagId: deleteTagData.value[i].id,
+              tagId: deleteTagData.value[i].id
             };
             await store.dispatch('deleteTag', tagParameter);
           }
@@ -392,7 +440,7 @@ export default defineComponent({
           for (let i = 0; i < newAddTagData.value.length; i++) {
             const tagParameter = {
               postId: postId.value,
-              tag: newAddTagData.value[i].name,
+              tag: newAddTagData.value[i].name
             };
             await store.dispatch('createTag', tagParameter);
           }
@@ -404,7 +452,7 @@ export default defineComponent({
             await careateFile(fileMessage.value, postId.value);
           }
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
 
         //修改完毕 恢复提交按钮功能与样式
@@ -419,22 +467,30 @@ export default defineComponent({
           if (fromWhichPage.value === 'home') {
             const card = await store.dispatch('getCard', postId.value);
             const oldCard = store.state.cardList;
-            const newCard = oldCard.map((item: { id: unknown }) => (item.id === card.id ? card : item));
+            const newCard = oldCard.map((item: { id: unknown }) =>
+              item.id === card.id ? card : item
+            );
             await store.commit('getCardList', newCard);
           } else if (fromWhichPage.value === 'search') {
             const card = await store.dispatch('getCard', postId.value);
             const oldCard = store.state.searchCardList;
-            const newCard = oldCard.map((item: { id: unknown }) => (item.id === card.id ? card : item));
+            const newCard = oldCard.map((item: { id: unknown }) =>
+              item.id === card.id ? card : item
+            );
             await store.commit('getSearchValCardList', newCard);
           } else if (fromWhichPage.value === 'user') {
             const card = await store.dispatch('getCard', postId.value);
             const oldCard = store.state.userPhotosCardList;
-            const newCard = oldCard.map((item: { id: unknown }) => (item.id === card.id ? card : item));
+            const newCard = oldCard.map((item: { id: unknown }) =>
+              item.id === card.id ? card : item
+            );
             await store.commit('getUserPhotosCardList', newCard);
           } else if (fromWhichPage.value === 'userLike') {
             const card = await store.dispatch('getCard', postId.value);
             const oldCard = store.state.userLikeCardList;
-            const newCard = oldCard.map((item: { id: unknown }) => (item.id === card.id ? card : item));
+            const newCard = oldCard.map((item: { id: unknown }) =>
+              item.id === card.id ? card : item
+            );
             await store.commit('getUserLikeCardList', newCard);
           }
 
@@ -447,7 +503,7 @@ export default defineComponent({
           }, 500);
         }
       } else {
-        console.log('不通过');
+        // console.log('不通过');
       }
     };
 
@@ -481,9 +537,9 @@ export default defineComponent({
       deleteTag,
       postData,
       lostelkUrl,
-      userId,
+      userId
     };
-  },
+  }
 });
 </script>
 

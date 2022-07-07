@@ -5,7 +5,12 @@
       <form class="avatar-form" @submit.prevent="submitFrom">
         <div class="choose-before">
           <div class="avatar-img">
-            <img class="avatar-img" v-if="imagePreviewUrl" :src="`${imagePreviewUrl}`" :alt="userData.name" />
+            <img
+              class="avatar-img"
+              v-if="imagePreviewUrl"
+              :src="`${imagePreviewUrl}`"
+              :alt="userData.name"
+            />
             <img
               class="avatar-img"
               v-else-if="userData.avatar != null"
@@ -25,7 +30,11 @@
             @change="onChangeFile"
             accept="image/png, image/jpeg, image/jpg"
           />
-          <label for="avatar" class="avatar-form-choose" v-if="!imagePreviewUrl">
+          <label
+            for="avatar"
+            class="avatar-form-choose"
+            v-if="!imagePreviewUrl"
+          >
             choose user avatar
           </label>
         </div>
@@ -115,11 +124,10 @@ export default defineComponent({
           router.go(0);
         }, 1000);
       } catch (error) {
-        console.log(error);
         await createTooltip(
           'Upload failed, your photos may not meet the requirements or network fluctuations',
           'error',
-          3000,
+          3000
         );
       }
     };
@@ -147,8 +155,8 @@ export default defineComponent({
       imagePreviewUrl,
       fileRef,
       submitFrom,
-      cancel,
+      cancel
     };
-  },
+  }
 });
 </script>

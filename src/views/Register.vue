@@ -11,7 +11,11 @@
         <div class="registrations__content">
           <div>
             <router-link to="/">
-              <img class="registrations__logo" src="../assets/icons/logoWhite.png" alt="" />
+              <img
+                class="registrations__logo"
+                src="../assets/icons/logoWhite.png"
+                alt=""
+              />
             </router-link>
           </div>
           <div>
@@ -30,12 +34,18 @@
       <div
         v-else-if="registeredImgArrange === 'row' && transverse.length != 0"
         class="registrations-left-panel"
-        :style="`background-image: url(${lostelkUrl}/files/${transverse[transverseRandom].file.id}/serve?size=large);`"
+        :style="
+          `background-image: url(${lostelkUrl}/files/${transverse[transverseRandom].file.id}/serve?size=large);`
+        "
       >
         <div class="registrations__content">
           <div>
             <router-link to="/">
-              <img class="registrations__logo" src="../assets/icons/logoWhite.png" alt="" />
+              <img
+                class="registrations__logo"
+                src="../assets/icons/logoWhite.png"
+                alt=""
+              />
             </router-link>
           </div>
           <div>
@@ -51,11 +61,18 @@
           </div>
         </div>
       </div>
-      <div v-else-if="registeredImgArrange === 'row'" class="registrations-left-panel">
+      <div
+        v-else-if="registeredImgArrange === 'row'"
+        class="registrations-left-panel"
+      >
         <div class="registrations__content">
           <div>
             <router-link to="/">
-              <img class="registrations__logo" src="../assets/icons/logoWhite.png" alt="" />
+              <img
+                class="registrations__logo"
+                src="../assets/icons/logoWhite.png"
+                alt=""
+              />
             </router-link>
           </div>
           <div>
@@ -71,11 +88,18 @@
           </div>
         </div>
       </div>
-      <div v-else-if="registeredImgArrange === 'column'" class="registrations-left-panel">
+      <div
+        v-else-if="registeredImgArrange === 'column'"
+        class="registrations-left-panel"
+      >
         <div class="registrations__content">
           <div>
             <router-link to="/">
-              <img class="registrations__logo" src="../assets/icons/logoWhite.png" alt="" />
+              <img
+                class="registrations__logo"
+                src="../assets/icons/logoWhite.png"
+                alt=""
+              />
             </router-link>
           </div>
           <div>
@@ -124,8 +148,7 @@
                         type="text"
                         placeholder="Not required"
                         id="user_first_name"
-                      >
-                      </ValidateInput>
+                      ></ValidateInput>
                     </div>
                   </div>
                   <div class="col-xs-6">
@@ -140,8 +163,7 @@
                         type="text"
                         placeholder="Not required"
                         id="user_last_name"
-                      >
-                      </ValidateInput>
+                      ></ValidateInput>
                     </div>
                   </div>
                 </div>
@@ -157,8 +179,7 @@
                     type="email"
                     placeholder="Please enter your email address"
                     id="user_email"
-                  >
-                  </ValidateInput>
+                  ></ValidateInput>
                 </div>
 
                 <div class="form-group">
@@ -173,8 +194,7 @@
                     type="text"
                     placeholder="Please enter a user name"
                     id="user_username"
-                  >
-                  </ValidateInput>
+                  ></ValidateInput>
                 </div>
 
                 <div class="form-group">
@@ -189,8 +209,7 @@
                     placeholder="The length is between 6 and 16 bits"
                     autocomplete="off"
                     id="user_password"
-                  >
-                  </ValidateInput>
+                  ></ValidateInput>
                 </div>
 
                 <div class="form-group">
@@ -205,8 +224,7 @@
                     placeholder="Please enter your password again"
                     autocomplete="off"
                     id="user_affirmPassword"
-                  >
-                  </ValidateInput>
+                  ></ValidateInput>
                 </div>
                 <template v-slot:submit>
                   <div class="form-groug">
@@ -217,8 +235,11 @@
                 </template>
               </ValidateForm>
               <span class="text-secondary zeta">
-                By joining, you agree to the <router-link to="/Clause">Terms</router-link> and
-                <router-link to="/Privacy">Privacy Policy</router-link>.
+                By joining, you agree to the
+                <router-link to="/Clause">Terms</router-link>
+                and
+                <router-link to="/Privacy">Privacy Policy</router-link>
+                .
               </span>
             </div>
           </div>
@@ -241,13 +262,13 @@ export default defineComponent({
   name: 'Register',
   components: {
     ValidateInput,
-    ValidateForm,
+    ValidateForm
   },
   props: {
     registeredImg: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   setup(props) {
     const userNameVal = ref('');
@@ -258,17 +279,28 @@ export default defineComponent({
     const affirmPasswordVal = ref('');
     const userNameRule: RulesProp = [
       { type: 'null', message: 'The user name cannot be empty' },
-      { type: 'userName', message: 'limited to letters, digits, underscores and up to 20 characters' },
+      {
+        type: 'userName',
+        message:
+          'limited to letters, digits, underscores and up to 20 characters'
+      }
     ];
     const passwordRule: RulesProp = [
       { type: 'null', message: 'The password cannot be empty' },
-      { type: 'password', message: 'The password must be between 6 and 16 characters long' },
+      {
+        type: 'password',
+        message: 'The password must be between 6 and 16 characters long'
+      }
     ];
-    const userLastNameRule: RulesProp = [{ type: 'userLastName', message: 'Incorrect name format' }];
-    const userFirstNameRule: RulesProp = [{ type: 'userfirstName', message: 'Incorrect name format' }];
+    const userLastNameRule: RulesProp = [
+      { type: 'userLastName', message: 'Incorrect name format' }
+    ];
+    const userFirstNameRule: RulesProp = [
+      { type: 'userfirstName', message: 'Incorrect name format' }
+    ];
     const userEmailRule: RulesProp = [
       { type: 'null', message: 'The email address cannot be empty' },
-      { type: 'userEmail', message: 'Email format error' },
+      { type: 'userEmail', message: 'Email format error' }
     ];
     const affirmPasswordRule: RulesProp = [
       { type: 'null', message: 'Confirm password cannot be empty' },
@@ -277,8 +309,8 @@ export default defineComponent({
         validator: () => {
           return passwordVal.value === affirmPasswordVal.value;
         },
-        message: 'Different passwords',
-      },
+        message: 'Different passwords'
+      }
     ];
 
     const onFormSubmit = (result: boolean) => {
@@ -286,20 +318,20 @@ export default defineComponent({
         const userRegisterData = {
           email: userEmailVal.value,
           name: userNameVal.value,
-          password: passwordVal.value,
+          password: passwordVal.value
         };
         axios.post('/users', userRegisterData).then(() => {
           createTooltip(
             'Registration is successful, the activation link has been sent to your email. Please activate your account within 30 minutes ~',
             'default',
-            null,
+            null
           );
           // setTimeout(() => {
           //   router.push('/login');
           // }, 1000);
         });
       } else {
-        console.log('不通过');
+        // console.log('不通过');
       }
     };
 
@@ -312,9 +344,13 @@ export default defineComponent({
      * 获取精选恒横图/纵图,以及随机数组下标
      */
     const transverse = computed(() => store.state.veryGoodsTransverseList);
-    const transverseRandom = ref(Math.floor(Math.random() * transverse.value.length));
+    const transverseRandom = ref(
+      Math.floor(Math.random() * transverse.value.length)
+    );
     const longitudinal = computed(() => store.state.veryGoodsLongitudinalList);
-    const longitudinalRandom = ref(Math.floor(Math.random() * longitudinal.value.length));
+    const longitudinalRandom = ref(
+      Math.floor(Math.random() * longitudinal.value.length)
+    );
 
     return {
       lostelkUrl,
@@ -335,9 +371,9 @@ export default defineComponent({
       userEmailRule,
       affirmPasswordVal,
       affirmPasswordRule,
-      registeredImgArrange,
+      registeredImgArrange
     };
-  },
+  }
 });
 </script>
 

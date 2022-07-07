@@ -2,7 +2,9 @@
   <div class="user-name margin-bottom-36">
     <form @submit.prevent="submitFrom">
       <div class="input-box">
-        <label for="user-password" class="Edit-account-header">Change password</label>
+        <label for="user-password" class="Edit-account-header">
+          Change password
+        </label>
         <input
           class="EditUserInput"
           type="password"
@@ -11,7 +13,10 @@
           v-model="oldUserPassword"
           @blur="oldUserPasswordValidation"
         />
-        <span class="edit-account-form-error" v-if="oldUserPasswordMessage !== ''">
+        <span
+          class="edit-account-form-error"
+          v-if="oldUserPasswordMessage !== ''"
+        >
           {{ oldUserPasswordMessage }}
         </span>
       </div>
@@ -24,7 +29,10 @@
           v-model="newUserPassword"
           @blur="newUserPasswordValidation"
         />
-        <span class="edit-account-form-error" v-if="newUserPasswordMessage !== ''">
+        <span
+          class="edit-account-form-error"
+          v-if="newUserPasswordMessage !== ''"
+        >
           {{ newUserPasswordMessage }}
         </span>
       </div>
@@ -37,7 +45,10 @@
           v-model="affirmUserPassword"
           @blur="affirmUserPasswordValidation"
         />
-        <span class="edit-account-form-error" v-if="affirmUserPassworMessage !== ''">
+        <span
+          class="edit-account-form-error"
+          v-if="affirmUserPassworMessage !== ''"
+        >
           {{ affirmUserPassworMessage }}
         </span>
       </div>
@@ -82,7 +93,8 @@ export default defineComponent({
 
     const affirmUserPasswordValidation = () => {
       if (affirmUserPassword.value !== newUserPassword.value) {
-        affirmUserPassworMessage.value = 'The entered passwords are inconsistent';
+        affirmUserPassworMessage.value =
+          'The entered passwords are inconsistent';
       } else {
         affirmUserPassworMessage.value = '';
       }
@@ -107,18 +119,19 @@ export default defineComponent({
         passed = false;
       }
       if (affirmUserPassword.value !== newUserPassword.value) {
-        affirmUserPassworMessage.value = 'The entered passwords are inconsistent';
+        affirmUserPassworMessage.value =
+          'The entered passwords are inconsistent';
         passed = false;
       }
 
       if (passed) {
         const newUserPasswordObject = {
           validate: {
-            password: oldUserPassword.value,
+            password: oldUserPassword.value
           },
           update: {
-            password: newUserPassword.value,
-          },
+            password: newUserPassword.value
+          }
         };
 
         try {
@@ -132,7 +145,7 @@ export default defineComponent({
           oldUserPassword.value = '';
           newUserPassword.value = '';
           affirmUserPassword.value = '';
-          console.log(error);
+          // console.log(error);
         }
       }
     };
@@ -147,8 +160,8 @@ export default defineComponent({
       newUserPasswordMessage,
       affirmUserPassword,
       affirmUserPasswordValidation,
-      affirmUserPassworMessage,
+      affirmUserPassworMessage
     };
-  },
+  }
 });
 </script>

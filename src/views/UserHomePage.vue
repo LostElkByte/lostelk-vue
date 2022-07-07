@@ -155,7 +155,7 @@ export default defineComponent({
         userData.value = data.data;
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
 
     /**
@@ -228,7 +228,7 @@ export default defineComponent({
                 userData.value = data.data;
               });
           } catch (error) {
-            console.log(error);
+            // console.log(error);
           }
           // 恢复到顶部
           document.documentElement.scrollTop = 0;

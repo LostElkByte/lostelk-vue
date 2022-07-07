@@ -55,7 +55,11 @@
           <div class="content-tags">
             <span v-for="tag in tags" :key="tag">
               {{ tag }}
-              <svg class="icon delete-tages-icon" aria-hidden="true" @click="deleteTag(tag)">
+              <svg
+                class="icon delete-tages-icon"
+                aria-hidden="true"
+                @click="deleteTag(tag)"
+              >
                 <use xlink:href="#icon-ziyuan1-copy"></use>
               </svg>
             </span>
@@ -65,9 +69,17 @@
         <div class="picture">
           <div class="picture-style">
             <label for="file">
-              <img v-if="imagePreviewUrl" class="image-preview" :src="imagePreviewUrl" alt="" />
+              <img
+                v-if="imagePreviewUrl"
+                class="image-preview"
+                :src="imagePreviewUrl"
+                alt=""
+              />
               <div class="image-icon">
-                <svg class="icon icon-size-32 icon-size-fill" aria-hidden="true">
+                <svg
+                  class="icon icon-size-32 icon-size-fill"
+                  aria-hidden="true"
+                >
                   <use xlink:href="#icon-tubiaolunkuo-"></use>
                 </svg>
               </div>
@@ -76,7 +88,9 @@
                 class="image-upload-progress"
                 :style="'width:' + imageUploadProgress + '%'"
               >
-                <span v-if="imageUploadProgress < 100"> {{ imageUploadProgress + '%' }}</span>
+                <span v-if="imageUploadProgress < 100">
+                  {{ imageUploadProgress + '%' }}
+                </span>
                 <div v-else class="image-upload-await">
                   <span>Please wait while images are being processed</span>
                   <span class="throbber-loader">Loading&#8230;</span>
@@ -99,7 +113,13 @@
 
         <template v-slot:submit>
           <div class="publish">
-            <input ref="isDisabled" type="submit" name="commit" value="publish" class="form-btn" />
+            <input
+              ref="isDisabled"
+              type="submit"
+              name="commit"
+              value="publish"
+              class="form-btn"
+            />
           </div>
         </template>
       </ValidateForm>
@@ -124,7 +144,7 @@ export default defineComponent({
     Header,
     Sidebar,
     ValidateForm,
-    ValidateInput,
+    ValidateInput
   },
   setup() {
     const store = useStore();
@@ -147,13 +167,21 @@ export default defineComponent({
     const tagVal = ref('');
     const headlineRule: RulesProp = [
       { type: 'null', message: 'need to give your photo a name' },
-      { type: 'headlineMaximum', message: 'Headings can contain up to 15 characters' },
+      {
+        type: 'headlineMaximum',
+        message: 'Headings can contain up to 15 characters'
+      }
     ];
     const describeRule: RulesProp = [
-      { type: 'describeMaximum', message: 'The description contains a maximum of 100 characters' },
+      {
+        type: 'describeMaximum',
+        message: 'The description contains a maximum of 100 characters'
+      }
     ];
     const tagRule = ref();
-    const pictureRule: RulesProp = [{ type: 'fileNull', message: 'You need to upload an photo' }];
+    const pictureRule: RulesProp = [
+      { type: 'fileNull', message: 'You need to upload an photo' }
+    ];
 
     watch(
       () => tagVal.value,
@@ -163,7 +191,7 @@ export default defineComponent({
         } else {
           tagRule.value = '';
         }
-      },
+      }
     );
 
     /**
@@ -171,11 +199,18 @@ export default defineComponent({
      */
     const tags = ref([] as string[]);
     const addTag = () => {
-      if (tagVal.value.trim() !== '' && !tags.value.some(item => item === tagVal.value)) {
+      if (
+        tagVal.value.trim() !== '' &&
+        !tags.value.some(item => item === tagVal.value)
+      ) {
         if (tagVal.value === '精选横图' || tagVal.value === '精选纵图') {
           if (userId.value !== 1) {
             tagVal.value = '';
-            createTooltip('You do not have permission to use this tag', 'error', 3000);
+            createTooltip(
+              'You do not have permission to use this tag',
+              'error',
+              3000
+            );
             return;
           }
         }
@@ -255,14 +290,14 @@ export default defineComponent({
         // 上传文件
         await axios.post(`/files?post=${postId}`, formData, {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            'Content-Type': 'multipart/form-data'
           },
           // 上传进度值
           onUploadProgress: event => {
             const { loaded, total } = event;
             // 将上传进度传递给imageUploadProgress
             imageUploadProgress.value = Math.round((loaded * 100) / total);
-          },
+          }
         });
 
         // 清理
@@ -280,9 +315,13 @@ export default defineComponent({
         lastPrev.value = '';
 
         uploaderror.value = error;
-        console.log(error);
+        // console.log(error);
 
-        await createTooltip('Upload failed, your photo may not meet the requirements', 'error', 3000);
+        await createTooltip(
+          'Upload failed, your photo may not meet the requirements',
+          'error',
+          3000
+        );
       }
     };
 
@@ -293,7 +332,7 @@ export default defineComponent({
       try {
         await axios.post(`/posts/${postId}/tag`, { name: `${tag}` });
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
 
@@ -302,7 +341,10 @@ export default defineComponent({
      */
     const createPost = async () => {
       try {
-        const response = await axios.post('/posts', { title: headlineVal.value, content: describeVal.value });
+        const response = await axios.post('/posts', {
+          title: headlineVal.value,
+          content: describeVal.value
+        });
         if (tags.value.length != 0) {
           for (let i = 0; i < tags.value.length; i++) {
             await createTag(response.data.insertId, tags.value[i]);
@@ -312,7 +354,7 @@ export default defineComponent({
           await careateFile(fileMessage.value, response.data.insertId);
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
 
@@ -346,7 +388,11 @@ export default defineComponent({
           uploaderror.value = '';
         } else {
           // 如果有上传成功,执行成功提示;
-          await createTooltip('Thank you for contributing a photo to the LostElk community!', 'success', 3000);
+          await createTooltip(
+            'Thank you for contributing a photo to the LostElk community!',
+            'success',
+            3000
+          );
           // await setTimeout(() => {
           //   store.commit('mainSearchIsNone', true);
           //   store.commit('setSearchFailure', false);
@@ -354,7 +400,7 @@ export default defineComponent({
           // }, 500);
         }
       } else {
-        console.log('不通过');
+        // console.log('不通过');
       }
     };
 
@@ -391,9 +437,9 @@ export default defineComponent({
       fileIsNull,
       addTag,
       tags,
-      deleteTag,
+      deleteTag
     };
-  },
+  }
 });
 </script>
 

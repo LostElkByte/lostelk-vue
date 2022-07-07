@@ -2,13 +2,20 @@
   <ul class="nest-comment" v-if="singleComment">
     <li class="nestComment-rootComment">
       <div class="comment-item">
-        <div style="display: flex;justify-content: space-between; align-items: center;">
-          <div class="commentItem-meta" @click="toUserPage(singleComment.user.id)">
+        <div
+          style="display: flex;justify-content: space-between; align-items: center;"
+        >
+          <div
+            class="commentItem-meta"
+            @click="toUserPage(singleComment.user.id)"
+          >
             <div class="commentItem-avatar">
               <img
                 v-if="singleComment.user.avatar"
                 class="commentItem-avatar-img"
-                :src="`${lostelkUrl}/users/${singleComment.user.id}/avatar?size=small`"
+                :src="
+                  `${lostelkUrl}/users/${singleComment.user.id}/avatar?size=small`
+                "
                 :alt="singleComment.user.name"
               />
               <svg v-else class="commentItem-avatar-img" aria-hidden="true">
@@ -23,7 +30,11 @@
             </span>
           </div>
           <div style="float: right;font-size: 12px;color: #8590a6;">
-            {{ singleComment.create_time ? dayjs.unix(singleComment.create_time).format('YYYY-MM-DD') : 'recently' }}
+            {{
+              singleComment.create_time
+                ? dayjs.unix(singleComment.create_time).format('YYYY-MM-DD')
+                : 'recently'
+            }}
           </div>
         </div>
         <div class="commentItem-metaSibling">
@@ -35,7 +46,11 @@
           </div>
           <div class="comment-toolbar" v-if="!isdeleteSucceed">
             <button
-              :class="['comment-buttom', 'comment-buttom-show', { none: !singleComment.totalReplies }]"
+              :class="[
+                'comment-buttom',
+                'comment-buttom-show',
+                { none: !singleComment.totalReplies }
+              ]"
               @click="unfoldReplyList"
             >
               <svg class="icon comment-buttom-icon" aria-hidden="true">
@@ -45,7 +60,10 @@
             </button>
             <button
               v-if="isLogin"
-              :class="['comment-buttom', { 'comment-buttom-show': !singleComment.totalReplies }]"
+              :class="[
+                'comment-buttom',
+                { 'comment-buttom-show': !singleComment.totalReplies }
+              ]"
               @click="showReplyInput"
             >
               <svg class="icon comment-buttom-icon" aria-hidden="true">
@@ -53,14 +71,20 @@
               </svg>
               {{ replyShow ? 'reply' : 'cancel' }}
             </button>
-            <button v-else class="comment-buttom comment-buttom-show" @click="goLogin">
+            <button
+              v-else
+              class="comment-buttom comment-buttom-show"
+              @click="goLogin"
+            >
               <svg class="icon comment-buttom-icon" aria-hidden="true">
                 <use xlink:href="#icon-huifu2"></use>
               </svg>
               Reply (click login)
             </button>
             <button
-              v-if="singleComment.user.id === singleuserId || singleuserId === 1"
+              v-if="
+                singleComment.user.id === singleuserId || singleuserId === 1
+              "
               class="comment-buttom"
               @click="showReviseInput"
             >
@@ -70,7 +94,9 @@
               {{ reviseShow ? 'change' : 'cancel' }}
             </button>
             <button
-              v-if="singleComment.user.id === singleuserId || singleuserId === 1"
+              v-if="
+                singleComment.user.id === singleuserId || singleuserId === 1
+              "
               class="comment-buttom"
               @click="showDeleteAddirm"
             >
@@ -80,7 +106,10 @@
               delete
             </button>
           </div>
-          <ValidateForm v-if="!replyShow" :class="['comment-publish-reply-form']">
+          <ValidateForm
+            v-if="!replyShow"
+            :class="['comment-publish-reply-form']"
+          >
             <ValidateInput
               :id="`comment-publish-reply-input-id-${singleComment.id}`"
               class="comment-publish-reply-input"
@@ -88,10 +117,15 @@
               :placeholder="`reply ${singleComment.user.name}`"
               v-model="replyCommentVal"
               :value="replyCommentVal"
-            >
-            </ValidateInput>
+            ></ValidateInput>
             <template v-slot:submit>
-              <div :class="['comment-reply-publish', { hidden: !replyCommentButton }]" @click="replyCommentClick">
+              <div
+                :class="[
+                  'comment-reply-publish',
+                  { hidden: !replyCommentButton }
+                ]"
+                @click="replyCommentClick"
+              >
                 <a href="#" class="comment-publish-reply-form-btn">
                   reply
                 </a>
@@ -101,17 +135,25 @@
           <span class="form-error" v-if="isReplyCommentMax">
             A maximum of 60 characters can be entered
           </span>
-          <ValidateForm v-if="!reviseShow" :class="['comment-publish-revise-form']">
+          <ValidateForm
+            v-if="!reviseShow"
+            :class="['comment-publish-revise-form']"
+          >
             <ValidateInput
               :id="`comment-publish-revise-input-id-${singleComment.id}`"
               class="comment-publish-revise-input"
               type="text"
               :placeholder="`change ${singleComment.content}`"
               v-model="reviseCommentVal"
-            >
-            </ValidateInput>
+            ></ValidateInput>
             <template v-slot:submit>
-              <div :class="['comment-revise-publish', { hidden: !reviseCommentButton }]" @click="reviseCommentClick">
+              <div
+                :class="[
+                  'comment-revise-publish',
+                  { hidden: !reviseCommentButton }
+                ]"
+                @click="reviseCommentClick"
+              >
                 <a href="#" class="comment-publish-reply-form-btn">
                   change
                 </a>
@@ -140,7 +182,11 @@
       </div>
     </div>
   </ul>
-  <ConfirmationBox v-if="isDelete" @cancelDelete="cancelDelete" @confirmDelete="confirmDelete">
+  <ConfirmationBox
+    v-if="isDelete"
+    @cancelDelete="cancelDelete"
+    @confirmDelete="confirmDelete"
+  >
     Are you sure you want to delete this comment?
   </ConfirmationBox>
 </template>
@@ -163,14 +209,14 @@ export default defineComponent({
     ReplyComment,
     ValidateInput,
     ValidateForm,
-    ConfirmationBox,
+    ConfirmationBox
   },
   emits: ['reloadComments', 'minusOneCommentsNumber'],
   props: {
     comment: Object,
     postId: Number,
     userId: Number,
-    postUserIdProp: Number,
+    postUserIdProp: Number
   },
   setup(props) {
     // 接收单个评论数据
@@ -185,7 +231,9 @@ export default defineComponent({
     // 回复评论input的内容
     const replyCommentVal = ref();
     // 修改评论input的内容
-    const reviseCommentVal = ref(singleComment.value ? singleComment.value.content : '');
+    const reviseCommentVal = ref(
+      singleComment.value ? singleComment.value.content : ''
+    );
     // 判断是否登录
     const isLogin = computed(() => store.state.user.isLogin);
 
@@ -195,9 +243,11 @@ export default defineComponent({
     const replyComment = ref();
     const getReplyComments = async () => {
       if (!singleComment.value) return;
-      await store.dispatch('getReplyComments', singleComment.value.id).then(data => {
-        replyComment.value = data;
-      });
+      await store
+        .dispatch('getReplyComments', singleComment.value.id)
+        .then(data => {
+          replyComment.value = data;
+        });
     };
 
     /**
@@ -242,7 +292,9 @@ export default defineComponent({
      */
     const replyCommentPositioning = () => {
       setTimeout(() => {
-        const comment = document.getElementById(`replyComment${singleComment.value.id}`) as HTMLElement;
+        const comment = document.getElementById(
+          `replyComment${singleComment.value.id}`
+        ) as HTMLElement;
         comment.style.setProperty('padding-bottom', '60px');
         comment.scrollIntoView(false);
         comment.style.removeProperty('padding-bottom');
@@ -290,7 +342,7 @@ export default defineComponent({
       if (!replyShow.value) {
         setTimeout(() => {
           const inputFocus = document.getElementById(
-            `comment-publish-reply-input-id-${singleComment.value.id}`,
+            `comment-publish-reply-input-id-${singleComment.value.id}`
           ) as HTMLElement;
           inputFocus.focus();
         }, 0);
@@ -304,7 +356,7 @@ export default defineComponent({
       if (!reviseShow.value) {
         setTimeout(() => {
           const inputFocus = document.getElementById(
-            `comment-publish-revise-input-id-${singleComment.value.id}`,
+            `comment-publish-revise-input-id-${singleComment.value.id}`
           ) as HTMLElement;
           inputFocus.focus();
         }, 0);
@@ -328,20 +380,22 @@ export default defineComponent({
         publishReplyCommentData: {
           content: replyCommentVal.value,
           postId: postIdData.value,
-          isReplyParentComment: 1,
-        },
-      };
-      await store.dispatch('publishReplyComment', publishReplyCommentData).then(async () => {
-        replyShow.value = true;
-
-        replyCommentVal.value = '';
-        if (!unfoldReplyShow.value) {
-          await getReplyComments();
-          unfoldReplyShow.value = true;
+          isReplyParentComment: 1
         }
-        replyCommentPositioning();
-        createTooltip('Comment reply successful', 'success', 3000);
-      });
+      };
+      await store
+        .dispatch('publishReplyComment', publishReplyCommentData)
+        .then(async () => {
+          replyShow.value = true;
+
+          replyCommentVal.value = '';
+          if (!unfoldReplyShow.value) {
+            await getReplyComments();
+            unfoldReplyShow.value = true;
+          }
+          replyCommentPositioning();
+          createTooltip('Comment reply successful', 'success', 3000);
+        });
     };
 
     /**
@@ -351,8 +405,8 @@ export default defineComponent({
       const reviseCommentData = {
         commentId: props.comment ? props.comment.id : '',
         reviseCommentData: {
-          content: reviseCommentVal.value,
-        },
+          content: reviseCommentVal.value
+        }
       };
       await store.dispatch('reviseComment', reviseCommentData).then(() => {
         reviseShow.value = true;
@@ -379,7 +433,10 @@ export default defineComponent({
     const confirmDelete = async () => {
       isDelete.value = false;
       try {
-        await store.dispatch('deleteComment', props.comment ? props.comment.id : '');
+        await store.dispatch(
+          'deleteComment',
+          props.comment ? props.comment.id : ''
+        );
         // context.emit('minusOneCommentsNumber');
         // isdeleteSucceed.value = true;
 
@@ -408,10 +465,12 @@ export default defineComponent({
      * 监听实时服务端创建回复评论事件
      */
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const onCommentReplyCreated = (data: { comment: any; socketId: string }) => {
+    const onCommentReplyCreated = (data: {
+      comment: any;
+      socketId: string;
+    }) => {
       const { comment } = data;
       if (comment.parentId !== singleComment.value.id) return;
-      console.log(comment);
       if (replyComment.value && replyComment.value.length != 0) {
         replyComment.value.push(comment);
       } else {
@@ -453,9 +512,9 @@ export default defineComponent({
       replyComment,
       getReplyComments,
       toUserPage,
-      replyCommentPositioning,
+      replyCommentPositioning
     };
-  },
+  }
 });
 </script>
 

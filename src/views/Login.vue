@@ -23,17 +23,20 @@
               type="text"
               placeholder=""
               id="user_username"
-            >
-            </ValidateInput>
+            ></ValidateInput>
           </div>
 
           <div class="form-group">
-            <div style="display: flex;align-items: center;justify-content: space-between;">
+            <div
+              style="display: flex;align-items: center;justify-content: space-between;"
+            >
               <label for="user_password">
                 Password
               </label>
               <span class="text-secondary" style="font-size: 12px">
-                <router-link to="/StartRetrieve">Forgot your password?</router-link>
+                <router-link to="/StartRetrieve">
+                  Forgot your password?
+                </router-link>
               </span>
             </div>
 
@@ -45,8 +48,7 @@
               placeholder=""
               autocomplete="off"
               id="user_password"
-            >
-            </ValidateInput>
+            ></ValidateInput>
           </div>
 
           <template v-slot:submit>
@@ -78,7 +80,7 @@ export default defineComponent({
   name: 'Login',
   components: {
     ValidateInput,
-    ValidateForm,
+    ValidateForm
   },
   setup() {
     const store = useStore();
@@ -89,11 +91,14 @@ export default defineComponent({
     // 定义表单验证规则 发送到 ValidateInput组件中
     const userEmailRule: RulesProp = [
       { type: 'null', message: 'The email address cannot be empty' },
-      { type: 'userEmail', message: 'Please enter the correct email address' },
+      { type: 'userEmail', message: 'Please enter the correct email address' }
     ];
     const passwordRule: RulesProp = [
       { type: 'null', message: 'The password cannot be empty' },
-      { type: 'password', message: 'The password must be between 6 and 16 characters long' },
+      {
+        type: 'password',
+        message: 'The password must be between 6 and 16 characters long'
+      }
     ];
 
     /**
@@ -104,7 +109,7 @@ export default defineComponent({
       if (result) {
         const userLoginData = {
           email: userEmailVal.value,
-          password: passwordVal.value,
+          password: passwordVal.value
         };
         // 登陆并且获取用户信息
         store.dispatch('loginAndGetCurrentUser', userLoginData).then(() => {
@@ -114,7 +119,7 @@ export default defineComponent({
           }
         });
       } else {
-        console.log('不通过');
+        // console.log('不通过');
       }
     };
 
@@ -123,9 +128,9 @@ export default defineComponent({
       userEmailVal,
       passwordVal,
       passwordRule,
-      onFormSubmit,
+      onFormSubmit
     };
-  },
+  }
 });
 </script>
 <style scoped>

@@ -9,7 +9,8 @@
         </div>
         <h1 class="login-title">Forgot your password?</h1>
         <p class="login-subtitle" style="font-weight: 400;font-size: 14px;">
-          Enter the email address associated with your account and we’ll send you a link to reset your password.
+          Enter the email address associated with your account and we’ll send
+          you a link to reset your password.
         </p>
       </div>
       <div class="from">
@@ -26,8 +27,7 @@
               type="text"
               placeholder="Please enter email address"
               id="user_username"
-            >
-            </ValidateInput>
+            ></ValidateInput>
           </div>
 
           <template v-slot:submit>
@@ -53,7 +53,7 @@ export default defineComponent({
   name: 'StartRetrieve',
   components: {
     ValidateInput,
-    ValidateForm,
+    ValidateForm
   },
   setup() {
     const store = useStore();
@@ -62,7 +62,7 @@ export default defineComponent({
     // 定义表单验证规则 发送到 ValidateInput组件中
     const userEmailRule: RulesProp = [
       { type: 'null', message: 'The email address cannot be empty' },
-      { type: 'userEmail', message: 'Please enter the correct email address' },
+      { type: 'userEmail', message: 'Please enter the correct email address' }
     ];
 
     /**
@@ -73,22 +73,25 @@ export default defineComponent({
       if (result) {
         // 发送找回密码邮件
         try {
-          const res = await store.dispatch('sendRetrievePassword', userEmailVal.value);
+          const res = await store.dispatch(
+            'sendRetrievePassword',
+            userEmailVal.value
+          );
           createTooltip(res.message, 'default', 10000);
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       } else {
-        console.log('不通过');
+        // console.log('不通过');
       }
     };
 
     return {
       userEmailRule,
       userEmailVal,
-      onFormSubmit,
+      onFormSubmit
     };
-  },
+  }
 });
 </script>
 <style scoped>

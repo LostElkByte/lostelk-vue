@@ -2,7 +2,9 @@
   <div class="user-synopsis margin-bottom-36">
     <form @submit.prevent="submitFrom">
       <div class="input-box">
-        <label for="user-synopsis" class="Edit-account-header">Change your synopsis</label>
+        <label for="user-synopsis" class="Edit-account-header">
+          Change your synopsis
+        </label>
         <textarea
           class="EditUserInput"
           id="user-synopsis"
@@ -10,7 +12,10 @@
           v-model="newUserSynopsis"
           @blur="newUserSynopsisValidation"
         />
-        <span class="edit-account-form-error" v-if="newUserSynopsisMessage !== ''">
+        <span
+          class="edit-account-form-error"
+          v-if="newUserSynopsisMessage !== ''"
+        >
           {{ newUserSynopsisMessage }}
         </span>
       </div>
@@ -57,8 +62,8 @@ export default defineComponent({
       if (passed) {
         const newUserSynopsisObject = {
           update: {
-            synopsis: newUserSynopsis.value,
-          },
+            synopsis: newUserSynopsis.value
+          }
         };
 
         try {
@@ -70,7 +75,7 @@ export default defineComponent({
             }, 1000);
           });
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       }
     };
@@ -79,9 +84,9 @@ export default defineComponent({
       newUserSynopsis,
       submitFrom,
       newUserSynopsisValidation,
-      newUserSynopsisMessage,
+      newUserSynopsisMessage
     };
-  },
+  }
 });
 </script>
 

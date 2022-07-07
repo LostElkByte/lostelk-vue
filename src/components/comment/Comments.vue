@@ -2,7 +2,11 @@
   <div class="comment" id="commentAnchor">
     <div class="comment-header">
       <div class="comment-sum">
-        {{ commentsNumber != 0 ? commentsNumber + '  comments in total' : "No comments yet, let's post the first one" }}
+        {{
+          commentsNumber != 0
+            ? commentsNumber + '  comments in total'
+            : "No comments yet, let's post the first one"
+        }}
       </div>
     </div>
     <div class="comment-list">
@@ -25,10 +29,12 @@
           placeholder="Write your comments"
           v-model="publishCommentVal"
           :value="publishCommentVal"
-        >
-        </ValidateInput>
+        ></ValidateInput>
         <template v-slot:submit>
-          <div :class="['comment-groug', { hidden: !publishCommentButton }]" @click="onFormSubmit">
+          <div
+            :class="['comment-groug', { hidden: !publishCommentButton }]"
+            @click="onFormSubmit"
+          >
             <a href="#" class="comment-publish-reply-form-btn">
               publish
             </a>
@@ -57,12 +63,12 @@ export default defineComponent({
   components: {
     ValidateInput,
     ValidateForm,
-    SingleComment,
+    SingleComment
   },
   props: {
     postId: Number,
     postUserId: Number,
-    showCommentsCut: Boolean,
+    showCommentsCut: Boolean
   },
   setup(props) {
     // 获取当前用户ID
@@ -85,7 +91,6 @@ export default defineComponent({
       await store.dispatch('getComments', postIdProp.value).then(data => {
         commentsNumber.value = data.headers['x-total-count'];
         comments.value = data.data;
-        console.log(comments.value);
       });
 
       // comments.value.map(async (comment: { totalReplies: number; id: number; replyComment: unknown }) => {
@@ -110,7 +115,9 @@ export default defineComponent({
     watch(showCommentsCut, () => {
       if (showCommentsCut.value) {
         setTimeout(() => {
-          const comment = document.getElementById('commentAnchor') as HTMLElement;
+          const comment = document.getElementById(
+            'commentAnchor'
+          ) as HTMLElement;
           comment.scrollIntoView(true);
         }, 100);
       }
@@ -120,7 +127,9 @@ export default defineComponent({
       const StoreShowCommentsCut = computed(() => store.state.showCommentsCut);
       if (StoreShowCommentsCut.value) {
         setTimeout(() => {
-          const comment = document.getElementById('commentAnchor') as HTMLElement;
+          const comment = document.getElementById(
+            'commentAnchor'
+          ) as HTMLElement;
           comment.scrollIntoView(true);
         }, 100);
       }
@@ -139,7 +148,7 @@ export default defineComponent({
       if (result) {
         const publishCommentData = {
           content: publishCommentVal.value,
-          postId: postIdProp.value,
+          postId: postIdProp.value
         };
 
         store.dispatch('publishComments', publishCommentData).then(() => {
@@ -147,12 +156,14 @@ export default defineComponent({
           createTooltip('Comment on success', 'success', 3000);
           // getComment();
           setTimeout(() => {
-            const comment = document.getElementById('commentAnchor') as HTMLElement;
+            const comment = document.getElementById(
+              'commentAnchor'
+            ) as HTMLElement;
             comment.scrollIntoView(true);
           }, 100);
         });
       } else {
-        console.log('不通过');
+        // console.log('不通过');
       }
     };
 
@@ -193,7 +204,10 @@ export default defineComponent({
     /**
      * 监听实时服务端创建评论事件
      */
-    const onCommentCreated = (data: { comment: Array<unknown>; socketId: string }) => {
+    const onCommentCreated = (data: {
+      comment: Array<unknown>;
+      socketId: string;
+    }) => {
       const { comment } = data;
       comments.value.unshift(comment);
       commentsNumber.value++;
@@ -204,7 +218,11 @@ export default defineComponent({
     /**
      * 监听实时服务端修改评论事件
      */
-    const onupdateComment = (data: { commentId: number; content: string; socketId: string }) => {
+    const onupdateComment = (data: {
+      commentId: number;
+      content: string;
+      socketId: string;
+    }) => {
       const { commentId, content, socketId } = data;
 
       if (socket.id === socketId) return;
@@ -232,7 +250,10 @@ export default defineComponent({
     /**
      * 监听实时服务端删除评论事件
      */
-    const onCommentDeleted = async (data: { commentId: number; socketId: string }) => {
+    const onCommentDeleted = async (data: {
+      commentId: number;
+      socketId: string;
+    }) => {
       const { commentId } = data;
 
       // if (socket.id === socketId) return;
@@ -254,9 +275,9 @@ export default defineComponent({
       getComment,
       publishCommentMax,
       commentDeleted,
-      minusOneCommentsNumber,
+      minusOneCommentsNumber
     };
-  },
+  }
 });
 </script>
 

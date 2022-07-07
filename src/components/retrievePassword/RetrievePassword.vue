@@ -26,8 +26,7 @@
               placeholder="Please enter your password"
               autocomplete="off"
               id="user_password"
-            >
-            </ValidateInput>
+            ></ValidateInput>
           </div>
 
           <template v-slot:submit>
@@ -56,7 +55,7 @@ export default defineComponent({
   name: 'RetrievePassword',
   components: {
     ValidateInput,
-    ValidateForm,
+    ValidateForm
   },
   setup() {
     const store = useStore();
@@ -68,7 +67,7 @@ export default defineComponent({
     // 定义表单验证规则 发送到 ValidateInput组件中
     const passwordRule: RulesProp = [
       { type: 'null', message: 'The password cannot be empty' },
-      { type: 'password', message: 'The password is any 6-16 characters' },
+      { type: 'password', message: 'The password is any 6-16 characters' }
     ];
 
     /**
@@ -82,7 +81,7 @@ export default defineComponent({
           const res = await store.dispatch('retrievePassword', {
             email,
             password: passwordVal.value,
-            retrievePasswordVerifyKey,
+            retrievePasswordVerifyKey
           });
           createTooltip(res.message, 'default', 10000);
           setTimeout(() => {
@@ -94,16 +93,16 @@ export default defineComponent({
           }, 2000);
         }
       } else {
-        console.log('不通过');
+        // console.log('不通过');
       }
     };
 
     return {
       passwordRule,
       passwordVal,
-      onFormSubmit,
+      onFormSubmit
     };
-  },
+  }
 });
 </script>
 <style scoped>
