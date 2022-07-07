@@ -2,7 +2,9 @@
   <div class="user-name margin-bottom-36">
     <form @submit.prevent="submitFrom">
       <div class="input-box">
-        <label for="user-name" class="Edit-account-header">Change user ame</label>
+        <label for="user-name" class="Edit-account-header">
+          Change user name
+        </label>
         <input
           class="EditUserInput"
           type="text"
@@ -53,7 +55,8 @@ export default defineComponent({
 
     const newUserNameValidation = () => {
       if (!userNameReg.test(newUserName.value)) {
-        newUserNameMessage.value = 'Limited to letters, digits, and underscores (_)';
+        newUserNameMessage.value =
+          'Limited to letters, digits, and underscores (_)';
       } else {
         newUserNameMessage.value = '';
       }
@@ -70,7 +73,8 @@ export default defineComponent({
         passed = false;
       }
       if (!userNameReg.test(newUserName.value)) {
-        newUserNameMessage.value = 'Limited to letters, digits, and underscores (_)';
+        newUserNameMessage.value =
+          'Limited to letters, digits, and underscores (_)';
         passed = false;
       }
       if (userPassword.value.trim() == '') {
@@ -81,11 +85,11 @@ export default defineComponent({
       if (passed) {
         const newUserNameObject = {
           validate: {
-            password: userPassword.value,
+            password: userPassword.value
           },
           update: {
-            name: newUserName.value,
-          },
+            name: newUserName.value
+          }
         };
 
         try {
@@ -110,9 +114,9 @@ export default defineComponent({
       newUserNameValidation,
       newUserNameMessage,
       userPasswordValidation,
-      newPasswordMessage,
+      newPasswordMessage
     };
-  },
+  }
 });
 </script>
 
