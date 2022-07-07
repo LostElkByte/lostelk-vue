@@ -40,7 +40,9 @@
                 <img
                   v-if="postData.user.avatar"
                   class="content-header-author-photo-32"
-                  :src="`${lostelkUrl}/users/${postData.user.id}/avatar?size=small`"
+                  :src="
+                    `${lostelkUrl}/users/${postData.user.id}/avatar?size=small`
+                  "
                   :alt="postData.user.name"
                   @click.stop="toUserPage(postData.user.id)"
                 />
@@ -55,7 +57,9 @@
               </div>
               <div class="content-header-author-data">
                 <span>{{ postData.title }}</span>
-                <span @click.stop="toUserPage(postData.user.id)">{{ postData.user.name }}</span>
+                <span @click.stop="toUserPage(postData.user.id)">
+                  {{ postData.user.name }}
+                </span>
               </div>
             </div>
             <div class="content-header-toolbar">
@@ -97,13 +101,21 @@
             <div class="content-message-metainformation" v-if="fileMetadata">
               <!-- 相机型号 -->
               <div class="content-message-metainformation-Make">
-                <span v-if="fileMetadata.metadata.Make || fileMetadata.metadata.Model">
+                <span
+                  v-if="
+                    fileMetadata.metadata.Make || fileMetadata.metadata.Model
+                  "
+                >
                   <svg class="icon metainformation-svg" aria-hidden="true">
                     <use xlink:href="#icon-Camera-2"></use>
                   </svg>
                   <span class="fileMetadata-content">
-                    <span v-if="fileMetadata.metadata.Make">{{ fileMetadata.metadata.Make }}</span>
-                    <span v-if="fileMetadata.metadata.Model">{{ fileMetadata.metadata.Model }}</span>
+                    <span v-if="fileMetadata.metadata.Make">
+                      {{ fileMetadata.metadata.Make }}
+                    </span>
+                    <span v-if="fileMetadata.metadata.Model">
+                      {{ fileMetadata.metadata.Model }}
+                    </span>
                   </span>
                 </span>
               </div>
@@ -120,22 +132,47 @@
                     <use xlink:href="#icon-Lens-1"></use>
                   </svg>
                   <!-- 焦距 -->
-                  <span v-if="fileMetadata.metadata.FocalLength" class="fileMetadata-content">
+                  <span
+                    v-if="fileMetadata.metadata.FocalLength"
+                    class="fileMetadata-content"
+                  >
                     <span>焦距 {{ fileMetadata.metadata.FocalLength }}</span>
                   </span>
                   <!-- 光圈 -->
-                  <span v-if="fileMetadata.metadata.ApertureValue" class="fileMetadata-content">
-                    <span>光圈 ƒ/{{ Math.round(fileMetadata.metadata.ApertureValue * 100) / 100 }}</span>
+                  <span
+                    v-if="fileMetadata.metadata.ApertureValue"
+                    class="fileMetadata-content"
+                  >
+                    <span>
+                      光圈 ƒ/{{
+                        Math.round(fileMetadata.metadata.ApertureValue * 100) /
+                          100
+                      }}
+                    </span>
                   </span>
                   <!-- 曝光 -->
-                  <span v-if="fileMetadata.metadata.ExposureProgram" class="fileMetadata-content">
-                    <span>曝光 {{ Math.round(fileMetadata.metadata.ExposureProgram * 100) / 100 }}s</span>
+                  <span
+                    v-if="fileMetadata.metadata.ExposureProgram"
+                    class="fileMetadata-content"
+                  >
+                    <span>
+                      曝光
+                      {{
+                        Math.round(
+                          fileMetadata.metadata.ExposureProgram * 100
+                        ) / 100
+                      }}s
+                    </span>
                   </span>
                 </span>
               </div>
               <!-- 颜色 -->
               <div class="content-message-metainformation-color">
-                <div id="extract-color-id" class="extract-color" v-if="fileMetadata.paletteColor">
+                <div
+                  id="extract-color-id"
+                  class="extract-color"
+                  v-if="fileMetadata.paletteColor"
+                >
                   <svg class="icon metainformation-svg" aria-hidden="true">
                     <use xlink:href="#icon-tiaoseban"></use>
                   </svg>
@@ -143,7 +180,7 @@
                     v-for="(item, index) in fileMetadata.paletteColor"
                     :key="index"
                     class="color-block"
-                    :style="`background-color: rgb(${item[0]}, ${item[1]}, ${item[2]})`"
+                    :style="`background-color: ${item}`"
                   ></div>
                 </div>
               </div>
@@ -161,14 +198,16 @@
             </div>
 
             <DeleteCard
-              v-if="isShowDeleteProps && (userId === postData.user.id || userId === 1)"
+              v-if="
+                isShowDeleteProps &&
+                  (userId === postData.user.id || userId === 1)
+              "
               :postId="postId"
               :routerUrl="`/search/${searchTypeProps}/${searchVal}`"
               :fromWhichPage="`search`"
               :searchName="searchVal"
               :searchType="searchTypeProps"
-            >
-            </DeleteCard>
+            ></DeleteCard>
           </div>
 
           <div class="content-description" v-if="postData.content !== ''">
@@ -178,7 +217,11 @@
 
           <div class="content-tags" v-if="postData.tags !== null">
             <!-- <p>Related tags</p> -->
-            <span v-for="tag in postData.tags" :key="tag.id" @click="RelatedTagData(tag.name)">
+            <span
+              v-for="tag in postData.tags"
+              :key="tag.id"
+              @click="RelatedTagData(tag.name)"
+            >
               {{ tag.name }}
             </span>
           </div>
@@ -197,7 +240,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onUpdated, onMounted, onUnmounted } from 'vue';
+import {
+  defineComponent,
+  computed,
+  ref,
+  onUpdated,
+  onMounted,
+  onUnmounted
+} from 'vue';
 import { lostelkUrl } from '../../global';
 import router from '../../router';
 import Likes from '../../components/cardFun/Likes.vue';
@@ -211,26 +261,26 @@ export default defineComponent({
     Likes,
     DownloadFile,
     Comments,
-    DeleteCard,
+    DeleteCard
   },
   props: {
     // 路由传来的当前帖子的ID
     id: {
       type: String,
-      required: true,
+      required: true
     },
     searchName: {
       type: String,
-      required: false,
+      required: false
     },
     searchType: {
       type: String,
-      required: false,
+      required: false
     },
     isShowDelete: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   setup(props) {
     // 是否为单个卡片
@@ -259,7 +309,9 @@ export default defineComponent({
     const showCard = ref(false);
     const postData = ref();
     const cardList = computed(() => store.state.searchCardList);
-    const cardIndex = computed(() => cardList.value.findIndex(item => item.id === postId.value));
+    const cardIndex = computed(() =>
+      cardList.value.findIndex(item => item.id === postId.value)
+    );
 
     // 如果当前帖子存在于cardList数组中,进入if 否则 进入else
     if (cardIndex.value !== -1) {
@@ -327,7 +379,7 @@ export default defineComponent({
       // 存储当前的url
       store.commit(
         'uploadAfterToUrl',
-        `/search/${searchTypeProps.value}/${searchVal.value}/searchCard/${postId.value}`,
+        `/search/${searchTypeProps.value}/${searchVal.value}/searchCard/${postId.value}`
       );
       // 定义当前页面别名,并存储
       store.commit('fromWhichPage', 'search');
@@ -373,7 +425,10 @@ export default defineComponent({
         // 获得下一张详情页的内容
         postData.value = cardList.value[cardIndex.value + 1];
         //获取图像文件元信息
-        const Metadata = await store.dispatch('getFileMetadata', postData.value.file.id);
+        const Metadata = await store.dispatch(
+          'getFileMetadata',
+          postData.value.file.id
+        );
         fileMetadata.value = Metadata;
 
         // 跳转URL
@@ -398,7 +453,10 @@ export default defineComponent({
         // 获得上一张详情页的内容
         postData.value = cardList.value[cardIndex.value - 1];
         //获取图像文件元信息
-        const Metadata = await store.dispatch('getFileMetadata', postData.value.file.id);
+        const Metadata = await store.dispatch(
+          'getFileMetadata',
+          postData.value.file.id
+        );
         fileMetadata.value = Metadata;
         // 跳转URL
         await router.push(`${leftCutId}`);
@@ -472,9 +530,9 @@ export default defineComponent({
       singleCardReviseLike,
       singleCard,
       searchTypeProps,
-      isShowDeleteProps,
+      isShowDeleteProps
     };
-  },
+  }
 });
 </script>
 
