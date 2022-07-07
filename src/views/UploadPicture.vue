@@ -92,8 +92,10 @@
                   {{ imageUploadProgress + '%' }}
                 </span>
                 <div v-else class="image-upload-await">
-                  <span>Please wait while images are being processed</span>
-                  <span class="throbber-loader">Loading&#8230;</span>
+                  <div>
+                    <span>Please wait while images are being processed</span>
+                    <span class="throbber-loader">Loading&#8230;</span>
+                  </div>
                 </div>
               </div>
             </label>

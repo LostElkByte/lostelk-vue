@@ -214,7 +214,7 @@
 
           .image-upload-await {
             display: flex;
-            align-items: flex-end;
+            text-align: center;
 
             /* 省略号动画 */
             @-moz-keyframes throbber-loader {
@@ -258,12 +258,12 @@
               animation: throbber-loader 2000ms 300ms infinite ease-out;
               background: #ffffff;
               display: inline-block;
-              position: relative;
+              position: relative; 
               text-indent: -9999px;
               width: 6px;
               height: 6px;
               margin: 0 25px;
-              bottom: 3px;
+              line-height: 6px;
             }
             .throbber-loader:not(:required):before,
             .throbber-loader:not(:required):after {

@@ -192,7 +192,7 @@
 }
 .upload-picture_main form .picture .picture-style label .image-upload-await {
   display: flex;
-  align-items: flex-end;
+  text-align: center;
   /* 省略号动画 */
   /* :not(:required) hides these rules from IE9 and below */
 }
@@ -240,7 +240,7 @@
   width: 6px;
   height: 6px;
   margin: 0 25px;
-  bottom: 3px;
+  line-height: 6px;
 }
 .upload-picture_main form .picture .picture-style label .image-upload-await .throbber-loader:not(:required):before,
 .upload-picture_main form .picture .picture-style label .image-upload-await .throbber-loader:not(:required):after {
