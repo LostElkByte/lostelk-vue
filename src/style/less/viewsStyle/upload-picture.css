@@ -46,6 +46,7 @@
   appearance: none;
   color: #111111;
   background-color: #f3f3f4;
+  margin-bottom: 0;
 }
 .upload-picture_main form .content input:focus,
 .upload-picture_main form .content input:hover {
@@ -199,7 +200,6 @@
 .upload-picture_main form .picture .picture-style label .image-upload-await {
   display: flex;
   text-align: center;
-  /* align-items: flex-end; */
   /* 省略号动画 */
   /* :not(:required) hides these rules from IE9 and below */
 }

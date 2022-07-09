@@ -45,6 +45,7 @@
   appearance: none;
   color: #0d0c22;
   background-color: #f3f3f4;
+  margin-bottom: 0;
 }
 .upload-picture_main form .content input:focus,
 .upload-picture_main form .content input:hover {

@@ -547,5 +547,5 @@ export default defineComponent({
 
 <style scoped>
 @import '../style/less/globalStyle/layout.css';
-@import '../style/less/viewsStyle/edit-card.css';
+@import '../style/less/viewsStyle/upload-picture.css';
 </style>
