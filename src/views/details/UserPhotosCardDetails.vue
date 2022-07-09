@@ -181,6 +181,7 @@
                     :key="index"
                     class="color-block"
                     :style="`background-color: ${item}`"
+                    @click="copyColor(item)"
                   ></div>
                 </div>
               </div>
@@ -251,6 +252,8 @@ import DownloadFile from '../../components/cardFun/DownloadFile.vue';
 import Comments from '../../components/comment/Comments.vue';
 import DeleteCard from '../../components/cardFun/DeleteCard.vue';
 import store from '../../store';
+import copy from 'copy-to-clipboard';
+import createTooltip from '@/components/globalFun/createTooltip';
 export default defineComponent({
   name: 'UserPhotosCardDetails',
   components: {
@@ -449,6 +452,14 @@ export default defineComponent({
     };
 
     /**
+     * 复制颜色
+     */
+    const copyColor = (color: string) => {
+      copy(color);
+      createTooltip('Copy color number succeeded', 'success', 3000);
+    };
+
+    /**
      * 关闭按钮
      */
     const close = () => {
@@ -508,7 +519,8 @@ export default defineComponent({
       editCard,
       toUserPage,
       singleCardReviseLike,
-      singleCard
+      singleCard,
+      copyColor
     };
   }
 });

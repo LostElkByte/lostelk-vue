@@ -307,6 +307,7 @@
   width: 14px;
   margin-right: 10px;
   border-radius: 50%;
+  cursor: pointer;
 }
 .content-description {
   font-weight: 400;
