@@ -191,7 +191,7 @@ router.beforeEach((to, from, next) => {
             next();
           }
         })
-        .catch(e => {
+        .catch(() => {
           // console.log(e)
           store.commit('logout');
           next('/login');

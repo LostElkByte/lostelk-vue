@@ -348,6 +348,7 @@
   color: #767676;
   background-color: #eee;
   cursor: pointer;
+  margin-bottom: 4px;
 }
 .content-tags span:hover {
   color: #000;
