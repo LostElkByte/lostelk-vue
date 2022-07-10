@@ -166,7 +166,7 @@
                   </span>
                 </span>
               </div>
-              <!-- 颜色 -->
+              <!-- 主色 -->
               <div class="content-message-metainformation-color">
                 <div
                   id="extract-color-id"
@@ -176,13 +176,39 @@
                   <svg class="icon metainformation-svg" aria-hidden="true">
                     <use xlink:href="#icon-tiaoseban"></use>
                   </svg>
+                  <span style="margin-right: 8px;">Dominant Color</span>
                   <div
-                    v-for="(item, index) in fileMetadata.paletteColor"
-                    :key="index"
                     class="color-block"
-                    :style="`background-color: ${item}`"
-                    @click="copyColor(item)"
+                    :style="`background-color: ${fileMetadata.mainColor}`"
                   ></div>
+                </div>
+              </div>
+              <!-- 调色板 -->
+              <div class="content-message-metainformation-color">
+                <div
+                  id="extract-color-id"
+                  class="extract-color"
+                  v-if="fileMetadata.paletteColor"
+                >
+                  <div style="display: flex; align-items: center;">
+                    <svg class="icon metainformation-svg" aria-hidden="true">
+                      <use xlink:href="#icon-youqitiaoseban"></use>
+                    </svg>
+                    <span style="margin-right: 8px;">
+                      Palette
+                    </span>
+                  </div>
+                  <div
+                    style="display: flex;flex-flow: wrap;align-items: center;"
+                  >
+                    <div
+                      v-for="(item, index) in fileMetadata.paletteColor"
+                      :key="index"
+                      class="color-block"
+                      :style="`background-color: ${item};`"
+                      @click="copyColor(item)"
+                    ></div>
+                  </div>
                 </div>
               </div>
             </div>
