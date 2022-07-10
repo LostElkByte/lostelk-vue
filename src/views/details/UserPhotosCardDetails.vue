@@ -180,6 +180,7 @@
                   <div
                     class="color-block"
                     :style="`background-color: ${fileMetadata.mainColor}`"
+                    @click="copyColor(item)"
                   ></div>
                 </div>
               </div>
