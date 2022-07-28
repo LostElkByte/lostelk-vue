@@ -13,7 +13,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, onUnmounted, ref, watch } from 'vue';
+import {
+  computed,
+  defineComponent,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch
+} from 'vue';
 import { useStore } from 'vuex';
 import Header from '../components/header/HeaderBox.vue';
 import Sidebar from '../components/sidebar/SidebarBox.vue';
@@ -24,18 +31,18 @@ export default defineComponent({
   components: {
     Header,
     Sidebar,
-    CardMain,
+    CardMain
   },
   props: {
     cardColumn: Number,
     val: {
       type: String,
-      required: true,
+      required: true
     },
     type: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   setup(props) {
     const route = useRoute();
@@ -64,23 +71,28 @@ export default defineComponent({
       // 将 没有更多 提示 初始化设置为false
       store.commit('noMore', false);
 
-      await store.dispatch('getSearchValCardList', { val: searchVal.value, type: searchType.value }).then(data => {
-        if (store.state.searchCardList.length === 0) {
-          //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
-          store.commit('setSearchFailure', true);
-          // 将 没有更多 提示 初始化设置为false
-          store.commit('noMore', false);
-        } else {
-          // 搜索到内容将未没有内容提示隐藏,  并且将主页搜索框隐藏
-          store.commit('setSearchFailure', false);
-          store.commit('mainSearchIsNone', false);
-          // 如果总页数等于1
-          if (Math.ceil(data.headers['x-total-count'] / 10) === 1) {
-            // 将 没有更多 提示 设置为true
-            store.commit('noMore', true);
+      await store
+        .dispatch('getSearchValCardList', {
+          val: searchVal.value,
+          type: searchType.value
+        })
+        .then(data => {
+          if (store.state.searchCardList.length === 0) {
+            //没有搜索到内容 则 修改搜索结果为true, 切换到未没有内容组件
+            store.commit('setSearchFailure', true);
+            // 将 没有更多 提示 初始化设置为false
+            store.commit('noMore', false);
+          } else {
+            // 搜索到内容将未没有内容提示隐藏,  并且将主页搜索框隐藏
+            store.commit('setSearchFailure', false);
+            store.commit('mainSearchIsNone', false);
+            // 如果总页数等于1
+            if (Math.ceil(data.headers['x-total-count'] / 10) === 1) {
+              // 将 没有更多 提示 设置为true
+              store.commit('noMore', true);
+            }
           }
-        }
-      });
+        });
     };
 
     // 获取列表数据
@@ -93,9 +105,13 @@ export default defineComponent({
      */
 
     // 获取search页的卡片总数
-    const searchPageCardTotalCount = computed(() => store.state.searchPageCardTotalCount);
+    const searchPageCardTotalCount = computed(
+      () => store.state.searchPageCardTotalCount
+    );
     // 计算saerch页的总页数
-    const searchTotalPage = computed(() => Math.ceil(searchPageCardTotalCount.value / 10));
+    const searchTotalPage = computed(() =>
+      Math.ceil(searchPageCardTotalCount.value / 10)
+    );
     // 默认当前页数
     const currentPage = ref(1);
     // 是否加载默认设置为true
@@ -110,7 +126,11 @@ export default defineComponent({
         // 解构 页面可滚动内容的高度 与 窗口可见高度
         const { scrollHeight, clientHeight } = document.documentElement;
         // 获得 滚动的高度 (兼容)
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset || 0;
+        const scrollTop =
+          document.documentElement.scrollTop ||
+          document.body.scrollTop ||
+          window.pageYOffset ||
+          0;
 
         // 可滚动的极限高度 = 窗口可见高度 + 滚动的高度 + 200
         const height = clientHeight + scrollTop + 200;
@@ -122,7 +142,12 @@ export default defineComponent({
         const scrollDown = scrollTop > prevScrollTop.value;
 
         // 条件全部成立,进入加载
-        if (touchDown && scrollDown && isSearchScrollLoading.value && searchTotalPage.value > currentPage.value) {
+        if (
+          touchDown &&
+          scrollDown &&
+          isSearchScrollLoading.value &&
+          searchTotalPage.value > currentPage.value
+        ) {
           // 是否加载设置为false,防止重复加载
           isSearchScrollLoading.value = false;
           // 禁止显示全局请求加载样式
@@ -130,11 +155,17 @@ export default defineComponent({
           // 设置 是否显示加载更多 为 true
           store.commit('isShowLoadingMore', true);
           // 加载下一页数据
-          const searchParams = { val: route.params.val, type: searchType.value, page: currentPage.value + 1 };
-          await store.dispatch('getPageSearchValCardList', searchParams).then(() => {
-            // 加载完毕 将当前页数+1
-            currentPage.value = currentPage.value + 1;
-          });
+          const searchParams = {
+            val: route.params.val,
+            type: searchType.value,
+            page: currentPage.value + 1
+          };
+          await store
+            .dispatch('getPageSearchValCardList', searchParams)
+            .then(() => {
+              // 加载完毕 将当前页数+1
+              currentPage.value = currentPage.value + 1;
+            });
           // 加载完毕后 设置 是否显示加载更多 为 false
           store.commit('isShowLoadingMore', false);
         }
@@ -172,10 +203,10 @@ export default defineComponent({
     });
 
     /**
-     * 监听 路由上val参数是否发生改变, 如果发生改变 则 重新加载新的标签数据
+     * 监听 路由上val参数/type参数是否发生改变, 如果发生改变 则 重新加载新的标签数据
      */
     watch(
-      () => [route.params.val, route.params.type],
+      () => route.params.val,
       () => {
         if (route.params.val) {
           loading();
@@ -187,7 +218,22 @@ export default defineComponent({
           // 是否加载默认设置为true
           isSearchScrollLoading.value = true;
         }
-      },
+      }
+    );
+    watch(
+      () => route.params.type,
+      () => {
+        if (route.params.val) {
+          loading();
+          // 恢复到顶部
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+          // 默认当前页数
+          currentPage.value = 1;
+          // 是否加载默认设置为true
+          isSearchScrollLoading.value = true;
+        }
+      }
     );
 
     /**
@@ -208,16 +254,16 @@ export default defineComponent({
           // 恢复 againRequest 为 false
           store.commit('againRequest', false);
         }
-      },
+      }
     );
     return {
       list,
       loginJudge,
       cardColumnSize,
       searchVal,
-      searchType,
+      searchType
     };
-  },
+  }
 });
 </script>
 
