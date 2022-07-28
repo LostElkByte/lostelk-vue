@@ -1,7 +1,7 @@
 // 接口服务
-const serveUrl = 'http://10.64.6.194:3000';
+const serveUrl = 'http://api.lostelk.cn';
 // 下载路径
-const lostelkUrl = 'http://10.64.6.194:3000';
+const lostelkUrl = 'http://api.lostelk.cn';
 /**
  * 固定方式随机展示精选图(暂没有使用,现在的方案是标签名方式展示)
  * 随机精选展示图ID
