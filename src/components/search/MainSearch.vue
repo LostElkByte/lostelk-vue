@@ -2,7 +2,9 @@
   <div
     v-if="transverse.length != 0"
     class="main-search"
-    :style="`background-image: url(${lostelkUrl}/files/${transverse[random].file.id}/serve?size=large);`"
+    :style="
+      `background-image: url(${lostelkUrl}/files/${transverse[random].file.id}/serve?size=large);`
+    "
   >
     <div class="main-search-superstratum">
       <div class="search-superstratum-center">
@@ -30,7 +32,13 @@
             <div class="vertical-moulding"></div>
             <div class="main-search-type" @click.stop="typeSwitch">
               <span class="main-search-name">By {{ typeName }}</span>
-              <div :class="[typeOpen ? 'spin' : 'recover', 'search-button-12 ', 'main-search-name']">
+              <div
+                :class="[
+                  typeOpen ? 'spin' : 'recover',
+                  'search-button-12 ',
+                  'main-search-name'
+                ]"
+              >
                 <svg class="icon icon-size-fill" aria-hidden="true">
                   <use xlink:href="#icon-down"></use>
                 </svg>
@@ -38,7 +46,10 @@
               <div class="search-popup" v-show="typeOpen">
                 <template v-for="(item, index) in typeList" :key="index">
                   <div
-                    :class="[type === item.type ? 'search-popup-item-checked' : '', 'search-popup-item']"
+                    :class="[
+                      type === item.type ? 'search-popup-item-checked' : '',
+                      'search-popup-item'
+                    ]"
                     @click.stop="selectType(item)"
                   >
                     {{ item.name }}
@@ -50,10 +61,12 @@
         </div>
       </div>
       <div class="search-buttom">
-        <span
-          >This photo is from user
-          <router-link :to="`/@${transverse[random].user.id}`">{{ transverse[random].user.name }}</router-link></span
-        >
+        <span>
+          This photo is from user
+          <router-link :to="`/@${transverse[random].user.id}`">
+            {{ transverse[random].user.name }}
+          </router-link>
+        </span>
         <span>LostElk</span>
         <span>Discover the world’s free HD pictures & Creatives.</span>
       </div>
@@ -86,7 +99,13 @@
             <div class="vertical-moulding"></div>
             <div class="main-search-type" @click.stop="typeSwitch">
               <span class="main-search-name">By {{ typeName }}</span>
-              <div :class="[typeOpen ? 'spin' : 'recover', 'search-button-12 ', 'main-search-name']">
+              <div
+                :class="[
+                  typeOpen ? 'spin' : 'recover',
+                  'search-button-12 ',
+                  'main-search-name'
+                ]"
+              >
                 <svg class="icon icon-size-fill" aria-hidden="true">
                   <use xlink:href="#icon-down"></use>
                 </svg>
@@ -94,7 +113,10 @@
               <div class="search-popup" v-show="typeOpen">
                 <template v-for="(item, index) in typeList" :key="index">
                   <div
-                    :class="[type === item.type ? 'search-popup-item-checked' : '', 'search-popup-item']"
+                    :class="[
+                      type === item.type ? 'search-popup-item-checked' : '',
+                      'search-popup-item'
+                    ]"
                     @click.stop="selectType(item)"
                   >
                     {{ item.name }}
@@ -127,7 +149,7 @@ export default defineComponent({
     const typeList = [
       { name: 'Tag', type: 'tag' },
       { name: 'Color', type: 'color' },
-      { name: 'User', type: 'user' },
+      { name: 'User', type: 'user' }
     ];
     const typeSwitch = () => {
       typeOpen.value = !typeOpen.value;
@@ -143,13 +165,15 @@ export default defineComponent({
       if (searchVal.value) {
         switch (type.value) {
           case 'tag':
-            router.push(`/search/tag/${searchVal.value}`);
+            router.push(`/search/tag/${searchVal.value.replace(/#/g, '$23')}`);
             break;
           case 'color':
-            router.push(`/search/color/${searchVal.value}`);
+            router.push(
+              `/search/color/${searchVal.value.replace(/#/g, '%23')}`
+            );
             break;
           case 'user':
-            router.push(`/search/user/${searchVal.value}`);
+            router.push(`/search/user/${searchVal.value.replace(/#/g, '%23')}`);
             break;
           default:
             break;
@@ -160,7 +184,9 @@ export default defineComponent({
     // 获取精选横图
     const transverse = computed(() => store.state.veryGoodsTransverseList);
     // 生成数组下标随机数
-    const random = computed(() => Math.floor(Math.random() * transverse.value.length));
+    const random = computed(() =>
+      Math.floor(Math.random() * transverse.value.length)
+    );
 
     return {
       lostelkUrl,
@@ -173,9 +199,9 @@ export default defineComponent({
       typeName,
       typeOpen,
       transverse,
-      random,
+      random
     };
-  },
+  }
 });
 </script>
 

@@ -195,17 +195,17 @@ export default defineComponent({
         noDataIsShow.value = false;
         store.commit('setIsShowLoading', false);
         const tagRes = await store.dispatch('getSearchValCardBriefList', {
-          val: searchVal.value,
+          val: searchVal.value.replace(/#/g, '%23'),
           type: 'tag'
         });
         store.commit('setIsShowLoading', false);
         const colorRes = await store.dispatch('getSearchValCardBriefList', {
-          val: searchVal.value,
+          val: searchVal.value.replace(/#/g, '%23'),
           type: 'color'
         });
         store.commit('setIsShowLoading', false);
         const userRes = await store.dispatch('getSearchValCardBriefList', {
-          val: searchVal.value,
+          val: searchVal.value.replace(/#/g, '%23'),
           type: 'user'
         });
         tagCardList.value = tagRes.data.slice(0, 4);
