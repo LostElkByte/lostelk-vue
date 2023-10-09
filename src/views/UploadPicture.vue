@@ -101,6 +101,7 @@
             </label>
           </div>
           <ValidateInput
+            :key="fileInputKey"
             class="picture-style_file"
             type="file"
             id="file"
@@ -276,6 +277,8 @@ export default defineComponent({
     /**
      * 请求上传文件
      */
+    // 创建一个响应式变量，用作 key
+    const fileInputKey = ref(0);
     const fileElement = ref();
     const imageUploadProgress = ref();
     const careateFile = async (file: Blob, postId: number) => {
@@ -308,6 +311,7 @@ export default defineComponent({
         pictureVal.value = '';
         imageUploadProgress.value = null;
         lastPrev.value = '';
+        fileInputKey.value++; // 增加 key 的值
       } catch (error) {
         // 清理
         fileMessage.value = null;
@@ -315,9 +319,8 @@ export default defineComponent({
         pictureVal.value = '';
         imageUploadProgress.value = null;
         lastPrev.value = '';
-
+        fileInputKey.value++; // 增加 key 的值
         uploaderror.value = error;
-        // console.log(error);
 
         await createTooltip(
           'Upload failed, your photo may not meet the requirements',
@@ -439,7 +442,8 @@ export default defineComponent({
       fileIsNull,
       addTag,
       tags,
-      deleteTag
+      deleteTag,
+      fileInputKey
     };
   }
 });
